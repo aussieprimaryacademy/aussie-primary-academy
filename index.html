@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aussie Primary Academy Worksheet Generator</title>
+  <meta name="description" content="Aussie Primary Academy printable worksheet generator framework with ACARA alignment and branded PDF layout." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="app-header no-print">
+    <div>
+      <p class="pill">Worksheet App Framework V1</p>
+      <h1>Aussie Primary Academy</h1>
+      <p>Clean, colourful, printable worksheets by grade, subject and topic.</p>
+    </div>
+  </header>
+
+  <main class="app-layout">
+    <aside class="control-panel no-print">
+      <h2>Worksheet Settings</h2>
+
+      <label for="gradeSelect">Grade Level</label>
+      <select id="gradeSelect">
+        <option>Foundation</option>
+        <option>Kindergarten</option>
+        <option>Grade 1</option>
+        <option>Grade 2</option>
+        <option>Grade 3</option>
+        <option>Grade 4</option>
+        <option>Grade 5</option>
+        <option>Grade 6</option>
+      </select>
+
+      <label for="subjectSelect">Subject</label>
+      <select id="subjectSelect">
+        <option>Mathematics</option>
+        <option>English Grammar & Literacy</option>
+        <option>Science & EVS</option>
+      </select>
+
+      <label for="topicSelect">Topic</label>
+      <select id="topicSelect"></select>
+
+      <label for="acaraInput">ACARA v9.0 Code</label>
+      <input id="acaraInput" value="AC9M1N01" />
+
+      <label for="seedInput">Worksheet Seed</label>
+      <input id="seedInput" type="number" value="101" min="1" />
+
+      <button id="generateBtn" class="primary-btn">Generate Preview</button>
+      <button id="randomBtn" class="secondary-btn">New Version</button>
+      <button id="printBtn" class="accent-btn">📄 Print / Save as PDF</button>
+
+      <div class="note-box">
+        <strong>V1 Ready:</strong> Framework + sample content.<br />
+        <strong>Next:</strong> Add 20–30 real worksheets in <code>worksheets.js</code>.
+      </div>
+    </aside>
+
+    <section class="preview-area">
+      <article id="worksheetPage" class="worksheet-page"></article>
+    </section>
+  </main>
+
+  <script src="worksheets.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
