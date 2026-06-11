@@ -28,7 +28,7 @@ const TOPICS = {
     "Vocabulary",
     "Paragraph Writing"
   ],
-  ],
+  
   "Science & EVS": [
     "Living and Non-Living",
     "Plants",
