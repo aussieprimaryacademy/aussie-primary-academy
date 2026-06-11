@@ -13,7 +13,12 @@ const TOPICS = {
   ],
   "English Grammar & Literacy": [
     "Alphabet Tracing",
-    "Nouns",
+    "Common Nouns",
+    "Proper Nouns",
+    "Singular Nouns",
+    "Plural Nouns",
+    "Collective Nouns",
+    "Abstract Nouns",
     "Verbs",
     "Adjectives",
     "Punctuation",
@@ -22,6 +27,7 @@ const TOPICS = {
     "Spelling Rules",
     "Vocabulary",
     "Paragraph Writing"
+  ],
   ],
   "Science & EVS": [
     "Living and Non-Living",
