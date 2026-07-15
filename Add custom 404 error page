@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Privacy Policy | Aussie Primary Academy</title>
+  <meta name="description" content="Read the Aussie Primary Academy Privacy Policy, including how information is handled when you browse our website, download resources or submit feedback.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aussieprimaryacademy.github.io/aussie-primary-academy/privacy-policy.html">
+
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_AU">
+  <meta property="og:site_name" content="Aussie Primary Academy">
+  <meta property="og:title" content="Privacy Policy | Aussie Primary Academy">
+  <meta property="og:description" content="Learn how Aussie Primary Academy handles information and protects visitor privacy.">
+  <meta property="og:url" content="https://aussieprimaryacademy.github.io/aussie-primary-academy/privacy-policy.html">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<header class="site">
+  <div class="wrap nav">
+    <a href="index.html" class="brand">
+      <span class="mark" aria-hidden="true">AP</span>
+      Aussie Primary Academy
+    </a>
+
+    <nav class="links" aria-label="Primary">
+      <a href="worksheets.html">Worksheets</a>
+      <a href="index.html#years">Year Levels</a>
+      <a href="index.html#subjects">Subjects</a>
+      <a href="blog/free-foundation-prep-worksheets-australia.html">Blog</a>
+      <a href="about.html">About</a>
+      <a class="btn btn-primary nav-cta" href="worksheets.html">Browse Free Worksheets</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <nav class="breadcrumb wrap" aria-label="Breadcrumb">
+    <ol>
+      <li><a href="index.html">Home</a></li>
+      <li aria-current="page">Privacy Policy</li>
+    </ol>
+  </nav>
+
+  <section class="page-hero" aria-labelledby="privacy-heading">
+    <div class="wrap">
+      <p class="eyebrow">Website Information</p>
+      <h1 id="privacy-heading">Privacy Policy</h1>
+      <p class="lead">This policy explains how Aussie Primary Academy handles information when you browse our website, download resources or submit feedback.</p>
+      <p><strong>Last updated:</strong> 15 July 2026</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="note-box">
+        <h2>1. About Aussie Primary Academy</h2>
+        <p>Aussie Primary Academy is an independent Australian educational publishing website providing free printable learning resources for Foundation to Year 6.</p>
+
+        <h2>2. Information We Collect</h2>
+        <p>You can browse the website and download worksheets without creating an account or providing your name or email address.</p>
+        <p>If you voluntarily use our Google feedback form, you may provide information such as feedback, suggestions or other details you choose to submit. Please do not include sensitive personal information or unnecessary information about a child.</p>
+
+        <h2>3. Website Hosting Information</h2>
+        <p>This website is hosted using GitHub Pages. GitHub may log technical information, including a visitor’s IP address, for security and service operation purposes. This information is handled under GitHub’s own privacy practices.</p>
+
+        <h2>4. How We Use Information</h2>
+        <p>Information submitted through our feedback form may be used to:</p>
+        <ul>
+          <li>review and improve our worksheets and website;</li>
+          <li>respond to questions or feedback where appropriate;</li>
+          <li>identify technical problems or broken resources; and</li>
+          <li>understand what educational resources families and educators need.</li>
+        </ul>
+        <p>We do not sell personal information.</p>
+
+        <h2>5. Google Forms and Other Third-Party Services</h2>
+        <p>Our feedback form is provided through Google Forms. When you open or submit that form, Google may process information according to its own Privacy Policy and service terms.</p>
+        <p>Our website may also contain links to external websites. Aussie Primary Academy is not responsible for the privacy practices or content of third-party websites.</p>
+
+        <h2>6. Cookies and Analytics</h2>
+        <p>Aussie Primary Academy does not currently use its own advertising or website analytics cookies. Third-party services linked from the website, including GitHub and Google, may use cookies or similar technologies under their own policies.</p>
+        <p>This policy will be updated before new advertising, analytics, newsletter or account features are introduced.</p>
+
+        <h2>7. Children’s Privacy</h2>
+        <p>Our learning resources are designed for children, but the website and feedback form are intended to be accessed or supervised by parents, carers, teachers, tutors or other responsible adults.</p>
+        <p>Children should not submit their full name, address, school details, contact information or other personal information through the feedback form. If we become aware that unnecessary personal information about a child has been submitted, we will take reasonable steps to remove it.</p>
+
+        <h2>8. Storage and Overseas Processing</h2>
+        <p>Information processed through GitHub or Google may be stored or processed outside Australia. These providers manage information according to their own privacy and security policies.</p>
+
+        <h2>9. Security and Retention</h2>
+        <p>We take reasonable steps to limit access to information submitted through our feedback form. Information will only be kept for as long as reasonably required for the purpose for which it was collected, unless a longer period is required by law.</p>
+        <p>No online service can guarantee complete security. Please avoid submitting sensitive or confidential information through the website.</p>
+
+        <h2>10. Access, Correction or Deletion Requests</h2>
+        <p>You may ask to access, correct or delete personal information that you have submitted to Aussie Primary Academy. Please contact us through our Share Feedback form and provide enough information for us to identify the relevant submission.</p>
+
+        <h2>11. Privacy Questions or Complaints</h2>
+        <p>If you have a privacy question or believe information has been handled incorrectly, please contact us through the Share Feedback form. We will review the matter and respond where contact details have been provided.</p>
+
+        <p>
+          <a class="btn btn-primary" href="https://docs.google.com/forms/d/e/1FAIpQLSfJH0se7O-YyMiqGQFUqlmz_802WqFJTBKrviupNjNrItLtOw/viewform">Contact Us Through Share Feedback</a>
+        </p>
+
+        <h2>12. Changes to This Policy</h2>
+        <p>We may update this Privacy Policy when our website features or information-handling practices change. The latest version will be published on this page with an updated date.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <h2 class="visually-hidden">Site footer</h2>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <h3>Aussie Primary Academy</h3>
+        <p>Free, curriculum-aligned printable worksheets for Australian families, teachers and tutors, covering Foundation to Year 6.</p>
+      </div>
+
+      <nav aria-label="Explore">
+        <h3>Explore</h3>
+        <a href="index.html">Home</a>
+        <a href="worksheets.html">All Worksheets</a>
+        <a href="about.html">About</a>
+      </nav>
+
+      <nav aria-label="Information">
+        <h3>Information</h3>
+        <a href="privacy-policy.html" aria-current="page">Privacy Policy</a>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSfJH0se7O-YyMiqGQFUqlmz_802WqFJTBKrviupNjNrItLtOw/viewform">Share Feedback</a>
+      </nav>
+    </div>
+
+    <div class="foot-bottom">
+      <span>© 2026 Aussie Primary Academy. All Rights Reserved.</span>
+      <span>Original Content – For Educational Use Only. Redistribution Prohibited.</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
