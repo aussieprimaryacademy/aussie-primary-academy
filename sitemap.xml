@@ -77,5 +77,11 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+<url>
+  <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/free-student-planner.html</loc>
+    <lastmod>2026-07-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
 
 </urlset>
