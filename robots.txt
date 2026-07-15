@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://aussieprimaryacademy.github.io/aussie-primary-academy/sitemap.xml
