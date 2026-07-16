@@ -231,7 +231,19 @@ h1 span{ color:var(--peach-deep); }
 .wcard .thumb.c2{ background:linear-gradient(135deg,#EAF6FA,#D9EEF6); }
 .wcard .thumb.c3{ background:linear-gradient(135deg,#EAF7EE,#DCF0E2); }
 .wcard .thumb.c4{ background:linear-gradient(135deg,#FDEEE6,#FBDFD0); }
-.wcard .body{ padding:16px; }
+.wcard .body{
+  padding:16px;
+  display:flex;
+  flex-direction:column;
+  flex:1;
+}
+.wcard .card-desc{
+  flex-grow:1;
+}
+
+.wcard .btn{
+  margin-top:auto;
+}
 .wcard .tag{ font-size:11px; font-weight:800; color:var(--peach-deep); text-transform:uppercase; letter-spacing:.04em; margin:0; }
 .wcard h3{ font-size:15px; margin:6px 0 10px; }
 .wcard .dl{ font-size:13px; font-weight:700; color:var(--deep-purple); display:inline-flex; align-items:center; gap:6px; }
