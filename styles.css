@@ -173,7 +173,7 @@ h1 span{ color:var(--peach-deep); }
 }
 
 .subject-card:hover{ transform:translateY(-2px); border-color:var(--lavender); }
-.subject-card .swatch{ width:44px; height:44px; border-radius:12px; flex-shrink:0; }
+.subject-card .swatch{ width:44px; height:44px; border-radius:12px; flex-shrink:0; display:flex; align-items:center; justify-content:center; }
 .subject-card.maths .swatch{ background:var(--sky-pale); border:2px solid var(--sky); }
 .subject-card.english .swatch{ background:var(--lavender-pale); border:2px solid var(--lavender); }
 .subject-card.science .swatch{ background:#EAF7EE; border:2px solid var(--mint); }
