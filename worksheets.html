@@ -2498,29 +2498,5 @@
 })();
 </script>
 <script src="download-tracking.js"></script>
-<!-- PDF Download Tracking — paste once before </body> -->
-<script>
-document.addEventListener('click', function (e) {
-  var link = e.target.closest('a[href$=".pdf"]');
-  if (!link) return;
-
-  var href = link.getAttribute('href') || '';
-  var parts = href.split('/');
-  var fileName = parts[parts.length - 1] || href;
-  var yearLevel = parts.length >= 3 ? parts[1] : 'unknown';
-  var subject = parts.length >= 3 ? parts[2] : 'unknown';
-
-  if (typeof gtag === 'function') {
-    gtag('event', 'pdf_download', {
-      file_name: decodeURIComponent(fileName),
-      page_location: window.location.href,
-      link_url: href,
-      year_level: yearLevel,
-      subject: subject
-    });
-  }
-}, true);
-</script>
-
 </body>
 </html>
