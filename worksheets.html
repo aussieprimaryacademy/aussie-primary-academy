@@ -2474,64 +2474,23 @@
   </div>
 </footer>
 
-
-
-(function () {
-  const searchForm = document.querySelector('.filter-card form');
-  const searchInput = document.getElementById('worksheet-search');
-  const cards = Array.from(document.querySelectorAll('#worksheet-grid .wcard'));
-  const yearButtons = Array.from(document.querySelectorAll('[data-filter-year]'));
-  const subjectButtons = Array.from(document.querySelectorAll('[data-filter-subject]'));
-  const summary = document.getElementById('results-summary');
-  const noResults = document.getElementById('no-results');
-  let activeYear = 'all';
-  let activeSubject = 'all';
-
-  function normalise(value) {
-    return value.toLowerCase().trim().replace(/\s+/g, ' ');
-  }
-
-  function updateButtons(buttons, activeValue, attribute) {
-    buttons.forEach(function (button) {
-      const selected = button.getAttribute(attribute) === activeValue;
-      button.classList.toggle('is-active', selected);
-      button.setAttribute('aria-pressed', selected ? 'true' : 'false');
-    });
-  }
-
-  function applyFilters(updateUrl) {
-    const query = normalise(searchInput.value);
-    let visible = 0;
-    cards.forEach(function (card) {
-      const matchesYear = activeYear === 'all' || card.dataset.year === activeYear;
-      const matchesSubject = activeSubject === 'all' || card.dataset.subject.split(' ').includes(activeSubject);
-      const matchesQuery = !query || normalise(card.dataset.search).includes(query);
-      const show = matchesYear && matchesSubject && matchesQuery;
-      card.hidden = !show;
-      if (show) visible += 1;
-    });
-
-    summary.textContent = visible === cards.length
-      ? 'Showing all ' + cards.length + ' free printable worksheets.'
-      : 'Showing ' + visible + ' of ' + cards.length + ' free printable worksheets.';
-    noResults.hidden = visible !== 0;
-
-    if (updateUrl && window.history && window.history.replaceState) {
-      const params = new URLSearchParams();
-      if (query) params.set('q', searchInput.value.trim());
-      if (activeYear !== 'all') params.set('year', activeYear);
-      if (activeSubject !== 'all') params.set('subject', activeSubject);
-      const next = window.location.pathname + (params.toString() ? '?' + params.toString() : '') + '#worksheet-grid';
-      window.history.replaceState(null, '', next);
-    }
-  }
 <script>
 (function () {
   const searchForm = document.querySelector('.filter-card form');
   const searchInput = document.getElementById('worksheet-search');
-  const cards = Array.from(document.querySelectorAll('#worksheet-grid .wcard'));
-  const yearButtons = Array.from(document.querySelectorAll('[data-filter-year]'));
-  const subjectButtons = Array.from(document.querySelectorAll('[data-filter-subject]'));
+
+  const cards = Array.from(
+    document.querySelectorAll('#worksheet-grid .wcard')
+  );
+
+  const yearButtons = Array.from(
+    document.querySelectorAll('[data-filter-year]')
+  );
+
+  const subjectButtons = Array.from(
+    document.querySelectorAll('[data-filter-subject]')
+  );
+
   const summary = document.getElementById('results-summary');
   const noResults = document.getElementById('no-results');
 
@@ -2547,17 +2506,27 @@
 
   function updateButtons(buttons, activeValue, attribute) {
     buttons.forEach(function (button) {
-      const selected = button.getAttribute(attribute) === activeValue;
+      const selected =
+        button.getAttribute(attribute) === activeValue;
+
       button.classList.toggle('is-active', selected);
-      button.setAttribute('aria-pressed', selected ? 'true' : 'false');
+
+      button.setAttribute(
+        'aria-pressed',
+        selected ? 'true' : 'false'
+      );
     });
   }
 
   function applyFilters(updateUrl) {
-    const query = normalise(searchInput ? searchInput.value : '');
+    const query = normalise(
+      searchInput ? searchInput.value : ''
+    );
+
     let visible = 0;
 
     cards.forEach(function (card) {
+
       const matchesYear =
         activeYear === 'all' ||
         card.dataset.year === activeYear;
@@ -2585,104 +2554,182 @@
     if (summary) {
       summary.textContent =
         visible === cards.length
-          ? 'Showing all ' + cards.length + ' free printable worksheets.'
-          : 'Showing ' + visible + ' of ' + cards.length + ' free printable worksheets.';
+          ? 'Showing all ' +
+            cards.length +
+            ' free printable worksheets.'
+          : 'Showing ' +
+            visible +
+            ' of ' +
+            cards.length +
+            ' free printable worksheets.';
     }
 
     if (noResults) {
       noResults.hidden = visible !== 0;
     }
 
-    if (updateUrl && window.history && window.history.replaceState) {
+    if (
+      updateUrl &&
+      window.history &&
+      window.history.replaceState
+    ) {
       const params = new URLSearchParams();
 
-      if (query) {
-        params.set('q', searchInput.value.trim());
+      if (query && searchInput) {
+        params.set(
+          'q',
+          searchInput.value.trim()
+        );
       }
 
       if (activeYear !== 'all') {
-        params.set('year', activeYear);
+        params.set(
+          'year',
+          activeYear
+        );
       }
 
       if (activeSubject !== 'all') {
-        params.set('subject', activeSubject);
+        params.set(
+          'subject',
+          activeSubject
+        );
       }
 
       const newUrl =
         window.location.pathname +
-        (params.toString() ? '?' + params.toString() : '') +
+        (
+          params.toString()
+            ? '?' + params.toString()
+            : ''
+        ) +
         '#worksheet-grid';
 
-      window.history.replaceState(null, '', newUrl);
+      window.history.replaceState(
+        null,
+        '',
+        newUrl
+      );
     }
   }
 
   yearButtons.forEach(function (button) {
-    button.addEventListener('click', function () {
-      activeYear = button.dataset.filterYear;
 
-      updateButtons(
-        yearButtons,
-        activeYear,
-        'data-filter-year'
-      );
+    button.addEventListener(
+      'click',
+      function () {
 
-      applyFilters(true);
-    });
+        activeYear =
+          button.dataset.filterYear;
+
+        updateButtons(
+          yearButtons,
+          activeYear,
+          'data-filter-year'
+        );
+
+        applyFilters(true);
+      }
+    );
+
   });
 
   subjectButtons.forEach(function (button) {
-    button.addEventListener('click', function () {
-      activeSubject = button.dataset.filterSubject;
 
-      updateButtons(
-        subjectButtons,
-        activeSubject,
-        'data-filter-subject'
-      );
+    button.addEventListener(
+      'click',
+      function () {
 
-      applyFilters(true);
-    });
+        activeSubject =
+          button.dataset.filterSubject;
+
+        updateButtons(
+          subjectButtons,
+          activeSubject,
+          'data-filter-subject'
+        );
+
+        applyFilters(true);
+      }
+    );
+
   });
 
   if (searchForm) {
-    searchForm.addEventListener('submit', function (event) {
-      event.preventDefault();
-      applyFilters(true);
-    });
+
+    searchForm.addEventListener(
+      'submit',
+      function (event) {
+
+        event.preventDefault();
+
+        applyFilters(true);
+      }
+    );
+
   }
 
   if (searchInput) {
-    searchInput.addEventListener('input', function () {
-      applyFilters(false);
-    });
+
+    searchInput.addEventListener(
+      'input',
+      function () {
+
+        applyFilters(false);
+      }
+    );
+
   }
 
-  const params = new URLSearchParams(window.location.search);
+  const params =
+    new URLSearchParams(
+      window.location.search
+    );
 
-  const requestedYear = params.get('year');
-  const requestedSubject = params.get('subject');
+  const requestedYear =
+    params.get('year');
+
+  const requestedSubject =
+    params.get('subject');
 
   if (
     requestedYear &&
-    yearButtons.some(function (button) {
-      return button.dataset.filterYear === requestedYear;
-    })
+    yearButtons.some(
+      function (button) {
+
+        return (
+          button.dataset.filterYear ===
+          requestedYear
+        );
+
+      }
+    )
   ) {
     activeYear = requestedYear;
   }
 
   if (
     requestedSubject &&
-    subjectButtons.some(function (button) {
-      return button.dataset.filterSubject === requestedSubject;
-    })
+    subjectButtons.some(
+      function (button) {
+
+        return (
+          button.dataset.filterSubject ===
+          requestedSubject
+        );
+
+      }
+    )
   ) {
     activeSubject = requestedSubject;
   }
 
-  if (params.get('q') && searchInput) {
-    searchInput.value = params.get('q');
+  if (
+    params.get('q') &&
+    searchInput
+  ) {
+    searchInput.value =
+      params.get('q');
   }
 
   updateButtons(
@@ -2703,3 +2750,5 @@
 </script>
 </body>
 </html>
+
+
