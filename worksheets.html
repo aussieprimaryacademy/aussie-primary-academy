@@ -126,9 +126,16 @@
             <button class="pill" type="button" data-filter-subject="science" aria-pressed="false">Science</button>
           </div>
         </fieldset>
-      </div>
-    </div>
-  </section>
+    <div class="filter-actions" style="margin-top:20px; display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+  <button id="clear-filters" class="btn btn-outline" type="button">
+    Clear Filters
+  </button>
+
+  <span id="results-count" aria-live="polite"></span>
+</div>
+  </div>  
+    </div>   
+      </section>
 
   <section class="section" id="worksheet-grid" aria-labelledby="grid-heading" style="padding-top:0;">
     <div class="wrap">
@@ -2481,7 +2488,8 @@
 
   const summary = document.getElementById('results-summary');
   const noResults = document.getElementById('no-results');
-
+const resultsCount = document.getElementById('results-count');
+const clearFiltersBtn = document.getElementById('clear-filters');
   let activeYear = 'all';
   let activeSubject = 'all';
 
@@ -2550,6 +2558,9 @@
             ' of ' +
             cards.length +
             ' free printable worksheets.';
+   if (resultsCount) {
+  resultsCount.textContent = visible + " worksheet(s) found";
+}
     }
 
     if (noResults) {
@@ -2668,7 +2679,36 @@
     );
 
   }
+if (clearFiltersBtn) {
 
+  clearFiltersBtn.addEventListener(
+    'click',
+    function () {
+
+      activeYear = 'all';
+      activeSubject = 'all';
+
+      if (searchInput) {
+        searchInput.value = '';
+      }
+
+      updateButtons(
+        yearButtons,
+        'all',
+        'data-filter-year'
+      );
+
+      updateButtons(
+        subjectButtons,
+        'all',
+        'data-filter-subject'
+      );
+
+      applyFilters(false);
+    }
+  );
+
+}
   const params =
     new URLSearchParams(
       window.location.search
