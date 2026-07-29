@@ -150,9 +150,14 @@ h1 span{ color:var(--peach-deep); }
 
 .subject-list{ display:flex; flex-direction:column; gap:12px; }
 .subject-card{
-  display:flex; align-items:center; justify-content:space-between; gap:14px;
-  background:#fff; border:2px solid #EFE3F6; border-radius:16px; padding:16px 18px;
-  box-shadow:var(--shadow-sm); transition:transform .15s ease, border-color .15s ease;
+  display:block;
+  background:#fff;
+  border:2px solid #EFE3F6;
+  border-radius:16px;
+  padding:0;
+  overflow:hidden;
+  box-shadow:var(--shadow-sm);
+  transition:transform .15s ease, border-color .15s ease;
 }
 .subject-card a{
   display:flex;
