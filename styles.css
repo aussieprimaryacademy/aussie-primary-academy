@@ -379,7 +379,20 @@ footer a:hover{ color:#fff; text-decoration:underline; }
   padding: 24px;
   box-shadow: var(--shadow-sm);
 }
+.hero-thumbnail {
+  margin: 2rem 0;
+  text-align: center;
+}
 
+.hero-thumbnail img {
+  width: 100%;
+  max-width: 700px;
+  height: auto;
+  border-radius: 16px;
+  display: block;
+  margin: 0 auto;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+}
 .note-box h3 {
   margin-top: 0;
 }
