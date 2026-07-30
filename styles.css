@@ -435,3 +435,14 @@ footer a:hover{ color:#fff; text-decoration:underline; }
 .hero-finder{
   background:#eef9f1;
 }
+.search-examples{
+  margin-top:10px;
+  font-size:14px;
+  color:#6b7280;
+  text-align:center;
+  line-height:1.5;
+}
+
+.search-examples strong{
+  color:#374151;
+}
