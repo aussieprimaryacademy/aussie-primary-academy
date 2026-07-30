@@ -426,3 +426,11 @@ footer a:hover{ color:#fff; text-decoration:underline; }
   color: var(--ink-soft);
   line-height: 1.6;
 }
+/* HERO COLUMN TEST */
+.hero-copy{
+  background:#f9eeee;
+}
+
+.hero-finder{
+  background:#eef9f1;
+}
