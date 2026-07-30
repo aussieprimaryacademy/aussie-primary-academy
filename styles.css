@@ -114,7 +114,7 @@ nav.links a:not(.btn):hover{ color:var(--deep-purple); }
   display:inline-block; background:var(--mint); color:#215B36; font-weight:700;
   font-size:13px; padding:6px 14px; border-radius:999px; margin:0 0 18px;
 }
-h1{ font-size:44px; line-height:1.12; margin:0 0 18px; }
+h1{ font-size:44px; line-height:1.15; margin:0 0 18px; }
 h1 span{ color:var(--peach-deep); }
 .hero .lead{ font-size:17.5px; color:var(--ink-soft); line-height:1.6; max-width:480px; margin:0 0 30px; }
 .hero-ctas{ display:flex; gap:14px; flex-wrap:wrap; margin-bottom:34px; }
@@ -426,9 +426,10 @@ footer a:hover{ color:#fff; text-decoration:underline; }
   color: var(--ink-soft);
   line-height: 1.6;
 }
-/* HERO COLUMN TEST */
 .hero-copy{
-  background:#f9eeee;
+  background:#fff8f6;
+  padding:24px;
+  border-radius:20px;
 }
 
 .hero-finder{
