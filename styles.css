@@ -150,8 +150,7 @@ h1 span{ color:var(--peach-deep); }
 
 .subject-list{ display:flex; flex-direction:column; gap:12px; }
 .subject-card{
-  display: flex;
-  flex-direction: column;
+  display:block;
   background:#fff;
   border:2px solid #EFE3F6;
   border-radius:16px;
@@ -159,13 +158,6 @@ h1 span{ color:var(--peach-deep); }
   overflow:hidden;
   box-shadow:var(--shadow-sm);
   transition:transform .15s ease, border-color .15s ease;
-}
-.subject-card .swatch-thumb{
-  width: 100% !important;
-  height: 100% !important;
-  object-fit: cover !important;
-  border-radius: 12px;
-  display: block;
 }
 .subject-card a{
   display:flex;
@@ -433,11 +425,4 @@ footer a:hover{ color:#fff; text-decoration:underline; }
 .faq-item p {
   color: var(--ink-soft);
   line-height: 1.6;
-}
-.hero-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
-.hero-right {
-  order: 0; /* Default order */
 }
