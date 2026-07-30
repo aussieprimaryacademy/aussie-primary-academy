@@ -160,12 +160,12 @@ h1 span{ color:var(--peach-deep); }
   box-shadow:var(--shadow-sm);
   transition:transform .15s ease, border-color .15s ease;
 }
-.subject-card img{
+.subject-card .swatch-thumb{
   width: 100% !important;
-  height: 180px !important;
+  height: 100% !important;
   object-fit: cover !important;
+  border-radius: 12px;
   display: block;
-  border-bottom: 2px solid #EFE3F6;
 }
 .subject-card a{
   display:flex;
