@@ -434,6 +434,10 @@ footer a:hover{ color:#fff; text-decoration:underline; }
   color: var(--ink-soft);
   line-height: 1.6;
 }
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
 .hero-right {
-  order: -1 !important; /* Right section pehla aayega */
+  order: 0; /* Default order */
 }
