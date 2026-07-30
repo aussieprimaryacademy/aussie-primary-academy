@@ -150,7 +150,8 @@ h1 span{ color:var(--peach-deep); }
 
 .subject-list{ display:flex; flex-direction:column; gap:12px; }
 .subject-card{
-  display:block;
+  display: flex;
+  flex-direction: column;
   background:#fff;
   border:2px solid #EFE3F6;
   border-radius:16px;
@@ -158,6 +159,13 @@ h1 span{ color:var(--peach-deep); }
   overflow:hidden;
   box-shadow:var(--shadow-sm);
   transition:transform .15s ease, border-color .15s ease;
+}
+.subject-card img{
+  width: 100% !important;
+  height: 180px !important;
+  object-fit: cover !important;
+  display: block;
+  border-bottom: 2px solid #EFE3F6;
 }
 .subject-card a{
   display:flex;
