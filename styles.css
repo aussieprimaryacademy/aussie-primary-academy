@@ -446,3 +446,93 @@ footer a:hover{ color:#fff; text-decoration:underline; }
 .search-examples strong{
   color:#374151;
 }
+/* =========================
+   INDIVIDUAL WORKSHEET PAGE
+========================= */
+
+.worksheet-hero {
+  padding:3rem 0 2rem;
+}
+
+.worksheet-meta {
+  display:flex;
+  flex-wrap:wrap;
+  gap:.75rem;
+  margin-top:1.5rem;
+}
+
+.meta-badge {
+  background:var(--lavender-pale);
+  color:var(--deep-purple);
+  border:1px solid var(--lavender-soft);
+  padding:.4rem .85rem;
+  border-radius:999px;
+  font-size:.85rem;
+  font-weight:700;
+}
+
+.preview-box {
+  background:#f8fafc;
+  border:1px solid #e2e8f0;
+  border-radius:16px;
+  padding:1.5rem;
+  text-align:center;
+  margin-bottom:2rem;
+}
+
+.preview-box img {
+  max-width:100%;
+  height:auto;
+  border-radius:12px;
+}
+
+.action-row {
+  display:flex;
+  flex-wrap:wrap;
+  gap:1rem;
+  margin-bottom:2rem;
+}
+
+.info-grid {
+  display:grid;
+  grid-template-columns:1fr;
+  gap:1.5rem;
+}
+
+@media(min-width:700px){
+  .info-grid{
+    grid-template-columns:1fr 1fr;
+  }
+}
+
+.info-card {
+  background:#ffffff;
+  border:1px solid #e2e8f0;
+  border-radius:16px;
+  padding:1.5rem;
+}
+
+.info-card h2 {
+  font-size:1.2rem;
+  margin-top:0;
+}
+
+.related-list {
+  list-style:none;
+  padding:0;
+}
+
+.related-list li {
+  padding:.75rem 0;
+  border-bottom:1px solid #e5e7eb;
+}
+
+.related-list a {
+  color:var(--deep-purple);
+  font-weight:700;
+  text-decoration:none;
+}
+
+.related-list a:hover {
+  text-decoration:underline;
+}
