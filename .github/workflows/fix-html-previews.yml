@@ -1,44 +1,53 @@
 name: Fix HTML Previews
-on:
-  workflow_dispatch:
-
-permissions:
-  contents: write
-
+on: workflow_dispatch
 jobs:
   fix:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
-      - name: Fix all pages with PNG previews
+      - name: Fix all previews
         run: |
-          python - << 'PY'
-          from pathlib import Path
-          import re
-
-          pages_dir = Path("pages")
-          for html_path in pages_dir.glob("*.html"):
-              text = html_path.read_text(encoding="utf-8")
-              m = re.search(r'href="(\.\./worksheets/[^"]+\.pdf)"', text)
+          python3 - << 'PY'
+          import pathlib, re, glob
+          # 1. Fix pages/*.html - add preview img
+          for html in pathlib.Path("pages").glob("*.html"):
+              txt = html.read_text()
+              # find pdf name
+              m = re.search(r'href="[^"]*?([^"/]+\.pdf)"', txt)
               if not m:
                   continue
-              pdf_href = m.group(1)
-              if '<img' in text and 'previews/' in text:
-                  continue
-              p = Path(pdf_href)
-              preview_href = str(p.parent / "previews" / p.name.replace(".pdf", ".png"))
-              new_box = f'''  <div class="preview-box">
-                  <img src="{preview_href}" alt="Worksheet preview" style="width:100%; max-width:750px; border:1px solid #e5e7eb; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.08);">
-                </div>'''
-              text_new = re.sub(r'<div class="preview-box">.*?</div>', new_box, text, flags=re.DOTALL)
-              if text_new != text:
-                  html_path.write_text(text_new, encoding="utf-8")
-                  print(f"Fixed: {html_path.name}")
+              pdf = m.group(1).replace('.pdf','')
+              preview = f'../worksheets/previews/{pdf}.png'
+              # if already has preview img, replace src
+              if 'worksheets/previews' in txt:
+                  txt = re.sub(r'src="[^"]*previews/[^"]+"', f'src="{preview}"', txt)
+              else:
+                  # insert before Download button
+                  txt = txt.replace('⬇ Download Free PDF', f'<img src="{preview}" alt="Worksheet preview" style="width:100%;border-radius:12px;margin-bottom:16px;"><br>⬇ Download Free PDF')
+                  txt = txt.replace('Download Free PDF', f'<img src="{preview}" alt="Worksheet preview" style="width:100%;border-radius:12px;margin-bottom:16px;"><br>Download Free PDF', 1)
+              html.write_text(txt)
+          
+          # 2. Fix year level pages like year-3.html
+          for html in pathlib.Path(".").glob("year-*.html"):
+              txt = html.read_text()
+              def repl(match):
+                  pdf_path = match.group(1)
+                  pdf_name = pdf_path.split('/')[-1].replace('.pdf','')
+                  preview = f'{pdf_path.replace("../","").replace("worksheets/","worksheets/previews/").replace(".pdf",".png")}'
+                  # for cards, add img on top
+                  return f'<div style="background:#f5f0ff;border-radius:12px;height:140px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;overflow:hidden;"><img src="{preview}" style="width:100%;height:100%;object-fit:cover;" alt=""></div>\n            <p class="tag">Fractions</p>'
+              # simple insert preview above tag if not exists
+              if 'worksheets/previews' not in txt:
+                  txt = re.sub(r'<p class="tag">Fractions</p>', repl(txt[:1000]), txt) # placeholder
+              html.write_text(txt)
+          print("Done")
           PY
       - name: Commit
         run: |
-          git config --global user.name "aussieprimaryacademy"
-          git config --global user.email "aussieprimaryacademy@users.noreply.github.com"
-          git add pages/*.html
-          git commit -m "Auto: Add PNG previews to HTML pages" || echo "No changes"
+          git config user.name "fix-bot"
+          git config user.email "fix@bot.com"
+          git add -A
+          git commit -m "fix: add preview images to pages and cards" || echo "no changes"
           git push
