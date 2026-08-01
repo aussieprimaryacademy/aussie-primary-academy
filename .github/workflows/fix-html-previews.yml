@@ -1,0 +1,44 @@
+name: Fix HTML Previews
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fix all pages with PNG previews
+        run: |
+          python - << 'PY'
+          from pathlib import Path
+          import re
+
+          pages_dir = Path("pages")
+          for html_path in pages_dir.glob("*.html"):
+              text = html_path.read_text(encoding="utf-8")
+              m = re.search(r'href="(\.\./worksheets/[^"]+\.pdf)"', text)
+              if not m:
+                  continue
+              pdf_href = m.group(1)
+              if '<img' in text and 'previews/' in text:
+                  continue
+              p = Path(pdf_href)
+              preview_href = str(p.parent / "previews" / p.name.replace(".pdf", ".png"))
+              new_box = f'''  <div class="preview-box">
+                  <img src="{preview_href}" alt="Worksheet preview" style="width:100%; max-width:750px; border:1px solid #e5e7eb; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.08);">
+                </div>'''
+              text_new = re.sub(r'<div class="preview-box">.*?</div>', new_box, text, flags=re.DOTALL)
+              if text_new != text:
+                  html_path.write_text(text_new, encoding="utf-8")
+                  print(f"Fixed: {html_path.name}")
+          PY
+      - name: Commit
+        run: |
+          git config --global user.name "aussieprimaryacademy"
+          git config --global user.email "aussieprimaryacademy@users.noreply.github.com"
+          git add pages/*.html
+          git commit -m "Auto: Add PNG previews to HTML pages" || echo "No changes"
+          git push
