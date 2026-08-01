@@ -1,0 +1,55 @@
+name: Make Worksheet PNG Previews
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'worksheets/**/*.pdf'
+
+jobs:
+  make-previews:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install tools
+        run: |
+          pip install pymupdf pillow
+
+      - name: Make PNGs from PDFs
+        run: |
+          python - << 'PY'
+          import fitz, os
+          from pathlib import Path
+
+          base = Path("worksheets")
+          for pdf_path in base.rglob("*.pdf"):
+              if "answer-key" in pdf_path.name.lower():
+                  continue
+              preview_dir = pdf_path.parent / "previews"
+              preview_dir.mkdir(exist_ok=True)
+              png_path = preview_dir / pdf_path.name.replace(".pdf", ".png")
+              if png_path.exists():
+                  continue
+              try:
+                  doc = fitz.open(pdf_path)
+                  page = doc[0]
+                  pix = page.get_pixmap(dpi=200)
+                  pix.save(str(png_path))
+                  print(f"Made: {png_path}")
+              except Exception as e:
+                  print(f"Failed {pdf_path}: {e}")
+          PY
+
+      - name: Commit PNGs
+        run: |
+          git config --global user.name "auto-bot"
+          git config --global user.email "bot@aussieprimaryacademy.com"
+          git add worksheets/**/previews/*.png
+          git commit -m "Auto: Add worksheet preview PNGs" || echo "No new PNGs"
+          git push
