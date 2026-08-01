@@ -6,14 +6,17 @@ on:
     paths:
       - 'worksheets/**/*.pdf'
 
+permissions:
+  contents: write
+
 jobs:
   make-previews:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.10'
 
@@ -24,9 +27,8 @@ jobs:
       - name: Make PNGs from PDFs
         run: |
           python - << 'PY'
-          import fitz, os
+          import fitz
           from pathlib import Path
-
           base = Path("worksheets")
           for pdf_path in base.rglob("*.pdf"):
               if "answer-key" in pdf_path.name.lower():
@@ -48,8 +50,8 @@ jobs:
 
       - name: Commit PNGs
         run: |
-          git config --global user.name "auto-bot"
-          git config --global user.email "bot@aussieprimaryacademy.com"
+          git config --global user.name "aussieprimaryacademy"
+          git config --global user.email "aussieprimaryacademy@users.noreply.github.com"
           git add worksheets/**/previews/*.png
           git commit -m "Auto: Add worksheet preview PNGs" || echo "No new PNGs"
           git push
