@@ -1,1467 +1,538 @@
-<li class="wcard">
-  <div class="thumb c2">Year 1 · Phonics</div>
-  <div class="body">
-    <p class="tag">Word Families</p>
-    <h3>Word Families (an &amp; ake)</h3>
-    <span class="curriculum-badge">Australian Curriculum-aligned</span>
-    <p class="card-desc">
-      Build reading fluency by recognising common word families such as
-      <strong>-an</strong> and <strong>-ake</strong>.
-    </p>
-    <a class="btn btn-primary btn-sm"
-       href="worksheets/year-1/phonics/year-1-phonics-word-families-an-ake-worksheet-ac9e1ly13-free-printable-colour.pdf"
-       download
-       target="_blank"
-       rel="noopener">
-      ⬇ Download PDF
-    </a>
-    <a class="btn btn-secondary btn-sm"
-       href="pages/year-1-phonics-word-families-an-ake.html">
-      View Worksheet
-    </a>
-  </div>
-</li>
-
-Note: Je pages/year-1-phonics-word-families-an-ake.html file pages folder vich exist nahi kardi, taan "View Worksheet" button 404 devega. HTML card bilkul theek hai, par page file da naam vi exact eh hi hona chahida hai.
-
-hun year 2 di vari hai os ch end valy card hai onha science dy 3 card da  style thik ni hai changr ho hia main ki send karan
-
-Haan. Sab ton vadhiya tareeka eh hovega ke tusi eh 2 cheezaan bhejo:
-
-Year 2 HTML da Science section (khas karke last 5–6 cards, taaki comparison ho sake).
-Screenshot jithe last 3 Science cards di design alag lag rahi hai.
-
-Jaan hor vi vadhiya:
-
-year-2.html di complete file paste kar do (je size manageable hai).
-
-Main check karanga:
-
-✅ HTML structure (<li>, <div class="body">, etc.)
-✅ Missing/extra closing tags (</div>, </li>)
-✅ Wrong CSS classes
-✅ Card width/height
-✅ Grid layout
-✅ Mobile responsiveness
-✅ Same premium design as baaki Year 2 cards
-
-Je issue code ch hovega, main exact corrected HTML de dunga. Je CSS ch hovega, main exact CSS lines vi dass dunga.
-
-Screenshot + Year 2 Science cards da code sab ton jaldi root cause das devega.
-
-Pasted text(20260805-111328).txt
-Document
-main send kita hai year 2 da html is nu check karo 
-
-Mainu is chat vich Year 2 HTML file nazar nahi aa rahi. Lagda hai upload properly attach nahi hoi ya message deliver nahi hoya.
-
-Kirpa karke dubara:
-
-year-2.html upload karo (drag & drop), jaan
-sirf Science section de last 3 cards da code paste kar do.
-
-Main eh sab check karanga:
-
-HTML structure
-Missing </div> / </li>
-Wrong classes
-CSS mismatch
-Last 3 cards di design baaki cards naal 100% match kar dunga.
-
-Jadon file aa javegi, main direct audit karke exact fix dass dunga.
-
- </section>  <section class="section" id="science" aria-labelledby="science-heading">
-    <div class="wrap">  <div class="section-head">
-    <div>
-      <h2 id="science-heading">Year 2 Science Worksheets</h2>
-      <p>
-        Explore living things, Earth resources, useful materials, mixtures and forces through simple scientific investigations.
-      </p>
-    </div>
-  </div>
-
-  <ul class="grid-cards browse-grid">
-
-    <li class="wcard">
-      <div class="thumb c1">Year 2 · Science</div>
-
-      <div class="body">
-        <p class="tag">Biological Sciences</p>
-        <h3>Living Things Grow and Change</h3>
-
-        <span class="curriculum-badge">Australian Curriculum-aligned</span>
-
-        <p class="card-desc">
-          Explore how living things grow, change and have offspring similar to themselves.
-        </p>
-
-        <a class="btn btn-primary btn-sm"
-           href="worksheets/year-2/science/year-2-science-living-things-grow-and-change-worksheet-ac9s2u01-free-printable.pdf"
-           download>
-          ⬇ Download PDF
-        </a>
-       <a class="btn btn-secondary btn-sm" href="pages/year-2-living-things-grow-and-change.html">View Worksheet</a>
-      </div>
-    </li>
-
-    <li class="wcard">
-      <div class="thumb c2">Year 2 · Science</div>
-
-      <div class="body">
-        <p class="tag">Earth and Space Sciences</p>
-        <h3>Earth Resources</h3>
-
-        <span class="curriculum-badge">Australian Curriculum-aligned</span>
-
-        <p class="card-desc">
-          Identify useful Earth resources and consider responsible ways to use and care for them.
-        </p>
-
-        <a class="btn btn-primary btn-sm"
-           href="worksheets/year-2/science/year-2-science-earth-resources-worksheet-ac9s2u02-free-printable.pdf"
-           download>
-          ⬇ Download PDF
-        </a>
-       <a class="btn btn-secondary btn-sm" href="pages/year-2-earth-resources.html">View Worksheet</a>
-    </div>
-    </li>
-
-    <li class="wcard">
-      <div class="thumb c3">Year 2 · Science</div>
-
-      <div class="body">
-        <p class="tag">Chemical Sciences</p>
-        <h3>Materials for a Purpose</h3>
-
-        <span class="curriculum-badge">Australian Curriculum-aligned</span>
-
-        <p class="card-desc">
-          Compare material properties and choose suitable materials for everyday purposes.
-        </p>
-
-        <a class="btn btn-primary btn-sm"
-           href="worksheets/year-2/science/year-2-science-materials-for-a-purpose-worksheet-ac9s2u03-free-printable.pdf"
-           download>
-          ⬇ Download PDF
-        </a>
-        <a class="btn btn-secondary btn-sm" href="pages/year-2-materials-for-a-purpose.html">View Worksheet</a> </div>
-      </div>
-    </li>
-
-    <li class="wcard">
-      <div class="thumb c4">Year 2 · Science</div>
-
-      <div class="body">
-        <p class="tag">Chemical Sciences</p>
-        <h3>Mixing Materials</h3>
-
-        <span class="curriculum-badge">Australian Curriculum-aligned</span>
-
-        <p class="card-desc">
-          Observe what happens when familiar materials are combined and record simple findings.
-        </p>
-
-        <a class="btn btn-primary btn-sm"
-           href="worksheets/year-2/science/year-2-science-mixing-materials-worksheet-ac9s2u03-free-printable.pdf"
-           download>
-          ⬇ Download PDF
-        </a>
-     <a class="btn btn-secondary btn-sm" href="pages/year-2-mixing-materials.html">View Worksheet</a>
-   </div>
-    </li>
-
-    <li class="wcard">
-      <div class="thumb c1">Year 2 · Science</div>
-
-      <div class="body">
-        <p class="tag">Physical Sciences</p>
-        <h3>Push and Pull Forces</h3>
-
-        <span class="curriculum-badge">Australian Curriculum-aligned</span>
-
-        <p class="card-desc">
-          Investigate how pushes and pulls change the movement or shape of objects.
-        </p>
-
-        <a class="btn btn-primary btn-sm"
-           href="worksheets/year-2/science/year-2-science-push-and-pull-forces-worksheet-ac9s2u04-free-printable.pdf"
-           download>
-          ⬇ Download PDF
-        </a>
-       <a class="btn btn-secondary btn-sm" href="pages/year-2-push-and-pull-forces.htm
-      </div>
-    </li>
-
-  </ul>
-</div>
-
-Main code check kita. Problem CSS di nahi, HTML structure di hai. Tuhade Science section ch 2 syntax errors ne, jis karke last cards di layout break ho rahi hai.
-
-❌ Error 1: "Materials for a Purpose"
-
-Eh part galat hai:
-
-<a class="btn btn-secondary btn-sm" href="pages/year-2-materials-for-a-purpose.html">View Worksheet</a>
-</div>
-</div>
-</li>
-
-Extra </div> hai.
-
-Eh hona chahida:
-
-<a class="btn btn-secondary btn-sm" href="pages/year-2-materials-for-a-purpose.html">View Worksheet</a>
-</div>
-</li>
-❌ Error 2: "Push and Pull Forces"
-
-Eh line incomplete hai:
-
-<a class="btn btn-secondary btn-sm" href="pages/year-2-push-and-pull-forces.htm
-
-Eh browser da HTML tod dindi hai.
-
-Is nu replace karo:
-
-<a class="btn btn-secondary btn-sm"
-   href="pages/year-2-push-and-pull-forces.html">
-   View Worksheet
-</a>
-
-Te card nu properly close karo:
-
-</div>
-</li>
-✅ Correct ending of last card
-<li class="wcard">
-  <div class="thumb c1">Year 2 · Science</div>
-
-  <div class="body">
-    <p class="tag">Physical Sciences</p>
-    <h3>Push and Pull Forces</h3>
-
-    <span class="curriculum-badge">Australian Curriculum-aligned</span>
-
-    <p class="card-desc">
-      Investigate how pushes and pulls change the movement or shape of objects.
-    </p>
-
-    <a class="btn btn-primary btn-sm"
-       href="worksheets/year-2/science/year-2-science-push-and-pull-forces-worksheet-ac9s2u04-free-printable.pdf"
-       download>
-      ⬇ Download PDF
-    </a>
-
-    <a class="btn btn-secondary btn-sm"
-       href="pages/year-2-push-and-pull-forces.html">
-      View Worksheet
-    </a>
-  </div>
-</li>
-Audit Result
-❌ Extra </div> after Materials for a Purpose
-❌ Broken <a href> tag in Push and Pull Forces
-✅ Baaki Science cards da structure theek lag reha hai.
-
-Eh 2 errors fix karan naal last cards di design normal ho jaani chahidi hai.
-
-Suggested based on your interests
-Ad
-Pasted text(20260805-112146).txt
-Document
-is da sara code write kado please
-
-Haan, issue mil gaya. Extra closing </div> hai.
-
-Tuhada current code:
-
-<div class="body">
-  <p class="tag">Chemical Sciences</p>
-  <h3>Materials for a Purpose</h3>
-
-  <span class="curriculum-badge">Australian Curriculum-aligned</span>
-
-  <p class="card-desc">
-    Compare material properties and choose suitable materials for everyday purposes.
-  </p>
-
-  <a class="btn btn-primary btn-sm"
-     href="worksheets/year-2/science/year-2-science-materials-for-a-purpose-worksheet-ac9s2u03-free-printable.pdf"
-     download>
-    ⬇ Download PDF
-  </a>
-
-  <a class="btn btn-secondary btn-sm"
-     href="pages/year-2-materials-for-a-purpose.html">
-    View Worksheet
-  </a>
-</div>
-</div>   <!-- ❌ Extra div -->
-</li>
-Correct Code
-<li class="wcard">
-  <div class="thumb c3">Year 2 · Science</div>
-
-  <div class="body">
-    <p class="tag">Chemical Sciences</p>
-
-    <h3>Materials for a Purpose</h3>
-
-    <span class="curriculum-badge">
-      Australian Curriculum-aligned
-    </span>
-
-    <p class="card-desc">
-      Compare material properties and choose suitable materials for everyday purposes.
-    </p>
-
-    <a class="btn btn-primary btn-sm"
-       href="worksheets/year-2/science/year-2-science-materials-for-a-purpose-worksheet-ac9s2u03-free-printable.pdf"
-       download
-       target="_blank"
-       rel="noopener">
-      ⬇ Download PDF
-    </a>
-
-    <a class="btn btn-secondary btn-sm"
-       href="pages/year-2-materials-for-a-purpose.html">
-      View Worksheet
-    </a>
-  </div>
-</li>
-Main audit vich hun tak 2 HTML errors confirm hoye ne:
-✅ Materials for a Purpose → extra </div>
-✅ Push and Pull Forces → broken href (.htm line incomplete)
-
-Eh dono fix karan ton baad Year 2 Science cards di layout normal honi chahidi hai.
-
-<a class="btn btn-secondary btn-sm"    href="pages/year-2-push-and-pull-forces.html">    View Worksheet </a>    ih kida karna hai 
-
-Deep, eh sirf anchor (<a>) tag nu properly close karna hai. Tuhade code vich line cut ho gayi si.
-
-Eh galat si:
-
-<a class="btn btn-secondary btn-sm" href="pages/year-2-push-and-pull-forces.htm
-
-Is karke browser HTML parse nahi kar pa reha si.
-
-Eh theek tareeke naal likho:
-
-<a class="btn btn-secondary btn-sm"
-   href="pages/year-2-push-and-pull-forces.html">
-  View Worksheet
-</a>
-
-Jaan ikko line vich:
-
-<a class="btn btn-secondary btn-sm" href="pages/year-2-push-and-pull-forces.html">View Worksheet</a>
-Poora last card is tarah hona chahida:
-<li class="wcard">
-  <div class="thumb c1">Year 2 · Science</div>
-
-  <div class="body">
-    <p class="tag">Physical Sciences</p>
-    <h3>Push and Pull Forces</h3>
-
-    <span class="curriculum-badge">Australian Curriculum-aligned</span>
-
-    <p class="card-desc">
-      Investigate how pushes and pulls change the movement or shape of objects.
-    </p>
-
-    <a class="btn btn-primary btn-sm"
-       href="worksheets/year-2/science/year-2-science-push-and-pull-forces-worksheet-ac9s2u04-free-printable.pdf"
-       download
-       target="_blank"
-       rel="noopener">
-      ⬇ Download PDF
-    </a>
-
-    <a class="btn btn-secondary btn-sm"
-       href="pages/year-2-push-and-pull-forces.html">
-      View Worksheet
-    </a>
-  </div>
-</li>
-
-⚠️ Ik sawaal: pages/year-2-push-and-pull-forces.html file tuhade pages folder vich actually maujood hai? Je file da naam kujh hor hai, taan 404 aayegi.
-
-ih tan sara change ho gia 
-
-Haan, je poora block replace karoge tan naturally code change laggega. Main sirf minimum changes dass reha haan.
-
-1. "Materials for a Purpose"
-
-Sirf ik extra </div> delete karo.
-
-Current:
-
-<a class="btn btn-secondary btn-sm" href="pages/year-2-materials-for-a-purpose.html">View Worksheet</a>
-</div>
-</div>   <!-- ❌ Delete this line -->
-</li>
-
-Correct:
-
-<a class="btn btn-secondary btn-sm" href="pages/year-2-materials-for-a-purpose.html">View Worksheet</a>
-</div>
-</li>
-2. "Push and Pull Forces"
-
-Sirf eh line complete karo.
-
-Je current line eh hai:
-
-<a class="btn btn-secondary btn-sm" href="pages/year-2-push-and-pull-forces.htm
-
-Tan sirf is line nu replace karo:
-
-<a class="btn btn-secondary btn-sm" href="pages/year-2-push-and-pull-forces.html">View Worksheet</a>
-
-Bas. Hor kujh change nahi karna.
-
-⚠️ Par ik gall...
-
-Tusi pehlan keha si:
-
-"end valy 3 science card di style change ho gayi hai."
-
-Eh sirf HTML error karke vi ho sakda, ya CSS problem vi ho sakdi hai.
-
-Mainu ik screenshot bhejo jithe last 3 Science cards di design kharab lag rahi hai. Fer main 10 second ch dass dunga:
-
-HTML problem hai?
-CSS problem hai?
-Ya dono?
-
-Screenshot dekh ke exact fix dassna zyada accurate hovega.
-
-<!DOCTYPE html>
-
-<html lang="en-AU"> <head> <!-- Google tag (gtag.js) -->
-
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-41Q0QR6ZHD"></script>
-
-<script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-41Q0QR6ZHD'); </script>
-
-<meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <link rel="icon" type="image/png" href="favicon.png"> <title>Year 2 Worksheets | Free Printable Australian Curriculum PDFs</title> <meta name="description" content="Download 38 free printable Year 2 worksheets for Maths, English, reading, writing and Science. Australian Curriculum V9.0-aligned PDFs for teachers, parents and homeschool families."> <meta name="robots" content="index, follow"> <link rel="canonical" href="https://aussieprimaryacademy.github.io/aussie-primary-academy/year-2.html"> <meta property="og:type" content="website"> <meta property="og:locale" content="en_AU"> <meta property="og:site_name" content="Aussie Primary Academy"> <meta property="og:title" content="Free Year 2 Worksheets Australia"> <meta property="og:description" content="Free printable Year 2 Maths, English and Science worksheets aligned to the Australian Curriculum."> <meta property="og:url" content="https://aussieprimaryacademy.github.io/aussie-primary-academy/year-2.html"> <link rel="preconnect" href="https://fonts.googleapis.com"> <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet"> <link rel="stylesheet" href="styles.css"> <script type="application/ld+json"> { "@context": "https://schema.org", "@type": "CollectionPage", "name": "Free Year 2 Worksheets", "description": "Free printable Year 2 Maths, English and Science worksheets for Australian primary learners.", "url": "https://aussieprimaryacademy.github.io/aussie-primary-academy/year-2.html", "inLanguage": "en-AU", "isPartOf": { "@type": "WebSite", "name": "Aussie Primary Academy", "url": "https://aussieprimaryacademy.github.io/aussie-primary-academy/" } } </script></head><body><a class="skip-link" href="#main">Skip to main content</a>
-
-<header class="site"> <div class="wrap nav"><a href="index.html" class="brand" aria-label="Aussie Primary Academy home"> <span class="mark" aria-hidden="true">AP</span> Aussie Primary Academy </a>
-
-<input type="checkbox" id="nav-toggle" class="nav-toggle-input">
-
-<label for="nav-toggle" class="menu-toggle"> <span class="visually-hidden">Open menu</span> <span class="menu-icon" aria-hidden="true"></span> </label>
-
-<nav class="links" aria-label="Primary navigation"> <a href="worksheets.html">Worksheets</a> <a href="index.html#years">Year Levels</a> <a href="index.html#subjects">Subjects</a> <a href="blog/free-foundation-prep-worksheets-australia.html">Blog</a> <a href="about.html">About</a> <a class="btn btn-primary nav-cta" href="worksheets.html">Browse Free Worksheets</a> </nav>
-
-</div> </header><main id="main"> <nav class="breadcrumb wrap" aria-label="Breadcrumb"> <ol> <li><a href="index.html">Home</a></li> <li aria-current="page">Year 2</li> </ol> </nav> <section class="page-hero" aria-labelledby="page-hero-heading"> <div class="wrap"> <p class="eyebrow">Year 2 · Free · Australian Curriculum V9.0-aligned</p> <h1 id="page-hero-heading">Free Printable Year 2 Worksheets</h1>
-
-<p class="lead"> Download free Year 2 worksheets for Maths, English, reading, writing and Science. These printable activities help Australian teachers, parents, tutors and homeschool families build strong skills through clear, curriculum-aligned practice. </p> </div>
-
-</section> <section class="section" aria-labelledby="subjects-heading"> <div class="wrap"> <div class="section-head"> <div> <h2 id="subjects-heading">Year 2 Worksheet Subjects</h2> <p>Explore 38 printable worksheets across three Year 2 learning areas: Maths, English and Science.</p> </div> </div>
-
-<ul class="subject-list" aria-label="Year 2 worksheet subjects">
-
-<li class="subject-card maths">
-  <a href="#maths" class="subject-link">
-    <span class="swatch" aria-hidden="true"></span>
-
-    <span class="info">
-      <h3>Maths</h3>
-      <p>Place value, operations, money, time, multiplication and data</p>
-    </span>
-
-    <span class="badge-pdf">9 PDFs</span>
-  </a>
-</li>
-
-<li class="subject-card english">
-  <a href="#english" class="subject-link">
-    <span class="swatch" aria-hidden="true"></span>
-
-    <span class="info">
-      <h3>English</h3>
-      <p>Grammar, punctuation, reading comprehension and writing</p>
-    </span>
-
-    <span class="badge-pdf">24 PDFs</span>
-  </a>
-</li>
-
-<li class="subject-card science">
-  <a href="#science" class="subject-link">
-    <span class="swatch" aria-hidden="true"></span>
-
-    <span class="info">
-      <h3>Science</h3>
-      <p>Living things, Earth resources, materials and forces</p>
-    </span>
-
-    <span class="badge-pdf">5 PDFs</span>
-  </a>
-</li>
-
-</ul> </div>
-
-</section> <section class="section" id="maths" aria-labelledby="maths-heading"> <div class="wrap"> <div class="section-head"> <div> <h2 id="maths-heading">Year 2 Maths Worksheets</h2> <p> Practise high-demand Year 2 maths skills including place value, addition, subtraction, money, time, multiplication and data. </p> </div> </div>
-
-<ul class="grid-cards browse-grid">
-
-<li class="wcard">
-  <div class="thumb c1">Year 2 · Maths</div>
-
-  <div class="body">
-    <p class="tag">Number</p>
-    <h3>Place Value to 100</h3>
-
-    <span class="curriculum-badge">Australian Curriculum-aligned</span>
-
-    <p class="card-desc">
-      Understand tens and ones, represent two-digit numbers and compare values to 100.
-    </p>
-
-    <a class="btn btn-primary btn-sm"
-       href="worksheets/year-2/maths/year-2-maths-place-value-to-100-worksheet-ac9m2n01-free-printable.pdf"
-       download>
-      ⬇ Download PDF
-    </a>
-  </div>
-</li>
-
-<li class="wcard">
-  <div class="thumb c2">Year 2 · Maths</div>
-
-  <div class="body">
-    <p class="tag">Number</p>
-    <h3>Addition Within 100</h3>
-
-    <span class="curriculum-badge">Australian Curriculum-aligned</span>
-
-    <p class="card-desc">
-      Build confidence adding two-digit numbers using efficient written and mental strategies.
-    </p>
-
-    <a class="btn btn-primary btn-sm"
-       href="worksheets/year-2/maths/year-2-maths-addition-within-100-worksheet-ac9m2n04-free-printable.pdf"
-       download>
-      ⬇ Download PDF
-    </a>
-  <a class="btn btn-secondary btn-sm" href="pages/year-2-addition-within-100.html">View Worksheet</a>
- </div>
-</li>
-
-<li class="wcard">
-  <div class="thumb c3">Year 2 · Maths</div>
-
-  <div class="body">
-    <p class="tag">Number</p>
-    <h3>Subtraction Within 100</h3>
-
-    <span class="curriculum-badge">Australian Curriculum-aligned</span>
-
-    <p class="card-desc">
-      Practise subtraction within 100 using place value, number facts and problem-solving strategies.
-    </p>
-
-    <a class="btn btn-primary btn-sm"
-       href="worksheets/year-2/maths/year-2-maths-subtraction-within-100-worksheet-ac9m2n04-free-printable.pdf"
-       download>
-      ⬇ Download PDF
-    </a>
-  <a class="btn btn-secondary btn-sm" href="pages/year-2-subtraction-within-100.html">View Worksheet</a>
- </div>
-</li>
-
-<li class="wcard">
-  <div class="thumb c4">Year 2 · Maths</div>
-
-  <div class="body">
-    <p class="tag">Problem Solving</p>
-    <h3>Word Problems Within 100</h3>
-
-    <span class="curriculum-badge">Australian Curriculum-aligned</span>
-
-    <p class="card-desc">
-      Solve practical addition and subtraction word problems involving numbers to 100.
-    </p>
-
-    <a class="btn btn-primary btn-sm"
-       href="worksheets/year-2/maths/year-2-maths-word-problems-within-100-worksheet-ac9m2n04-free-printable.pdf"
-       download>
-      ⬇ Download PDF
-    </a>
-  <a class="btn btn-secondary btn-sm" href="pages/year-2-Word Problems Within 100.html">View Worksheet</a>
-
-</div> </li>
-
-<li class="wcard">
-  <div class="thumb c1">Year 2 · Maths</div>
-
-  <div class="body">
-    <p class="tag">Division</p>
-    <h3>Division – Sharing Equally</h3>
-
-    <span class="curriculum-badge">Australian Curriculum-aligned</span>
-
-    <p class="card-desc">
-      Solve simple division problems by sharing collections of objects equally into groups.
-    </p>
-
-    <a class="btn btn-primary btn-sm"
-       href="worksheets/year-2/maths/year-2-maths-division-sharing-equally-worksheet-ac9m2n05-free-printable.pdf"
-       download>
-      ⬇ Download PDF
-    </a>
-   <a class="btn btn-secondary btn-sm" href="pages/year-2-Division – Sharing Equally.html">View Worksheet</a>
-</div>
-</li>
-
-<li class="wcard">
-  <div class="thumb c2">Year 2 · Maths</div>
-
-  <div class="body">
-    <p class="tag">Money</p>
-    <h3>Australian Money</h3>
-
-    <span class="curriculum-badge">Australian Curriculum-aligned</span>
-
-    <p class="card-desc">
-      Recognise, count and compare Australian coins and notes in practical money activities.
-    </p>
-
-    <a class="btn btn-primary btn-sm"
-       href="worksheets/year-2/maths/year-2-maths-australian-money-worksheet-ac9m2m06-free-printable.pdf"
-       download>
-      ⬇ Download PDF
-    </a>
-  <a class="btn btn-secondary btn-sm" href="pages/year-2-Australian Money.html">View Worksheet</a>
- </div>
-</li>
-
-<li class="wcard">
-  <div class="thumb c3">Year 2 · Maths</div>
-
-  <div class="body">
-    <p class="tag">Time</p>
-    <h3>Telling Time</h3>
-
-    <span class="curriculum-badge">Australian Curriculum-aligned</span>
-
-    <p class="card-desc">
-      Read and represent time using analogue and digital clocks in familiar everyday contexts.
-    </p>
-
-    <a class="btn btn-primary btn-sm"
-       href="worksheets/year-2/maths/year-2-maths-telling-time-worksheet-ac9m2m04-free-printable.pdf"
-       download>
-      ⬇ Download PDF
-    </a>
- <a class="btn btn-secondary btn-sm" href="pages/year-2-Telling Time.html">View Worksheet</a>
-  </div>
-</li>
-
-<li class="wcard">
-  <div class="thumb c3">Year 2 · Maths</div>
-
-  <div class="body">
-    <p class="tag">Multiplication</p>
-    <h3>Multiplication – Equal Groups</h3>
-
-    <span class="curriculum-badge">Australian Curriculum-aligned</span>
-
-    <p class="card-desc">
-      Develop early multiplication understanding by making and describing equal groups.
-    </p>
-
-    <a class="btn btn-primary btn-sm"
-       href="worksheets/year-2/maths/year-2-maths-multiplication-equal-groups-worksheet-ac9m2n05-free-printable.pdf"
-       download>
-      ⬇ Download PDF
-    </a>
- <a class="btn btn-secondary btn-sm" href="pages/year-2-Multiplication – Equal Groups">View Worksheet</a>
-  </div>
-</li>
-
-<li class="wcard">
-  <div class="thumb c4">Year 2 · Maths</div>
-
-  <div class="body">
-    <p class="tag">Statistics</p>
-    <h3>Data and Graphs</h3>
-
-    <span class="curriculum-badge">Australian Curriculum-aligned</span>
-
-    <p class="card-desc">
-      Collect, organise and interpret simple data using tables, lists and picture graphs.
-    </p>
-
-    <a class="btn btn-primary btn-sm"
-       href="worksheets/year-2/maths/year-2-maths-data-and-graphs-worksheet-ac9m2st01-free-printable.pdf"
-       download>
-      ⬇ Download PDF
-    </a>
- <a class="btn btn-secondary btn-sm" href="pages/year-2-Data and Graphs">View Worksheet</a>
-  </div>
-</li>
-
-</ul> </div>
-
-PDF
-</a></section> <section class="section" id="english" aria-labelledby="english-heading">
-<div class="wrap"> <div class="section-head">
-<div>
-<h2 id="english-heading">Year 2 English Worksheets</h2>
-<p>
-Build grammar, punctuation, reading comprehension and writing skills through focused Year 2 literacy activities.
-</p>
-</div>
-
-</div>
-
-<ul class="grid-cards browse-grid">
-
-<li class="wcard">
-  <div class="thumb c1">Year 2 · English</div>
-
-  <div class="body">
-    <p class="tag">Grammar</p>
-    <h3>Common and Proper Nouns</h3>
-
-    <span class="curriculum-badge">Australian Curriculum-aligned</span>
-
-    <p class="card-desc">
-      Identify common and proper nouns and apply capital letters correctly.
-    </p>
-
-    <a class="btn btn-primary btn-sm"
-       href="worksheets/year-2/english/year-2-english-common-and-proper-nouns-worksheet-ac9e2la06-free-printable.pdf"
-       download>
-      ⬇ Download PDF
-    </a>
-  <a class="btn btn-secondary btn-sm" href="pages/year-2-common-and-proper-nouns.html">View Worksheet</a>
-
-  </div>
-</li>
-
-<li class="wcard">
-  <div class="thumb c2">Year 2 · English</div>
-
-  <div class="body">
-    <p class="tag">Grammar</p>
-    <h3>Pronouns</h3>
-
-    <span class="curriculum-badge">Australian Curriculum-aligned</span>
-
-    <p class="card-desc">
-      Recognise and use pronouns to replace nouns and improve sentence fluency.
-    </p>
-
-    <a class="btn btn-primary btn-sm"
-       href="worksheets/year-2/english/year-2-english-pronouns-worksheet-ac9e2la06-free-printable.pdf"
-       download>
-      ⬇ Download PDF
-    </a>
- <a class="btn btn-secondary btn-sm" href="pages/year-2-pronouns.html">View Worksheet</a>
-  </div>
-</li>
-
-<li class="wcard">
-  <div class="thumb c3">Year 2 · English</div>
-
-  <div class="body">
-    <p class="tag">Grammar</p>
-    <h3>Verbs and Adjectives</h3>
-
-    <span class="curriculum-badge">Australian Curriculum-aligned</span>
-
-    <p class="card-desc">
-      Identify action words and describing words and use them in meaningful sentences.
-    </p>
-
-    <a class="btn btn-primary btn-sm"
-       href="worksheets/year-2/english/year-2-english-verbs-and-adjectives-worksheet-ac9e2la06-free-printable.pdf"
-       download>
-      ⬇ Download PDF
-    </a>
- <a class="btn btn-secondary btn-sm" href="pages/year-2-verbs-and-adjectives.html">View Worksheet</a>
-
-  </div>
-</li>
-
-<li class="wcard">
-  <div class="thumb c4">Year 2 · English</div>
-
-  <div class="body">
-    <p class="tag">Punctuation</p>
-    <h3>Capital Letters and Full Stops</h3>
-
-    <span class="curriculum-badge">Australian Curriculum-aligned</span>
-
-    <p class="card-desc">
-      Edit and write sentences using correct capital letters and full stops.
-    </p>
-
-    <a class="btn btn-primary btn-sm"
-       href="worksheets/year-2/english/year-2-english-capital-letters-and-full-stops-worksheet-ac9e2la06-free-printable.pdf"
-       download>
-      ⬇ Download PDF
-    </a>
- <a class="btn btn-secondary btn-sm" href="pages/year-2-capital-letters-and-full-stops.html">View Worksheet</a>
-
-</div> </li>
-
-<li class="wcard">
-  <div class="thumb c1">Year 2 · English</div>
-
-  <div class="body">
-    <p class="tag">Punctuation</p>
-    <h3>Commas in Lists</h3>
-
-    <span class="curriculum-badge">Australian Curriculum-aligned</span>
-
-    <p class="card-desc">
-      Use commas correctly to separate items in simple lists.
-    </p>
-
-    <a class="btn btn-primary btn-sm"
-       href="worksheets/year-2/english/year-2-english-commas-in-lists-worksheet-ac9e2la06-free-printable.pdf"
-       download>
-      ⬇ Download PDF
-    </a>
-  <a class="btn btn-secondary btn-sm" href="pages/year-2-commas-in-lists.html">View Worksheet</a>
-  </div>
-</li>
-
-<li class="wcard">
-  <div class="thumb c2">Year 2 · English</div>
-
-  <div class="body">
-    <p class="tag">Sentences</p>
-    <h3>Simple and Compound Sentences</h3>
-
-    <span class="curriculum-badge">Australian Curriculum-aligned</span>
-
-    <p class="card-desc">
-      Recognise simple and compound sentences and join ideas using conjunctions.
-    </p>
-
-    <a class="btn btn-primary btn-sm"
-       href="worksheets/year-2/english/year-2-english-simple-and-compound-sentences-worksheet-ac9e2la06-free-printable.pdf"
-       download>
-      ⬇ Download PDF
-    </a>
-  <a class="btn btn-secondary btn-sm" href="pages/year-2-simple-and-compound-sentences.html">View Worksheet</a>
-  </div>
-</li>
-
-<li class="wcard">
-  <div class="thumb c3">Year 2 · English</div>
-
-  <div class="body">
-    <p class="tag">Vocabulary</p>
-    <h3>Compound Words and Contractions</h3>
-
-    <span class="curriculum-badge">Australian Curriculum-aligned</span>
-
-    <p class="card-desc">
-      Build vocabulary by forming compound words and using common contractions.
-    </p>
-
-    <a class="btn btn-primary btn-sm"
-       href="worksheets/year-2/english/year-2-english-compound-words-and-contractions-worksheet-ac9e2la06-free-printable.pdf"
-       download>
-      ⬇ Download PDF
-    </a>
-     <a class="btn btn-secondary btn-sm" href="pages/year-2-compound-words-and-contractions.html">View Worksheet</a>
-  </div>
-</li>
-
-<li class="wcard">
-  <div class="thumb c4">Year 2 · English</div>
-
-  <div class="body">
-    <p class="tag">Grammar</p>
-    <h3>Past and Present Tense Verbs</h3>
-
-    <span class="curriculum-badge">Australian Curriculum-aligned</span>
-
-    <p class="card-desc">
-      Choose and use past and present tense verbs accurately in sentences.
-    </p>
-
-    <a class="btn btn-primary btn-sm"
-       href="worksheets/year-2/english/year-2-english-past-and-present-tense-verbs-worksheet-ac9e2la06-free-printable.pdf"
-       download>
-      ⬇ Download PDF
-    </a>
- <a class="btn btn-secondary btn-sm" href="pages/year-2-past-and-present-tense-verbs.html">View Worksheet</a>
-  </div>
-</li>
-
-<li class="wcard">
-  <div class="thumb c1">Year 2 · English</div>
-
-  <div class="body">
-    <p class="tag">Reading Comprehension</p>
-    <h3>Australian Animals</h3>
-
-    <span class="curriculum-badge">Australian Curriculum-aligned</span>
-
-    <p class="card-desc">
-      Read an Australian-themed text and answer literal and inferential questions.
-    </p>
-
-    <a class="btn btn-primary btn-sm"
-       href="worksheets/year-2/english/year-2-english-reading-comprehension-australian-animals-worksheet-ac9e2ly05-free-printable.pdf"
-       download>
-      ⬇ Download PDF
-    </a>
- <a class="btn btn-secondary btn-sm" href="pages/year-2-reading-australian-animals.html">View Worksheet</a>
-  </div>
-</li>
-
-<li class="wcard">
-  <div class="thumb c2">Year 2 · English</div>
-
-  <div class="body">
-    <p class="tag">Reading Comprehension</p>
-    <h3>A Day at the Beach</h3>
-
-    <span class="curriculum-badge">Australian Curriculum-aligned</span>
-
-    <p class="card-desc">
-      Read a familiar narrative and respond to questions about characters, events and details.
-    </p>
-
-    <a class="btn btn-primary btn-sm"
-       href="worksheets/year-2/english/year-2-english-reading-comprehension-a-day-at-the-beach-worksheet-ac9e2ly05-free-printable.pdf"
-       download>
-      ⬇ Download PDF
-    </a>
-   <a class="btn btn-secondary btn-sm" href="pages/year-2-reading-a-day-at-the-beach.html">View Worksheet</a>
-  </div>
-</li>
-
-<li class="wcard">
-  <div class="thumb c2">Year 2 · English</div>
-
-  <div class="body">
-    <p class="tag">Decodable Reading</p>
-    <h3>The Broken Bridge</h3>
-
-    <span class="curriculum-badge">Australian Curriculum-aligned</span>
-
-    <p class="card-desc">
-      Read a decodable story and answer questions about its characters, events and key details.
-    </p>
-
-    <a class="btn btn-primary btn-sm"
-       href="worksheets/year-2/english/year-2-english-decodable-reading-the-broken-bridge-worksheet-ac9e2ly04-free-printable-colour.pdf"
-       download>
-      ⬇ Download PDF
-    </a>
-   <a class="btn btn-secondary btn-sm" href="pages/year-2-The Broken Bridge.html">View Worksheet</a>
-  </div>
-</li>
-
-<li class="wcard">
-  <div class="thumb c2">Year 2 · English</div>
-
-  <div class="body">
-    <p class="tag">Decodable Reading</p>
-    <h3>The Bushfire Warning</h3>
-
-    <span class="curriculum-badge">Australian Curriculum-aligned</span>
-
-    <p class="card-desc">
-      Read a decodable story about a bushfire warning and respond to questions about important details.
-    </p>
-
-    <a class="btn btn-primary btn-sm"
-       href="worksheets/year-2/english/year-2-english-decodable-reading-the-bushfire-warning-worksheet-ac9e2ly04-free-printable-colour.pdf"
-       download>
-      ⬇ Download PDF
-    </a>
- <a class="btn btn-secondary btn-sm" href="pages/year-2The Bushfire Warning.html">View Worksheet</a>
-  </div>
-</li>
-
-<li class="wcard">
-  <div class="thumb c2">Year 2 · English</div>
-
-  <div class="body">
-    <p class="tag">Decodable Reading</p>
-    <h3>The Clever Crow</h3>
-
-    <span class="curriculum-badge">Australian Curriculum-aligned</span>
-
-    <p class="card-desc">
-      Read a decodable animal story and answer questions about the crow’s actions and the story events.
-    </p>
-
-    <a class="btn btn-primary btn-sm"
-       href="worksheets/year-2/english/year-2-english-decodable-reading-the-clever-crow-worksheet-ac9e2ly04-free-printable-colour.pdf"
-       download>
-      ⬇ Download PDF
-    </a>
- <a class="btn btn-secondary btn-sm" href="pages/year-2-The Clever Crow.html">View Worksheet</a>
-  </div>
-</li>
-
-<li class="wcard">
-  <div class="thumb c2">Year 2 · English</div>
-
-  <div class="body">
-    <p class="tag">Decodable Reading</p>
-    <h3>The Magic Garden</h3>
-
-    <span class="curriculum-badge">Australian Curriculum-aligned</span>
-
-    <p class="card-desc">
-      Read an imaginative decodable story and respond to questions about its setting, events and details.
-    </p>
-
-    <a class="btn btn-primary btn-sm"
-       href="worksheets/year-2/english/year-2-english-decodable-reading-the-magic-garden-worksheet-ac9e2ly04-free-printable-colour.pdf"
-       download>
-      ⬇ Download PDF
-    </a>
-  <a class="btn btn-secondary btn-sm" href="pages/year-2-The Magic Garden.html">View Worksheet</a>
-  </div>
-</li>
-
-<li class="wcard">
-  <div class="thumb c2">Year 2 · English</div>
-
-  <div class="body">
-    <p class="tag">Decodable Reading</p>
-    <h3>The Old Lighthouse</h3>
-
-    <span class="curriculum-badge">Australian Curriculum-aligned</span>
-
-    <p class="card-desc">
-      Read a decodable story about an old lighthouse and answer questions about its setting and events.
-    </p>
-
-    <a class="btn btn-primary btn-sm"
-       href="worksheets/year-2/english/year-2-english-decodable-reading-the-old-lighthouse-worksheet-ac9e2ly04-free-printable-colour.pdf"
-       download>
-      ⬇ Download PDF
-    </a>
-  <a class="btn btn-secondary btn-sm" href="pages/year-2-The Old Lighthouse.html">View Worksheet</a>
-  </div>
-</li>
-
-<li class="wcard">
-  <div class="thumb c2">Year 2 · English</div>
-
-  <div class="body">
-    <p class="tag">Decodable Reading</p>
-    <h3>The Old Photograph</h3>
-
-    <span class="curriculum-badge">Australian Curriculum-aligned</span>
-
-    <p class="card-desc">
-      Read a decodable story about an old photograph and identify important events and story details.
-    </p>
-
-    <a class="btn btn-primary btn-sm"
-       href="worksheets/year-2/english/year-2-english-decodable-reading-the-old-photograph-worksheet-ac9e2ly04-free-printable-colour.pdf"
-       download>
-      ⬇ Download PDF
-    </a>
-  <a class="btn btn-secondary btn-sm" href="pages/year-2-The Old Photograph.html">View Worksheet</a>
-  </div>
-</li>
-
-<li class="wcard">
-  <div class="thumb c2">Year 2 · English</div>
-
-  <div class="body">
-    <p class="tag">Decodable Reading</p>
-    <h3>The Science Fair</h3>
-
-    <span class="curriculum-badge">Australian Curriculum-aligned</span>
-
-    <p class="card-desc">
-      Read a school-based decodable story and answer questions about the characters, events and outcome.
-    </p>
-
-    <a class="btn btn-primary btn-sm"
-       href="worksheets/year-2/english/year-2-english-decodable-reading-the-science-fair-worksheet-ac9e2ly04-free-printable-colour.pdf"
-       download>
-      ⬇ Download PDF
-    </a>
- <a class="btn btn-secondary btn-sm" href="pages/year-2-The Science Fair.html">View Worksheet</a>
-  </div>
-</li>
-
-<li class="wcard">
-  <div class="thumb c2">Year 2 · English</div>
-
-  <div class="body">
-    <p class="tag">Decodable Reading</p>
-    <h3>The Snow Day</h3>
-
-    <span class="curriculum-badge">Australian Curriculum-aligned</span>
-
-    <p class="card-desc">
-      Read a winter-themed decodable story and respond to questions about its characters, sequence and details.
-    </p>
-
-    <a class="btn btn-primary btn-sm"
-       href="worksheets/year-2/english/year-2-reading-the-snow-day-decodable-reading-ac9e2ly04-free-printable-australia-colour.pdf"
-       download>
-      ⬇ Download PDF
-    </a>
- <a class="btn btn-secondary btn-sm" href="pages/year-2-The Snow Day.html">View Worksheet</a>
-  </div>
-</li>
-
-<li class="wcard">
-  <div class="thumb c3">Year 2 · English</div>
-
-  <div class="body">
-    <p class="tag">Reading Comprehension</p>
-    <h3>The School Garden</h3>
-
-    <span class="curriculum-badge">Australian Curriculum-aligned</span>
-
-    <p class="card-desc">
-      Build comprehension by identifying key information in a school-based text.
-    </p>
-
-    <a class="btn btn-primary btn-sm"
-       href="worksheets/year-2/english/year-2-english-reading-comprehension-the-school-garden-worksheet-ac9e2ly05-free-printable.pdf"
-       download>
-      ⬇ Download PDF
-    </a>
- <a class="btn btn-secondary btn-sm" href="pages/year-2-The School Garden.html">View Worksheet</a>
-  </div>
-</li>
-
-<li class="wcard">
-  <div class="thumb c4">Year 2 · English</div>
-
-  <div class="body">
-    <p class="tag">Reading Comprehension</p>
-    <h3>Weather in Australia</h3>
-
-    <span class="curriculum-badge">Australian Curriculum-aligned</span>
-
-    <p class="card-desc">
-      Read an informative text about Australian weather and answer comprehension questions.
-    </p>
-
-    <a class="btn btn-primary btn-sm"
-       href="worksheets/year-2/english/year-2-english-reading-comprehension-weather-in-australia-worksheet-ac9e2ly05-free-printable.pdf"
-       download>
-      ⬇ Download PDF
-    </a>
-  <a class="btn btn-secondary btn-sm" href="pages/year-2-reading-weather-in-australia.html">View Worksheet</a>
-  </div>
-</li>
-
-<li class="wcard">
-  <div class="thumb c1">Year 2 · English</div>
-
-  <div class="body">
-    <p class="tag">Narrative Writing</p>
-    <h3>The Lost Lunchbox</h3>
-
-    <span class="curriculum-badge">Australian Curriculum-aligned</span>
-
-    <p class="card-desc">
-      Plan and write a simple narrative with a clear beginning, problem and ending.
-    </p>
-
-    <a class="btn btn-primary btn-sm"
-       href="worksheets/year-2/english/year-2-english-narrative-writing-the-lost-lunchbox-worksheet-ac9e2ly06-free-printable.pdf"
-       download>
-      ⬇ Download PDF
-    </a>
-  <a class="btn btn-secondary btn-sm" href="pages/year-2-narrative-the-lost-lunchbox.html">View Worksheet</a>
-  </div>
-</li>
-
-<li class="wcard">
-  <div class="thumb c2">Year 2 · English</div>
-
-  <div class="body">
-    <p class="tag">Recount Writing</p>
-    <h3>My Best School Day</h3>
-
-    <span class="curriculum-badge">Australian Curriculum-aligned</span>
-
-    <p class="card-desc">
-      Organise personal events in sequence and write a clear first-person recount.
-    </p>
-
-    <a class="btn btn-primary btn-sm"
-       href="worksheets/year-2/english/year-2-english-recount-writing-my-best-school-day-worksheet-ac9e2ly06-free-printable.pdf"
-       download>
-      ⬇ Download
- <a class="btn btn-secondary btn-sm" href="pages/year-2-recount-my-best-school-day.html">View Worksheet</a>
-  </div>
-</li>
-
-<li class="wcard">
-  <div class="thumb c3">Year 2 · English</div>
-
-  <div class="body">
-    <p class="tag">Procedure Writing</p>
-    <h3>How to Make a Healthy Snack</h3>
-
-    <span class="curriculum-badge">Australian Curriculum-aligned</span>
-
-    <p class="card-desc">
-      Write clear ingredients and ordered steps for a familiar procedure.
-    </p>
-
-    <a class="btn btn-primary btn-sm"
-       href="worksheets/year-2/english/year-2-english-procedure-writing-how-to-make-a-healthy-snack-worksheet-ac9e2ly06-free-printable.pdf"
-       download>
-      ⬇ Download PDF
-    </a>
- <a class="btn btn-secondary btn-sm" href="pages/year-2-procedure-healthy-snack.html">View Worksheet</a>
-  </div>
-</li>
-
-<li class="wcard">
-  <div class="thumb c4">Year 2 · English</div>
-
-  <div class="body">
-    <p class="tag">Persuasive Writing</p>
-    <h3>Keep Our Playground Clean</h3>
-
-    <span class="curriculum-badge">Australian Curriculum-aligned</span>
-
-    <p class="card-desc">
-      State an opinion and give simple reasons in a structured persuasive text.
-    </p>
-
-    <a class="btn btn-primary btn-sm"
-       href="worksheets/year-2/english/year-2-english-persuasive-writing-keep-our-playground-clean-worksheet-ac9e2ly06-free-printable.pdf"
-       download>
-      ⬇ Download PDF
-    </a>
-  <a class="btn btn-secondary btn-sm" href="pages/year-2-persuasive-keep-our-playground-clean.html">View Worksheet</a>
-  </div>
-</li>
-
-</ul> </div>
-
-</section> <section class="section" id="science" aria-labelledby="science-heading"> <div class="wrap"> <div class="section-head"> <div> <h2 id="science-heading">Year 2 Science Worksheets</h2> <p> Explore living things, Earth resources, useful materials, mixtures and forces through simple scientific investigations. </p> </div> </div>
-
-<ul class="grid-cards browse-grid">
-
-<li class="wcard">
-  <div class="thumb c1">Year 2 · Science</div>
-
-  <div class="body">
-    <p class="tag">Biological Sciences</p>
-    <h3>Living Things Grow and Change</h3>
-
-    <span class="curriculum-badge">Australian Curriculum-aligned</span>
-
-    <p class="card-desc">
-      Explore how living things grow, change and have offspring similar to themselves.
-    </p>
-
-    <a class="btn btn-primary btn-sm"
-       href="worksheets/year-2/science/year-2-science-living-things-grow-and-change-worksheet-ac9s2u01-free-printable.pdf"
-       download>
-      ⬇ Download PDF
-    </a>
-   <a class="btn btn-secondary btn-sm" href="pages/year-2-living-things-grow-and-change.html">View Worksheet</a>
-  </div>
-</li>
-
-<li class="wcard">
-  <div class="thumb c2">Year 2 · Science</div>
-
-  <div class="body">
-    <p class="tag">Earth and Space Sciences</p>
-    <h3>Earth Resources</h3>
-
-    <span class="curriculum-badge">Australian Curriculum-aligned</span>
-
-    <p class="card-desc">
-      Identify useful Earth resources and consider responsible ways to use and care for them.
-    </p>
-
-    <a class="btn btn-primary btn-sm"
-       href="worksheets/year-2/science/year-2-science-earth-resources-worksheet-ac9s2u02-free-printable.pdf"
-       download>
-      ⬇ Download PDF
-    </a>
-   <a class="btn btn-secondary btn-sm" href="pages/year-2-earth-resources.html">View Worksheet</a>
-</div>
-</li>
-
-<li class="wcard">
-  <div class="thumb c3">Year 2 · Science</div>
-
-  <div class="body">
-    <p class="tag">Chemical Sciences</p>
-    <h3>Materials for a Purpose</h3>
-
-    <span class="curriculum-badge">Australian Curriculum-aligned</span>
-
-    <p class="card-desc">
-      Compare material properties and choose suitable materials for everyday purposes.
-    </p>
-
-    <a class="btn btn-primary btn-sm"
-       href="worksheets/year-2/science/year-2-science-materials-for-a-purpose-worksheet-ac9s2u03-free-printable.pdf"
-       download>
-      ⬇ Download PDF
-    </a>
-    <a class="btn btn-secondary btn-sm" href="pages/year-2-materials-for-a-purpose.html">View Worksheet</a> </div>
-  </div>
-</li>
-
-<li class="wcard">
-  <div class="thumb c4">Year 2 · Science</div>
-
-  <div class="body">
-    <p class="tag">Chemical Sciences</p>
-    <h3>Mixing Materials</h3>
-
-    <span class="curriculum-badge">Australian Curriculum-aligned</span>
-
-    <p class="card-desc">
-      Observe what happens when familiar materials are combined and record simple findings.
-    </p>
-
-    <a class="btn btn-primary btn-sm"
-       href="worksheets/year-2/science/year-2-science-mixing-materials-worksheet-ac9s2u03-free-printable.pdf"
-       download>
-      ⬇ Download PDF
-    </a>
- <a class="btn btn-secondary btn-sm" href="pages/year-2-mixing-materials.html">View Worksheet</a>
-
-</div> </li>
-
-<li class="wcard">
-  <div class="thumb c1">Year 2 · Science</div>
-
-  <div class="body">
-    <p class="tag">Physical Sciences</p>
-    <h3>Push and Pull Forces</h3>
-
-    <span class="curriculum-badge">Australian Curriculum-aligned</span>
-
-    <p class="card-desc">
-      Investigate how pushes and pulls change the movement or shape of objects.
-    </p>
-
-    <a class="btn btn-primary btn-sm"
-       href="worksheets/year-2/science/year-2-science-push-and-pull-forces-worksheet-ac9s2u04-free-printable.pdf"
-       download>
-      ⬇ Download PDF
-    </a>
-   <a class="btn btn-secondary btn-sm" href="pages/year-2-push-and-pull-forces.htm
-  </div>
-</li>
-
-</ul> </div>
-
-</section> <section class="section faq-section" aria-labelledby="faq-heading"> <div class="wrap"> <div class="section-head"> <div> <h2 id="faq-heading">Year 2 Worksheet FAQs</h2> <p>Helpful information for teachers, parents, tutors and homeschool families.</p> </div> </div>
-
-<div class="faq-list">
-
-<details class="faq-item">
-  <summary>Are these Year 2 worksheets free?</summary>
-  <p>
-    Yes. Every worksheet listed on this page is available as a free printable PDF
-    for educational use at home, at school, in tutoring sessions or in homeschool programs.
-  </p>
-</details>
-
-<details class="faq-item">
-  <summary>Are these worksheets aligned to the Australian Curriculum?</summary>
-  <p>
-    The worksheets are designed to support Australian Curriculum V9.0 Year 2 content
-    and skills. Aussie Primary Academy is an independent educational publisher and is not endorsed by ACARA.
-  </p>
-</details>
-
-<details class="faq-item">
-  <summary>What subjects are included?</summary>
-  <p>
-    This Year 2 collection currently includes Maths, English and Science.
-    English includes grammar, punctuation, reading comprehension and writing activities.
-  </p>
-</details>
-
-<details class="faq-item">
-  <summary>Can parents use these worksheets at home?</summary>
-  <p>
-    Yes. The clear instructions and focused activities make them suitable for homework,
-    revision, extra practice and homeschool learning.
-  </p>
-</details>
-
-<details class="faq-item">
-  <summary>Will more Year 2 worksheets be added?</summary>
-  <p>
-    Yes. New Year 2 resources will be added as the library grows,
-    including additional reading and curriculum topics.
-  </p>
-</details>
-
-</div> </div>
-
-</section></main><footer> <h2 class="visually-hidden">Site footer</h2> <div class="wrap"><div class="foot-grid">
-
-<div> <h3>Aussie Primary Academy</h3>
-
-<p>
-  Free, curriculum-aligned printable worksheets for Australian families,
-  teachers and tutors, covering Foundation to Year 6.
-</p>
-
-</div>
-
-<nav aria-label="Explore"> <h3>Explore</h3>
-
-<a href="index.html#years">Year Levels</a>
-<a href="index.html#subjects">Subjects</a>
-<a href="worksheets.html">Newest Worksheets</a>
-
-</nav>
-
-<nav aria-label="Subjects"> <h3>Subjects</h3>
-
-<a href="#maths">Maths</a>
-<a href="#english">English</a>
-<a href="#science">Science</a>
-
-</nav>
-
-<nav aria-label="About"> <h3>About</h3>
-
-<a href="about.html">Our Story</a>
-
-<a href="https://docs.google.com/forms/d/e/1FAIpQLSfJH0se7O-YyMiqGQFUqlmz_802WqFJTBKrviupNjNrItLtOw/viewform">
-  Share Feedback
-</a>
-
-<a href="blog/free-foundation-prep-worksheets-australia.html">
-  Blog
-</a>
-
-</nav>
-
-</div>
-
-<div class="foot-bottom">
-
-<span> www.aussieprimaryacademy.com.au | © 2026 Aussie Primary Academy. All Rights Reserved. </span>
-
-<span> Original Content – For Educational Use Only. Redistribution Prohibited. </span>
-
-</div>
-
-</div></footer></body> </html>
+/* ==========================================================================
+   Aussie Primary Academy — styles.css
+   Pure HTML + CSS, no JavaScript. Mobile nav uses the checkbox hack.
+   ========================================================================== */
+
+:root{
+  --lavender: #CDB4DB;
+  --lavender-soft: #E8D9F0;
+  --lavender-pale: #F8F1FB;
+  --deep-purple: #4A3358;
+  --peach: #F5A889;
+  --peach-deep: #E8895F;
+  --sky: #8FCBE0;
+  --sky-pale: #EAF6FA;
+  --mint: #BFE6CC;
+  --paper: #FFFDF8;
+  --ink: #3A3040;
+  --ink-soft: #6B6070;
+  --radius: 20px;
+  --shadow: 0 10px 30px -12px rgba(74,51,88,0.18);
+  --shadow-sm: 0 4px 14px -6px rgba(74,51,88,0.14);
+}
+
+*{ box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
+body{
+  margin:0;
+  font-family:'Nunito Sans', sans-serif;
+  color:var(--ink);
+  background:var(--paper);
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4,.brand,.btn,.pill,.eyebrow{ font-family:'Quicksand', sans-serif; }
+h1,h2,h3,h4{ color:var(--deep-purple); font-weight:700; }
+a{ text-decoration:none; color:inherit; }
+ul{ list-style:none; margin:0; padding:0; }
+img{ max-width:100%; display:block; }
+
+:focus-visible{ outline:3px solid var(--sky); outline-offset:2px; border-radius:8px; }
+
+.visually-hidden{
+  position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+  overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+}
+
+.skip-link{
+  position:absolute; left:12px; top:-60px; z-index:100;
+  background:var(--deep-purple); color:#fff; padding:10px 18px;
+  border-radius:0 0 10px 10px; font-weight:700; transition:top .15s ease;
+}
+.skip-link:focus{ top:0; }
+
+.wrap{ max-width:1180px; margin:0 auto; padding:0 24px; }
+
+/* ---------- NAV ---------- */
+header.site{
+  position:sticky; top:0; z-index:50;
+  background:rgba(255,253,248,0.92);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid #EFE3F6;
+}
+.nav{
+  position:relative;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:16px 24px; flex-wrap:wrap;
+}
+.brand{ font-weight:700; font-size:20px; color:var(--deep-purple); display:flex; align-items:center; gap:10px; }
+.brand .mark{
+  width:34px; height:34px; border-radius:10px;
+  background:linear-gradient(135deg, var(--lavender-soft), var(--lavender));
+  display:flex; align-items:center; justify-content:center;
+  font-size:16px; color:var(--deep-purple); font-weight:700;
+}
+
+.nav-toggle-input{ position:absolute; opacity:0; pointer-events:none; }
+
+.menu-toggle{
+  display:none; cursor:pointer; padding:8px; border-radius:10px;
+}
+.menu-toggle:hover{ background:var(--lavender-pale); }
+.menu-icon,
+.menu-icon::before,
+.menu-icon::after{
+  display:block; width:22px; height:2px; background:var(--deep-purple); border-radius:2px;
+  position:relative; transition:transform .15s ease;
+}
+.menu-icon::before,
+.menu-icon::after{ content:""; position:absolute; left:0; }
+.menu-icon::before{ top:-7px; }
+.menu-icon::after{ top:7px; }
+
+nav.links{
+  display:flex; align-items:center; gap:28px; font-weight:600; font-size:15px; color:var(--ink-soft);
+}
+nav.links a:not(.btn):hover{ color:var(--deep-purple); }
+
+.btn{
+  font-weight:700; font-size:14.5px; padding:11px 22px; border-radius:14px;
+  display:inline-flex; align-items:center; gap:8px; border:none; cursor:pointer;
+  transition:transform .15s ease, box-shadow .15s ease, background-color .15s ease;
+}
+.btn:hover{ transform:translateY(-1px); }
+.btn-primary{ background:var(--lavender); color:var(--deep-purple); box-shadow:var(--shadow-sm); }
+.btn-primary:hover{ background:#C1A0D4; }
+.btn-peach{ background:var(--peach); color:#fff; box-shadow:0 8px 20px -8px rgba(232,137,95,0.55); }
+.btn-peach:hover{ background:var(--peach-deep); }
+.btn-ghost{ background:transparent; color:var(--deep-purple); border:2px solid var(--lavender); }
+.btn-ghost:hover{ background:var(--lavender-pale); }
+
+/* ---------- HERO ---------- */
+.hero{ padding:64px 0 40px; }
+.hero-grid{ display:grid; grid-template-columns:1.05fr 1fr; gap:48px; align-items:start; }
+.eyebrow{
+  display:inline-block; background:var(--mint); color:#215B36; font-weight:700;
+  font-size:13px; padding:6px 14px; border-radius:999px; margin:0 0 18px;
+}
+h1{ font-size:44px; line-height:1.15; margin:0 0 18px; }
+h1 span{ color:var(--peach-deep); }
+.hero .lead{ font-size:17.5px; color:var(--ink-soft); line-height:1.6; max-width:480px; margin:0 0 30px; }
+.hero-ctas{ display:flex; gap:14px; flex-wrap:wrap; margin-bottom:34px; }
+.trust-row{ display:flex; gap:26px; flex-wrap:wrap; }
+.trust-item{ display:flex; align-items:center; gap:8px; font-size:13.5px; font-weight:700; color:var(--ink-soft); }
+.trust-item .dot{ width:8px; height:8px; border-radius:50%; background:var(--peach); flex-shrink:0; }
+
+/* ---------- HERO RIGHT: search + worksheet card ---------- */
+.hero-finder{ position:relative; }
+.finder-card{
+  background:#fff; border:2px solid var(--lavender-soft); border-radius:var(--radius);
+  box-shadow:var(--shadow); padding:22px; margin-bottom:20px; position:relative; overflow:hidden;
+}
+.finder-card::before{
+  content:""; position:absolute; top:0; left:0; right:0; height:6px;
+  background:linear-gradient(90deg, var(--lavender), var(--sky), var(--peach));
+}
+.finder-card h2{ margin:6px 0 14px; font-size:17px; }
+.search-row{ display:flex; gap:10px; flex-wrap:wrap; }
+.search-row input{
+  flex:1; min-width:0; padding:13px 16px; border-radius:14px; border:2px solid #EADFF3;
+  font-family:'Nunito Sans', sans-serif; font-size:14.5px; color:var(--ink);
+}
+.search-row input:focus{ border-color:var(--lavender); outline:none; }
+.pill-row{ display:flex; gap:10px; flex-wrap:wrap; margin-top:16px; }
+.pill{
+  font-weight:700; font-size:13.5px; padding:9px 16px; border-radius:12px;
+  background:var(--lavender-pale); color:var(--deep-purple); border:2px solid transparent;
+  transition:border-color .15s ease, background-color .15s ease;
+}
+.pill.active{ background:var(--peach); color:#fff; }
+.pill:hover{ border-color:var(--lavender); }
+
+.subject-list{ display:flex; flex-direction:column; gap:12px; }
+.subject-card{
+  display:block;
+  background:#fff;
+  border:2px solid #EFE3F6;
+  border-radius:16px;
+  padding:0;
+  overflow:hidden;
+  box-shadow:var(--shadow-sm);
+  transition:transform .15s ease, border-color .15s ease;
+}
+.subject-card a{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  width:100%;
+  color:inherit;
+  text-decoration:none;
+}
+
+.subject-card a:visited{
+  color:inherit;
+}
+
+.subject-card a:hover{
+  text-decoration:none;
+}
+
+.subject-card:hover{ transform:translateY(-2px); border-color:var(--lavender); }
+.subject-card .swatch{ width:44px; height:44px; border-radius:12px; flex-shrink:0; display:flex; align-items:center; justify-content:center; }
+.subject-card.maths .swatch{ background:var(--sky-pale); border:2px solid var(--sky); }
+.subject-card.english .swatch{ background:var(--lavender-pale); border:2px solid var(--lavender); }
+.subject-card.science .swatch{ background:#EAF7EE; border:2px solid var(--mint); }
+.subject-card .info{ flex:1; }
+.subject-card .info h3{ margin:0 0 3px; font-size:15.5px; }
+.subject-card .info p{ margin:0; font-size:12.8px; color:var(--ink-soft); }
+.badge-pdf{
+  font-size:11.5px; font-weight:800; letter-spacing:.03em; color:var(--deep-purple);
+  background:var(--lavender-soft); padding:6px 10px; border-radius:8px; flex-shrink:0;
+}
+
+/* ---------- WORKSHEET PEEK (decorative, signature element) ---------- */
+.worksheet-peek{
+  position:absolute; top:-18px; right:-14px; z-index:5;
+  width:120px; transform:rotate(-8deg); pointer-events:none;
+}
+.worksheet-peek .paper{
+  background:#fff; border-radius:12px; box-shadow:0 18px 40px -14px rgba(74,51,88,0.35);
+  padding:12px 12px 10px; border:1px solid #EEE2F5;
+}
+.worksheet-peek .paper .strip{
+  height:18px; border-radius:6px; background:linear-gradient(135deg, var(--lavender-soft), var(--lavender));
+  margin-bottom:8px;
+}
+.worksheet-peek .paper .line{ height:5px; border-radius:3px; background:#F1E9F7; margin-bottom:5px; }
+.worksheet-peek .paper .line.short{ width:60%; }
+.worksheet-peek .sticker{
+  position:absolute; top:-12px; right:-10px; background:var(--peach); color:#fff;
+  font-family:'Quicksand',sans-serif; font-weight:700; font-size:9px; padding:0;
+  border-radius:50%; width:46px; height:46px; display:flex; align-items:center; justify-content:center;
+  text-align:center; line-height:1.1; transform:rotate(10deg); box-shadow:0 8px 18px -6px rgba(232,137,95,.6);
+}
+
+/* ---------- SECTION: TRUST STRIP ---------- */
+.strip-section{ background:var(--lavender-pale); padding:26px 0; margin-top:56px; }
+.strip-grid{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:18px; }
+.strip-item{ display:flex; align-items:center; gap:10px; font-weight:700; color:var(--deep-purple); font-size:14.5px; }
+.strip-item .ic{ width:30px;height:30px;border-radius:9px;background:#fff;display:flex;align-items:center;justify-content:center;font-size:15px; flex-shrink:0; }
+
+/* ---------- SECTIONS ---------- */
+.section{ padding:64px 0; }
+.section-head{ display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:32px; flex-wrap:wrap; gap:16px; }
+.section-head h2{ font-size:30px; margin:0; }
+.section-head p{ color:var(--ink-soft); margin:6px 0 0; font-size:15px; }
+
+/* ---------- FEATURED WORKSHEETS ---------- */
+.grid-cards{ display:grid; grid-template-columns:repeat(4, 1fr); gap:20px; }
+.wcard{
+  border:2px solid #F0E4F8; border-radius:18px; padding:0; overflow:hidden;
+  background:#fff; box-shadow:var(--shadow-sm); transition:transform .18s ease, box-shadow .18s ease;
+}
+.wcard:hover{ transform:translateY(-4px); box-shadow:var(--shadow); }
+.wcard .thumb{ height:96px; display:flex; align-items:center; justify-content:center; font-family:'Quicksand',sans-serif; font-weight:700; color:var(--deep-purple); font-size:13px; text-align:center; padding:10px; }
+.wcard .thumb.c1{ background:linear-gradient(135deg,#F3E9FA,#E8D9F0); }
+.wcard .thumb.c2{ background:linear-gradient(135deg,#EAF6FA,#D9EEF6); }
+.wcard .thumb.c3{ background:linear-gradient(135deg,#EAF7EE,#DCF0E2); }
+.wcard .thumb.c4{ background:linear-gradient(135deg,#FDEEE6,#FBDFD0); }
+.wcard .body{
+  padding:16px;
+  display:flex;
+  flex-direction:column;
+  flex:1;
+}
+.wcard .card-desc{
+  flex-grow:1;
+}
+
+.wcard .btn{
+  margin-top:auto;
+}
+.wcard .tag{ font-size:11px; font-weight:800; color:var(--peach-deep); text-transform:uppercase; letter-spacing:.04em; margin:0; }
+.wcard h3{ font-size:15px; margin:6px 0 10px; }
+.wcard .dl{ font-size:13px; font-weight:700; color:var(--deep-purple); display:inline-flex; align-items:center; gap:6px; }
+.wcard .dl:hover{ text-decoration:underline; }
+
+/* ---------- YEAR STRIP ---------- */
+.year-strip{ display:flex; gap:12px; flex-wrap:wrap; }
+.year-strip li{ flex:1; min-width:120px; }
+.year-chip{
+  display:block; text-align:center; padding:22px 10px; border-radius:18px;
+  background:#fff; border:2px solid #F0E4F8; font-weight:700; color:var(--deep-purple);
+  box-shadow:var(--shadow-sm); transition:border-color .15s ease, transform .15s ease;
+}
+.year-chip:hover{ border-color:var(--lavender); transform:translateY(-3px); }
+.year-chip .n{ font-size:22px; display:block; margin-bottom:4px; }
+
+/* ---------- FOOTER ---------- */
+footer{ background:var(--deep-purple); color:#EFE3F6; padding:48px 0 26px; margin-top:40px; }
+.foot-grid{ display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:32px; margin-bottom:30px; }
+footer h3{ color:#fff; font-family:'Quicksand',sans-serif; font-size:14.5px; margin:0 0 14px; }
+footer p{ color:#D9C7E8; font-size:13.5px; line-height:1.7; margin:0; }
+footer a{ color:#D9C7E8; font-size:13.5px; display:block; margin-bottom:9px; }
+footer a:hover{ color:#fff; text-decoration:underline; }
+.foot-bottom{
+  border-top:1px solid rgba(255,255,255,0.15); padding-top:20px; font-size:12.5px; color:#C3AAD8;
+  display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+@media (max-width: 900px){
+  nav.links{
+    display:none;
+    position:absolute; top:100%; left:0; right:0;
+    flex-direction:column; align-items:flex-start; gap:4px;
+    background:var(--paper); border-bottom:1px solid #EFE3F6;
+    padding:12px 24px 20px; box-shadow:var(--shadow-sm);
+  }
+  nav.links a{ padding:10px 0; width:100%; }
+  .nav-toggle-input:checked ~ nav.links{ display:flex; }
+  .menu-toggle{ display:block; }
+  .nav-cta{ margin-top:8px; }
+
+  .hero-grid{ grid-template-columns:1fr; }
+  .worksheet-peek{ display:none; }
+  h1{ font-size:34px; }
+  .grid-cards{ grid-template-columns:repeat(2,1fr); }
+  .foot-grid{ grid-template-columns:1fr 1fr; }
+}
+
+@media (max-width:520px){
+  h1{ font-size:28px; }
+  .hero .lead{ max-width:none; }
+  .grid-cards{ grid-template-columns:1fr; }
+  .strip-grid{ justify-content:flex-start; }
+  .foot-grid{ grid-template-columns:1fr; }
+  .search-row{ flex-direction:column; }
+  .search-row button{ width:100%; justify-content:center; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  *{ transition:none !important; scroll-behavior:auto !important; }
+}
+/* Foundation page polish */
+.breadcrumb {
+  padding-top: 24px;
+  font-size: 14px;
+}
+
+.breadcrumb ol {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  color: var(--ink-soft);
+}
+
+.breadcrumb a {
+  color: var(--deep-purple);
+  font-weight: 700;
+}
+
+.page-hero {
+  padding: 56px 0 32px;
+  background: var(--lavender-pale);
+}
+
+.page-hero .lead {
+  max-width: 760px;
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--ink-soft);
+}
+
+.browse-grid .wcard .body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.curriculum-badge {
+  display: inline-block;
+  width: fit-content;
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--deep-purple);
+  background: var(--lavender-pale);
+  border: 1px solid var(--lavender-soft);
+  border-radius: 999px;
+  padding: 6px 10px;
+}
+
+.card-desc {
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  margin: 0 0 8px;
+}
+
+.btn-sm {
+  padding: 9px 14px;
+  font-size: 13px;
+  width: fit-content;
+}
+
+.note-box {
+  background: #fff;
+  border: 2px solid var(--lavender-soft);
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+}
+.hero-thumbnail {
+  margin: 2rem 0;
+  text-align: center;
+}
+
+.hero-thumbnail img {
+  width: 100%;
+  max-width: 700px;
+  height: auto;
+  border-radius: 16px;
+  display: block;
+  margin: 0 auto;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+}
+.note-box h3 {
+  margin-top: 0;
+}
+
+.faq-list {
+  display: grid;
+  gap: 14px;
+}
+
+.faq-item {
+  background: #fff;
+  border: 2px solid var(--lavender-soft);
+  border-radius: 16px;
+  padding: 16px 18px;
+  box-shadow: var(--shadow-sm);
+}
+
+.faq-item summary {
+  cursor: pointer;
+  font-weight: 800;
+  color: var(--deep-purple);
+  font-family: 'Quicksand', sans-serif;
+}
+
+.faq-item p {
+  color: var(--ink-soft);
+  line-height: 1.6;
+}
+.hero-copy{
+  background:#fff8f6;
+  padding:24px;
+  border-radius:20px;
+}
+
+.hero-finder{
+  background:#eef9f1;
+}
+.search-examples{
+  margin-top:10px;
+  font-size:14px;
+  color:#6b7280;
+  text-align:center;
+  line-height:1.5;
+}
+
+.search-examples strong{
+  color:#374151;
+}
+/* =========================
+   INDIVIDUAL WORKSHEET PAGE
+========================= */
+
+.worksheet-hero {
+  padding:3rem 0 2rem;
+}
+
+.worksheet-meta {
+  display:flex;
+  flex-wrap:wrap;
+  gap:.75rem;
+  margin-top:1.5rem;
+}
+
+.meta-badge {
+  background:var(--lavender-pale);
+  color:var(--deep-purple);
+  border:1px solid var(--lavender-soft);
+  padding:.4rem .85rem;
+  border-radius:999px;
+  font-size:.85rem;
+  font-weight:700;
+}
+
+.preview-box {
+  background:#f8fafc;
+  border:1px solid #e2e8f0;
+  border-radius:16px;
+  padding:1.5rem;
+  text-align:center;
+  margin-bottom:2rem;
+}
+
+.preview-box img {
+  max-width:100%;
+  height:auto;
+  border-radius:12px;
+}
+
+.action-row {
+  display:flex;
+  flex-wrap:wrap;
+  gap:1rem;
+  margin-bottom:2rem;
+}
+
+.info-grid {
+  display:grid;
+  grid-template-columns:1fr;
+  gap:1.5rem;
+}
+
+@media(min-width:700px){
+  .info-grid{
+    grid-template-columns:1fr 1fr;
+  }
+}
+
+.info-card {
+  background:#ffffff;
+  border:1px solid #e2e8f0;
+  border-radius:16px;
+  padding:1.5rem;
+}
+
+.info-card h2 {
+  font-size:1.2rem;
+  margin-top:0;
+}
+
+.related-list {
+  list-style:none;
+  padding:0;
+}
+
+.related-list li {
+  padding:.75rem 0;
+  border-bottom:1px solid #e5e7eb;
+}
+
+.related-list a {
+  color:var(--deep-purple);
+  font-weight:700;
+  text-decoration:none;
+}
+
+.related-list a:hover {
+  text-decoration:underline;
+}
