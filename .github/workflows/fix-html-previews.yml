@@ -1,5 +1,6 @@
 name: Fix HTML Previews
-on: workflow_dispatch
+on:
+  workflow_dispatch:
 jobs:
   fix:
     runs-on: ubuntu-latest
@@ -9,40 +10,26 @@ jobs:
       - uses: actions/checkout@v4
       - name: Fix all previews
         run: |
-          python3 - << 'PY'
-          import pathlib, re, glob
-          # 1. Fix pages/*.html - add preview img
+          python3 << 'PY'
+          import pathlib, re
           for html in pathlib.Path("pages").glob("*.html"):
-              txt = html.read_text()
-              # find pdf name
-              m = re.search(r'href="[^"]*?([^"/]+\.pdf)"', txt)
-              if not m:
+              txt = html.read_text(encoding='utf-8')
+              base = html.stem
+              previews = list(pathlib.Path("worksheets").rglob(f"previews/*{base}*.png"))
+              if not previews:
+                  parts = base.split('-')
+                  keyword = '-'.join(parts[-2:])
+                  previews = list(pathlib.Path("worksheets").rglob(f"previews/*{keyword}*.png"))
+              if not previews:
                   continue
-              pdf = m.group(1).replace('.pdf','')
-              preview = f'../worksheets/previews/{pdf}.png'
-              # if already has preview img, replace src
-              if 'worksheets/previews' in txt:
-                  txt = re.sub(r'src="[^"]*previews/[^"]+"', f'src="{preview}"', txt)
-              else:
-                  # insert before Download button
-                  txt = txt.replace('⬇ Download Free PDF', f'<img src="{preview}" alt="Worksheet preview" style="width:100%;border-radius:12px;margin-bottom:16px;"><br>⬇ Download Free PDF')
-                  txt = txt.replace('Download Free PDF', f'<img src="{preview}" alt="Worksheet preview" style="width:100%;border-radius:12px;margin-bottom:16px;"><br>Download Free PDF', 1)
-              html.write_text(txt)
-          
-          # 2. Fix year level pages like year-3.html
-          for html in pathlib.Path(".").glob("year-*.html"):
-              txt = html.read_text()
-              def repl(match):
-                  pdf_path = match.group(1)
-                  pdf_name = pdf_path.split('/')[-1].replace('.pdf','')
-                  preview = f'{pdf_path.replace("../","").replace("worksheets/","worksheets/previews/").replace(".pdf",".png")}'
-                  # for cards, add img on top
-                  return f'<div style="background:#f5f0ff;border-radius:12px;height:140px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;overflow:hidden;"><img src="{preview}" style="width:100%;height:100%;object-fit:cover;" alt=""></div>\n            <p class="tag">Fractions</p>'
-              # simple insert preview above tag if not exists
-              if 'worksheets/previews' not in txt:
-                  txt = re.sub(r'<p class="tag">Fractions</p>', repl(txt[:1000]), txt) # placeholder
-              html.write_text(txt)
-          print("Done")
+              rel_preview = "../" + str(previews[0])
+              pdfs = list(pathlib.Path("worksheets").rglob(f"{base}*.pdf"))
+              rel_pdf = "../" + str(pdfs[0]) if pdfs else ""
+              new_box = f'<div class="preview-box" style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:16px; text-align:center;"><p style="margin:0 0 12px;font-weight:700;color:var(--deep-purple);">Worksheet Preview</p><img src="{rel_preview}" alt="{base} Preview" style="width:100%; max-width:700px; height:auto; border-radius:8px;"></div>'
+              txt = re.sub(r'<div class="preview-box">.*?</div>', new_box, txt, flags=re.DOTALL)
+              if rel_pdf:
+                  txt = re.sub(r'href="[^"]+\.pdf"', f'href="{rel_pdf}"', txt, count=1)
+              html.write_text(txt, encoding='utf-8')
           PY
       - name: Commit
         run: |
