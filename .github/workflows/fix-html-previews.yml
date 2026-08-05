@@ -1,40 +1,64 @@
 name: Fix HTML Previews
+
 on:
   workflow_dispatch:
+
 jobs:
   fix:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+
     steps:
       - uses: actions/checkout@v5
-      - name: Fix all previews
+
+      - name: Fix preview images only
         run: |
           python3 << 'PY'
-          import pathlib, re
+          import pathlib
+          import re
+
           for html in pathlib.Path("pages").glob("*.html"):
-              txt = html.read_text(encoding='utf-8')
+
+              txt = html.read_text(encoding="utf-8")
               base = html.stem
-              previews = list(pathlib.Path("worksheets").rglob(f"previews/*{base}*.png"))
-              if not previews:
-                  parts = base.split('-')
-                  keyword = '-'.join(parts[-2:])
-                  previews = list(pathlib.Path("worksheets").rglob(f"previews/*{keyword}*.png"))
+
+              previews = list(
+                  pathlib.Path("worksheets")
+                  .rglob(f"previews/*{base}*.png")
+              )
+
               if not previews:
                   continue
+
               rel_preview = "../" + str(previews[0])
-              pdfs = list(pathlib.Path("worksheets").rglob(f"{base}*.pdf"))
-              rel_pdf = "../" + str(pdfs[0]) if pdfs else ""
-              new_box = f'<div class="preview-box" style="background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:16px; text-align:center;"><p style="margin:0 0 12px;font-weight:700;color:var(--deep-purple);">Worksheet Preview</p><img src="{rel_preview}" alt="{base} Preview" style="width:100%; max-width:700px; height:auto; border-radius:8px;"></div>'
-              txt = re.sub(r'<div class="preview-box">.*?</div>', new_box, txt, flags=re.DOTALL)
-              if rel_pdf:
-                  txt = re.sub(r'href="[^"]+\.pdf"', f'href="{rel_pdf}"', txt, count=1)
-              html.write_text(txt, encoding='utf-8')
+
+              new_box = f'''
+              <div class="preview-box" style="background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:16px;text-align:center;">
+                <p style="margin:0 0 12px;font-weight:700;color:var(--deep-purple);">
+                  Worksheet Preview
+                </p>
+                <img src="{rel_preview}" 
+                     alt="{base} Preview"
+                     style="width:100%;max-width:700px;height:auto;border-radius:8px;">
+              </div>
+              '''
+
+              txt = re.sub(
+                  r'<div class="preview-box">.*?</div>',
+                  new_box,
+                  txt,
+                  flags=re.DOTALL
+              )
+
+              html.write_text(txt, encoding="utf-8")
+
           PY
-      - name: Commit
+
+      - name: Commit changes
         run: |
           git config user.name "fix-bot"
           git config user.email "fix@bot.com"
           git add -A
-          git commit -m "fix: add preview images to pages and cards" || echo "no changes"
+          git commit -m "fix: update worksheet previews only" || echo "no changes"
           git push
