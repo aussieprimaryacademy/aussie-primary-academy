@@ -49,6 +49,8 @@
   .filter-card .pill:focus-visible { outline:3px solid #A2D2FF; outline-offset:2px; }
   .wcard[hidden] { display:none !important; }
   .no-results { background:#fff; border:2px dashed #CDB4DB; border-radius:20px; padding:28px; text-align:center; }
+
+  .wcard.highlight-card { outline: 3px solid #FFD6A5; outline-offset: 4px; border-radius: 20px; transition: outline 0.5s ease; }
 </style>
 <base target="_blank">
 </head>
@@ -58,7 +60,7 @@
 
 <header class="site">
   <div class="wrap nav">
-    <a href="index.html" class="brand">
+    <a href="index.html" class="brand" aria-label="Aussie Primary Academy home">
       <span class="mark" aria-hidden="true">AP</span>
       Aussie Primary Academy
     </a>
@@ -69,7 +71,7 @@
       <span class="menu-icon" aria-hidden="true"></span>
     </label>
 
-    <nav class="links" aria-label="Primary">
+    <nav class="links" aria-label="Primary navigation">
       <a href="worksheets.html" aria-current="page">Worksheets</a>
       <a href="index.html#years">Year Levels</a>
       <a href="index.html#subjects">Subjects</a>
@@ -157,7 +159,7 @@
 
       <ul class="grid-cards browse-grid">
 
-        <li class="wcard" data-year="foundation" data-subject="maths" data-search="foundation · maths number counting and comparing collections to 20 australian curriculum-aligned count, model and compare collections of objects up to 20 — great hands-on practice for early number sense. ⬇ download pdf">
+        <li class="wcard" id="w-foundation-counting-and-comparing-collections-to-20" data-year="foundation" data-subject="maths" data-search="foundation · maths number counting and comparing collections to 20 australian curriculum-aligned count, model and compare collections of objects up to 20 — great hands-on practice for early number sense. ⬇ download pdf">
                   <div class="thumb c1">Foundation · Maths</div>
                   <div class="body">
                     <p class="tag">Number</p>
@@ -168,7 +170,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="foundation" data-subject="maths" data-search="foundation · maths number counting to 20 australian curriculum-aligned name, represent and order numbers from 0 to 20, building confident early number recognition. ⬇ download pdf">
+        <li class="wcard" id="w-foundation-counting-to-20" data-year="foundation" data-subject="maths" data-search="foundation · maths number counting to 20 australian curriculum-aligned name, represent and order numbers from 0 to 20, building confident early number recognition. ⬇ download pdf">
                   <div class="thumb c2">Foundation · Maths</div>
                   <div class="body">
                     <p class="tag">Number</p>
@@ -179,7 +181,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="foundation" data-subject="maths" data-search="foundation · maths number subitising australian curriculum-aligned recognise small quantities at a glance without counting one by one, using dot patterns and everyday objects. ⬇ download pdf">
+        <li class="wcard" id="w-foundation-subitising" data-year="foundation" data-subject="maths" data-search="foundation · maths number subitising australian curriculum-aligned recognise small quantities at a glance without counting one by one, using dot patterns and everyday objects. ⬇ download pdf">
                   <div class="thumb c2">Foundation · Maths</div>
                   <div class="body">
                     <p class="tag">Number</p>
@@ -190,7 +192,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="foundation" data-subject="maths" data-search="foundation · maths number part-part-whole australian curriculum-aligned explore how numbers can be split and combined, building the foundations for later addition and subtraction. ⬇ download pdf">
+        <li class="wcard" id="w-foundation-part-part-whole" data-year="foundation" data-subject="maths" data-search="foundation · maths number part-part-whole australian curriculum-aligned explore how numbers can be split and combined, building the foundations for later addition and subtraction. ⬇ download pdf">
                   <div class="thumb c3">Foundation · Maths</div>
                   <div class="body">
                     <p class="tag">Number</p>
@@ -201,7 +203,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="foundation" data-subject="maths" data-search="foundation · maths number addition to 10 australian curriculum-aligned simple addition problems within 10, using pictures and number lines to support understanding. ⬇ download pdf">
+        <li class="wcard" id="w-foundation-addition-to-10" data-year="foundation" data-subject="maths" data-search="foundation · maths number addition to 10 australian curriculum-aligned simple addition problems within 10, using pictures and number lines to support understanding. ⬇ download pdf">
                   <div class="thumb c4">Foundation · Maths</div>
                   <div class="body">
                     <p class="tag">Number</p>
@@ -212,7 +214,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="foundation" data-subject="maths" data-search="foundation · maths pattern repeating patterns australian curriculum-aligned identify, copy and continue simple repeating patterns using colours, shapes and objects. ⬇ download pdf">
+        <li class="wcard" id="w-foundation-repeating-patterns" data-year="foundation" data-subject="maths" data-search="foundation · maths pattern repeating patterns australian curriculum-aligned identify, copy and continue simple repeating patterns using colours, shapes and objects. ⬇ download pdf">
                   <div class="thumb c2">Foundation · Maths</div>
                   <div class="body">
                     <p class="tag">Pattern</p>
@@ -223,7 +225,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="foundation" data-subject="maths" data-search="foundation · maths space shapes australian curriculum-aligned sort and name common 2d shapes and spot them in everyday objects around home and school. ⬇ download pdf">
+        <li class="wcard" id="w-foundation-shapes" data-year="foundation" data-subject="maths" data-search="foundation · maths space shapes australian curriculum-aligned sort and name common 2d shapes and spot them in everyday objects around home and school. ⬇ download pdf">
                   <div class="thumb c3">Foundation · Maths</div>
                   <div class="body">
                     <p class="tag">Space</p>
@@ -234,7 +236,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="foundation" data-subject="maths" data-search="foundation · maths measurement measurement australian curriculum-aligned compare length, size and capacity using everyday language like longer, shorter, heavier and lighter. ⬇ download pdf">
+        <li class="wcard" id="w-foundation-measurement" data-year="foundation" data-subject="maths" data-search="foundation · maths measurement measurement australian curriculum-aligned compare length, size and capacity using everyday language like longer, shorter, heavier and lighter. ⬇ download pdf">
                   <div class="thumb c4">Foundation · Maths</div>
                   <div class="body">
                     <p class="tag">Measurement</p>
@@ -245,7 +247,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="foundation" data-subject="english" data-search="foundation · english alphabet alphabet letter recognition australian curriculum-aligned identify uppercase and lowercase letters through matching, tracing and simple sorting activities. ⬇ download pdf">
+        <li class="wcard" id="w-foundation-alphabet-letter-recognition" data-year="foundation" data-subject="english" data-search="foundation · english alphabet alphabet letter recognition australian curriculum-aligned identify uppercase and lowercase letters through matching, tracing and simple sorting activities. ⬇ download pdf">
                   <div class="thumb c2">Foundation · English</div>
                   <div class="body">
                     <p class="tag">Alphabet</p>
@@ -256,7 +258,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="foundation" data-subject="english phonics" data-search="foundation · english phonics cvc words australian curriculum-aligned read and build simple consonant-vowel-consonant words such as cat, dog and sun. ⬇ download pdf">
+        <li class="wcard" id="w-foundation-cvc-words" data-year="foundation" data-subject="phonics" data-search="foundation · english phonics cvc words australian curriculum-aligned read and build simple consonant-vowel-consonant words such as cat, dog and sun. ⬇ download pdf">
                   <div class="thumb c4">Foundation · English</div>
                   <div class="body">
                     <p class="tag">Phonics</p>
@@ -267,7 +269,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="foundation" data-subject="english reading" data-search="foundation · english vocabulary sight words australian curriculum-aligned practice common high-frequency words that appear often in early reading books. ⬇ download pdf">
+        <li class="wcard" id="w-foundation-sight-words" data-year="foundation" data-subject="reading" data-search="foundation · english vocabulary sight words australian curriculum-aligned practice common high-frequency words that appear often in early reading books. ⬇ download pdf">
                   <div class="thumb c3">Foundation · English</div>
                   <div class="body">
                     <p class="tag">Vocabulary</p>
@@ -278,7 +280,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="foundation" data-subject="english writing" data-search="foundation · english writing handwriting australian curriculum-aligned guided letter formation practice to build correct pencil grip and confident handwriting habits. ⬇ download pdf">
+        <li class="wcard" id="w-foundation-handwriting" data-year="foundation" data-subject="writing" data-search="foundation · english writing handwriting australian curriculum-aligned guided letter formation practice to build correct pencil grip and confident handwriting habits. ⬇ download pdf">
                   <div class="thumb c4">Foundation · English</div>
                   <div class="body">
                     <p class="tag">Writing</p>
@@ -289,7 +291,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="foundation" data-subject="english reading" data-search="foundation · reading comprehension reading comprehension (simple sentences) australian curriculum-aligned read simple sentences and answer basic comprehension questions to build early reading understanding. ⬇ download pdf">
+        <li class="wcard" id="w-foundation-reading-comprehension-simple-sentences" data-year="foundation" data-subject="reading" data-search="foundation · reading comprehension reading comprehension (simple sentences) australian curriculum-aligned read simple sentences and answer basic comprehension questions to build early reading understanding. ⬇ download pdf">
                   <div class="thumb c2">Foundation · Reading</div>
                   <div class="body">
                     <p class="tag">Comprehension</p>
@@ -300,7 +302,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="foundation" data-subject="english reading" data-search="foundation · reading decoding decodable sentences australian curriculum-aligned read short decodable sentences using taught letter-sound knowledge to build reading fluency. ⬇ download pdf">
+        <li class="wcard" id="w-foundation-decodable-sentences" data-year="foundation" data-subject="reading" data-search="foundation · reading decoding decodable sentences australian curriculum-aligned read short decodable sentences using taught letter-sound knowledge to build reading fluency. ⬇ download pdf">
                   <div class="thumb c1">Foundation · Reading</div>
                   <div class="body">
                     <p class="tag">Decoding</p>
@@ -311,7 +313,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="foundation" data-subject="english reading" data-search="foundation · reading sight words high-frequency sight words australian curriculum-aligned read and write common high-frequency words that appear often in early reading texts. ⬇ download pdf">
+        <li class="wcard" id="w-foundation-high-frequency-sight-words" data-year="foundation" data-subject="reading" data-search="foundation · reading sight words high-frequency sight words australian curriculum-aligned read and write common high-frequency words that appear often in early reading texts. ⬇ download pdf">
                   <div class="thumb c3">Foundation · Reading</div>
                   <div class="body">
                     <p class="tag">Sight Words</p>
@@ -322,7 +324,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="foundation" data-subject="english reading" data-search="foundation · reading comprehension predicting and connecting australian curriculum-aligned use prediction and personal connections as comprehension strategies while reading a text. ⬇ download pdf">
+        <li class="wcard" id="w-foundation-predicting-and-connecting" data-year="foundation" data-subject="reading" data-search="foundation · reading comprehension predicting and connecting australian curriculum-aligned use prediction and personal connections as comprehension strategies while reading a text. ⬇ download pdf">
                   <div class="thumb c4">Foundation · Reading</div>
                   <div class="body">
                     <p class="tag">Comprehension</p>
@@ -333,7 +335,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="foundation" data-subject="english writing" data-search="foundation · writing narrative retelling and story sequencing australian curriculum-aligned retell a simple story in order, practising sequencing with beginning, middle and end. ⬇ download pdf">
+        <li class="wcard" id="w-foundation-retelling-and-story-sequencing" data-year="foundation" data-subject="writing" data-search="foundation · writing narrative retelling and story sequencing australian curriculum-aligned retell a simple story in order, practising sequencing with beginning, middle and end. ⬇ download pdf">
                   <div class="thumb c3">Foundation · Writing</div>
                   <div class="body">
                     <p class="tag">Narrative</p>
@@ -344,7 +346,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="foundation" data-subject="english writing" data-search="foundation · writing sentence building sentence writing (capital letters and full stops) australian curriculum-aligned practise writing simple sentences using capital letters and full stops correctly. ⬇ download pdf">
+        <li class="wcard" id="w-foundation-sentence-writing-capital-letters-and-full-stops" data-year="foundation" data-subject="writing" data-search="foundation · writing sentence building sentence writing (capital letters and full stops) australian curriculum-aligned practise writing simple sentences using capital letters and full stops correctly. ⬇ download pdf">
                   <div class="thumb c4">Foundation · Writing</div>
                   <div class="body">
                     <p class="tag">Sentence Building</p>
@@ -355,7 +357,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="foundation" data-subject="english writing" data-search="foundation · writing cvc writing writing cvc words and captions australian curriculum-aligned create short written captions using simple cvc words, linking phonics knowledge to early writing. ⬇ download pdf">
+        <li class="wcard" id="w-foundation-writing-cvc-words-and-captions" data-year="foundation" data-subject="writing" data-search="foundation · writing cvc writing writing cvc words and captions australian curriculum-aligned create short written captions using simple cvc words, linking phonics knowledge to early writing. ⬇ download pdf">
                   <div class="thumb c1">Foundation · Writing</div>
                   <div class="body">
                     <p class="tag">CVC Writing</p>
@@ -366,7 +368,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="foundation" data-subject="english phonics" data-search="foundation · phonics phonological awareness rhyming words australian curriculum-aligned spot and match rhyming word pairs to build an ear for sounds within words. ⬇ download pdf">
+        <li class="wcard" id="w-foundation-rhyming-words" data-year="foundation" data-subject="phonics" data-search="foundation · phonics phonological awareness rhyming words australian curriculum-aligned spot and match rhyming word pairs to build an ear for sounds within words. ⬇ download pdf">
                   <div class="thumb c3">Foundation · Phonics</div>
                   <div class="body">
                     <p class="tag">Phonological Awareness</p>
@@ -377,7 +379,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="foundation" data-subject="english phonics" data-search="foundation · phonics letter sounds letter sounds a to m australian curriculum-aligned name letters and say their most common sounds for the first half of the alphabet, a to m. ⬇ download pdf">
+        <li class="wcard" id="w-foundation-letter-sounds-a-to-m" data-year="foundation" data-subject="phonics" data-search="foundation · phonics letter sounds letter sounds a to m australian curriculum-aligned name letters and say their most common sounds for the first half of the alphabet, a to m. ⬇ download pdf">
                   <div class="thumb c2">Foundation · Phonics</div>
                   <div class="body">
                     <p class="tag">Letter Sounds</p>
@@ -388,7 +390,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="foundation" data-subject="english phonics" data-search="foundation · phonics initial sounds beginning sounds australian curriculum-aligned identify the beginning sound of common words to build early phonemic awareness. ⬇ download pdf">
+        <li class="wcard" id="w-foundation-beginning-sounds" data-year="foundation" data-subject="phonics" data-search="foundation · phonics initial sounds beginning sounds australian curriculum-aligned identify the beginning sound of common words to build early phonemic awareness. ⬇ download pdf">
                   <div class="thumb c4">Foundation · Phonics</div>
                   <div class="body">
                     <p class="tag">Initial Sounds</p>
@@ -399,7 +401,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="foundation" data-subject="english phonics" data-search="foundation · phonics blending blending cvc words australian curriculum-aligned blend individual sounds together to read simple cvc words with growing confidence. ⬇ download pdf">
+        <li class="wcard" id="w-foundation-blending-cvc-words" data-year="foundation" data-subject="phonics" data-search="foundation · phonics blending blending cvc words australian curriculum-aligned blend individual sounds together to read simple cvc words with growing confidence. ⬇ download pdf">
                   <div class="thumb c1">Foundation · Phonics</div>
                   <div class="body">
                     <p class="tag">Blending</p>
@@ -410,7 +412,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="foundation" data-subject="science" data-search="foundation · science living things living vs non-living things australian curriculum-aligned sort everyday things into living and non-living groups, with simple picture-based examples. ⬇ download pdf">
+        <li class="wcard" id="w-foundation-living-vs-non-living-things" data-year="foundation" data-subject="science" data-search="foundation · science living things living vs non-living things australian curriculum-aligned sort everyday things into living and non-living groups, with simple picture-based examples. ⬇ download pdf">
                   <div class="thumb c1">Foundation · Science</div>
                   <div class="body">
                     <p class="tag">Living Things</p>
@@ -421,7 +423,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="foundation" data-subject="science" data-search="foundation · science living things my five senses australian curriculum-aligned explore sight, sound, smell, taste and touch through simple observation and matching activities. ⬇ download pdf">
+        <li class="wcard" id="w-foundation-my-five-senses" data-year="foundation" data-subject="science" data-search="foundation · science living things my five senses australian curriculum-aligned explore sight, sound, smell, taste and touch through simple observation and matching activities. ⬇ download pdf">
                   <div class="thumb c3">Foundation · Science</div>
                   <div class="body">
                     <p class="tag">Living Things</p>
@@ -432,7 +434,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="foundation" data-subject="science" data-search="foundation · science living things features of animals australian curriculum-aligned explore the different features and body parts of animals through simple observation and matching activities. ⬇ download pdf">
+        <li class="wcard" id="w-foundation-features-of-animals" data-year="foundation" data-subject="science" data-search="foundation · science living things features of animals australian curriculum-aligned explore the different features and body parts of animals through simple observation and matching activities. ⬇ download pdf">
                   <div class="thumb c4">Foundation · Science</div>
                   <div class="body">
                     <p class="tag">Living Things</p>
@@ -443,7 +445,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="foundation" data-subject="science" data-search="foundation · science living things features of plants australian curriculum-aligned explore the different parts of plants, such as leaves, stems, flowers and roots, through simple activities. ⬇ download pdf">
+        <li class="wcard" id="w-foundation-features-of-plants" data-year="foundation" data-subject="science" data-search="foundation · science living things features of plants australian curriculum-aligned explore the different parts of plants, such as leaves, stems, flowers and roots, through simple activities. ⬇ download pdf">
                   <div class="thumb c1">Foundation · Science</div>
                   <div class="body">
                     <p class="tag">Living Things</p>
@@ -455,7 +457,7 @@
                 </li>
 
         
-<li class="wcard" data-year="year-1" data-subject="maths" data-search="year 1 maths counting forward to 100 number australian curriculum aligned">
+<li class="wcard" id="w-year-1-counting-forward-to-100" data-year="year-1" data-subject="maths" data-search="year 1 maths counting forward to 100 number australian curriculum aligned">
   <div class="thumb c2">Year 1 · Maths</div>
   <div class="body">
     <p class="tag">Number</p>
@@ -477,7 +479,7 @@
 </li>
 
 
-<li class="wcard" data-year="year-1" data-subject="maths" data-search="year 1 maths missing numbers to 50 number australian curriculum aligned">
+<li class="wcard" id="w-year-1-missing-numbers-to-50" data-year="year-1" data-subject="maths" data-search="year 1 maths missing numbers to 50 number australian curriculum aligned">
   <div class="thumb c3">Year 1 · Maths</div>
   <div class="body">
     <p class="tag">Number</p>
@@ -499,7 +501,7 @@
 </li>
 
 
-<li class="wcard" data-year="year-1" data-subject="maths" data-search="year 1 maths missing numbers to 100 number australian curriculum aligned">
+<li class="wcard" id="w-year-1-missing-numbers-to-100" data-year="year-1" data-subject="maths" data-search="year 1 maths missing numbers to 100 number australian curriculum aligned">
   <div class="thumb c4">Year 1 · Maths</div>
   <div class="body">
     <p class="tag">Number</p>
@@ -521,7 +523,7 @@
 </li>
 
 
-<li class="wcard" data-year="year-1" data-subject="maths" data-search="year 1 maths addition within 20 number australian curriculum aligned">
+<li class="wcard" id="w-year-1-addition-within-20" data-year="year-1" data-subject="maths" data-search="year 1 maths addition within 20 number australian curriculum aligned">
   <div class="thumb c1">Year 1 · Maths</div>
   <div class="body">
     <p class="tag">Number</p>
@@ -543,7 +545,7 @@
 </li>
 
 
-<li class="wcard" data-year="year-1" data-subject="maths" data-search="year 1 maths subtraction within 20 number australian curriculum aligned">
+<li class="wcard" id="w-year-1-subtraction-within-20" data-year="year-1" data-subject="maths" data-search="year 1 maths subtraction within 20 number australian curriculum aligned">
   <div class="thumb c1">Year 1 · Maths</div>
   <div class="body">
     <p class="tag">Number</p>
@@ -564,7 +566,7 @@
   </div>
 </li>
 
-        <li class="wcard" data-year="year-1" data-subject="maths" data-search="year 1 · maths pattern australian coins recognition australian curriculum-aligned recognise australian coins and match coin values through simple, practical money activities. ⬇ download pdf">
+        <li class="wcard" id="w-year-1-australian-coins-recognition" data-year="year-1" data-subject="maths" data-search="year 1 · maths pattern australian coins recognition australian curriculum-aligned recognise australian coins and match coin values through simple, practical money activities. ⬇ download pdf">
                   <div class="thumb c2">Year 1 · Maths</div>
                   <div class="body">
                     <p class="tag">Pattern</p>
@@ -576,7 +578,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-1" data-subject="maths" data-search="year 1 · maths space counting australian coins australian curriculum-aligned count collections of australian coins using practical money activities to build early financial literacy skills. ⬇ download pdf">
+        <li class="wcard" id="w-year-1-counting-australian-coins" data-year="year-1" data-subject="maths" data-search="year 1 · maths space counting australian coins australian curriculum-aligned count collections of australian coins using practical money activities to build early financial literacy skills. ⬇ download pdf">
                   <div class="thumb c3">Year 1 · Maths</div>
                   <div class="body">
                     <p class="tag">Space</p>
@@ -588,7 +590,7 @@
                   </div>
                  </li>
 
-        <li class="wcard" data-year="year-1" data-subject="maths" data-search="year 1 · maths measurement place value to 100 australian curriculum-aligned understand tens and ones, compare numbers and build place value knowledge to 100. ⬇ download pdf">
+        <li class="wcard" id="w-year-1-place-value-to-100" data-year="year-1" data-subject="maths" data-search="year 1 · maths measurement place value to 100 australian curriculum-aligned understand tens and ones, compare numbers and build place value knowledge to 100. ⬇ download pdf">
                   <div class="thumb c4">Year 1 · Maths</div>
                   <div class="body">
                     <p class="tag">Measurement</p>
@@ -600,7 +602,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-1" data-subject="maths" data-search="year 1 · maths geometry 2d shapes australian curriculum-aligned identify, name and describe common 2d shapes found in everyday objects and the world around us. ⬇ download pdf">
+        <li class="wcard" id="w-year-1-2d-shapes" data-year="year-1" data-subject="maths" data-search="year 1 · maths geometry 2d shapes australian curriculum-aligned identify, name and describe common 2d shapes found in everyday objects and the world around us. ⬇ download pdf">
                   <div class="thumb c1">Year 1 · Maths</div>
                   <div class="body">
                     <p class="tag">Geometry</p>
@@ -612,7 +614,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-1" data-subject="english writing" data-search="year 1 · english writing sentence writing australian curriculum-aligned build confidence writing simple sentences using capital letters, spacing, punctuation and common sight words. ⬇ download pdf">
+        <li class="wcard" id="w-year-1-sentence-writing" data-year="year-1" data-subject="writing" data-search="year 1 · english writing sentence writing australian curriculum-aligned build confidence writing simple sentences using capital letters, spacing, punctuation and common sight words. ⬇ download pdf">
                   <div class="thumb c3">Year 1 · English</div>
                   <div class="body">
                     <p class="tag">Writing</p>
@@ -623,7 +625,7 @@
                   <a class="btn btn-secondary btn-sm" href="pages/year-1-sentence-writing.html">View Worksheet</a>
                   </div>
                 </li>
-         <li class="wcard" data-year="year-1" data-subject="reading" data-search="year 1 · reading reading comprehension the lost lunchbox australian curriculum-aligned read a short fictional story and answer comprehension questions to build reading confidence and understanding. ⬇ download pdf">
+         <li class="wcard" id="w-year-1-the-lost-lunchbox" data-year="year-1" data-subject="reading" data-search="year 1 · reading reading comprehension the lost lunchbox australian curriculum-aligned read a short fictional story and answer comprehension questions to build reading confidence and understanding. ⬇ download pdf">
   <div class="thumb c4">Year 1 · Reading</div>
   <div class="body">
     <p class="tag">Reading Comprehension</p>
@@ -634,7 +636,7 @@
     <a class="btn btn-secondary btn-sm" href="pages/year-1-reading-the-lost-lunchbox.html">View Worksheet</a>
   </div>
 </li>
-        <li class="wcard" data-year="year-1" data-subject="english reading" data-search="year 1 · english grammar reading comprehension (fiction) australian curriculum-aligned read a short fictional story and answer simple comprehension questions to develop understanding and confidence. ⬇ download pdf">
+        <li class="wcard" id="w-year-1-reading-comprehension-fiction" data-year="year-1" data-subject="reading" data-search="year 1 · english grammar reading comprehension (fiction) australian curriculum-aligned read a short fictional story and answer simple comprehension questions to develop understanding and confidence. ⬇ download pdf">
                   <div class="thumb c4">Year 1 · English</div>
                   <div class="body">
                     <p class="tag">Grammar</p>
@@ -646,7 +648,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-1" data-subject="english grammar" data-search="year 1 · english grammar proper nouns australian curriculum-aligned learn how proper nouns name specific people, places and things, and when to use capital letters correctly. ⬇ download pdf">
+        <li class="wcard" id="w-year-1-proper-nouns" data-year="year-1" data-subject="grammar" data-search="year 1 · english grammar proper nouns australian curriculum-aligned learn how proper nouns name specific people, places and things, and when to use capital letters correctly. ⬇ download pdf">
                   <div class="thumb c1">Year 1 · English</div>
                   <div class="body">
                     <p class="tag">Grammar</p>
@@ -658,7 +660,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-1" data-subject="english grammar" data-search="year 1 · english grammar singular and plural nouns australian curriculum-aligned practise changing singular nouns into plural nouns through engaging year 1 activities and examples. ⬇ download pdf">
+        <li class="wcard" id="w-year-1-singular-and-plural-nouns" data-year="year-1" data-subject="grammar" data-search="year 1 · english grammar singular and plural nouns australian curriculum-aligned practise changing singular nouns into plural nouns through engaging year 1 activities and examples. ⬇ download pdf">
                   <div class="thumb c2">Year 1 · English</div>
                   <div class="body">
                     <p class="tag">Grammar</p>
@@ -670,7 +672,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-1" data-subject="english" data-search="year 1 · english alphabet alphabetical order australian curriculum-aligned practise putting words in alphabetical order using the first letter, building an important early literacy skill. ⬇ download pdf">
+        <li class="wcard" id="w-year-1-alphabetical-order" data-year="year-1" data-subject="english" data-search="year 1 · english alphabet alphabetical order australian curriculum-aligned practise putting words in alphabetical order using the first letter, building an important early literacy skill. ⬇ download pdf">
                   <div class="thumb c3">Year 1 · English</div>
                   <div class="body">
                     <p class="tag">Alphabet</p>
@@ -682,7 +684,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-1" data-subject="english reading" data-search="year 1 · reading reading comprehension koko the koala's big day australian curriculum-aligned practise finding key information, sequencing events and answering simple comprehension questions. ⬇ download pdf">
+        <li class="wcard" id="w-year-1-koko-the-koalas-big-day" data-year="year-1" data-subject="reading" data-search="year 1 · reading reading comprehension koko the koala's big day australian curriculum-aligned practise finding key information, sequencing events and answering simple comprehension questions. ⬇ download pdf">
             <div class="thumb c2">Year 1 · Reading</div>
             <div class="body">
               <p class="tag">Reading Comprehension</p>
@@ -694,7 +696,7 @@
             </div>
           </li>
 
-        <li class="wcard" data-year="year-1" data-subject="english reading" data-search="year 1 · reading decodable reading ben's big day australian curriculum-aligned practise decoding simple words, blending sounds and building reading fluency with an engaging decodable passage. ⬇ download pdf">
+        <li class="wcard" id="w-year-1-bens-big-day" data-year="year-1" data-subject="reading" data-search="year 1 · reading decodable reading ben's big day australian curriculum-aligned practise decoding simple words, blending sounds and building reading fluency with an engaging decodable passage. ⬇ download pdf">
             <div class="thumb c3">Year 1 · Reading</div>
             <div class="body">
               <p class="tag">Decodable Reading</p>
@@ -706,7 +708,7 @@
             </div>
           </li>
 
-        <li class="wcard" data-year="year-1" data-subject="english reading" data-search="year 1 · reading decodable reading my funny pet australian curriculum-aligned strengthen phonics knowledge and reading fluency through a fun decodable story with simple vocabulary. ⬇ download pdf">
+        <li class="wcard" id="w-year-1-my-funny-pet" data-year="year-1" data-subject="reading" data-search="year 1 · reading decodable reading my funny pet australian curriculum-aligned strengthen phonics knowledge and reading fluency through a fun decodable story with simple vocabulary. ⬇ download pdf">
             <div class="thumb c4">Year 1 · Reading</div>
             <div class="body">
               <p class="tag">Decodable Reading</p>
@@ -718,7 +720,7 @@
             </div>
           </li>
 
-        <li class="wcard" data-year="year-1" data-subject="english reading" data-search="year 1 · reading decodable reading the green frog australian curriculum-aligned build confidence reading decodable text while practising blending, decoding and comprehension. ⬇ download pdf">
+        <li class="wcard" id="w-year-1-the-green-frog" data-year="year-1" data-subject="reading" data-search="year 1 · reading decodable reading the green frog australian curriculum-aligned build confidence reading decodable text while practising blending, decoding and comprehension. ⬇ download pdf">
             <div class="thumb c1">Year 1 · Reading</div>
             <div class="body">
               <p class="tag">Decodable Reading</p>
@@ -730,7 +732,7 @@
             </div>
           </li>
 
-        <li class="wcard" data-year="year-1" data-subject="english reading" data-search="year 1 · reading decodable reading the rain storm australian curriculum-aligned develop decoding skills and reading fluency with a printable phonics-based reading passage. ⬇ download pdf">
+        <li class="wcard" id="w-year-1-the-rain-storm" data-year="year-1" data-subject="reading" data-search="year 1 · reading decodable reading the rain storm australian curriculum-aligned develop decoding skills and reading fluency with a printable phonics-based reading passage. ⬇ download pdf">
             <div class="thumb c2">Year 1 · Reading</div>
             <div class="body">
               <p class="tag">Decodable Reading</p>
@@ -742,7 +744,7 @@
             </div>
           </li>
 
-        <li class="wcard" data-year="year-1" data-subject="english reading" data-search="year 1 · reading decodable reading at the beach australian curriculum-aligned read a simple decodable story while practising phonics, fluency and early comprehension skills. ⬇ download pdf">
+        <li class="wcard" id="w-year-1-at-the-beach" data-year="year-1" data-subject="reading" data-search="year 1 · reading decodable reading at the beach australian curriculum-aligned read a simple decodable story while practising phonics, fluency and early comprehension skills. ⬇ download pdf">
             <div class="thumb c3">Year 1 · Reading</div>
             <div class="body">
               <p class="tag">Decodable Reading</p>
@@ -754,7 +756,7 @@
             </div>
           </li>
 
-        <li class="wcard" data-year="year-1" data-subject="english reading" data-search="year 1 · reading decodable reading the lost dog australian curriculum-aligned improve decoding accuracy and reading confidence through a printable decodable reading passage. ⬇ download pdf">
+        <li class="wcard" id="w-year-1-the-lost-dog" data-year="year-1" data-subject="reading" data-search="year 1 · reading decodable reading the lost dog australian curriculum-aligned improve decoding accuracy and reading confidence through a printable decodable reading passage. ⬇ download pdf">
             <div class="thumb c4">Year 1 · Reading</div>
             <div class="body">
               <p class="tag">Decodable Reading</p>
@@ -766,7 +768,7 @@
             </div>
           </li>
 
-        <li class="wcard" data-year="year-1" data-subject="english reading" data-search="year 1 · reading decodable reading the helpful robot australian curriculum-aligned support beginning readers with an engaging decodable passage that reinforces phonics patterns. ⬇ download pdf">
+        <li class="wcard" id="w-year-1-the-helpful-robot" data-year="year-1" data-subject="reading" data-search="year 1 · reading decodable reading the helpful robot australian curriculum-aligned support beginning readers with an engaging decodable passage that reinforces phonics patterns. ⬇ download pdf">
             <div class="thumb c1">Year 1 · Reading</div>
             <div class="body">
               <p class="tag">Decodable Reading</p>
@@ -778,7 +780,7 @@
             </div>
           </li>
 
-        <li class="wcard" data-year="year-1" data-subject="english reading" data-search="year 1 · reading decodable reading the ant and the leaf australian curriculum-aligned build phonics, decoding and comprehension skills with a short printable decodable reading story. ⬇ download pdf">
+        <li class="wcard" id="w-year-1-the-ant-and-the-leaf" data-year="year-1" data-subject="reading" data-search="year 1 · reading decodable reading the ant and the leaf australian curriculum-aligned build phonics, decoding and comprehension skills with a short printable decodable reading story. ⬇ download pdf">
             <div class="thumb c2">Year 1 · Reading</div>
             <div class="body">
               <p class="tag">Decodable Reading</p>
@@ -790,7 +792,7 @@
             </div>
           </li>
 
-        <li class="wcard" data-year="year-1" data-subject="english writing" data-search="year 1 · writing punctuation capital letters and full stops australian curriculum-aligned build confidence using capital letters and full stops correctly in simple sentences. ⬇ download pdf">
+        <li class="wcard" id="w-year-1-capital-letters-and-full-stops" data-year="year-1" data-subject="writing" data-search="year 1 · writing punctuation capital letters and full stops australian curriculum-aligned build confidence using capital letters and full stops correctly in simple sentences. ⬇ download pdf">
                 <div class="thumb c2">Year 1 · Writing</div>
                 <div class="body">
                   <p class="tag">Punctuation</p>
@@ -802,7 +804,7 @@
                 </div>
               </li>
 
-        <li class="wcard" data-year="year-1" data-subject="english writing" data-search="year 1 · writing narrative writing a special day story australian curriculum-aligned plan and write a short narrative about a special day, using sentences, describing words and sequencing. ⬇ download pdf">
+        <li class="wcard" id="w-year-1-a-special-day-story" data-year="year-1" data-subject="writing" data-search="year 1 · writing narrative writing a special day story australian curriculum-aligned plan and write a short narrative about a special day, using sentences, describing words and sequencing. ⬇ download pdf">
                 <div class="thumb c4">Year 1 · Writing</div>
                 <div class="body">
                   <p class="tag">Narrative Writing</p>
@@ -814,7 +816,7 @@
                 </div>
               </li>
 
-        <li class="wcard" data-year="year-1" data-subject="english writing" data-search="year 1 · writing descriptive writing my favourite animal australian curriculum-aligned write simple descriptive sentences about a favourite animal, practising details and describing words. ⬇ download pdf">
+        <li class="wcard" id="w-year-1-my-favourite-animal" data-year="year-1" data-subject="writing" data-search="year 1 · writing descriptive writing my favourite animal australian curriculum-aligned write simple descriptive sentences about a favourite animal, practising details and describing words. ⬇ download pdf">
                 <div class="thumb c1">Year 1 · Writing</div>
                 <div class="body">
                   <p class="tag">Descriptive Writing</p>
@@ -826,7 +828,7 @@
                 </div>
               </li>
 
-        <li class="wcard" data-year="year-1" data-subject="english writing" data-search="year 1 · writing recount writing my weekend recount australian curriculum-aligned practise recount writing by describing weekend events in order, using time-order words and simple sentences. ⬇ download pdf">
+        <li class="wcard" id="w-year-1-my-weekend-recount" data-year="year-1" data-subject="writing" data-search="year 1 · writing recount writing my weekend recount australian curriculum-aligned practise recount writing by describing weekend events in order, using time-order words and simple sentences. ⬇ download pdf">
                 <div class="thumb c2">Year 1 · Writing</div>
                 <div class="body">
                   <p class="tag">Recount Writing</p>
@@ -838,7 +840,7 @@
                 </div>
               </li>
 
-        <li class="wcard" data-year="year-1" data-subject="english phonics" data-search="year 1 · phonics beginning sounds beginning sounds australian curriculum-aligned identify beginning sounds in everyday words using engaging picture-based activities. ⬇ download pdf">
+        <li class="wcard" id="w-year-1-beginning-sounds" data-year="year-1" data-subject="phonics" data-search="year 1 · phonics beginning sounds beginning sounds australian curriculum-aligned identify beginning sounds in everyday words using engaging picture-based activities. ⬇ download pdf">
                 <div class="thumb c1">Year 1 · Phonics</div>
                 <div class="body">
                   <p class="tag">Beginning Sounds</p>
@@ -850,7 +852,7 @@
                 </div>
               </li>
 
-        <li class="wcard" data-year="year-1" data-subject="english phonics" data-search="year 1 · phonics ending sounds ending sounds australian curriculum-aligned recognise ending sounds to strengthen early reading and spelling skills. ⬇ download pdf">
+        <li class="wcard" id="w-year-1-ending-sounds" data-year="year-1" data-subject="phonics" data-search="year 1 · phonics ending sounds ending sounds australian curriculum-aligned recognise ending sounds to strengthen early reading and spelling skills. ⬇ download pdf">
                 <div class="thumb c2">Year 1 · Phonics</div>
                 <div class="body">
                   <p class="tag">Ending Sounds</p>
@@ -862,7 +864,7 @@
                 </div>
               </li>
 
-        <li class="wcard" data-year="year-1" data-subject="english phonics" data-search="year 1 · phonics digraphs digraphs australian curriculum-aligned practise common digraphs including sh, ch, th and wh. ⬇ download pdf">
+        <li class="wcard" id="w-year-1-digraphs" data-year="year-1" data-subject="phonics" data-search="year 1 · phonics digraphs digraphs australian curriculum-aligned practise common digraphs including sh, ch, th and wh. ⬇ download pdf">
                 <div class="thumb c3">Year 1 · Phonics</div>
                 <div class="body">
                   <p class="tag">Digraphs</p>
@@ -874,7 +876,7 @@
                 </div>
               </li>
 
-        <li class="wcard" data-year="year-1" data-subject="english phonics" data-search="year 1 · phonics consonant blends consonant blends australian curriculum-aligned read and spell words with common beginning consonant blends such as bl, cl and st. ⬇ download pdf">
+        <li class="wcard" id="w-year-1-consonant-blends" data-year="year-1" data-subject="phonics" data-search="year 1 · phonics consonant blends consonant blends australian curriculum-aligned read and spell words with common beginning consonant blends such as bl, cl and st. ⬇ download pdf">
                 <div class="thumb c4">Year 1 · Phonics</div>
                 <div class="body">
                   <p class="tag">Consonant Blends</p>
@@ -886,7 +888,7 @@
                 </div>
               </li>
 
-        <li class="wcard" data-year="year-1" data-subject="english phonics" data-search="year 1 · phonics short vowels short vowel a australian curriculum-aligned develop decoding skills by reading and spelling words with the short vowel a. ⬇ download pdf">
+        <li class="wcard" id="w-year-1-short-vowel-a" data-year="year-1" data-subject="phonics" data-search="year 1 · phonics short vowels short vowel a australian curriculum-aligned develop decoding skills by reading and spelling words with the short vowel a. ⬇ download pdf">
                 <div class="thumb c1">Year 1 · Phonics</div>
                 <div class="body">
                   <p class="tag">Short Vowels</p>
@@ -898,7 +900,7 @@
                 </div>
               </li>
 
-        <li class="wcard" data-year="year-1" data-subject="english phonics" data-search="year 1 · phonics word families word families (an &amp; ake) australian curriculum-aligned build reading fluency by recognising common word families such as -an and -ake. ⬇ download pdf">
+        <li class="wcard" id="w-year-1-word-families-an-amp-ake" data-year="year-1" data-subject="phonics" data-search="year 1 · phonics word families word families (an &amp; ake) australian curriculum-aligned build reading fluency by recognising common word families such as -an and -ake. ⬇ download pdf">
                 <div class="thumb c2">Year 1 · Phonics</div>
                 <div class="body">
                   <p class="tag">Word Families</p>
@@ -910,7 +912,7 @@
                 </div>
               </li>
 
-        <li class="wcard" data-year="year-1" data-subject="english phonics" data-search="year 1 · phonics rhyming words rhyming words australian curriculum-aligned identify and create rhyming word pairs to build phonological awareness and early reading skills. ⬇ download pdf">
+        <li class="wcard" id="w-year-1-rhyming-words" data-year="year-1" data-subject="phonics" data-search="year 1 · phonics rhyming words rhyming words australian curriculum-aligned identify and create rhyming word pairs to build phonological awareness and early reading skills. ⬇ download pdf">
                 <div class="thumb c3">Year 1 · Phonics</div>
                 <div class="body">
                   <p class="tag">Rhyming Words</p>
@@ -922,7 +924,7 @@
                 </div>
               </li>
 
-        <li class="wcard" data-year="year-1" data-subject="science" data-search="year 1 · science living things animal habitats australian curriculum-aligned explore where different animals live and how their habitat meets their needs. ⬇ download pdf">
+        <li class="wcard" id="w-year-1-animal-habitats" data-year="year-1" data-subject="science" data-search="year 1 · science living things animal habitats australian curriculum-aligned explore where different animals live and how their habitat meets their needs. ⬇ download pdf">
                   <div class="thumb c4">Year 1 · Science</div>
                   <div class="body">
                     <p class="tag">Living Things</p>
@@ -934,7 +936,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-1" data-subject="science" data-search="year 1 · science living things animals need care australian curriculum-aligned learn what animals need to stay healthy, including food, water, shelter and care. ⬇ download pdf">
+        <li class="wcard" id="w-year-1-animals-need-care" data-year="year-1" data-subject="science" data-search="year 1 · science living things animals need care australian curriculum-aligned learn what animals need to stay healthy, including food, water, shelter and care. ⬇ download pdf">
                   <div class="thumb c1">Year 1 · Science</div>
                   <div class="body">
                     <p class="tag">Living Things</p>
@@ -946,7 +948,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-1" data-subject="science" data-search="year 1 · science earth and space day and night sky australian curriculum-aligned observe and compare what can be seen in the sky during the day and at night. ⬇ download pdf">
+        <li class="wcard" id="w-year-1-day-and-night-sky" data-year="year-1" data-subject="science" data-search="year 1 · science earth and space day and night sky australian curriculum-aligned observe and compare what can be seen in the sky during the day and at night. ⬇ download pdf">
                   <div class="thumb c2">Year 1 · Science</div>
                   <div class="body">
                     <p class="tag">Earth and Space</p>
@@ -958,7 +960,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-1" data-subject="science" data-search="year 1 · science living things life cycles australian curriculum-aligned explore how living things grow and change through different stages of their life cycle. ⬇ download pdf">
+        <li class="wcard" id="w-year-1-life-cycles" data-year="year-1" data-subject="science" data-search="year 1 · science living things life cycles australian curriculum-aligned explore how living things grow and change through different stages of their life cycle. ⬇ download pdf">
                   <div class="thumb c3">Year 1 · Science</div>
                   <div class="body">
                     <p class="tag">Living Things</p>
@@ -970,7 +972,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-1" data-subject="science" data-search="year 1 · science living things plants need to grow australian curriculum-aligned discover what plants need to grow, including sunlight, water, soil and air. ⬇ download pdf">
+        <li class="wcard" id="w-year-1-plants-need-to-grow" data-year="year-1" data-subject="science" data-search="year 1 · science living things plants need to grow australian curriculum-aligned discover what plants need to grow, including sunlight, water, soil and air. ⬇ download pdf">
                   <div class="thumb c4">Year 1 · Science</div>
                   <div class="body">
                     <p class="tag">Living Things</p>
@@ -982,7 +984,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-2" data-subject="maths" data-search="year 2 · maths number place value to 100 australian curriculum-aligned understand tens and ones, represent two-digit numbers and compare values to 100. ⬇ download pdf">
+        <li class="wcard" id="w-year-2-place-value-to-100" data-year="year-2" data-subject="maths" data-search="year 2 · maths number place value to 100 australian curriculum-aligned understand tens and ones, represent two-digit numbers and compare values to 100. ⬇ download pdf">
                   <div class="thumb c1">Year 2 · Maths</div>
                   <div class="body">
                     <p class="tag">Number</p>
@@ -994,7 +996,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-2" data-subject="maths" data-search="year 2 · maths number addition within 100 australian curriculum-aligned build confidence adding two-digit numbers using efficient written and mental strategies. ⬇ download pdf">
+        <li class="wcard" id="w-year-2-addition-within-100" data-year="year-2" data-subject="maths" data-search="year 2 · maths number addition within 100 australian curriculum-aligned build confidence adding two-digit numbers using efficient written and mental strategies. ⬇ download pdf">
                   <div class="thumb c2">Year 2 · Maths</div>
                   <div class="body">
                     <p class="tag">Number</p>
@@ -1006,7 +1008,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-2" data-subject="maths" data-search="year 2 · maths number subtraction within 100 australian curriculum-aligned practise subtraction within 100 using place value, number facts and problem-solving strategies. ⬇ download pdf">
+        <li class="wcard" id="w-year-2-subtraction-within-100" data-year="year-2" data-subject="maths" data-search="year 2 · maths number subtraction within 100 australian curriculum-aligned practise subtraction within 100 using place value, number facts and problem-solving strategies. ⬇ download pdf">
                   <div class="thumb c3">Year 2 · Maths</div>
                   <div class="body">
                     <p class="tag">Number</p>
@@ -1018,7 +1020,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-2" data-subject="maths" data-search="year 2 · maths problem solving word problems within 100 australian curriculum-aligned solve practical addition and subtraction word problems involving numbers to 100. ⬇ download pdf">
+        <li class="wcard" id="w-year-2-word-problems-within-100" data-year="year-2" data-subject="maths" data-search="year 2 · maths problem solving word problems within 100 australian curriculum-aligned solve practical addition and subtraction word problems involving numbers to 100. ⬇ download pdf">
                   <div class="thumb c4">Year 2 · Maths</div>
                   <div class="body">
                     <p class="tag">Problem Solving</p>
@@ -1030,7 +1032,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-2" data-subject="maths" data-search="year 2 · maths division division – sharing equally australian curriculum-aligned solve simple division problems by sharing collections of objects equally into groups. ⬇ download pdf">
+        <li class="wcard" id="w-year-2-division-sharing-equally" data-year="year-2" data-subject="maths" data-search="year 2 · maths division division – sharing equally australian curriculum-aligned solve simple division problems by sharing collections of objects equally into groups. ⬇ download pdf">
                   <div class="thumb c1">Year 2 · Maths</div>
                   <div class="body">
                     <p class="tag">Division</p>
@@ -1042,7 +1044,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-2" data-subject="maths" data-search="year 2 · maths money australian money australian curriculum-aligned recognise, count and compare australian coins and notes in practical money activities. ⬇ download pdf">
+        <li class="wcard" id="w-year-2-australian-money" data-year="year-2" data-subject="maths" data-search="year 2 · maths money australian money australian curriculum-aligned recognise, count and compare australian coins and notes in practical money activities. ⬇ download pdf">
                   <div class="thumb c2">Year 2 · Maths</div>
                   <div class="body">
                     <p class="tag">Money</p>
@@ -1054,7 +1056,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-2" data-subject="maths" data-search="year 2 · maths time telling time australian curriculum-aligned read and represent time using analogue and digital clocks in familiar everyday contexts. ⬇ download pdf">
+        <li class="wcard" id="w-year-2-telling-time" data-year="year-2" data-subject="maths" data-search="year 2 · maths time telling time australian curriculum-aligned read and represent time using analogue and digital clocks in familiar everyday contexts. ⬇ download pdf">
                   <div class="thumb c3">Year 2 · Maths</div>
                   <div class="body">
                     <p class="tag">Time</p>
@@ -1066,7 +1068,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-2" data-subject="maths" data-search="year 2 · maths multiplication multiplication – equal groups australian curriculum-aligned develop early multiplication understanding by making and describing equal groups. ⬇ download pdf">
+        <li class="wcard" id="w-year-2-multiplication-equal-groups" data-year="year-2" data-subject="maths" data-search="year 2 · maths multiplication multiplication – equal groups australian curriculum-aligned develop early multiplication understanding by making and describing equal groups. ⬇ download pdf">
                   <div class="thumb c3">Year 2 · Maths</div>
                   <div class="body">
                     <p class="tag">Multiplication</p>
@@ -1078,7 +1080,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-2" data-subject="maths" data-search="year 2 · maths statistics data and graphs australian curriculum-aligned collect, organise and interpret simple data using tables, lists and picture graphs. ⬇ download pdf">
+        <li class="wcard" id="w-year-2-data-and-graphs" data-year="year-2" data-subject="maths" data-search="year 2 · maths statistics data and graphs australian curriculum-aligned collect, organise and interpret simple data using tables, lists and picture graphs. ⬇ download pdf">
                   <div class="thumb c4">Year 2 · Maths</div>
                   <div class="body">
                     <p class="tag">Statistics</p>
@@ -1090,7 +1092,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-2" data-subject="english grammar" data-search="year 2 · english grammar common and proper nouns australian curriculum-aligned identify common and proper nouns and apply capital letters correctly. ⬇ download pdf">
+        <li class="wcard" id="w-year-2-common-and-proper-nouns" data-year="year-2" data-subject="grammar" data-search="year 2 · english grammar common and proper nouns australian curriculum-aligned identify common and proper nouns and apply capital letters correctly. ⬇ download pdf">
                   <div class="thumb c1">Year 2 · English</div>
                   <div class="body">
                     <p class="tag">Grammar</p>
@@ -1102,7 +1104,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-2" data-subject="english grammar" data-search="year 2 · english grammar pronouns australian curriculum-aligned recognise and use pronouns to replace nouns and improve sentence fluency. ⬇ download pdf">
+        <li class="wcard" id="w-year-2-pronouns" data-year="year-2" data-subject="grammar" data-search="year 2 · english grammar pronouns australian curriculum-aligned recognise and use pronouns to replace nouns and improve sentence fluency. ⬇ download pdf">
                   <div class="thumb c2">Year 2 · English</div>
                   <div class="body">
                     <p class="tag">Grammar</p>
@@ -1114,7 +1116,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-2" data-subject="english grammar" data-search="year 2 · english grammar verbs and adjectives australian curriculum-aligned identify action words and describing words and use them in meaningful sentences. ⬇ download pdf">
+        <li class="wcard" id="w-year-2-verbs-and-adjectives" data-year="year-2" data-subject="grammar" data-search="year 2 · english grammar verbs and adjectives australian curriculum-aligned identify action words and describing words and use them in meaningful sentences. ⬇ download pdf">
                   <div class="thumb c3">Year 2 · English</div>
                   <div class="body">
                     <p class="tag">Grammar</p>
@@ -1126,7 +1128,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-2" data-subject="english grammar" data-search="year 2 · english punctuation capital letters and full stops australian curriculum-aligned edit and write sentences using correct capital letters and full stops. ⬇ download pdf">
+        <li class="wcard" id="w-year-2-capital-letters-and-full-stops" data-year="year-2" data-subject="grammar" data-search="year 2 · english punctuation capital letters and full stops australian curriculum-aligned edit and write sentences using correct capital letters and full stops. ⬇ download pdf">
                   <div class="thumb c4">Year 2 · English</div>
                   <div class="body">
                     <p class="tag">Punctuation</p>
@@ -1138,7 +1140,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-2" data-subject="english grammar" data-search="year 2 · english punctuation commas in lists australian curriculum-aligned use commas correctly to separate items in simple lists. ⬇ download pdf">
+        <li class="wcard" id="w-year-2-commas-in-lists" data-year="year-2" data-subject="grammar" data-search="year 2 · english punctuation commas in lists australian curriculum-aligned use commas correctly to separate items in simple lists. ⬇ download pdf">
                   <div class="thumb c1">Year 2 · English</div>
                   <div class="body">
                     <p class="tag">Punctuation</p>
@@ -1150,7 +1152,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-2" data-subject="english grammar" data-search="year 2 · english sentences simple and compound sentences australian curriculum-aligned recognise simple and compound sentences and join ideas using conjunctions. ⬇ download pdf">
+        <li class="wcard" id="w-year-2-simple-and-compound-sentences" data-year="year-2" data-subject="grammar" data-search="year 2 · english sentences simple and compound sentences australian curriculum-aligned recognise simple and compound sentences and join ideas using conjunctions. ⬇ download pdf">
                   <div class="thumb c2">Year 2 · English</div>
                   <div class="body">
                     <p class="tag">Sentences</p>
@@ -1162,7 +1164,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-2" data-subject="english" data-search="year 2 · english vocabulary compound words and contractions australian curriculum-aligned build vocabulary by forming compound words and using common contractions. ⬇ download pdf">
+        <li class="wcard" id="w-year-2-compound-words-and-contractions" data-year="year-2" data-subject="english" data-search="year 2 · english vocabulary compound words and contractions australian curriculum-aligned build vocabulary by forming compound words and using common contractions. ⬇ download pdf">
                   <div class="thumb c3">Year 2 · English</div>
                   <div class="body">
                     <p class="tag">Vocabulary</p>
@@ -1174,7 +1176,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-2" data-subject="english grammar" data-search="year 2 · english grammar past and present tense verbs australian curriculum-aligned choose and use past and present tense verbs accurately in sentences. ⬇ download pdf">
+        <li class="wcard" id="w-year-2-past-and-present-tense-verbs" data-year="year-2" data-subject="grammar" data-search="year 2 · english grammar past and present tense verbs australian curriculum-aligned choose and use past and present tense verbs accurately in sentences. ⬇ download pdf">
                   <div class="thumb c4">Year 2 · English</div>
                   <div class="body">
                     <p class="tag">Grammar</p>
@@ -1186,7 +1188,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-2" data-subject="english reading" data-search="year 2 · english reading comprehension australian animals australian curriculum-aligned read an australian-themed text and answer literal and inferential questions. ⬇ download pdf">
+        <li class="wcard" id="w-year-2-australian-animals" data-year="year-2" data-subject="reading" data-search="year 2 · english reading comprehension australian animals australian curriculum-aligned read an australian-themed text and answer literal and inferential questions. ⬇ download pdf">
                   <div class="thumb c1">Year 2 · English</div>
                   <div class="body">
                     <p class="tag">Reading Comprehension</p>
@@ -1198,7 +1200,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-2" data-subject="english reading" data-search="year 2 · english reading comprehension a day at the beach australian curriculum-aligned read a familiar narrative and respond to questions about characters, events and details. ⬇ download pdf">
+        <li class="wcard" id="w-year-2-a-day-at-the-beach" data-year="year-2" data-subject="reading" data-search="year 2 · english reading comprehension a day at the beach australian curriculum-aligned read a familiar narrative and respond to questions about characters, events and details. ⬇ download pdf">
                   <div class="thumb c2">Year 2 · English</div>
                   <div class="body">
                     <p class="tag">Reading Comprehension</p>
@@ -1210,7 +1212,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-2" data-subject="english reading" data-search="year 2 · english reading comprehension the school garden australian curriculum-aligned build comprehension by identifying key information in a school-based text. ⬇ download pdf">
+        <li class="wcard" id="w-year-2-the-school-garden" data-year="year-2" data-subject="reading" data-search="year 2 · english reading comprehension the school garden australian curriculum-aligned build comprehension by identifying key information in a school-based text. ⬇ download pdf">
                   <div class="thumb c3">Year 2 · English</div>
                   <div class="body">
                     <p class="tag">Reading Comprehension</p>
@@ -1222,7 +1224,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-2" data-subject="english reading" data-search="year 2 · english reading comprehension weather in australia australian curriculum-aligned read an informative text about australian weather and answer comprehension questions. ⬇ download pdf">
+        <li class="wcard" id="w-year-2-weather-in-australia" data-year="year-2" data-subject="reading" data-search="year 2 · english reading comprehension weather in australia australian curriculum-aligned read an informative text about australian weather and answer comprehension questions. ⬇ download pdf">
                   <div class="thumb c4">Year 2 · English</div>
                   <div class="body">
                     <p class="tag">Reading Comprehension</p>
@@ -1234,7 +1236,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-2" data-subject="english writing" data-search="year 2 · english narrative writing the lost lunchbox australian curriculum-aligned plan and write a simple narrative with a clear beginning, problem and ending. ⬇ download pdf">
+        <li class="wcard" id="w-year-2-the-lost-lunchbox" data-year="year-2" data-subject="writing" data-search="year 2 · english narrative writing the lost lunchbox australian curriculum-aligned plan and write a simple narrative with a clear beginning, problem and ending. ⬇ download pdf">
                   <div class="thumb c1">Year 2 · English</div>
                   <div class="body">
                     <p class="tag">Narrative Writing</p>
@@ -1246,7 +1248,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-2" data-subject="english writing" data-search="year 2 · english recount writing my best school day australian curriculum-aligned organise personal events in sequence and write a clear first-person recount. ⬇ download pdf">
+        <li class="wcard" id="w-year-2-my-best-school-day" data-year="year-2" data-subject="writing" data-search="year 2 · english recount writing my best school day australian curriculum-aligned organise personal events in sequence and write a clear first-person recount. ⬇ download pdf">
                   <div class="thumb c2">Year 2 · English</div>
                   <div class="body">
                     <p class="tag">Recount Writing</p>
@@ -1258,7 +1260,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-2" data-subject="english writing" data-search="year 2 · english procedure writing how to make a healthy snack australian curriculum-aligned write clear ingredients and ordered steps for a familiar procedure. ⬇ download pdf">
+        <li class="wcard" id="w-year-2-how-to-make-a-healthy-snack" data-year="year-2" data-subject="writing" data-search="year 2 · english procedure writing how to make a healthy snack australian curriculum-aligned write clear ingredients and ordered steps for a familiar procedure. ⬇ download pdf">
                   <div class="thumb c3">Year 2 · English</div>
                   <div class="body">
                     <p class="tag">Procedure Writing</p>
@@ -1270,7 +1272,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-2" data-subject="english writing" data-search="year 2 · english persuasive writing keep our playground clean australian curriculum-aligned state an opinion and give simple reasons in a structured persuasive text. ⬇ download pdf">
+        <li class="wcard" id="w-year-2-keep-our-playground-clean" data-year="year-2" data-subject="writing" data-search="year 2 · english persuasive writing keep our playground clean australian curriculum-aligned state an opinion and give simple reasons in a structured persuasive text. ⬇ download pdf">
                   <div class="thumb c4">Year 2 · English</div>
                   <div class="body">
                     <p class="tag">Persuasive Writing</p>
@@ -1282,7 +1284,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-2" data-subject="science" data-search="year 2 · science biological sciences living things grow and change australian curriculum-aligned explore how living things grow, change and have offspring similar to themselves. ⬇ download pdf">
+        <li class="wcard" id="w-year-2-living-things-grow-and-change" data-year="year-2" data-subject="science" data-search="year 2 · science biological sciences living things grow and change australian curriculum-aligned explore how living things grow, change and have offspring similar to themselves. ⬇ download pdf">
                   <div class="thumb c1">Year 2 · Science</div>
                   <div class="body">
                     <p class="tag">Biological Sciences</p>
@@ -1296,7 +1298,7 @@
 
                   
 
-        <li class="wcard" data-year="year-2" data-subject="science" data-search="year 2 · science earth and space sciences earth resources australian curriculum-aligned identify useful earth resources and consider responsible ways to use and care for them. ⬇ download pdf">
+        <li class="wcard" id="w-year-2-earth-resources" data-year="year-2" data-subject="science" data-search="year 2 · science earth and space sciences earth resources australian curriculum-aligned identify useful earth resources and consider responsible ways to use and care for them. ⬇ download pdf">
                   <div class="thumb c2">Year 2 · Science</div>
                   <div class="body">
                     <p class="tag">Earth and Space Sciences</p>
@@ -1308,7 +1310,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-2" data-subject="science" data-search="year 2 · science chemical sciences materials for a purpose australian curriculum-aligned compare material properties and choose suitable materials for everyday purposes. ⬇ download pdf">
+        <li class="wcard" id="w-year-2-materials-for-a-purpose" data-year="year-2" data-subject="science" data-search="year 2 · science chemical sciences materials for a purpose australian curriculum-aligned compare material properties and choose suitable materials for everyday purposes. ⬇ download pdf">
                   <div class="thumb c3">Year 2 · Science</div>
                   <div class="body">
                     <p class="tag">Chemical Sciences</p>
@@ -1321,7 +1323,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-2" data-subject="science" data-search="year 2 · science chemical sciences mixing materials australian curriculum-aligned observe what happens when familiar materials are combined and record simple findings. ⬇ download pdf">
+        <li class="wcard" id="w-year-2-mixing-materials" data-year="year-2" data-subject="science" data-search="year 2 · science chemical sciences mixing materials australian curriculum-aligned observe what happens when familiar materials are combined and record simple findings. ⬇ download pdf">
                   <div class="thumb c4">Year 2 · Science</div>
                   <div class="body">
                     <p class="tag">Chemical Sciences</p>
@@ -1333,7 +1335,7 @@
                     </div>
                   </li>
 
-        <li class="wcard" data-year="year-2" data-subject="science" data-search="year 2 · science physical sciences push and pull forces australian curriculum-aligned investigate how pushes and pulls change the movement or shape of objects. ⬇ download pdf">
+        <li class="wcard" id="w-year-2-push-and-pull-forces" data-year="year-2" data-subject="science" data-search="year 2 · science physical sciences push and pull forces australian curriculum-aligned investigate how pushes and pulls change the movement or shape of objects. ⬇ download pdf">
                   <div class="thumb c1">Year 2 · Science</div>
                   <div class="body">
                     <p class="tag">Physical Sciences</p>
@@ -1345,7 +1347,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-3" data-subject="maths" data-search="year 3 · maths number place value to 10,000 australian curriculum-aligned identify thousands, hundreds, tens and ones and represent numbers up to 10,000. ⬇ download pdf">
+        <li class="wcard" id="w-year-3-place-value-to-10000" data-year="year-3" data-subject="maths" data-search="year 3 · maths number place value to 10,000 australian curriculum-aligned identify thousands, hundreds, tens and ones and represent numbers up to 10,000. ⬇ download pdf">
                   <div class="thumb c1">Year 3 · Maths</div>
                   <div class="body">
                     <p class="tag">Number</p>
@@ -1359,7 +1361,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-3" data-subject="maths" data-search="year 3 · maths number addition and subtraction strategies australian curriculum-aligned apply efficient mental and written strategies to solve addition and subtraction problems. ⬇ download pdf">
+        <li class="wcard" id="w-year-3-addition-and-subtraction-strategies" data-year="year-3" data-subject="maths" data-search="year 3 · maths number addition and subtraction strategies australian curriculum-aligned apply efficient mental and written strategies to solve addition and subtraction problems. ⬇ download pdf">
                   <div class="thumb c2">Year 3 · Maths</div>
                   <div class="body">
                     <p class="tag">Number</p>
@@ -1373,7 +1375,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-3" data-subject="maths" data-search="year 3 · maths problem solving word problems australian curriculum-aligned solve practical word problems using addition, subtraction and multiplicative thinking. ⬇ download pdf">
+        <li class="wcard" id="w-year-3-word-problems" data-year="year-3" data-subject="maths" data-search="year 3 · maths problem solving word problems australian curriculum-aligned solve practical word problems using addition, subtraction and multiplicative thinking. ⬇ download pdf">
                   <div class="thumb c3">Year 3 · Maths</div>
                   <div class="body">
                     <p class="tag">Problem Solving</p>
@@ -1387,7 +1389,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-3" data-subject="maths" data-search="year 3 · maths multiplication multiplication tables australian curriculum-aligned recall and apply multiplication facts to solve problems with growing confidence. ⬇ download pdf">
+        <li class="wcard" id="w-year-3-multiplication-tables" data-year="year-3" data-subject="maths" data-search="year 3 · maths multiplication multiplication tables australian curriculum-aligned recall and apply multiplication facts to solve problems with growing confidence. ⬇ download pdf">
                   <div class="thumb c4">Year 3 · Maths</div>
                   <div class="body">
                     <p class="tag">Multiplication</p>
@@ -1401,7 +1403,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-3" data-subject="maths" data-search="year 3 · maths fractions fractions australian curriculum-aligned identify, represent and compare unit and non-unit fractions of a whole and a collection. ⬇ download pdf">
+        <li class="wcard" id="w-year-3-fractions" data-year="year-3" data-subject="maths" data-search="year 3 · maths fractions fractions australian curriculum-aligned identify, represent and compare unit and non-unit fractions of a whole and a collection. ⬇ download pdf">
                   <div class="thumb c1">Year 3 · Maths</div>
                   <div class="body">
                     <p class="tag">Fractions</p>
@@ -1415,7 +1417,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-3" data-subject="maths" data-search="year 3 · maths money australian money australian curriculum-aligned count, compare and calculate with australian coins and notes in practical contexts. ⬇ download pdf">
+        <li class="wcard" id="w-year-3-australian-money" data-year="year-3" data-subject="maths" data-search="year 3 · maths money australian money australian curriculum-aligned count, compare and calculate with australian coins and notes in practical contexts. ⬇ download pdf">
                   <div class="thumb c2">Year 3 · Maths</div>
                   <div class="body">
                     <p class="tag">Money</p>
@@ -1429,7 +1431,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-3" data-subject="maths" data-search="year 3 · maths time telling time australian curriculum-aligned read and interpret analogue and digital time, including quarter and five-minute intervals. ⬇ download pdf">
+        <li class="wcard" id="w-year-3-telling-time" data-year="year-3" data-subject="maths" data-search="year 3 · maths time telling time australian curriculum-aligned read and interpret analogue and digital time, including quarter and five-minute intervals. ⬇ download pdf">
                   <div class="thumb c3">Year 3 · Maths</div>
                   <div class="body">
                     <p class="tag">Time</p>
@@ -1443,7 +1445,7 @@
                   </div>
                 </li>
 
-       <li class="wcard" data-year="year-3" data-subject="english grammar" data-search="year 3 english grammar common and proper nouns australian curriculum aligned identify and correctly capitalise common and proper nouns in a range of sentences download pdf">
+       <li class="wcard" id="w-year-3-common-and-proper-nouns" data-year="year-3" data-subject="grammar" data-search="year 3 english grammar common and proper nouns australian curriculum aligned identify and correctly capitalise common and proper nouns in a range of sentences download pdf">
   <div class="thumb c1">Year 3 · English</div>
   <div class="body">
     <p class="tag">Grammar</p>
@@ -1455,7 +1457,7 @@
   </div>
 </li>
 
-<li class="wcard" data-year="year-3" data-subject="english grammar" data-search="year 3 english grammar adjectives and expanded noun phrases australian curriculum aligned use adjectives to build expanded noun phrases that add detail and interest to writing download pdf">
+<li class="wcard" id="w-year-3-adjectives-and-expanded-noun-phrases" data-year="year-3" data-subject="grammar" data-search="year 3 english grammar adjectives and expanded noun phrases australian curriculum aligned use adjectives to build expanded noun phrases that add detail and interest to writing download pdf">
   <div class="thumb c2">Year 3 · English</div>
   <div class="body">
     <p class="tag">Grammar</p>
@@ -1467,7 +1469,7 @@
   </div>
 </li>
 
-<li class="wcard" data-year="year-3" data-subject="english grammar" data-search="year 3 english grammar sentence punctuation australian curriculum aligned punctuate sentences correctly using capital letters full stops question marks and exclamation marks download pdf">
+<li class="wcard" id="w-year-3-sentence-punctuation" data-year="year-3" data-subject="grammar" data-search="year 3 english grammar sentence punctuation australian curriculum aligned punctuate sentences correctly using capital letters full stops question marks and exclamation marks download pdf">
   <div class="thumb c3">Year 3 · English</div>
   <div class="body">
     <p class="tag">Grammar</p>
@@ -1479,7 +1481,7 @@
   </div>
 </li>
 
-<li class="wcard" data-year="year-3" data-subject="english grammar" data-search="year 3 english grammar punctuation and direct speech australian curriculum aligned use quotation marks and correct punctuation to write direct speech in sentences download pdf">
+<li class="wcard" id="w-year-3-punctuation-and-direct-speech" data-year="year-3" data-subject="grammar" data-search="year 3 english grammar punctuation and direct speech australian curriculum aligned use quotation marks and correct punctuation to write direct speech in sentences download pdf">
   <div class="thumb c4">Year 3 · English</div>
   <div class="body">
     <p class="tag">Grammar</p>
@@ -1491,7 +1493,7 @@
   </div>
 </li>
 
-<li class="wcard" data-year="year-3" data-subject="english grammar" data-search="year 3 english grammar conjunctions and sentence types australian curriculum aligned use conjunctions to join ideas and identify different sentence types download pdf">
+<li class="wcard" id="w-year-3-conjunctions-and-sentence-types" data-year="year-3" data-subject="grammar" data-search="year 3 english grammar conjunctions and sentence types australian curriculum aligned use conjunctions to join ideas and identify different sentence types download pdf">
   <div class="thumb c1">Year 3 · English</div>
   <div class="body">
     <p class="tag">Grammar</p>
@@ -1503,7 +1505,7 @@
   </div>
 </li>
 
-<li class="wcard" data-year="year-3" data-subject="english grammar" data-search="year 3 english grammar vocabulary context clues australian curriculum aligned use context clues within a sentence to work out meaning of unfamiliar words download pdf">
+<li class="wcard" id="w-year-3-vocabulary-context-clues" data-year="year-3" data-subject="grammar" data-search="year 3 english grammar vocabulary context clues australian curriculum aligned use context clues within a sentence to work out meaning of unfamiliar words download pdf">
   <div class="thumb c2">Year 3 · English</div>
   <div class="body">
     <p class="tag">Grammar · Vocabulary</p>
@@ -1515,7 +1517,7 @@
   </div>
 </li>
 
-<li class="wcard" data-year="year-3" data-subject="english reading" data-search="year 3 english reading comprehension fiction australian curriculum aligned read a fiction text and answer literal and inferential comprehension questions download pdf">
+<li class="wcard" id="w-year-3-reading-comprehension-fiction" data-year="year-3" data-subject="reading" data-search="year 3 english reading comprehension fiction australian curriculum aligned read a fiction text and answer literal and inferential comprehension questions download pdf">
   <div class="thumb c3">Year 3 · English</div>
   <div class="body">
     <p class="tag">Reading Comprehension</p>
@@ -1527,7 +1529,7 @@
   </div>
 </li>
 
-<li class="wcard" data-year="year-3" data-subject="english reading" data-search="year 3 english reading comprehension nonfiction australian curriculum aligned read an information text and answer comprehension questions about key facts and ideas download pdf">
+<li class="wcard" id="w-year-3-reading-comprehension-nonfiction" data-year="year-3" data-subject="reading" data-search="year 3 english reading comprehension nonfiction australian curriculum aligned read an information text and answer comprehension questions about key facts and ideas download pdf">
   <div class="thumb c4">Year 3 · English</div>
   <div class="body">
     <p class="tag">Reading Comprehension</p>
@@ -1539,7 +1541,7 @@
   </div>
 </li>
 
-<li class="wcard" data-year="year-3" data-subject="english reading" data-search="year 3 english reading comprehension main idea and key details australian curriculum aligned identify the main idea of a text and locate key supporting details download pdf">
+<li class="wcard" id="w-year-3-main-idea-and-key-details" data-year="year-3" data-subject="reading" data-search="year 3 english reading comprehension main idea and key details australian curriculum aligned identify the main idea of a text and locate key supporting details download pdf">
   <div class="thumb c1">Year 3 · English</div>
   <div class="body">
     <p class="tag">Reading Comprehension</p>
@@ -1551,7 +1553,7 @@
   </div>
 </li>
 
-<li class="wcard" data-year="year-3" data-subject="english reading" data-search="year 3 english reading comprehension cause and effect australian curriculum aligned identify cause and effect relationships within a text to build comprehension skills download pdf">
+<li class="wcard" id="w-year-3-cause-and-effect" data-year="year-3" data-subject="reading" data-search="year 3 english reading comprehension cause and effect australian curriculum aligned identify cause and effect relationships within a text to build comprehension skills download pdf">
   <div class="thumb c2">Year 3 · English</div>
   <div class="body">
     <p class="tag">Reading Comprehension</p>
@@ -1563,7 +1565,7 @@
   </div>
 </li>
 
-<li class="wcard" data-year="year-3" data-subject="english reading" data-search="year 3 english reading comprehension sequencing events australian curriculum aligned identify and order the sequence of events in a text download pdf">
+<li class="wcard" id="w-year-3-sequencing-events" data-year="year-3" data-subject="reading" data-search="year 3 english reading comprehension sequencing events australian curriculum aligned identify and order the sequence of events in a text download pdf">
   <div class="thumb c3">Year 3 · English</div>
   <div class="body">
     <p class="tag">Reading Comprehension</p>
@@ -1575,7 +1577,7 @@
   </div>
 </li>
 
-<li class="wcard" data-year="year-3" data-subject="english reading" data-search="year 3 english reading comprehension compare and contrast australian curriculum aligned compare and contrast characters ideas or information within a text download pdf">
+<li class="wcard" id="w-year-3-compare-and-contrast" data-year="year-3" data-subject="reading" data-search="year 3 english reading comprehension compare and contrast australian curriculum aligned compare and contrast characters ideas or information within a text download pdf">
   <div class="thumb c4">Year 3 · English</div>
   <div class="body">
     <p class="tag">Reading Comprehension</p>
@@ -1587,7 +1589,7 @@
   </div>
 </li>
 
-<li class="wcard" data-year="year-3" data-subject="english reading" data-search="year 3 english reading comprehension inference skills australian curriculum aligned use clues from the text to make inferences and draw conclusions beyond literal meaning download pdf">
+<li class="wcard" id="w-year-3-inference-skills" data-year="year-3" data-subject="reading" data-search="year 3 english reading comprehension inference skills australian curriculum aligned use clues from the text to make inferences and draw conclusions beyond literal meaning download pdf">
   <div class="thumb c1">Year 3 · English</div>
   <div class="body">
     <p class="tag">Reading Comprehension</p>
@@ -1599,7 +1601,7 @@
   </div>
 </li>
 
-<li class="wcard" data-year="year-3" data-subject="english writing" data-search="year 3 english writing narrative the mysterious door australian curriculum aligned plan and write an imaginative narrative with a clear structure download pdf">
+<li class="wcard" id="w-year-3-narrative-writing-the-mysterious-door" data-year="year-3" data-subject="writing" data-search="year 3 english writing narrative the mysterious door australian curriculum aligned plan and write an imaginative narrative with a clear structure download pdf">
   <div class="thumb c2">Year 3 · English</div>
   <div class="body">
     <p class="tag">Writing · Narrative</p>
@@ -1611,7 +1613,7 @@
   </div>
 </li>
 
-<li class="wcard" data-year="year-3" data-subject="english writing" data-search="year 3 english writing descriptive my magical garden australian curriculum aligned use descriptive language and sensory details in writing download pdf">
+<li class="wcard" id="w-year-3-descriptive-writing-my-magical-garden" data-year="year-3" data-subject="writing" data-search="year 3 english writing descriptive my magical garden australian curriculum aligned use descriptive language and sensory details in writing download pdf">
   <div class="thumb c3">Year 3 · English</div>
   <div class="body">
     <p class="tag">Writing · Descriptive</p>
@@ -1623,7 +1625,7 @@
   </div>
 </li>
 
-<li class="wcard" data-year="year-3" data-subject="english writing" data-search="year 3 english writing diary entry a day at the beach australian curriculum aligned write a first person diary entry in time order download pdf">
+<li class="wcard" id="w-year-3-diary-entry-a-day-at-the-beach" data-year="year-3" data-subject="writing" data-search="year 3 english writing diary entry a day at the beach australian curriculum aligned write a first person diary entry in time order download pdf">
   <div class="thumb c4">Year 3 · English</div>
   <div class="body">
     <p class="tag">Writing · Diary</p>
@@ -1635,7 +1637,7 @@
   </div>
 </li>
 
-<li class="wcard" data-year="year-3" data-subject="english writing" data-search="year 3 english writing persuasive why dogs make the best pets australian curriculum aligned write persuasive text using reasons and evidence download pdf">
+<li class="wcard" id="w-year-3-persuasive-writing-why-dogs-make-the-best-pets" data-year="year-3" data-subject="writing" data-search="year 3 english writing persuasive why dogs make the best pets australian curriculum aligned write persuasive text using reasons and evidence download pdf">
   <div class="thumb c1">Year 3 · English</div>
   <div class="body">
     <p class="tag">Writing · Persuasive</p>
@@ -1647,7 +1649,7 @@
   </div>
 </li>
 
-<li class="wcard" data-year="year-3" data-subject="english writing" data-search="year 3 english writing poetry weather poem australian curriculum aligned write a short poem exploring rhythm imagery and descriptive word choices download pdf">
+<li class="wcard" id="w-year-3-poetry-weather-poem" data-year="year-3" data-subject="writing" data-search="year 3 english writing poetry weather poem australian curriculum aligned write a short poem exploring rhythm imagery and descriptive word choices download pdf">
   <div class="thumb c2">Year 3 · English</div>
   <div class="body">
     <p class="tag">Writing · Poetry</p>
@@ -1659,7 +1661,7 @@
   </div>
 </li>
 
-<li class="wcard" data-year="year-3" data-subject="english reading" data-search="year 3 english reading quokka island worlds happiest animal australian curriculum aligned read an information text about quokkas and answer comprehension questions using key details and evidence download pdf">
+<li class="wcard" id="w-year-3-quokka-island-worlds-happiest-animal" data-year="year-3" data-subject="reading" data-search="year 3 english reading quokka island worlds happiest animal australian curriculum aligned read an information text about quokkas and answer comprehension questions using key details and evidence download pdf">
   <div class="thumb c3">Year 3 · English</div>
   <div class="body">
     <p class="tag">Reading Comprehension · Nonfiction</p>
@@ -1671,7 +1673,7 @@
   </div>
 </li>
 
-<li class="wcard" data-year="year-3" data-subject="english reading" data-search="year 3 english reading slime science mystery australian curriculum aligned read a science mystery text and answer comprehension questions using clues vocabulary and key information download pdf">
+<li class="wcard" id="w-year-3-the-slime-science-mystery" data-year="year-3" data-subject="reading" data-search="year 3 english reading slime science mystery australian curriculum aligned read a science mystery text and answer comprehension questions using clues vocabulary and key information download pdf">
   <div class="thumb c4">Year 3 · English</div>
   <div class="body">
     <p class="tag">Reading Comprehension · Science Text</p>
@@ -1682,7 +1684,7 @@
     <a class="btn btn-secondary btn-sm" href="pages/year-3-the-slime-science-mystery.html">View Worksheet</a>
   </div>
 </li> 
-        <li class="wcard" data-year="year-3" data-subject="science" data-search="year 3 · science living things living and non-living things australian curriculum-aligned sort and classify things as living, once living or non-living, giving reasons for each group. ⬇ download pdf">
+        <li class="wcard" id="w-year-3-living-and-non-living-things" data-year="year-3" data-subject="science" data-search="year 3 · science living things living and non-living things australian curriculum-aligned sort and classify things as living, once living or non-living, giving reasons for each group. ⬇ download pdf">
                   <div class="thumb c1">Year 3 · Science</div>
                   <div class="body">
                     <p class="tag">Living Things</p>
@@ -1694,7 +1696,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-3" data-subject="science" data-search="year 3 · science living things life cycles australian curriculum-aligned explore the different stages in the life cycles of living things. ⬇ download pdf">
+        <li class="wcard" id="w-year-3-life-cycles" data-year="year-3" data-subject="science" data-search="year 3 · science living things life cycles australian curriculum-aligned explore the different stages in the life cycles of living things. ⬇ download pdf">
                   <div class="thumb c2">Year 3 · Science</div>
                   <div class="body">
                     <p class="tag">Living Things</p>
@@ -1706,7 +1708,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-3" data-subject="science" data-search="year 3 · science earth and space day, night and shadows australian curriculum-aligned investigate how day and night occur and how shadows change throughout the day. ⬇ download pdf">
+        <li class="wcard" id="w-year-3-day-night-and-shadows" data-year="year-3" data-subject="science" data-search="year 3 · science earth and space day, night and shadows australian curriculum-aligned investigate how day and night occur and how shadows change throughout the day. ⬇ download pdf">
                   <div class="thumb c3">Year 3 · Science</div>
                   <div class="body">
                     <p class="tag">Earth and Space</p>
@@ -1718,7 +1720,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-3" data-subject="science" data-search="year 3 · science physical sciences heat and temperature australian curriculum-aligned explore heat sources, temperature and how heat can change the state of materials. ⬇ download pdf">
+        <li class="wcard" id="w-year-3-heat-and-temperature" data-year="year-3" data-subject="science" data-search="year 3 · science physical sciences heat and temperature australian curriculum-aligned explore heat sources, temperature and how heat can change the state of materials. ⬇ download pdf">
                   <div class="thumb c4">Year 3 · Science</div>
                   <div class="body">
                     <p class="tag">Physical Sciences</p>
@@ -1730,7 +1732,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-4" data-subject="maths" data-search="year 4 · maths number addition and subtraction strategies australian curriculum-aligned use efficient mental and written strategies to solve year 4 addition and subtraction problems. ⬇ download pdf">
+        <li class="wcard" id="w-year-4-addition-and-subtraction-strategies" data-year="year-4" data-subject="maths" data-search="year 4 · maths number addition and subtraction strategies australian curriculum-aligned use efficient mental and written strategies to solve year 4 addition and subtraction problems. ⬇ download pdf">
                   <div class="thumb c1">Year 4 · Maths</div>
                   <div class="body">
                     <p class="tag">Number</p>
@@ -1742,7 +1744,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-4" data-subject="maths" data-search="year 4 · maths measurement area and perimeter australian curriculum-aligned calculate and compare the area and perimeter of rectangles in practical situations. ⬇ download pdf">
+        <li class="wcard" id="w-year-4-area-and-perimeter" data-year="year-4" data-subject="maths" data-search="year 4 · maths measurement area and perimeter australian curriculum-aligned calculate and compare the area and perimeter of rectangles in practical situations. ⬇ download pdf">
                   <div class="thumb c2">Year 4 · Maths</div>
                   <div class="body">
                     <p class="tag">Measurement</p>
@@ -1754,7 +1756,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-4" data-subject="maths" data-search="year 4 · maths number fractions and decimals australian curriculum-aligned represent, compare and connect common fractions and decimals using clear visual models. ⬇ download pdf">
+        <li class="wcard" id="w-year-4-fractions-and-decimals" data-year="year-4" data-subject="maths" data-search="year 4 · maths number fractions and decimals australian curriculum-aligned represent, compare and connect common fractions and decimals using clear visual models. ⬇ download pdf">
                   <div class="thumb c3">Year 4 · Maths</div>
                   <div class="body">
                     <p class="tag">Number</p>
@@ -1766,7 +1768,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-4" data-subject="maths" data-search="year 4 · maths money and time money, time and word problems australian curriculum-aligned apply money and time skills to solve practical multi-step problems. ⬇ download pdf">
+        <li class="wcard" id="w-year-4-money-time-and-word-problems" data-year="year-4" data-subject="maths" data-search="year 4 · maths money and time money, time and word problems australian curriculum-aligned apply money and time skills to solve practical multi-step problems. ⬇ download pdf">
                   <div class="thumb c4">Year 4 · Maths</div>
                   <div class="body">
                     <p class="tag">Money and Time</p>
@@ -1778,7 +1780,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-4" data-subject="maths" data-search="year 4 · maths number multiplication and division facts australian curriculum-aligned build fluency with multiplication and division facts and apply them to problem solving. ⬇ download pdf">
+        <li class="wcard" id="w-year-4-multiplication-and-division-facts" data-year="year-4" data-subject="maths" data-search="year 4 · maths number multiplication and division facts australian curriculum-aligned build fluency with multiplication and division facts and apply them to problem solving. ⬇ download pdf">
                   <div class="thumb c1">Year 4 · Maths</div>
                   <div class="body">
                     <p class="tag">Number</p>
@@ -1790,7 +1792,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-4" data-subject="maths" data-search="year 4 · maths number place value and decimals australian curriculum-aligned explore place value and decimal notation through structured year 4 practice. ⬇ download pdf">
+        <li class="wcard" id="w-year-4-place-value-and-decimals" data-year="year-4" data-subject="maths" data-search="year 4 · maths number place value and decimals australian curriculum-aligned explore place value and decimal notation through structured year 4 practice. ⬇ download pdf">
                   <div class="thumb c2">Year 4 · Maths</div>
                   <div class="body">
                     <p class="tag">Number</p>
@@ -1802,7 +1804,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-4" data-subject="english grammar" data-search="year 4 · english grammar adverbs and verb groups australian curriculum-aligned recognise and use adverbs and verb groups to add precision and detail to sentences. ⬇ download pdf">
+        <li class="wcard" id="w-year-4-adverbs-and-verb-groups" data-year="year-4" data-subject="grammar" data-search="year 4 · english grammar adverbs and verb groups australian curriculum-aligned recognise and use adverbs and verb groups to add precision and detail to sentences. ⬇ download pdf">
                   <div class="thumb c1">Year 4 · English</div>
                   <div class="body">
                     <p class="tag">Grammar</p>
@@ -1814,7 +1816,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-4" data-subject="english grammar" data-search="year 4 · english grammar cohesion: pronouns and connectives australian curriculum-aligned use pronouns and connectives to link ideas and create cohesive paragraphs. ⬇ download pdf">
+        <li class="wcard" id="w-year-4-cohesion-pronouns-and-connectives" data-year="year-4" data-subject="grammar" data-search="year 4 · english grammar cohesion: pronouns and connectives australian curriculum-aligned use pronouns and connectives to link ideas and create cohesive paragraphs. ⬇ download pdf">
                   <div class="thumb c2">Year 4 · English</div>
                   <div class="body">
                     <p class="tag">Grammar</p>
@@ -1826,7 +1828,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-4" data-subject="english grammar" data-search="year 4 · english grammar complex sentences australian curriculum-aligned build complex sentences by combining main and subordinate clauses effectively. ⬇ download pdf">
+        <li class="wcard" id="w-year-4-complex-sentences" data-year="year-4" data-subject="grammar" data-search="year 4 · english grammar complex sentences australian curriculum-aligned build complex sentences by combining main and subordinate clauses effectively. ⬇ download pdf">
                   <div class="thumb c3">Year 4 · English</div>
                   <div class="body">
                     <p class="tag">Grammar</p>
@@ -1838,7 +1840,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-4" data-subject="english grammar" data-search="year 4 · english grammar direct and reported speech australian curriculum-aligned identify and transform direct and reported speech using accurate punctuation. ⬇ download pdf">
+        <li class="wcard" id="w-year-4-direct-and-reported-speech" data-year="year-4" data-subject="grammar" data-search="year 4 · english grammar direct and reported speech australian curriculum-aligned identify and transform direct and reported speech using accurate punctuation. ⬇ download pdf">
                   <div class="thumb c4">Year 4 · English</div>
                   <div class="body">
                     <p class="tag">Grammar</p>
@@ -1850,7 +1852,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-4" data-subject="english writing" data-search="year 4 · english writing editing and improving writing australian curriculum-aligned edit sentences and paragraphs for meaning, structure, punctuation and word choice. ⬇ download pdf">
+        <li class="wcard" id="w-year-4-editing-and-improving-writing" data-year="year-4" data-subject="writing" data-search="year 4 · english writing editing and improving writing australian curriculum-aligned edit sentences and paragraphs for meaning, structure, punctuation and word choice. ⬇ download pdf">
                   <div class="thumb c1">Year 4 · English</div>
                   <div class="body">
                     <p class="tag">Writing</p>
@@ -1862,7 +1864,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-4" data-subject="english grammar" data-search="year 4 · english grammar expanded noun groups australian curriculum-aligned create expanded noun groups that make descriptions more precise and engaging. ⬇ download pdf">
+        <li class="wcard" id="w-year-4-expanded-noun-groups" data-year="year-4" data-subject="grammar" data-search="year 4 · english grammar expanded noun groups australian curriculum-aligned create expanded noun groups that make descriptions more precise and engaging. ⬇ download pdf">
                   <div class="thumb c2">Year 4 · English</div>
                   <div class="body">
                     <p class="tag">Grammar</p>
@@ -1874,7 +1876,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-4" data-subject="english writing" data-search="year 4 · english writing · informative informative report writing australian curriculum-aligned plan and create a clearly structured informative report using relevant facts. ⬇ download pdf">
+        <li class="wcard" id="w-year-4-informative-report-writing" data-year="year-4" data-subject="writing" data-search="year 4 · english writing · informative informative report writing australian curriculum-aligned plan and create a clearly structured informative report using relevant facts. ⬇ download pdf">
                   <div class="thumb c3">Year 4 · English</div>
                   <div class="body">
                     <p class="tag">Writing · Informative</p>
@@ -1886,7 +1888,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-4" data-subject="english writing" data-search="year 4 · english writing · narrative narrative writing australian curriculum-aligned develop characters, setting and plot to create an engaging year 4 narrative. ⬇ download pdf">
+        <li class="wcard" id="w-year-4-narrative-writing" data-year="year-4" data-subject="writing" data-search="year 4 · english writing · narrative narrative writing australian curriculum-aligned develop characters, setting and plot to create an engaging year 4 narrative. ⬇ download pdf">
                   <div class="thumb c4">Year 4 · English</div>
                   <div class="body">
                     <p class="tag">Writing · Narrative</p>
@@ -1898,7 +1900,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-4" data-subject="english writing" data-search="year 4 · english writing · persuasive persuasive writing australian curriculum-aligned build a clear opinion with organised reasons and persuasive language. ⬇ download pdf">
+        <li class="wcard" id="w-year-4-persuasive-writing" data-year="year-4" data-subject="writing" data-search="year 4 · english writing · persuasive persuasive writing australian curriculum-aligned build a clear opinion with organised reasons and persuasive language. ⬇ download pdf">
                   <div class="thumb c1">Year 4 · English</div>
                   <div class="body">
                     <p class="tag">Writing · Persuasive</p>
@@ -1909,7 +1911,7 @@
                     <a class="btn btn-secondary btn-sm" href="pages/year-4-persuasive-writing.html">View Worksheet</a>
                   </div>
                 </li>
-        <li class="wcard" data-year="year-5" data-subject="english writing" data-search="year 5 · english writing · persuasive should plastic bottles be banned australian curriculum-aligned build a persuasive argument using evidence and persuasive devices. ⬇ download pdf">
+        <li class="wcard" id="w-year-5-should-plastic-bottles-be-banned" data-year="year-5" data-subject="writing" data-search="year 5 · english writing · persuasive should plastic bottles be banned australian curriculum-aligned build a persuasive argument using evidence and persuasive devices. ⬇ download pdf">
                   <div class="thumb c2">Year 5 · English</div>
                   <div class="body">
                     <p class="tag">Writing · Persuasive</p>
@@ -1921,7 +1923,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-4" data-subject="english grammar" data-search="year 4 · english grammar prepositional phrases australian curriculum-aligned use prepositional phrases to add details about time, place and manner. ⬇ download pdf">
+        <li class="wcard" id="w-year-4-prepositional-phrases" data-year="year-4" data-subject="grammar" data-search="year 4 · english grammar prepositional phrases australian curriculum-aligned use prepositional phrases to add details about time, place and manner. ⬇ download pdf">
                   <div class="thumb c2">Year 4 · English</div>
                   <div class="body">
                     <p class="tag">Grammar</p>
@@ -1933,7 +1935,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-4" data-subject="english reading" data-search="year 4 · english reading comprehension cultural festival day australian curriculum-aligned read a culturally rich text and answer literal and inferential comprehension questions. ⬇ download pdf">
+        <li class="wcard" id="w-year-4-cultural-festival-day" data-year="year-4" data-subject="reading" data-search="year 4 · english reading comprehension cultural festival day australian curriculum-aligned read a culturally rich text and answer literal and inferential comprehension questions. ⬇ download pdf">
                   <div class="thumb c3">Year 4 · English</div>
                   <div class="body">
                     <p class="tag">Reading Comprehension</p>
@@ -1945,7 +1947,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-4" data-subject="english reading" data-search="year 4 · english reading comprehension saving water in the school garden australian curriculum-aligned analyse an informative text about practical water conservation at school. ⬇ download pdf">
+        <li class="wcard" id="w-year-4-saving-water-in-the-school-garden" data-year="year-4" data-subject="reading" data-search="year 4 · english reading comprehension saving water in the school garden australian curriculum-aligned analyse an informative text about practical water conservation at school. ⬇ download pdf">
                   <div class="thumb c4">Year 4 · English</div>
                   <div class="body">
                     <p class="tag">Reading Comprehension</p>
@@ -1957,7 +1959,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-4" data-subject="english reading" data-search="year 4 · english reading comprehension the lighthouse keeper’s note australian curriculum-aligned use clues and evidence to interpret an engaging mystery-themed passage. ⬇ download pdf">
+        <li class="wcard" id="w-year-4-the-lighthouse-keepers-note" data-year="year-4" data-subject="reading" data-search="year 4 · english reading comprehension the lighthouse keeper’s note australian curriculum-aligned use clues and evidence to interpret an engaging mystery-themed passage. ⬇ download pdf">
                   <div class="thumb c1">Year 4 · English</div>
                   <div class="body">
                     <p class="tag">Reading Comprehension</p>
@@ -1969,7 +1971,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-4" data-subject="english reading" data-search="year 4 · english reading comprehension the rainforest sound map australian curriculum-aligned explore descriptive language, key details and inference in a rainforest passage. ⬇ download pdf">
+        <li class="wcard" id="w-year-4-the-rainforest-sound-map" data-year="year-4" data-subject="reading" data-search="year 4 · english reading comprehension the rainforest sound map australian curriculum-aligned explore descriptive language, key details and inference in a rainforest passage. ⬇ download pdf">
                   <div class="thumb c2">Year 4 · English</div>
                   <div class="body">
                     <p class="tag">Reading Comprehension</p>
@@ -1981,7 +1983,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-4" data-subject="english writing" data-search="year 4 · english writing · recount recount writing australian curriculum-aligned sequence events and use time connectives to create a well-organised recount. ⬇ download pdf">
+        <li class="wcard" id="w-year-4-recount-writing" data-year="year-4" data-subject="writing" data-search="year 4 · english writing · recount recount writing australian curriculum-aligned sequence events and use time connectives to create a well-organised recount. ⬇ download pdf">
                   <div class="thumb c3">Year 4 · English</div>
                   <div class="body">
                     <p class="tag">Writing · Recount</p>
@@ -1992,7 +1994,7 @@
                     <a class="btn btn-secondary btn-sm" href="pages/year-4-recount-writing.html">View Worksheet</a>
                   </div>
                 </li>
-        <li class="wcard" data-year="year-5" data-subject="english writing" data-search="year 5 · english writing · recount my camp experience australian curriculum-aligned sequence events and reflect on a camp experience using a clear recount structure. ⬇ download pdf">
+        <li class="wcard" id="w-year-5-my-camp-experience" data-year="year-5" data-subject="writing" data-search="year 5 · english writing · recount my camp experience australian curriculum-aligned sequence events and reflect on a camp experience using a clear recount structure. ⬇ download pdf">
                   <div class="thumb c1">Year 5 · English</div>
                   <div class="body">
                     <p class="tag">Writing · Recount</p>
@@ -2004,7 +2006,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-4" data-subject="english writing" data-search="year 4 · english writing · description show, don’t tell: emotions australian curriculum-aligned use actions, dialogue and sensory details to show emotions in writing. ⬇ download pdf">
+        <li class="wcard" id="w-year-4-show-dont-tell-emotions" data-year="year-4" data-subject="writing" data-search="year 4 · english writing · description show, don’t tell: emotions australian curriculum-aligned use actions, dialogue and sensory details to show emotions in writing. ⬇ download pdf">
                   <div class="thumb c4">Year 4 · English</div>
                   <div class="body">
                     <p class="tag">Writing · Description</p>
@@ -2016,7 +2018,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-4" data-subject="science" data-search="year 4 · science physical sciences forces: push, pull and motion australian curriculum-aligned investigate how pushes and pulls affect the movement of objects. ⬇ download pdf">
+        <li class="wcard" id="w-year-4-forces-push-pull-and-motion" data-year="year-4" data-subject="science" data-search="year 4 · science physical sciences forces: push, pull and motion australian curriculum-aligned investigate how pushes and pulls affect the movement of objects. ⬇ download pdf">
                   <div class="thumb c1">Year 4 · Science</div>
                   <div class="body">
                     <p class="tag">Physical Sciences</p>
@@ -2028,7 +2030,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-4" data-subject="science" data-search="year 4 · science science inquiry planning investigations and representing data australian curriculum-aligned plan fair investigations and organise observations using tables and displays. ⬇ download pdf">
+        <li class="wcard" id="w-year-4-planning-investigations-and-representing-data" data-year="year-4" data-subject="science" data-search="year 4 · science science inquiry planning investigations and representing data australian curriculum-aligned plan fair investigations and organise observations using tables and displays. ⬇ download pdf">
                   <div class="thumb c2">Year 4 · Science</div>
                   <div class="body">
                     <p class="tag">Science Inquiry</p>
@@ -2040,7 +2042,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-4" data-subject="science" data-search="year 4 · science biological sciences producers, consumers and decomposers australian curriculum-aligned explore feeding relationships and the roles organisms play in ecosystems. ⬇ download pdf">
+        <li class="wcard" id="w-year-4-producers-consumers-and-decomposers" data-year="year-4" data-subject="science" data-search="year 4 · science biological sciences producers, consumers and decomposers australian curriculum-aligned explore feeding relationships and the roles organisms play in ecosystems. ⬇ download pdf">
                   <div class="thumb c3">Year 4 · Science</div>
                   <div class="body">
                     <p class="tag">Biological Sciences</p>
@@ -2052,7 +2054,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-4" data-subject="science" data-search="year 4 · science chemical sciences properties of natural and made materials australian curriculum-aligned compare observable properties of natural and manufactured materials. ⬇ download pdf">
+        <li class="wcard" id="w-year-4-properties-of-natural-and-made-materials" data-year="year-4" data-subject="science" data-search="year 4 · science chemical sciences properties of natural and made materials australian curriculum-aligned compare observable properties of natural and manufactured materials. ⬇ download pdf">
                   <div class="thumb c4">Year 4 · Science</div>
                   <div class="body">
                     <p class="tag">Chemical Sciences</p>
@@ -2064,7 +2066,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-4" data-subject="science" data-search="year 4 · science biological sciences living things and life cycles australian curriculum-aligned compare life cycles and examine how living things grow and reproduce. ⬇ download pdf">
+        <li class="wcard" id="w-year-4-living-things-and-life-cycles" data-year="year-4" data-subject="science" data-search="year 4 · science biological sciences living things and life cycles australian curriculum-aligned compare life cycles and examine how living things grow and reproduce. ⬇ download pdf">
                   <div class="thumb c1">Year 4 · Science</div>
                   <div class="body">
                     <p class="tag">Biological Sciences</p>
@@ -2076,7 +2078,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-4" data-subject="science" data-search="year 4 · science earth and space sciences the water cycle australian curriculum-aligned follow water through evaporation, condensation, precipitation and collection. ⬇ download pdf">
+        <li class="wcard" id="w-year-4-the-water-cycle" data-year="year-4" data-subject="science" data-search="year 4 · science earth and space sciences the water cycle australian curriculum-aligned follow water through evaporation, condensation, precipitation and collection. ⬇ download pdf">
                   <div class="thumb c2">Year 4 · Science</div>
                   <div class="body">
                     <p class="tag">Earth and Space Sciences</p>
@@ -2088,7 +2090,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-5" data-subject="maths" data-search="year 5 · maths measurement 12-hour and 24-hour time australian curriculum-aligned convert between 12-hour and 24-hour time and solve practical timetable problems. ⬇ download pdf">
+        <li class="wcard" id="w-year-5-12-hour-and-24-hour-time" data-year="year-5" data-subject="maths" data-search="year 5 · maths measurement 12-hour and 24-hour time australian curriculum-aligned convert between 12-hour and 24-hour time and solve practical timetable problems. ⬇ download pdf">
                   <div class="thumb c1">Year 5 · Maths</div>
                   <div class="body">
                     <p class="tag">Measurement</p>
@@ -2100,7 +2102,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-5" data-subject="maths" data-search="year 5 · maths number division with remainders australian curriculum-aligned apply efficient division strategies and interpret remainders in practical situations. ⬇ download pdf">
+        <li class="wcard" id="w-year-5-division-with-remainders" data-year="year-5" data-subject="maths" data-search="year 5 · maths number division with remainders australian curriculum-aligned apply efficient division strategies and interpret remainders in practical situations. ⬇ download pdf">
                   <div class="thumb c2">Year 5 · Maths</div>
                   <div class="body">
                     <p class="tag">Number</p>
@@ -2112,7 +2114,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-5" data-subject="maths" data-search="year 5 · maths measurement estimating and measuring angles australian curriculum-aligned estimate, measure and compare angles using degrees and appropriate tools. ⬇ download pdf">
+        <li class="wcard" id="w-year-5-estimating-and-measuring-angles" data-year="year-5" data-subject="maths" data-search="year 5 · maths measurement estimating and measuring angles australian curriculum-aligned estimate, measure and compare angles using degrees and appropriate tools. ⬇ download pdf">
                   <div class="thumb c3">Year 5 · Maths</div>
                   <div class="body">
                     <p class="tag">Measurement</p>
@@ -2124,7 +2126,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-5" data-subject="maths" data-search="year 5 · maths financial mathematics money and financial maths australian curriculum-aligned solve realistic money problems involving budgets, costs, change and financial decisions. ⬇ download pdf">
+        <li class="wcard" id="w-year-5-money-and-financial-maths" data-year="year-5" data-subject="maths" data-search="year 5 · maths financial mathematics money and financial maths australian curriculum-aligned solve realistic money problems involving budgets, costs, change and financial decisions. ⬇ download pdf">
                   <div class="thumb c4">Year 5 · Maths</div>
                   <div class="body">
                     <p class="tag">Financial Mathematics</p>
@@ -2136,7 +2138,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-5" data-subject="english grammar" data-search="year 5 · english grammar apostrophes: possession and contraction australian curriculum-aligned use apostrophes accurately to show possession and form contractions. ⬇ download pdf">
+        <li class="wcard" id="w-year-5-apostrophes-possession-and-contraction" data-year="year-5" data-subject="grammar" data-search="year 5 · english grammar apostrophes: possession and contraction australian curriculum-aligned use apostrophes accurately to show possession and form contractions. ⬇ download pdf">
                   <div class="thumb c1">Year 5 · English</div>
                   <div class="body">
                     <p class="tag">Grammar</p>
@@ -2148,7 +2150,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-5" data-subject="english grammar" data-search="year 5 · english punctuation commas in complex sentences australian curriculum-aligned use commas accurately to organise clauses and make complex sentences clear. ⬇ download pdf">
+        <li class="wcard" id="w-year-5-commas-in-complex-sentences" data-year="year-5" data-subject="grammar" data-search="year 5 · english punctuation commas in complex sentences australian curriculum-aligned use commas accurately to organise clauses and make complex sentences clear. ⬇ download pdf">
                   <div class="thumb c2">Year 5 · English</div>
                   <div class="body">
                     <p class="tag">Punctuation</p>
@@ -2160,7 +2162,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-5" data-subject="english grammar" data-search="year 5 · english grammar complex sentences and clauses australian curriculum-aligned identify and combine clauses to create effective complex sentences. ⬇ download pdf">
+        <li class="wcard" id="w-year-5-complex-sentences-and-clauses" data-year="year-5" data-subject="grammar" data-search="year 5 · english grammar complex sentences and clauses australian curriculum-aligned identify and combine clauses to create effective complex sentences. ⬇ download pdf">
                   <div class="thumb c3">Year 5 · English</div>
                   <div class="body">
                     <p class="tag">Grammar</p>
@@ -2172,7 +2174,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-5" data-subject="english grammar" data-search="year 5 · english grammar direct and indirect speech australian curriculum-aligned recognise and transform direct and indirect speech using accurate punctuation. ⬇ download pdf">
+        <li class="wcard" id="w-year-5-direct-and-indirect-speech" data-year="year-5" data-subject="grammar" data-search="year 5 · english grammar direct and indirect speech australian curriculum-aligned recognise and transform direct and indirect speech using accurate punctuation. ⬇ download pdf">
                   <div class="thumb c4">Year 5 · English</div>
                   <div class="body">
                     <p class="tag">Grammar</p>
@@ -2184,7 +2186,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-5" data-subject="english writing" data-search="year 5 · english writing editing and improving writing australian curriculum-aligned edit writing for sentence structure, punctuation, vocabulary and cohesion. ⬇ download pdf">
+        <li class="wcard" id="w-year-5-editing-and-improving-writing" data-year="year-5" data-subject="writing" data-search="year 5 · english writing editing and improving writing australian curriculum-aligned edit writing for sentence structure, punctuation, vocabulary and cohesion. ⬇ download pdf">
                   <div class="thumb c1">Year 5 · English</div>
                   <div class="body">
                     <p class="tag">Writing</p>
@@ -2196,7 +2198,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-5" data-subject="english grammar" data-search="year 5 · english language figurative language australian curriculum-aligned interpret and create similes, metaphors, personification and other figurative language. ⬇ download pdf">
+        <li class="wcard" id="w-year-5-figurative-language" data-year="year-5" data-subject="grammar" data-search="year 5 · english language figurative language australian curriculum-aligned interpret and create similes, metaphors, personification and other figurative language. ⬇ download pdf">
                   <div class="thumb c2">Year 5 · English</div>
                   <div class="body">
                     <p class="tag">Language</p>
@@ -2208,7 +2210,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-5" data-subject="english writing" data-search="year 5 · english writing · informative informative report writing australian curriculum-aligned research, organise and communicate information in a clearly structured report. ⬇ download pdf">
+        <li class="wcard" id="w-year-5-informative-report-writing" data-year="year-5" data-subject="writing" data-search="year 5 · english writing · informative informative report writing australian curriculum-aligned research, organise and communicate information in a clearly structured report. ⬇ download pdf">
                   <div class="thumb c3">Year 5 · English</div>
                   <div class="body">
                     <p class="tag">Writing · Informative</p>
@@ -2220,7 +2222,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-5" data-subject="english writing" data-search="year 5 · english writing · narrative narrative mystery writing australian curriculum-aligned create suspense through setting, clues, character development and a structured plot. ⬇ download pdf">
+        <li class="wcard" id="w-year-5-narrative-mystery-writing" data-year="year-5" data-subject="writing" data-search="year 5 · english writing · narrative narrative mystery writing australian curriculum-aligned create suspense through setting, clues, character development and a structured plot. ⬇ download pdf">
                   <div class="thumb c4">Year 5 · English</div>
                   <div class="body">
                     <p class="tag">Writing · Narrative</p>
@@ -2232,7 +2234,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-5" data-subject="english writing" data-search="year 5 · english writing · persuasive persuasive devices australian curriculum-aligned use modality, rhetorical questions, evidence and emotive language purposefully. ⬇ download pdf">
+        <li class="wcard" id="w-year-5-persuasive-devices" data-year="year-5" data-subject="writing" data-search="year 5 · english writing · persuasive persuasive devices australian curriculum-aligned use modality, rhetorical questions, evidence and emotive language purposefully. ⬇ download pdf">
                   <div class="thumb c1">Year 5 · English</div>
                   <div class="body">
                     <p class="tag">Writing · Persuasive</p>
@@ -2244,7 +2246,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-5" data-subject="english writing" data-search="year 5 · english writing · persuasive persuasive writing australian curriculum-aligned plan and compose a convincing argument for a clear audience and purpose. ⬇ download pdf">
+        <li class="wcard" id="w-year-5-persuasive-writing" data-year="year-5" data-subject="writing" data-search="year 5 · english writing · persuasive persuasive writing australian curriculum-aligned plan and compose a convincing argument for a clear audience and purpose. ⬇ download pdf">
                   <div class="thumb c2">Year 5 · English</div>
                   <div class="body">
                     <p class="tag">Writing · Persuasive</p>
@@ -2256,7 +2258,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-5" data-subject="english reading" data-search="year 5 · english reading comprehension bushfire preparedness australian curriculum-aligned analyse an australian informational text about bushfire planning and community safety. ⬇ download pdf">
+        <li class="wcard" id="w-year-5-bushfire-preparedness" data-year="year-5" data-subject="reading" data-search="year 5 · english reading comprehension bushfire preparedness australian curriculum-aligned analyse an australian informational text about bushfire planning and community safety. ⬇ download pdf">
                   <div class="thumb c3">Year 5 · English</div>
                   <div class="body">
                     <p class="tag">Reading Comprehension</p>
@@ -2268,7 +2270,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-5" data-subject="english reading" data-search="year 5 · english reading comprehension ocean plastic australian curriculum-aligned interpret key ideas, evidence and vocabulary in an environmental text about ocean plastic. ⬇ download pdf">
+        <li class="wcard" id="w-year-5-ocean-plastic" data-year="year-5" data-subject="reading" data-search="year 5 · english reading comprehension ocean plastic australian curriculum-aligned interpret key ideas, evidence and vocabulary in an environmental text about ocean plastic. ⬇ download pdf">
                   <div class="thumb c4">Year 5 · English</div>
                   <div class="body">
                     <p class="tag">Reading Comprehension</p>
@@ -2280,7 +2282,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-5" data-subject="english reading" data-search="year 5 · english reading comprehension school garden debate australian curriculum-aligned compare viewpoints and evaluate reasons in a school-based debate. ⬇ download pdf">
+        <li class="wcard" id="w-year-5-school-garden-debate" data-year="year-5" data-subject="reading" data-search="year 5 · english reading comprehension school garden debate australian curriculum-aligned compare viewpoints and evaluate reasons in a school-based debate. ⬇ download pdf">
                   <div class="thumb c1">Year 5 · English</div>
                   <div class="body">
                     <p class="tag">Reading Comprehension</p>
@@ -2292,7 +2294,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-5" data-subject="english reading" data-search="year 5 · english reading comprehension secret of the reef australian curriculum-aligned use evidence and inference to explore an engaging reef-themed passage. ⬇ download pdf">
+        <li class="wcard" id="w-year-5-secret-of-the-reef" data-year="year-5" data-subject="reading" data-search="year 5 · english reading comprehension secret of the reef australian curriculum-aligned use evidence and inference to explore an engaging reef-themed passage. ⬇ download pdf">
                   <div class="thumb c2">Year 5 · English</div>
                   <div class="body">
                     <p class="tag">Reading Comprehension</p>
@@ -2304,7 +2306,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-5" data-subject="english writing" data-search="year 5 · english writing · recount recount writing australian curriculum-aligned sequence significant events and reflect on experiences using a clear recount structure. ⬇ download pdf">
+        <li class="wcard" id="w-year-5-recount-writing" data-year="year-5" data-subject="writing" data-search="year 5 · english writing · recount recount writing australian curriculum-aligned sequence significant events and reflect on experiences using a clear recount structure. ⬇ download pdf">
                   <div class="thumb c3">Year 5 · English</div>
                   <div class="body">
                     <p class="tag">Writing · Recount</p>
@@ -2316,7 +2318,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-5" data-subject="english writing" data-search="year 5 · english writing · description show, don’t tell: emotions australian curriculum-aligned reveal emotions through actions, dialogue, thoughts and precise sensory detail. ⬇ download pdf">
+        <li class="wcard" id="w-year-5-show-dont-tell-emotions" data-year="year-5" data-subject="writing" data-search="year 5 · english writing · description show, don’t tell: emotions australian curriculum-aligned reveal emotions through actions, dialogue, thoughts and precise sensory detail. ⬇ download pdf">
                   <div class="thumb c4">Year 5 · English</div>
                   <div class="body">
                     <p class="tag">Writing · Description</p>
@@ -2328,7 +2330,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-5" data-subject="english grammar" data-search="year 5 · english grammar word classes review australian curriculum-aligned review nouns, verbs, adjectives, adverbs, pronouns and other word classes in context. ⬇ download pdf">
+        <li class="wcard" id="w-year-5-word-classes-review" data-year="year-5" data-subject="grammar" data-search="year 5 · english grammar word classes review australian curriculum-aligned review nouns, verbs, adjectives, adverbs, pronouns and other word classes in context. ⬇ download pdf">
                   <div class="thumb c1">Year 5 · English</div>
                   <div class="body">
                     <p class="tag">Grammar</p>
@@ -2340,7 +2342,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-5" data-subject="science" data-search="year 5 · science biological sciences adaptations and survival australian curriculum-aligned examine how structural and behavioural adaptations support survival in different environments. ⬇ download pdf">
+        <li class="wcard" id="w-year-5-adaptations-and-survival" data-year="year-5" data-subject="science" data-search="year 5 · science biological sciences adaptations and survival australian curriculum-aligned examine how structural and behavioural adaptations support survival in different environments. ⬇ download pdf">
                   <div class="thumb c1">Year 5 · Science</div>
                   <div class="body">
                     <p class="tag">Biological Sciences</p>
@@ -2352,7 +2354,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-5" data-subject="science" data-search="year 5 · science physical sciences light: reflection, refraction and shadows australian curriculum-aligned investigate how light travels, reflects, refracts and forms shadows. ⬇ download pdf">
+        <li class="wcard" id="w-year-5-light-reflection-refraction-and-shadows" data-year="year-5" data-subject="science" data-search="year 5 · science physical sciences light: reflection, refraction and shadows australian curriculum-aligned investigate how light travels, reflects, refracts and forms shadows. ⬇ download pdf">
                   <div class="thumb c2">Year 5 · Science</div>
                   <div class="body">
                     <p class="tag">Physical Sciences</p>
@@ -2364,7 +2366,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-5" data-subject="science" data-search="year 5 · science chemical sciences states of matter australian curriculum-aligned compare solids, liquids and gases and explain changes of state using particle ideas. ⬇ download pdf">
+        <li class="wcard" id="w-year-5-states-of-matter" data-year="year-5" data-subject="science" data-search="year 5 · science chemical sciences states of matter australian curriculum-aligned compare solids, liquids and gases and explain changes of state using particle ideas. ⬇ download pdf">
                   <div class="thumb c3">Year 5 · Science</div>
                   <div class="body">
                     <p class="tag">Chemical Sciences</p>
@@ -2376,7 +2378,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-5" data-subject="science" data-search="year 5 · science earth and space sciences weathering, erosion and earth’s surface australian curriculum-aligned explore how weathering and erosion gradually reshape earth’s surface. ⬇ download pdf">
+        <li class="wcard" id="w-year-5-weathering-erosion-and-earths-surface" data-year="year-5" data-subject="science" data-search="year 5 · science earth and space sciences weathering, erosion and earth’s surface australian curriculum-aligned explore how weathering and erosion gradually reshape earth’s surface. ⬇ download pdf">
                   <div class="thumb c4">Year 5 · Science</div>
                   <div class="body">
                     <p class="tag">Earth and Space Sciences</p>
@@ -2387,7 +2389,7 @@
                     <a class="btn btn-secondary btn-sm" href="pages/year-5-weathering-erosion-and-earths-surface.html">View Worksheet</a>
                   </div>
                 </li>
-        <li class="wcard" data-year="year-6" data-subject="english grammar" data-search="year 6 · english grammar active and passive voice australian curriculum-aligned recognise active and passive constructions and select the appropriate voice for purpose and effect. ⬇ download pdf">
+        <li class="wcard" id="w-year-6-active-and-passive-voice" data-year="year-6" data-subject="grammar" data-search="year 6 · english grammar active and passive voice australian curriculum-aligned recognise active and passive constructions and select the appropriate voice for purpose and effect. ⬇ download pdf">
                   <div class="thumb c1">Year 6 · English</div>
                   <div class="body">
                     <p class="tag">Grammar</p>
@@ -2399,7 +2401,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-6" data-subject="english grammar" data-search="year 6 · english grammar main, subordinate and relative clauses australian curriculum-aligned analyse clause relationships and combine ideas to create controlled complex sentences. ⬇ download pdf">
+        <li class="wcard" id="w-year-6-main-subordinate-and-relative-clauses" data-year="year-6" data-subject="grammar" data-search="year 6 · english grammar main, subordinate and relative clauses australian curriculum-aligned analyse clause relationships and combine ideas to create controlled complex sentences. ⬇ download pdf">
                   <div class="thumb c2">Year 6 · English</div>
                   <div class="body">
                     <p class="tag">Grammar</p>
@@ -2411,7 +2413,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-6" data-subject="english grammar" data-search="year 6 · english grammar cohesive devices australian curriculum-aligned use referencing, connectives and lexical cohesion to organise ideas across paragraphs. ⬇ download pdf">
+        <li class="wcard" id="w-year-6-cohesive-devices" data-year="year-6" data-subject="grammar" data-search="year 6 · english grammar cohesive devices australian curriculum-aligned use referencing, connectives and lexical cohesion to organise ideas across paragraphs. ⬇ download pdf">
                   <div class="thumb c3">Year 6 · English</div>
                   <div class="body">
                     <p class="tag">Grammar</p>
@@ -2423,7 +2425,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-6" data-subject="english grammar" data-search="year 6 · english punctuation complex punctuation australian curriculum-aligned apply colons, semicolons and dashes accurately to clarify and connect ideas. ⬇ download pdf">
+        <li class="wcard" id="w-year-6-complex-punctuation" data-year="year-6" data-subject="grammar" data-search="year 6 · english punctuation complex punctuation australian curriculum-aligned apply colons, semicolons and dashes accurately to clarify and connect ideas. ⬇ download pdf">
                   <div class="thumb c4">Year 6 · English</div>
                   <div class="body">
                     <p class="tag">Punctuation</p>
@@ -2435,7 +2437,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-6" data-subject="english grammar" data-search="year 6 · english vocabulary latin and greek root words australian curriculum-aligned use latin and greek roots to analyse word origins and determine unfamiliar word meanings. ⬇ download pdf">
+        <li class="wcard" id="w-year-6-latin-and-greek-root-words" data-year="year-6" data-subject="grammar" data-search="year 6 · english vocabulary latin and greek root words australian curriculum-aligned use latin and greek roots to analyse word origins and determine unfamiliar word meanings. ⬇ download pdf">
                   <div class="thumb c1">Year 6 · English</div>
                   <div class="body">
                     <p class="tag">Vocabulary</p>
@@ -2447,7 +2449,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-6" data-subject="english writing" data-search="year 6 · english grammar nominalisation australian curriculum-aligned transform verbs and adjectives into nouns and examine how nominalisation changes formal writing. ⬇ download pdf">
+        <li class="wcard" id="w-year-6-nominalisation" data-year="year-6" data-subject="writing" data-search="year 6 · english grammar nominalisation australian curriculum-aligned transform verbs and adjectives into nouns and examine how nominalisation changes formal writing. ⬇ download pdf">
                   <div class="thumb c2">Year 6 · English</div>
                   <div class="body">
                     <p class="tag">Grammar</p>
@@ -2459,7 +2461,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-6" data-subject="english reading" data-search="year 6 · english reading comprehension australia’s space industry australian curriculum-aligned analyse information, evidence and language in a text about australia’s growing space sector. ⬇ download pdf">
+        <li class="wcard" id="w-year-6-australias-space-industry" data-year="year-6" data-subject="reading" data-search="year 6 · english reading comprehension australia’s space industry australian curriculum-aligned analyse information, evidence and language in a text about australia’s growing space sector. ⬇ download pdf">
                   <div class="thumb c3">Year 6 · English</div>
                   <div class="body">
                     <p class="tag">Reading Comprehension</p>
@@ -2471,7 +2473,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-6" data-subject="english reading" data-search="year 6 · english reading comprehension great barrier reef under pressure australian curriculum-aligned interpret evidence and evaluate ideas in an australian environmental information text. ⬇ download pdf">
+        <li class="wcard" id="w-year-6-great-barrier-reef-under-pressure" data-year="year-6" data-subject="reading" data-search="year 6 · english reading comprehension great barrier reef under pressure australian curriculum-aligned interpret evidence and evaluate ideas in an australian environmental information text. ⬇ download pdf">
                   <div class="thumb c4">Year 6 · English</div>
                   <div class="body">
                     <p class="tag">Reading Comprehension</p>
@@ -2483,7 +2485,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-6" data-subject="english reading" data-search="year 6 · english reading comprehension renewable energy in australia australian curriculum-aligned analyse the benefits, limitations and evidence presented in a renewable-energy text. ⬇ download pdf">
+        <li class="wcard" id="w-year-6-renewable-energy-in-australia" data-year="year-6" data-subject="reading" data-search="year 6 · english reading comprehension renewable energy in australia australian curriculum-aligned analyse the benefits, limitations and evidence presented in a renewable-energy text. ⬇ download pdf">
                   <div class="thumb c1">Year 6 · English</div>
                   <div class="body">
                     <p class="tag">Reading Comprehension</p>
@@ -2495,7 +2497,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-6" data-subject="english reading" data-search="year 6 · english reading comprehension the plastic detective australian curriculum-aligned follow evidence in an original informational narrative about technology and coastal pollution. ⬇ download pdf">
+        <li class="wcard" id="w-year-6-the-plastic-detective" data-year="year-6" data-subject="reading" data-search="year 6 · english reading comprehension the plastic detective australian curriculum-aligned follow evidence in an original informational narrative about technology and coastal pollution. ⬇ download pdf">
                   <div class="thumb c2">Year 6 · English</div>
                   <div class="body">
                     <p class="tag">Reading Comprehension</p>
@@ -2507,7 +2509,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-6" data-subject="english grammar" data-search="year 6 · english vocabulary synonyms, antonyms and precise word choice australian curriculum-aligned compare shades of meaning and select precise vocabulary for audience, tone and purpose. ⬇ download pdf">
+        <li class="wcard" id="w-year-6-synonyms-antonyms-and-precise-word-choice" data-year="year-6" data-subject="grammar" data-search="year 6 · english vocabulary synonyms, antonyms and precise word choice australian curriculum-aligned compare shades of meaning and select precise vocabulary for audience, tone and purpose. ⬇ download pdf">
                   <div class="thumb c3">Year 6 · English</div>
                   <div class="body">
                     <p class="tag">Vocabulary</p>
@@ -2519,7 +2521,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-6" data-subject="english grammar" data-search="year 6 · english grammar modal verbs and adverbs australian curriculum-aligned use modality to express probability, obligation and degrees of certainty. ⬇ download pdf">
+        <li class="wcard" id="w-year-6-modal-verbs-and-adverbs" data-year="year-6" data-subject="grammar" data-search="year 6 · english grammar modal verbs and adverbs australian curriculum-aligned use modality to express probability, obligation and degrees of certainty. ⬇ download pdf">
                   <div class="thumb c4">Year 6 · English</div>
                   <div class="body">
                     <p class="tag">Grammar</p>
@@ -2531,7 +2533,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-6" data-subject="english grammar" data-search="year 6 · english spelling silent letters and tricky spelling australian curriculum-aligned apply advanced spelling knowledge to words with silent letters and challenging patterns. ⬇ download pdf">
+        <li class="wcard" id="w-year-6-silent-letters-and-tricky-spelling" data-year="year-6" data-subject="grammar" data-search="year 6 · english spelling silent letters and tricky spelling australian curriculum-aligned apply advanced spelling knowledge to words with silent letters and challenging patterns. ⬇ download pdf">
                   <div class="thumb c1">Year 6 · English</div>
                   <div class="body">
                     <p class="tag">Spelling</p>
@@ -2543,7 +2545,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-6" data-subject="english grammar" data-search="year 6 · english grammar subject–verb agreement australian curriculum-aligned apply subject–verb agreement accurately in increasingly complex year 6 sentences. ⬇ download pdf">
+        <li class="wcard" id="w-year-6-subjectverb-agreement" data-year="year-6" data-subject="grammar" data-search="year 6 · english grammar subject–verb agreement australian curriculum-aligned apply subject–verb agreement accurately in increasingly complex year 6 sentences. ⬇ download pdf">
                   <div class="thumb c2">Year 6 · English</div>
                   <div class="body">
                     <p class="tag">Grammar</p>
@@ -2555,7 +2557,7 @@
                   </div>
                 </li>
 
-           <li class="wcard" data-year="year-6" data-subject="maths" data-search="year 6 · maths measurement angles australian curriculum-aligned identify, compare and measure angles using degrees and apply angle knowledge to solve problems. ⬇ download pdf">
+           <li class="wcard" id="w-year-6-angles" data-year="year-6" data-subject="maths" data-search="year 6 · maths measurement angles australian curriculum-aligned identify, compare and measure angles using degrees and apply angle knowledge to solve problems. ⬇ download pdf">
   <div class="thumb c2">Year 6 · Maths</div>
   <div class="body">
     <p class="tag">Measurement</p>
@@ -2567,7 +2569,7 @@
   </div>
 </li>
 
-<li class="wcard" data-year="year-6" data-subject="maths" data-search="year 6 · maths measurement area of a rectangle australian curriculum-aligned calculate the area of rectangles using appropriate measurements and mathematical strategies. ⬇ download pdf">
+<li class="wcard" id="w-year-6-area-of-a-rectangle" data-year="year-6" data-subject="maths" data-search="year 6 · maths measurement area of a rectangle australian curriculum-aligned calculate the area of rectangles using appropriate measurements and mathematical strategies. ⬇ download pdf">
   <div class="thumb c3">Year 6 · Maths</div>
   <div class="body">
     <p class="tag">Measurement</p>
@@ -2579,7 +2581,7 @@
   </div>
 </li>
 
-<li class="wcard" data-year="year-6" data-subject="maths" data-search="year 6 · maths space cartesian plane australian curriculum-aligned use coordinates to locate and describe positions on the cartesian plane. ⬇ download pdf">
+<li class="wcard" id="w-year-6-cartesian-plane" data-year="year-6" data-subject="maths" data-search="year 6 · maths space cartesian plane australian curriculum-aligned use coordinates to locate and describe positions on the cartesian plane. ⬇ download pdf">
   <div class="thumb c4">Year 6 · Maths</div>
   <div class="body">
     <p class="tag">Space</p>
@@ -2591,7 +2593,7 @@
   </div>
 </li>
 
-<li class="wcard" data-year="year-6" data-subject="maths" data-search="year 6 · maths number sustainable city planner australian curriculum-aligned apply mathematical thinking to plan and design a sustainable city using numbers and problem-solving skills. ⬇ download pdf">
+<li class="wcard" id="w-year-6-sustainable-city-planner" data-year="year-6" data-subject="maths" data-search="year 6 · maths number sustainable city planner australian curriculum-aligned apply mathematical thinking to plan and design a sustainable city using numbers and problem-solving skills. ⬇ download pdf">
   <div class="thumb c1">Year 6 · Maths</div>
   <div class="body">
     <p class="tag">Number</p>
@@ -2603,7 +2605,7 @@
   </div>
 </li>
 
-<li class="wcard" data-year="year-6" data-subject="maths" data-search="year 6 · maths probability probability scales australian curriculum-aligned describe and compare likelihood using probability scales and mathematical language. ⬇ download pdf">
+<li class="wcard" id="w-year-6-probability-scales" data-year="year-6" data-subject="maths" data-search="year 6 · maths probability probability scales australian curriculum-aligned describe and compare likelihood using probability scales and mathematical language. ⬇ download pdf">
   <div class="thumb c2">Year 6 · Maths</div>
   <div class="body">
     <p class="tag">Probability</p>
@@ -2615,7 +2617,7 @@
   </div>
 </li>
 
-<li class="wcard" data-year="year-6" data-subject="maths" data-search="year 6 · maths measurement timetables and duration australian curriculum-aligned read timetables and calculate duration to solve practical time problems. ⬇ download pdf">
+<li class="wcard" id="w-year-6-timetables-and-duration" data-year="year-6" data-subject="maths" data-search="year 6 · maths measurement timetables and duration australian curriculum-aligned read timetables and calculate duration to solve practical time problems. ⬇ download pdf">
   <div class="thumb c3">Year 6 · Maths</div>
   <div class="body">
     <p class="tag">Measurement</p>
@@ -2626,7 +2628,7 @@
                     <a class="btn btn-secondary btn-sm" href="pages/year-6-maths-timetables-and-duration.html">View Worksheet</a>
   </div>
 </li>
-        <li class="wcard" data-year="year-6" data-subject="science" data-search="year 6 · science biological sciences habitats and physical conditions australian curriculum-aligned explain how physical conditions affect organisms and survival in australian habitats. ⬇ download pdf">
+        <li class="wcard" id="w-year-6-habitats-and-physical-conditions" data-year="year-6" data-subject="science" data-search="year 6 · science biological sciences habitats and physical conditions australian curriculum-aligned explain how physical conditions affect organisms and survival in australian habitats. ⬇ download pdf">
                   <div class="thumb c1">Year 6 · Science</div>
                   <div class="body">
                     <p class="tag">Biological Sciences</p>
@@ -2638,7 +2640,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-6" data-subject="science" data-search="year 6 · science physical sciences electrical circuits australian curriculum-aligned explore how components work together in simple electrical circuits and identify complete and incomplete circuits. ⬇ download pdf">
+        <li class="wcard" id="w-year-6-electrical-circuits" data-year="year-6" data-subject="science" data-search="year 6 · science physical sciences electrical circuits australian curriculum-aligned explore how components work together in simple electrical circuits and identify complete and incomplete circuits. ⬇ download pdf">
                   <div class="thumb c2">Year 6 · Science</div>
                   <div class="body">
                     <p class="tag">Physical Sciences</p>
@@ -2650,7 +2652,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-6" data-subject="science" data-search="year 6 · science biological sciences living things, environment and adaptations australian curriculum-aligned investigate how structural and behavioural adaptations help living things survive in changing environments. ⬇ download pdf">
+        <li class="wcard" id="w-year-6-living-things-environment-and-adaptations" data-year="year-6" data-subject="science" data-search="year 6 · science biological sciences living things, environment and adaptations australian curriculum-aligned investigate how structural and behavioural adaptations help living things survive in changing environments. ⬇ download pdf">
                   <div class="thumb c3">Year 6 · Science</div>
                   <div class="body">
                     <p class="tag">Biological Sciences</p>
@@ -2662,7 +2664,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-6" data-subject="science" data-search="year 6 · science earth and space sciences natural disasters and geological change australian curriculum-aligned examine how earthquakes, volcanoes and other natural events can cause rapid geological change. ⬇ download pdf">
+        <li class="wcard" id="w-year-6-natural-disasters-and-geological-change" data-year="year-6" data-subject="science" data-search="year 6 · science earth and space sciences natural disasters and geological change australian curriculum-aligned examine how earthquakes, volcanoes and other natural events can cause rapid geological change. ⬇ download pdf">
                   <div class="thumb c4">Year 6 · Science</div>
                   <div class="body">
                     <p class="tag">Earth and Space Sciences</p>
@@ -2674,7 +2676,7 @@
                   </div>
                 </li>
 
-        <li class="wcard" data-year="year-6" data-subject="science" data-search="year 6 · science chemical sciences reversible and irreversible changes australian curriculum-aligned compare reversible and irreversible changes to materials using familiar examples and scientific observations. ⬇ download pdf">
+        <li class="wcard" id="w-year-6-reversible-and-irreversible-changes" data-year="year-6" data-subject="science" data-search="year 6 · science chemical sciences reversible and irreversible changes australian curriculum-aligned compare reversible and irreversible changes to materials using familiar examples and scientific observations. ⬇ download pdf">
                   <div class="thumb c1">Year 6 · Science</div>
                   <div class="body">
                     <p class="tag">Chemical Sciences</p>
@@ -2756,9 +2758,9 @@
       </nav>
       <nav aria-label="Subjects">
         <h3>Subjects</h3>
-        <a href="index.html#subjects">Maths</a>
-<a href="index.html#subjects">English</a>
-<a href="index.html#subjects">Science</a>
+        <a href="worksheets.html?subject=maths#worksheet-grid">Maths</a>
+        <a href="worksheets.html?subject=english#worksheet-grid">English</a>
+        <a href="worksheets.html?subject=science#worksheet-grid">Science</a>
       </nav>
       <nav aria-label="About">
         <h3>About</h3>
@@ -2770,7 +2772,7 @@
       </nav>
     </div>
     <div class="foot-bottom">
-      <span>© 2026 Aussie Primary Academy. All rights reserved. Made with care in Australia.</span>
+      <span>www.aussieprimaryacademy.com.au | © 2026 Aussie Primary Academy. All Rights Reserved.</span>
       <span>Original Content – For Educational Use Only. Redistribution Prohibited.</span>
     </div>
   </div>
@@ -3080,6 +3082,33 @@ if (clearFiltersBtn) {
   );
 
   applyFilters(false);
+
+  // Handle direct linking to a specific worksheet via URL hash
+  (function() {
+    var hash = window.location.hash;
+    if (hash) {
+      var card = document.querySelector(hash);
+      if (card && card.classList.contains('wcard')) {
+        // Adjust filters if needed so the card is visible
+        var cardYear = card.getAttribute('data-year');
+        var cardSubject = card.getAttribute('data-subject');
+        if (cardYear && activeYear === 'all') {
+          activeYear = cardYear;
+          updateButtons(yearButtons, activeYear, 'data-filter-year');
+        }
+        if (cardSubject && activeSubject === 'all') {
+          activeSubject = cardSubject;
+          updateButtons(subjectButtons, activeSubject, 'data-filter-subject');
+        }
+        applyFilters(false);
+        setTimeout(function() {
+          card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          card.classList.add('highlight-card');
+          setTimeout(function() { card.classList.remove('highlight-card'); }, 3000);
+        }, 150);
+      }
+    }
+  })();
 
 })();
 </script>
