@@ -381,6 +381,11 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/year-1-maths-treasure-hunt-adventure.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/year-1-missing-numbers-to-100.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -562,6 +567,11 @@
   </url>
   <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/year-2-materials-for-a-purpose.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/year-2-maths-treasure-hunt-adventure.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -806,6 +816,11 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/year-3-maths-treasure-hunt-adventure.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/year-3-money-problems.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -967,6 +982,11 @@
   </url>
   <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/year-4-living-things-and-life-cycles.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/year-4-maths-treasure-hunt-adventure.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
