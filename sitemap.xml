@@ -1326,7 +1326,22 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/year-6-english-reading-comprehension-artificial-reefs.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/year-6-english-reading-comprehension-australias-space-industry.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/year-6-english-reading-comprehension-democracy-under-pressure.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/year-6-english-reading-comprehension-food-security.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -1336,7 +1351,17 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/year-6-english-reading-comprehension-malala-yousafzai.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/year-6-english-reading-comprehension-mars-rovers-australias-role-in-space-exploration.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/year-6-english-reading-comprehension-migration-and-identity.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -1351,7 +1376,32 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/year-6-english-reading-comprehension-the-ethics-of-zoos.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/year-6-english-reading-comprehension-the-gig-economy.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/year-6-english-reading-comprehension-the-neuroscience-of-creativity.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/year-6-english-reading-comprehension-the-plastic-detective.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/year-6-english-reading-comprehension-the-truth-about-sugar.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/year-6-english-reading-comprehension-voting-age-16.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
