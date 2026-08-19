@@ -25,33 +25,67 @@ jobs:
           pip install pymupdf pillow
 
       - name: Make PNGs from PDFs
+        id: make_pngs
         run: |
           python - << 'PY'
           import fitz
           from pathlib import Path
+
           base = Path("worksheets")
-          for pdf_path in base.rglob("*.pdf"):
-              if "answer-key" in pdf_path.name.lower():
+          made = 0
+          skipped = 0
+          failed = 0
+
+          for pdf_path in sorted(base.rglob("*.pdf")):
+              name_l = pdf_path.name.lower()
+              if "answer-key" in name_l or "answerkey" in name_l:
                   continue
+
               preview_dir = pdf_path.parent / "previews"
-              preview_dir.mkdir(exist_ok=True)
-              png_path = preview_dir / pdf_path.name.replace(".pdf", ".png")
-              if png_path.exists():
+              preview_dir.mkdir(parents=True, exist_ok=True)
+              png_path = preview_dir / (pdf_path.stem + ".png")
+
+              if png_path.exists() and png_path.stat().st_size > 0:
+                  skipped += 1
                   continue
+
               try:
                   doc = fitz.open(pdf_path)
+                  if len(doc) == 0:
+                      print(f"Failed (empty PDF): {pdf_path}")
+                      failed += 1
+                      continue
                   page = doc[0]
                   pix = page.get_pixmap(dpi=200)
                   pix.save(str(png_path))
+                  doc.close()
+                  made += 1
                   print(f"Made: {png_path}")
               except Exception as e:
+                  failed += 1
                   print(f"Failed {pdf_path}: {e}")
+
+          print(f"--- Summary: made={made} skipped={skipped} failed={failed}")
+          with open("preview_summary.txt", "w") as f:
+              f.write(f"made={made}\nskipped={skipped}\nfailed={failed}\n")
           PY
 
       - name: Commit PNGs
         run: |
           git config --global user.name "aussieprimaryacademy"
           git config --global user.email "aussieprimaryacademy@users.noreply.github.com"
-          git add worksheets/**/previews/*.png
-          git commit -m "Auto: Add worksheet preview PNGs" || echo "No new PNGs"
-          git push
+
+          # Reliable add (avoid bash glob miss)
+          find worksheets -type f -path '*/previews/*.png' -print0 | xargs -0 git add -f
+
+          if git diff --cached --quiet; then
+            echo "No new PNGs to commit"
+            cat preview_summary.txt || true
+          else
+            echo "Staging new/changed preview PNGs:"
+            git diff --cached --name-only
+            git commit -m "Auto: Add worksheet preview PNGs"
+            git push
+            echo "Pushed preview PNGs"
+            cat preview_summary.txt || true
+          fi
