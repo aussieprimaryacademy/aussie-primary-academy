@@ -211,12 +211,22 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/foundation-maths-equal-sharing-grouping.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/foundation-maths-length-mass-capacity.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/foundation-maths-money-basics.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/foundation-maths-my-day-days-of-week.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -242,6 +252,11 @@
   </url>
   <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/foundation-maths-shapes-sort-create.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/foundation-maths-sort-count-picture-graph.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
