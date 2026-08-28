@@ -986,6 +986,11 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/year-3-maths-2d-shapes-compare-classify.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/year-3-maths-3d-objects-compare-classify.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -996,7 +1001,17 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/year-3-maths-chance-likelihood.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/year-3-maths-choosing-metric-units-estimating.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/year-3-maths-collecting-data.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -1006,7 +1021,27 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/year-3-maths-estimation-reasonableness.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/year-3-maths-find-the-missing-number.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/year-3-maths-map-skills.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/year-3-maths-measuring-length-mass-capacity.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/year-3-maths-mental-maths-strategies.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -1017,6 +1052,11 @@
   </url>
   <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/year-3-maths-number-algorithms-patterns.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/year-3-maths-reading-creating-graphs.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
