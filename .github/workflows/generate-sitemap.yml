@@ -3,7 +3,10 @@ name: Generate Sitemap
 on:
   workflow_dispatch:
   push:
+    branches:
+      - main
     paths:
+      - '*.html'
       - 'pages/**'
       - 'blog/**'
       - 'scripts/generate-sitemap.py'
@@ -12,40 +15,59 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: generate-sitemap-main
+  cancel-in-progress: true
+
 jobs:
   generate:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
 
-      - name: Generate sitemap
-        run: |
-          python scripts/generate-sitemap.py
+      - name: Validate generator
+        run: python -m py_compile scripts/generate-sitemap.py
 
-      - name: Check for changes
-        id: changes
+      - name: Generate sitemap
+        run: python scripts/generate-sitemap.py
+
+      - name: Validate sitemap
         run: |
-          if git diff --quiet sitemap.xml; then
-            echo "changed=false" >> $GITHUB_OUTPUT
-            echo "No sitemap changes"
-          else
-            echo "changed=true" >> $GITHUB_OUTPUT
-            echo "Sitemap changed"
-            wc -l sitemap.xml
-            grep -c '<loc>' sitemap.xml
-          fi
+          python - <<'PY'
+          import xml.etree.ElementTree as ET
+          from pathlib import Path
+
+          sitemap = Path('sitemap.xml')
+          ET.parse(sitemap)
+          text = sitemap.read_text(encoding='utf-8')
+          count = text.count('<loc>')
+          if count == 0:
+              raise SystemExit('ERROR: sitemap contains no URLs')
+          print(f'Sitemap XML is valid: {count} URLs')
+          PY
 
       - name: Commit and push sitemap
-        if: steps.changes.outputs.changed == 'true'
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet -- sitemap.xml; then
+            echo 'No sitemap changes'
+            exit 0
+          fi
+
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add sitemap.xml
-          git commit -m "fix: auto-generate complete sitemap from repository inventory"
-          git push
+          git commit -m 'fix: auto-generate complete sitemap from repository inventory'
+
+          # Another content workflow can finish while this job is running.
+          # Rebase before pushing so the sitemap job does not fail on a
+          # non-fast-forward update.
+          git pull --rebase origin main
+          git push origin HEAD:main
