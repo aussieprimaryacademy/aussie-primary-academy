@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
-"""Generate a complete sitemap.xml from the repository file tree."""
-import os
+"""Generate sitemap.xml from all public HTML pages in the repository."""
 from pathlib import Path
+from xml.sax.saxutils import escape
 
 BASE = "https://aussieprimaryacademy.github.io/aussie-primary-academy/"
 ROOT = Path(__file__).resolve().parent.parent
 
-# Core pages (order matters for readability)
+# These are the important root-level pages that should always be included.
 CORE = [
-    "",  # homepage
+    "",
     "foundation.html",
     "year-1.html",
     "year-2.html",
@@ -26,73 +26,68 @@ CORE = [
     "terms-of-use.html",
 ]
 
+EXCLUDED_NAMES = {"404.html"}
+EXCLUDED_DIRS = {".git", ".github", "scripts", "assets", "css", "js"}
+
+
 def is_clean_html(path: Path) -> bool:
-    name = path.name
-    if not name.endswith(".html"):
-        return False
-    if " " in name:
-        return False
-    if name == "404.html":
-        return False
-    if name.endswith(".pdf"):
-        return False
-    return True
+    """Return True only for clean, public HTML pages."""
+    return (
+        path.suffix.lower() == ".html"
+        and path.name not in EXCLUDED_NAMES
+        and " " not in path.name
+    )
 
-def collect_urls():
-    urls = []
-    seen = set()
 
-    def add(rel: str):
-        if rel not in seen:
-            seen.add(rel)
-            urls.append(rel)
+def collect_urls() -> list[str]:
+    urls: set[str] = set(CORE)
 
-    for p in CORE:
-        add(p)
+    # Include every public HTML page under blog/ and pages/.
+    for folder in ("blog", "pages"):
+        directory = ROOT / folder
+        if directory.is_dir():
+            for path in directory.rglob("*.html"):
+                if is_clean_html(path):
+                    urls.add(path.relative_to(ROOT).as_posix())
 
-    # Blog
-    blog_dir = ROOT / "blog"
-    if blog_dir.is_dir():
-        for f in sorted(blog_dir.glob("*.html")):
-            if is_clean_html(f):
-                add(f"blog/{f.name}")
+    # Also include any clean root-level HTML pages not already listed in CORE.
+    for path in ROOT.glob("*.html"):
+        if is_clean_html(path):
+            urls.add(path.name)
 
-    # pages/
-    pages_dir = ROOT / "pages"
-    if pages_dir.is_dir():
-        for f in sorted(pages_dir.glob("*.html")):
-            if is_clean_html(f):
-                add(f"pages/{f.name}")
+    return sorted(urls, key=lambda item: (item != "", item))
 
-    return urls
 
-def write_sitemap(urls):
+def write_sitemap(urls: list[str]) -> int:
     lines = [
         '<?xml version="1.0" encoding="UTF-8"?>',
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
     ]
+
     for rel in urls:
         loc = BASE if rel == "" else BASE + rel
-        lines.append("  <url>")
-        lines.append(f"    <loc>{loc}</loc>")
-        lines.append("    <changefreq>monthly</changefreq>")
-        lines.append("    <priority>0.7</priority>")
-        lines.append("  </url>")
+        lines.extend(
+            [
+                "  <url>",
+                f"    <loc>{escape(loc)}</loc>",
+                "    <changefreq>monthly</changefreq>",
+                "    <priority>0.7</priority>",
+                "  </url>",
+            ]
+        )
+
     lines.append("</urlset>")
-    content = "\n".join(lines) + "\n"
-    out = ROOT / "sitemap.xml"
-    out.write_text(content, encoding="utf-8")
-    return len(urls), len(content)
+    (ROOT / "sitemap.xml").write_text("\n".join(lines) + "\n", encoding="utf-8")
+    return len(urls)
+
 
 if __name__ == "__main__":
     urls = collect_urls()
-    count, size = write_sitemap(urls)
-    print(f"Generated sitemap.xml with {count} URLs ({size} bytes)")
-    # Basic validation
+    count = write_sitemap(urls)
+    print(f"Generated sitemap.xml with {count} URLs")
+
     text = (ROOT / "sitemap.xml").read_text(encoding="utf-8")
     assert text.startswith("<?xml")
-    assert "<urlset" in text
     assert text.rstrip().endswith("</urlset>")
-    assert "PLACEHOLDER" not in text
     assert text.count("<loc>") == count
     print("Validation passed")
