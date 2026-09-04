@@ -1,0 +1,90 @@
+name: Patch Year 5 remainder guide links
+on:
+  push:
+    branches: [main]
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Patch links
+        shell: python
+        run: |
+          from pathlib import Path
+
+          BLOG = 'blog/how-to-interpret-remainders-division-word-problems-year-5.html'
+
+          def insert_after_next_ul(path, heading, card):
+              p = Path(path); s = p.read_text(encoding='utf-8')
+              if BLOG in s: return False
+              h = s.find(heading)
+              if h < 0: raise SystemExit(f'Heading not found in {path}: {heading}')
+              ul = s.find('<ul', h)
+              if ul < 0: raise SystemExit(f'UL not found in {path}')
+              close = s.find('>', ul)
+              s = s[:close+1] + '\n' + card + s[close+1:]
+              p.write_text(s, encoding='utf-8')
+              return True
+
+          home_card = '''        <li class="wcard">
+            <div class="thumb c4">Year 5 · Maths</div>
+            <div class="body">
+              <p class="tag">Division · Remainders</p>
+              <h3>How to Interpret Remainders in Division Word Problems</h3>
+              <p class="card-desc">A practical Year 5 guide to deciding what a remainder means in real-world division problems.</p>
+              <a class="btn btn-primary btn-sm" href="blog/how-to-interpret-remainders-division-word-problems-year-5.html">Read the Guide</a>
+            </div>
+          </li>
+'''
+          blog_card = '''          <li class="wcard">
+            <div class="thumb c4">Year 5 · Maths</div>
+            <div class="body">
+              <p class="tag">Division · Remainders</p>
+              <h3>How to Interpret Remainders in Division Word Problems — Year 5</h3>
+              <p class="card-desc">Learn how to interpret remainders in real-world Year 5 division problems and choose the right answer for the situation.</p>
+              <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;">
+                <a class="btn btn-primary btn-sm" href="how-to-interpret-remainders-division-word-problems-year-5.html">Read the Guide</a>
+                <a class="btn btn-secondary btn-sm" href="../pages/year-5-maths-division-with-remainders.html">View Worksheet</a>
+              </div>
+            </div>
+          </li>
+'''
+
+          insert_after_next_ul('index.html', '<h2 id="blog-heading">Latest from Our Blog</h2>', home_card)
+          insert_after_next_ul('blog/index.html', '<h2 id="latest-guides-heading">Latest Guides</h2>', blog_card)
+
+          # Year 5 hub: add a contextual guide link to the existing Division with Remainders card.
+          p = Path('year-5.html'); s = p.read_text(encoding='utf-8')
+          if BLOG not in s:
+              h = s.find('<h3>Division with Remainders</h3>')
+              if h < 0: raise SystemExit('Division with Remainders card not found')
+              v = s.find('<a class="btn btn-secondary btn-sm" href="pages/year-5-maths-division-with-remainders.html">View Worksheet</a>', h)
+              if v < 0: raise SystemExit('Year 5 worksheet link not found')
+              end = s.find('</a>', v) + 4
+              link = '\n            <a class="btn btn-secondary btn-sm" href="blog/how-to-interpret-remainders-division-word-problems-year-5.html">Read Guide</a>'
+              s = s[:end] + link + s[end:]
+              p.write_text(s, encoding='utf-8')
+
+          # Worksheet detail page: add a small related-guide link before the main closing tag.
+          p = Path('pages/year-5-maths-division-with-remainders.html'); s = p.read_text(encoding='utf-8')
+          if BLOG not in s:
+              related = '''\n  <section class="section" aria-labelledby="related-guide-heading">\n    <div class="wrap">\n      <h2 id="related-guide-heading">Related Year 5 Guide</h2>\n      <p>Need help interpreting remainders in word problems? Read our practical Year 5 guide.</p>\n      <a class="btn btn-secondary btn-sm" href="../blog/how-to-interpret-remainders-division-word-problems-year-5.html">Read: How to Interpret Remainders in Division Word Problems</a>\n    </div>\n  </section>\n'''
+              main = s.rfind('</main>')
+              if main < 0: raise SystemExit('Main closing tag not found in worksheet page')
+              s = s[:main] + related + s[main:]
+              p.write_text(s, encoding='utf-8')
+
+      - name: Commit patched files and remove this workflow
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html blog/index.html year-5.html pages/year-5-maths-division-with-remainders.html
+          git add .github/workflows/patch-remainder-links.yml
+          git commit -m "feat: connect Year 5 remainder guide across site"
+          git rm .github/workflows/patch-remainder-links.yml
+          git commit -m "chore: remove temporary remainder link workflow"
+          git push
