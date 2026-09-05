@@ -48,31 +48,31 @@
 <link rel="stylesheet" href="styles.css">
 <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css">
 <style>
-  .newsletter-box{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(320px,430px);gap:24px;align-items:center;background:linear-gradient(135deg,#fffaf4 0%,#fbf4ff 100%);border:1px solid #eadcf1;border-radius:22px;padding:24px 26px;max-width:960px;margin:0 auto;box-shadow:0 12px 30px -18px rgba(74,51,88,.35);overflow:hidden}
-  .newsletter-box::before{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;background:linear-gradient(180deg,#CDB4DB,#F5A889)}
-  .newsletter-copy{max-width:520px;padding-left:4px}
-  .newsletter-copy .eyebrow{margin-bottom:10px}
-  .newsletter-copy h2{margin:0 0 8px;font-size:25px;line-height:1.2}
-  .newsletter-copy p:last-child{margin:0;color:#6B6070;line-height:1.55;font-size:14.5px}
+  #newsletter{padding:30px 0 38px}
+  .newsletter-box{display:grid;grid-template-columns:minmax(0,1fr) minmax(320px,420px);gap:22px;align-items:center;background:#fff;border:1px solid #eadff0;border-radius:16px;padding:16px 18px;max-width:940px;margin:0 auto;box-shadow:0 6px 18px -14px rgba(74,51,88,.28)}
+  .newsletter-copy{max-width:500px}
+  .newsletter-copy .eyebrow{display:none}
+  .newsletter-copy h2{margin:0 0 4px;font-size:20px;line-height:1.25}
+  .newsletter-copy p:last-child{margin:0;color:#6B6070;line-height:1.45;font-size:13.5px}
   .newsletter-form-wrap{width:100%}
   .newsletter-sib-container{max-width:none!important;padding:0!important;background:transparent!important;border:0!important}
-  .newsletter-sib-container form{display:flex;gap:10px;align-items:flex-start}
+  .newsletter-sib-container form{display:flex;gap:8px;align-items:flex-start}
   .newsletter-input-block{min-width:0;flex:1;padding:0!important}
   .newsletter-button-block{padding:0;flex-shrink:0}
   .newsletter-field .entry__field{border:0!important;background:transparent!important;padding:0!important}
-  .newsletter-sib-container input[type="text"]{width:100%;min-width:0;border:2px solid #E8D9F0;border-radius:13px;padding:12px 14px;font:inherit;background:#fff;color:#3A3040;box-shadow:0 3px 10px rgba(74,51,88,.04)}
-  .newsletter-sib-container input[type="text"]:focus{outline:3px solid rgba(162,210,255,.4);outline-offset:1px;border-color:#CDB4DB}
-  .newsletter-sib-container .btn{white-space:nowrap;min-height:46px}
-  .newsletter-privacy{font-size:11.8px;margin:8px 0 0;color:#756b79}
+  .newsletter-sib-container input[type="text"]{width:100%;min-width:0;border:1px solid #d9cee0;border-radius:10px;padding:10px 12px;font:inherit;font-size:14px;background:#fff;color:#3A3040;box-shadow:none}
+  .newsletter-sib-container input[type="text"]:focus{outline:2px solid rgba(162,210,255,.45);outline-offset:1px;border-color:#CDB4DB}
+  .newsletter-sib-container .btn{white-space:nowrap;min-height:41px;padding:9px 17px;border-radius:10px}
+  .newsletter-privacy{font-size:10.8px;margin:6px 0 0;color:#7b7180}
   .newsletter-privacy a{text-decoration:underline}
-  .newsletter-message{display:none;border-radius:10px;padding:9px 11px;margin:0 0 9px;font-size:.86rem;text-align:left}
+  .newsletter-message{display:none;border-radius:8px;padding:7px 9px;margin:0 0 7px;font-size:.8rem;text-align:left}
   .newsletter-error{color:#661d1d;background:#ffeded;border:1px solid #ffb3b3}
   .newsletter-success{color:#085229;background:#e7faf0;border:1px solid #9ee5ba}
-  .newsletter-field .entry__error{display:none;margin-top:5px;text-align:left;font-size:.78rem;color:#9b1c1c}
+  .newsletter-field .entry__error{display:none;margin-top:4px;text-align:left;font-size:.75rem;color:#9b1c1c}
   .newsletter-field .entry__error:not(:empty){display:block}
-  .newsletter-sib-container .progress-indicator__icon{width:15px;height:15px;display:none;margin-right:6px;fill:currentColor}
+  .newsletter-sib-container .progress-indicator__icon{width:14px;height:14px;display:none;margin-right:5px;fill:currentColor}
   .newsletter-sib-container .input--hidden{position:absolute!important;left:-9999px!important}
-  @media (max-width:760px){.newsletter-box{grid-template-columns:1fr;padding:20px 18px;gap:16px}.newsletter-copy h2{font-size:22px}.newsletter-sib-container form{flex-direction:column}.newsletter-input-block,.newsletter-button-block{width:100%}.newsletter-sib-container .btn{width:100%;justify-content:center}}
+  @media (max-width:760px){#newsletter{padding:24px 0 30px}.newsletter-box{grid-template-columns:1fr;padding:15px;gap:12px}.newsletter-copy h2{font-size:19px}.newsletter-sib-container form{flex-direction:column}.newsletter-input-block,.newsletter-button-block{width:100%}.newsletter-sib-container .btn{width:100%;justify-content:center}}
 </style>
 
 </head>
