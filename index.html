@@ -52,9 +52,9 @@
   .newsletter-copy h2{margin:.35rem 0 .55rem}
   .newsletter-copy p:last-child{margin-bottom:0}
   .newsletter-form{display:flex;gap:10px;align-items:stretch}
-  .newsletter-form input[type="email"]{min-width:0;flex:1;border:2px solid #CDB4DB;border-radius:12px;padding:13px 14px;font:inherit;background:#fff;color:#333}
+  .newsletter-field{min-width:0;flex:1}.newsletter-field .entry__field{border:0!important;background:transparent!important;padding:0!important}.newsletter-form input[type="email"]{width:100%;min-width:0;border:2px solid #CDB4DB;border-radius:12px;padding:13px 14px;font:inherit;background:#fff;color:#333}
   .newsletter-form input[type="email"]:focus{outline:3px solid rgba(162,210,255,.55);outline-offset:1px}
-  .newsletter-form .btn{white-space:nowrap;border:0;cursor:pointer}
+  .newsletter-form .btn{white-space:nowrap;border:0;cursor:pointer}.newsletter-field .entry__error{display:none;margin-top:6px;text-align:left;font-size:.82rem;color:#9b1c1c}.newsletter-field .entry__error:not(:empty){display:block}
   .newsletter-privacy{font-size:.82rem;margin:9px 0 0;color:#5f5663}
   .newsletter-message{display:none;border-radius:10px;padding:10px 12px;margin:0 0 10px;font-size:.92rem;text-align:left}
   .newsletter-error{color:#661d1d;background:#ffeded;border:1px solid #ff8f8f}
@@ -505,9 +505,14 @@ Parent & Teacher Friendly
 
         <div id="sib-container">
           <form id="sib-form" class="newsletter-form" method="POST" action="https://48bba544.sibforms.com/serve/MUIFACR1Uv3YFsAuuTByaJBdVxKwbRayDCND7_86tB557KliNw56DYOHT9sJkfMGhz6cm4qtf7kI6OYCQzOb7PcJuWgaSECQdQ5hlTM7l-SzZp-4IwTq-C1M03d4fj0PQ-CX79S9dULyDzhHlJuIr1_tGABSNRblI7sdiR9p4Z61rx7CRAd2_VTj8C7dhyI-O82hVHgXhmc0ZyYz5Q==" data-type="subscription">
-            <label for="EMAIL" class="visually-hidden">Email address</label>
-            <input type="email" id="EMAIL" name="EMAIL" autocomplete="email" placeholder="Enter your email address" data-required="true" required>
-            <button class="btn btn-primary" type="submit">
+            <div class="form__entry entry_block newsletter-field">
+              <label for="EMAIL" class="visually-hidden entry__label" data-required="*">Email address</label>
+              <div class="entry__field">
+                <input class="input" type="email" id="EMAIL" name="EMAIL" autocomplete="email" placeholder="Enter your email address" data-required="true" required>
+              </div>
+              <label class="entry__error entry__error--primary" aria-live="polite"></label>
+            </div>
+            <button class="btn btn-primary sib-form-block__button sib-form-block__button-with-loader" form="sib-form" type="submit">
               <svg class="progress-indicator__icon sib-hide-loader-icon" viewBox="0 0 512 512" aria-hidden="true">
                 <path d="M460.116 373.846l-20.823-12.022c-5.541-3.199-7.54-10.159-4.663-15.874 30.137-59.886 28.343-131.652-5.386-189.946-33.641-58.394-94.896-95.833-161.827-99.676C261.028 55.961 256 50.751 256 44.352V20.309c0-6.904 5.808-12.337 12.703-11.982 83.556 4.306 160.163 50.864 202.11 123.677 42.063 72.696 44.079 162.316 6.031 236.832-3.14 6.148-10.75 8.461-16.728 5.01z"/>
               </svg>
