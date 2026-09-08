@@ -1961,6 +1961,11 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/year-6-maths-fractions-decimals-percentages-quantities.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/year-6-maths-probability-scales.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
