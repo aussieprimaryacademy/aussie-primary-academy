@@ -1,22 +1,26 @@
 // APA Download Tracking
-// Automatically adds the "download" attribute to every PDF link on the page
-// and fires a Google Analytics 4 event each time someone clicks a worksheet download.
-// Add this file to your repo, then add this line before </body> on any page with PDF links:
-// <script src="download-tracking.js"></script>
+// Adds the browser download attribute to PDF links and records a custom
+// worksheet_download event in Google Analytics 4 for every worksheet PDF click.
 
 document.addEventListener("DOMContentLoaded", function () {
-  const pdfLinks = document.querySelectorAll('a[href$=".pdf"]');
+  const pdfLinks = document.querySelectorAll('a[href$=".pdf"], a[href$=".PDF"]');
 
   pdfLinks.forEach(function (link) {
+    if (link.dataset.apaDownloadTracked === "true") return;
+    link.dataset.apaDownloadTracked = "true";
+
     if (!link.hasAttribute("download")) {
       link.setAttribute("download", "");
     }
 
     link.addEventListener("click", function () {
       if (typeof gtag === "function") {
+        const href = link.getAttribute("href") || "";
         gtag("event", "worksheet_download", {
-          file_name: link.getAttribute("href"),
-          link_text: link.textContent.trim()
+          file_name: href.split("/").pop().split("?")[0],
+          link_url: link.href,
+          link_text: link.textContent.trim(),
+          file_extension: "pdf"
         });
       }
     });
