@@ -60,3 +60,5 @@ jobs:
           git add '*.html'
           git commit -m "Ensure worksheet download tracking on PDF pages"
           git push
+
+# Triggered again after verification so existing HTML pages are scanned.
