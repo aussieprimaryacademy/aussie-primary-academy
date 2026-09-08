@@ -1,0 +1,62 @@
+name: Ensure Worksheet Download Tracking
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  ensure-tracking:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Add download tracker to HTML pages with PDF links
+        shell: python
+        run: |
+          from pathlib import Path
+
+          changed = []
+          for path in Path('.').rglob('*.html'):
+              if '.git' in path.parts:
+                  continue
+              text = path.read_text(encoding='utf-8', errors='ignore')
+              lower = text.lower()
+              if '.pdf' not in lower or 'download-tracking.js' in lower:
+                  continue
+
+              if path.parent == Path('.'):
+                  script = '<script defer src="download-tracking.js"></script>'
+              else:
+                  script = '<script defer src="../download-tracking.js"></script>'
+
+              if '</body>' not in lower:
+                  continue
+
+              marker = '</body>'
+              idx = lower.rfind(marker)
+              text = text[:idx] + script + '\n' + text[idx:]
+              path.write_text(text, encoding='utf-8')
+              changed.append(str(path))
+
+          print(f'Updated {len(changed)} HTML pages')
+          for item in changed:
+              print(item)
+
+      - name: Commit tracker additions
+        run: |
+          if git diff --quiet; then
+            echo "No changes needed."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add '*.html'
+          git commit -m "Ensure worksheet download tracking on PDF pages"
+          git push
