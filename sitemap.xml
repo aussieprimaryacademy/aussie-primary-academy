@@ -2221,6 +2221,11 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/usa-grade-4.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/usa-grade-5.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
