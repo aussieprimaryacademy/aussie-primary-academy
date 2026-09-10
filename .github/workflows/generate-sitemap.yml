@@ -9,7 +9,9 @@ on:
       - '*.html'
       - 'pages/**'
       - 'blog/**'
+      - 'worksheets/**/*.pdf'
       - 'scripts/generate-sitemap.py'
+      - 'scripts/generate-worksheet-index.py'
       - '.github/workflows/generate-sitemap.yml'
 
 permissions:
@@ -33,8 +35,11 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Validate generator
-        run: python -m py_compile scripts/generate-sitemap.py
+      - name: Validate generators
+        run: python -m py_compile scripts/generate-sitemap.py scripts/generate-worksheet-index.py
+
+      - name: Generate worksheet index
+        run: python scripts/generate-worksheet-index.py
 
       - name: Generate sitemap
         run: python scripts/generate-sitemap.py
@@ -54,17 +59,17 @@ jobs:
           print(f'Sitemap XML is valid: {count} URLs')
           PY
 
-      - name: Commit and push sitemap
+      - name: Commit and push generated files
         run: |
-          if git diff --quiet -- sitemap.xml; then
-            echo 'No sitemap changes'
+          if git diff --quiet -- sitemap.xml worksheets.html; then
+            echo 'No generated changes'
             exit 0
           fi
 
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add sitemap.xml
-          git commit -m 'fix: auto-generate complete sitemap from repository inventory'
+          git add sitemap.xml worksheets.html
+          git commit -m 'chore: auto-update sitemap and worksheet index'
 
           # Another content workflow can finish while this job is running.
           # Rebase before pushing so the sitemap job does not fail on a
