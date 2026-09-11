@@ -660,6 +660,7 @@
   const chips = Array.from(document.querySelectorAll('[data-skill-filter]'));
   const pageSize = 24;
   let visibleLimit = pageSize;
+  let searchDebounce = null;
 
   if (!search || !year || !subject || !skill || !clear || !count || !empty || !moreWrap || !more) {
     return;
@@ -697,10 +698,28 @@
   }
 
   function scrollToResults() {
-    const target = document.getElementById('worksheet-catalogue') || document.getElementById('all-worksheet-downloads');
-    if (target) {
+    const firstCard = document.querySelector('.auto-worksheet-card:not([hidden])');
+    const target = count || firstCard || document.getElementById('worksheet-catalogue') || document.getElementById('all-worksheet-downloads');
+    if (!target) return;
+    const rect = target.getBoundingClientRect();
+    const inView = rect.top >= 0 && rect.top < (window.innerHeight * 0.35);
+    if (!inView) {
       target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
+  }
+
+  function applyAndScroll(resetLimit = true) {
+    applyFilters(resetLimit);
+    requestAnimationFrame(() => {
+      setTimeout(scrollToResults, 40);
+    });
+  }
+
+  function onSearchInput() {
+    if (searchDebounce) clearTimeout(searchDebounce);
+    searchDebounce = setTimeout(() => {
+      applyAndScroll(true);
+    }, 350);
   }
 
   function readQueryFromUrl() {
@@ -716,20 +735,23 @@
     return Boolean(q || y || s || sk);
   }
 
-  [search, year, subject, skill].forEach(control => control.addEventListener('input', () => applyFilters()));
-  [year, subject, skill].forEach(control => control.addEventListener('change', () => applyFilters()));
+  search.addEventListener('input', onSearchInput);
+  [year, subject, skill].forEach(control => {
+    control.addEventListener('change', () => applyAndScroll(true));
+  });
   clear.addEventListener('click', () => {
+    if (searchDebounce) clearTimeout(searchDebounce);
     search.value = ''; year.value = ''; subject.value = ''; skill.value = '';
     if (window.history && window.history.replaceState) {
       window.history.replaceState({}, '', window.location.pathname + window.location.hash);
     }
-    applyFilters();
+    applyAndScroll(true);
     search.focus();
   });
   chips.forEach(chip => chip.addEventListener('click', () => {
+    if (searchDebounce) clearTimeout(searchDebounce);
     skill.value = skill.value === chip.dataset.skillFilter ? '' : chip.dataset.skillFilter;
-    applyFilters();
-    scrollToResults();
+    applyAndScroll(true);
   }));
   more.addEventListener('click', () => { visibleLimit += pageSize; applyFilters(false); });
 
