@@ -257,8 +257,15 @@ def generated_section(paths: list[Path]) -> str:
 {END}'''
 
 
+def remove_legacy_finder(text: str) -> str:
+    """Remove the older manually-maintained finder so only one filter UI remains."""
+    pattern = r'\n<section class="section" id="worksheet-finder"[\s\S]*?</section>\n(?=\s*' + re.escape(START) + r')'
+    return re.sub(pattern, "\n", text, count=1)
+
+
 def update_page(section: str) -> None:
     text = PAGE.read_text(encoding="utf-8")
+    text = remove_legacy_finder(text)
     if START in text and END in text:
         before, remainder = text.split(START, 1)
         _, after = remainder.split(END, 1)
