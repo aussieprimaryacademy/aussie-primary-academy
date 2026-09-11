@@ -244,13 +244,11 @@
 <section class="section" id="worksheet-catalogue" aria-labelledby="worksheet-catalogue-heading">
   <div class="wrap">
     <div class="worksheet-finder-panel">
-      <div class="section-head">
-        <div>
-          <p class="eyebrow">Find exactly what you need</p>
-          <h2 id="worksheet-catalogue-heading">Search the Worksheet Catalogue</h2>
-          <p>Search by worksheet name or skill, then narrow the results by year, subject and topic.</p>
-        </div>
-      </div>
+      <div class="section-head"><div>
+        <p class="eyebrow">Find exactly what you need</p>
+        <h2 id="worksheet-catalogue-heading">Search the Worksheet Catalogue</h2>
+        <p>Search by worksheet name or skill, then narrow the results by year, subject and topic.</p>
+      </div></div>
       <div class="worksheet-filter-grid">
         <div class="worksheet-filter-field">
           <label for="worksheet-search">Search</label>
@@ -261,27 +259,21 @@
           <select id="worksheet-year">
             <option value="">All years</option>
             <option>Foundation</option>
-            <option>Year 1</option><option>Year 2</option><option>Year 3</option>
-            <option>Year 4</option><option>Year 5</option><option>Year 6</option>
+            <option>Year 1</option><option>Year 2</option><option>Year 3</option><option>Year 4</option><option>Year 5</option><option>Year 6</option>
             <option>Kindergarten</option>
-            <option>Grade 1</option><option>Grade 2</option><option>Grade 3</option>
-            <option>Grade 4</option><option>Grade 5</option><option>Grade 6</option>
+            <option>Grade 1</option><option>Grade 2</option><option>Grade 3</option><option>Grade 4</option><option>Grade 5</option><option>Grade 6</option>
           </select>
         </div>
         <div class="worksheet-filter-field">
           <label for="worksheet-subject">Subject</label>
           <select id="worksheet-subject">
             <option value="">All subjects</option>
-            <option>Maths</option><option>Math</option><option>English</option>
-            <option>ELA</option><option>Science</option><option>Reading</option>
-            <option>Writing</option><option>Phonics</option>
+            <option>Maths</option><option>Math</option><option>English</option><option>ELA</option><option>Science</option><option>Reading</option><option>Writing</option><option>Phonics</option>
           </select>
         </div>
         <div class="worksheet-filter-field">
           <label for="worksheet-skill">Topic / Skill</label>
-          <select id="worksheet-skill">
-            <option value="">All topics</option>
-          </select>
+          <select id="worksheet-skill"><option value="">All topics</option></select>
         </div>
         <button class="btn btn-secondary worksheet-clear-button" id="worksheet-clear-filters" type="button">Clear Filters</button>
       </div>
@@ -758,7 +750,6 @@
   });
 
   function normalise(value) { return (value || '').toLowerCase().trim(); }
-
   function matches(card) {
     const query = normalise(search.value);
     const text = normalise(card.dataset.search);
@@ -773,44 +764,25 @@
     const matching = cards.filter(matches);
     cards.forEach(card => { card.hidden = true; });
     matching.slice(0, visibleLimit).forEach(card => { card.hidden = false; });
-
-    count.textContent = matching.length === 1
-      ? 'Showing 1 worksheet'
-      : `Showing ${matching.length} worksheets`;
+    count.textContent = matching.length === 1 ? 'Showing 1 worksheet' : `Showing ${matching.length} worksheets`;
     empty.hidden = matching.length !== 0;
     moreWrap.hidden = matching.length <= visibleLimit;
     more.textContent = `Show more worksheets (${Math.min(pageSize, matching.length - visibleLimit)})`;
-
-    chips.forEach(chip => {
-      chip.setAttribute('aria-pressed', skill.value === chip.dataset.skillFilter ? 'true' : 'false');
-    });
+    chips.forEach(chip => chip.setAttribute('aria-pressed', skill.value === chip.dataset.skillFilter ? 'true' : 'false'));
   }
 
   [search, year, subject, skill].forEach(control => control.addEventListener('input', () => applyFilters()));
   [year, subject, skill].forEach(control => control.addEventListener('change', () => applyFilters()));
-
   clear.addEventListener('click', () => {
-    search.value = '';
-    year.value = '';
-    subject.value = '';
-    skill.value = '';
-    applyFilters();
-    search.focus();
+    search.value = ''; year.value = ''; subject.value = ''; skill.value = '';
+    applyFilters(); search.focus();
   });
-
   chips.forEach(chip => chip.addEventListener('click', () => {
-    const selected = skill.value === chip.dataset.skillFilter;
-    skill.value = selected ? '' : chip.dataset.skillFilter;
+    skill.value = skill.value === chip.dataset.skillFilter ? '' : chip.dataset.skillFilter;
     applyFilters();
     document.getElementById('all-worksheet-downloads').scrollIntoView({ behavior: 'smooth', block: 'start' });
   }));
-
-  more.addEventListener('click', () => applyFilters(false) || (visibleLimit += pageSize));
-  more.addEventListener('click', function () {
-    visibleLimit += pageSize;
-    applyFilters(false);
-  });
-
+  more.addEventListener('click', () => { visibleLimit += pageSize; applyFilters(false); });
   applyFilters();
 })();
 </script>
