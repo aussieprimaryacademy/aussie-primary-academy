@@ -34,5 +34,6 @@ jobs:
           else
             git add worksheets.html
             git commit -m "Auto-regenerate worksheets.html catalogue ($(python -c 'from pathlib import Path; print(len(list(Path("worksheets").rglob("*.pdf"))))') PDFs)"
+            git pull --rebase origin main
             git push
           fi
