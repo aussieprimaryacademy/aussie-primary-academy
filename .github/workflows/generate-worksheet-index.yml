@@ -1,0 +1,38 @@
+name: Generate Worksheet Index
+
+on:
+  push:
+    paths:
+      - 'worksheets/**'
+      - 'scripts/generate-worksheet-index.py'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Generate worksheet catalogue
+        run: python scripts/generate-worksheet-index.py
+
+      - name: Commit if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet worksheets.html; then
+            echo "No changes to worksheets.html"
+          else
+            git add worksheets.html
+            git commit -m "Auto-regenerate worksheets.html catalogue ($(python -c 'from pathlib import Path; print(len(list(Path("worksheets").rglob("*.pdf"))))') PDFs)"
+            git push
+          fi
