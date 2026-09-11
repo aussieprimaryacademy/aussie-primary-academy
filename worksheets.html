@@ -161,6 +161,15 @@
 </section>
 
 <!-- AUTO-WORKSHEETS:START -->
+<style>
+.worksheet-search-button { min-height: 48px; white-space: nowrap; }
+@media (max-width: 850px) {
+  .worksheet-search-button { width: 100%; grid-column: 1 / -1; }
+}
+@media (max-width: 560px) {
+  .worksheet-filter-grid { grid-template-columns: 1fr; }
+}
+</style>
 <section class="section" id="worksheet-catalogue" aria-labelledby="worksheet-catalogue-heading">
   <div class="wrap">
     <div class="worksheet-finder-panel">
@@ -196,6 +205,7 @@
           <select id="worksheet-skill"><option value="">All topics</option></select>
         </div>
         <button class="btn btn-secondary worksheet-clear-button" id="worksheet-clear-filters" type="button">Clear Filters</button>
+        <button class="btn btn-primary worksheet-search-button" id="worksheet-search-button" type="button">Search Worksheets</button>
       </div>
       <div class="worksheet-quick-skills" aria-label="Popular skill collections">
         <button class="worksheet-skill-chip" type="button" data-skill-filter="Fractions" aria-pressed="false">Fractions Progression</button>
@@ -659,6 +669,7 @@
   const subject = document.getElementById('worksheet-subject');
   const skill = document.getElementById('worksheet-skill');
   const clear = document.getElementById('worksheet-clear-filters');
+  const searchBtn = document.getElementById('worksheet-search-button');
   const count = document.getElementById('worksheet-results-count');
   const empty = document.getElementById('worksheet-no-results');
   const moreWrap = document.getElementById('worksheet-load-more-wrap');
@@ -667,6 +678,7 @@
   const pageSize = 24;
   let visibleLimit = pageSize;
   let searchDebounce = null;
+  let filtersLockedByUser = false;
 
   if (!search || !year || !subject || !skill || !clear || !count || !empty || !moreWrap || !more) {
     return;
@@ -703,29 +715,43 @@
     chips.forEach(chip => chip.setAttribute('aria-pressed', skill.value === chip.dataset.skillFilter ? 'true' : 'false'));
   }
 
+  function headerOffset() {
+    const header = document.querySelector('header.site');
+    const h = header ? header.getBoundingClientRect().height : 0;
+    return Math.max(72, Math.round(h + 12));
+  }
+
   function scrollToResults() {
     const firstCard = document.querySelector('.auto-worksheet-card:not([hidden])');
-    const target = count || firstCard || document.getElementById('worksheet-catalogue') || document.getElementById('all-worksheet-downloads');
+    const target = firstCard || empty || count || document.getElementById('all-worksheet-downloads');
     if (!target) return;
-    const rect = target.getBoundingClientRect();
-    const inView = rect.top >= 0 && rect.top < (window.innerHeight * 0.35);
-    if (!inView) {
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    const top = target.getBoundingClientRect().top + window.pageYOffset - headerOffset();
+    window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
   }
 
   function applyAndScroll(resetLimit = true) {
     applyFilters(resetLimit);
     requestAnimationFrame(() => {
-      setTimeout(scrollToResults, 40);
+      setTimeout(scrollToResults, 50);
     });
   }
 
+  function runTextSearch() {
+    if (searchDebounce) clearTimeout(searchDebounce);
+    if (!filtersLockedByUser) {
+      year.value = '';
+      subject.value = '';
+      skill.value = '';
+    }
+    applyAndScroll(true);
+  }
+
   function onSearchInput() {
+    filtersLockedByUser = false;
     if (searchDebounce) clearTimeout(searchDebounce);
     searchDebounce = setTimeout(() => {
-      applyAndScroll(true);
-    }, 350);
+      runTextSearch();
+    }, 400);
   }
 
   function readQueryFromUrl() {
@@ -735,37 +761,59 @@
     const s = (params.get('subject') || '').trim();
     const sk = (params.get('skill') || '').trim();
     if (q) search.value = q;
-    if (y) year.value = y;
-    if (s) subject.value = s;
-    if (sk) skill.value = sk;
+    if (y) { year.value = y; filtersLockedByUser = true; }
+    if (s) { subject.value = s; filtersLockedByUser = true; }
+    if (sk) { skill.value = sk; filtersLockedByUser = true; }
     return Boolean(q || y || s || sk);
   }
 
   search.addEventListener('input', onSearchInput);
-  [year, subject, skill].forEach(control => {
-    control.addEventListener('change', () => applyAndScroll(true));
+  search.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      runTextSearch();
+    }
   });
+  if (searchBtn) {
+    searchBtn.addEventListener('click', () => runTextSearch());
+  }
+
+  [year, subject, skill].forEach(control => {
+    control.addEventListener('change', () => {
+      filtersLockedByUser = true;
+      applyAndScroll(true);
+    });
+  });
+
   clear.addEventListener('click', () => {
     if (searchDebounce) clearTimeout(searchDebounce);
-    search.value = ''; year.value = ''; subject.value = ''; skill.value = '';
+    search.value = '';
+    year.value = '';
+    subject.value = '';
+    skill.value = '';
+    filtersLockedByUser = false;
     if (window.history && window.history.replaceState) {
       window.history.replaceState({}, '', window.location.pathname + window.location.hash);
     }
     applyAndScroll(true);
     search.focus();
   });
+
   chips.forEach(chip => chip.addEventListener('click', () => {
     if (searchDebounce) clearTimeout(searchDebounce);
-    skill.value = skill.value === chip.dataset.skillFilter ? '' : chip.dataset.skillFilter;
+    const next = skill.value === chip.dataset.skillFilter ? '' : chip.dataset.skillFilter;
+    skill.value = next;
+    filtersLockedByUser = true;
     applyAndScroll(true);
   }));
+
   more.addEventListener('click', () => { visibleLimit += pageSize; applyFilters(false); });
 
   const hadUrlFilter = readQueryFromUrl();
   applyFilters();
   if (hadUrlFilter) {
     requestAnimationFrame(() => {
-      setTimeout(scrollToResults, 50);
+      setTimeout(scrollToResults, 60);
     });
   }
 })();
