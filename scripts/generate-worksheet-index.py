@@ -24,34 +24,19 @@ SPECIAL = {
 }
 
 SKILL_RULES = [
-    ("fractions", "Fractions"),
-    ("fraction", "Fractions"),
-    ("phonics", "Phonics"),
-    ("cvc", "Phonics"),
-    ("reading", "Reading"),
-    ("comprehension", "Reading"),
+    ("fractions", "Fractions"), ("fraction", "Fractions"),
+    ("phonics", "Phonics"), ("cvc", "Phonics"),
+    ("reading", "Reading"), ("comprehension", "Reading"),
     ("naplan", "NAPLAN"),
-    ("measurement", "Measurement"),
-    ("metric", "Measurement"),
-    ("length", "Measurement"),
-    ("mass", "Measurement"),
-    ("capacity", "Measurement"),
-    ("time", "Time"),
-    ("money", "Money"),
-    ("addition", "Number"),
-    ("subtraction", "Number"),
-    ("multiplication", "Number"),
-    ("division", "Number"),
-    ("number", "Number"),
-    ("place-value", "Number"),
-    ("place value", "Number"),
-    ("spelling", "Spelling"),
-    ("grammar", "Grammar"),
-    ("apostrophe", "Grammar"),
-    ("punctuation", "Grammar"),
-    ("writing", "Writing"),
-    ("sentences", "Writing"),
-    ("sentence", "Writing"),
+    ("measurement", "Measurement"), ("metric", "Measurement"),
+    ("length", "Measurement"), ("mass", "Measurement"), ("capacity", "Measurement"),
+    ("time", "Time"), ("money", "Money"),
+    ("addition", "Number"), ("subtraction", "Number"),
+    ("multiplication", "Number"), ("division", "Number"),
+    ("number", "Number"), ("place-value", "Number"), ("place value", "Number"),
+    ("spelling", "Spelling"), ("grammar", "Grammar"),
+    ("apostrophe", "Grammar"), ("punctuation", "Grammar"),
+    ("writing", "Writing"), ("sentences", "Writing"), ("sentence", "Writing"),
     ("science", "Science"),
 ]
 
@@ -59,7 +44,6 @@ SKILL_RULES = [
 def level_and_subject(path: Path) -> tuple[str, str, str]:
     parts = [part.lower() for part in path.parts]
     region = "USA" if "usa" in parts or path.name.lower().startswith(("us-", "usa-")) else "Australia"
-
     level = "Worksheet"
     for part in parts:
         if part == "kindergarten":
@@ -76,8 +60,7 @@ def level_and_subject(path: Path) -> tuple[str, str, str]:
 
     subject_map = {
         "math": "Math", "maths": "Maths", "ela": "ELA", "english": "English",
-        "science": "Science", "reading": "Reading", "writing": "Writing",
-        "phonics": "Phonics",
+        "science": "Science", "reading": "Reading", "writing": "Writing", "phonics": "Phonics",
     }
     subject = next((subject_map[p] for p in parts if p in subject_map), "Worksheet")
     return region, level, subject
@@ -92,7 +75,6 @@ def human_title(path: Path, level: str, subject: str) -> str:
     }
     skip.update(level.lower().split())
     skip.update(subject.lower().split())
-
     for word in words:
         low = word.lower()
         if low in skip or low in DROP_WORDS or low.isdigit():
@@ -102,7 +84,6 @@ def human_title(path: Path, level: str, subject: str) -> str:
         if re.fullmatch(r"(?:year|grade)\d", low):
             continue
         kept.append(SPECIAL.get(low, low.capitalize()))
-
     title = " ".join(kept).strip()
     return title or f"{level} {subject} Practice"
 
@@ -121,19 +102,19 @@ def card(path: Path, index: int) -> str:
     title = human_title(path, level, subject)
     skill = skill_for(path, title, subject)
     colour = f"c{index % 4 + 1}"
+    search_text = f"{title} {skill} {level} {subject} {region}"
     return (
         '      <li class="wcard auto-worksheet-card" '
         f'data-region="{escape(region, quote=True)}" '
         f'data-year="{escape(level, quote=True)}" '
         f'data-subject="{escape(subject, quote=True)}" '
         f'data-skill="{escape(skill, quote=True)}" '
-        f'data-search="{escape(f"{title} {skill} {level} {subject} {region}", quote=True)}">'
+        f'data-search="{escape(search_text, quote=True)}">'
         f'<div class="thumb {colour}">{escape(level)} · {escape(subject)}</div>'
         '<div class="body">'
         f'<p class="tag">{escape(region)} · {escape(skill)} · Free PDF</p>'
         f'<h3>{escape(title)}</h3>'
-        f'<a class="btn btn-primary btn-sm" href="{escape(rel, quote=True)}" '
-        'download target="_blank" rel="noopener">⬇ Download PDF</a>'
+        f'<a class="btn btn-primary btn-sm" href="{escape(rel, quote=True)}" download target="_blank" rel="noopener">⬇ Download PDF</a>'
         '</div></li>'
     )
 
@@ -144,13 +125,11 @@ def generated_section(paths: list[Path]) -> str:
 <section class="section" id="worksheet-catalogue" aria-labelledby="worksheet-catalogue-heading">
   <div class="wrap">
     <div class="worksheet-finder-panel">
-      <div class="section-head">
-        <div>
-          <p class="eyebrow">Find exactly what you need</p>
-          <h2 id="worksheet-catalogue-heading">Search the Worksheet Catalogue</h2>
-          <p>Search by worksheet name or skill, then narrow the results by year, subject and topic.</p>
-        </div>
-      </div>
+      <div class="section-head"><div>
+        <p class="eyebrow">Find exactly what you need</p>
+        <h2 id="worksheet-catalogue-heading">Search the Worksheet Catalogue</h2>
+        <p>Search by worksheet name or skill, then narrow the results by year, subject and topic.</p>
+      </div></div>
       <div class="worksheet-filter-grid">
         <div class="worksheet-filter-field">
           <label for="worksheet-search">Search</label>
@@ -161,27 +140,21 @@ def generated_section(paths: list[Path]) -> str:
           <select id="worksheet-year">
             <option value="">All years</option>
             <option>Foundation</option>
-            <option>Year 1</option><option>Year 2</option><option>Year 3</option>
-            <option>Year 4</option><option>Year 5</option><option>Year 6</option>
+            <option>Year 1</option><option>Year 2</option><option>Year 3</option><option>Year 4</option><option>Year 5</option><option>Year 6</option>
             <option>Kindergarten</option>
-            <option>Grade 1</option><option>Grade 2</option><option>Grade 3</option>
-            <option>Grade 4</option><option>Grade 5</option><option>Grade 6</option>
+            <option>Grade 1</option><option>Grade 2</option><option>Grade 3</option><option>Grade 4</option><option>Grade 5</option><option>Grade 6</option>
           </select>
         </div>
         <div class="worksheet-filter-field">
           <label for="worksheet-subject">Subject</label>
           <select id="worksheet-subject">
             <option value="">All subjects</option>
-            <option>Maths</option><option>Math</option><option>English</option>
-            <option>ELA</option><option>Science</option><option>Reading</option>
-            <option>Writing</option><option>Phonics</option>
+            <option>Maths</option><option>Math</option><option>English</option><option>ELA</option><option>Science</option><option>Reading</option><option>Writing</option><option>Phonics</option>
           </select>
         </div>
         <div class="worksheet-filter-field">
           <label for="worksheet-skill">Topic / Skill</label>
-          <select id="worksheet-skill">
-            <option value="">All topics</option>
-          </select>
+          <select id="worksheet-skill"><option value="">All topics</option></select>
         </div>
         <button class="btn btn-secondary worksheet-clear-button" id="worksheet-clear-filters" type="button">Clear Filters</button>
       </div>
@@ -245,7 +218,6 @@ def generated_section(paths: list[Path]) -> str:
   }});
 
   function normalise(value) {{ return (value || '').toLowerCase().trim(); }}
-
   function matches(card) {{
     const query = normalise(search.value);
     const text = normalise(card.dataset.search);
@@ -260,44 +232,25 @@ def generated_section(paths: list[Path]) -> str:
     const matching = cards.filter(matches);
     cards.forEach(card => {{ card.hidden = true; }});
     matching.slice(0, visibleLimit).forEach(card => {{ card.hidden = false; }});
-
-    count.textContent = matching.length === 1
-      ? 'Showing 1 worksheet'
-      : `Showing ${{matching.length}} worksheets`;
+    count.textContent = matching.length === 1 ? 'Showing 1 worksheet' : `Showing ${{matching.length}} worksheets`;
     empty.hidden = matching.length !== 0;
     moreWrap.hidden = matching.length <= visibleLimit;
     more.textContent = `Show more worksheets (${{Math.min(pageSize, matching.length - visibleLimit)}})`;
-
-    chips.forEach(chip => {{
-      chip.setAttribute('aria-pressed', skill.value === chip.dataset.skillFilter ? 'true' : 'false');
-    }});
+    chips.forEach(chip => chip.setAttribute('aria-pressed', skill.value === chip.dataset.skillFilter ? 'true' : 'false'));
   }}
 
   [search, year, subject, skill].forEach(control => control.addEventListener('input', () => applyFilters()));
   [year, subject, skill].forEach(control => control.addEventListener('change', () => applyFilters()));
-
   clear.addEventListener('click', () => {{
-    search.value = '';
-    year.value = '';
-    subject.value = '';
-    skill.value = '';
-    applyFilters();
-    search.focus();
+    search.value = ''; year.value = ''; subject.value = ''; skill.value = '';
+    applyFilters(); search.focus();
   }});
-
   chips.forEach(chip => chip.addEventListener('click', () => {{
-    const selected = skill.value === chip.dataset.skillFilter;
-    skill.value = selected ? '' : chip.dataset.skillFilter;
+    skill.value = skill.value === chip.dataset.skillFilter ? '' : chip.dataset.skillFilter;
     applyFilters();
     document.getElementById('all-worksheet-downloads').scrollIntoView({{ behavior: 'smooth', block: 'start' }});
   }}));
-
-  more.addEventListener('click', () => applyFilters(false) || (visibleLimit += pageSize));
-  more.addEventListener('click', function () {{
-    visibleLimit += pageSize;
-    applyFilters(false);
-  }});
-
+  more.addEventListener('click', () => {{ visibleLimit += pageSize; applyFilters(false); }});
   applyFilters();
 }})();
 </script>
@@ -327,7 +280,6 @@ def main() -> None:
         raise SystemExit("ERROR: no worksheet PDFs found")
     if len({path.relative_to(ROOT).as_posix() for path in paths}) != len(paths):
         raise SystemExit("ERROR: duplicate worksheet paths found")
-
     update_page(generated_section(paths))
     result = PAGE.read_text(encoding="utf-8")
     for path in paths:
