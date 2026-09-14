@@ -1,0 +1,93 @@
+name: Generate Worksheet Pages (Controlled Test)
+
+# Manual first: create at most 5 missing pages from approved PDF folders.
+# After the 5-page test passes, this workflow can safely be switched to
+# automatic PDF-triggered generation.
+
+on:
+  workflow_dispatch:
+    inputs:
+      scope:
+        description: "Comma-separated worksheet folders to test"
+        required: true
+        default: "worksheets/usa/grade-1,worksheets/usa/grade-2"
+      max_new_pages:
+        description: "Maximum new HTML pages to create"
+        required: true
+        default: "5"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: worksheet-page-generator
+  cancel-in-progress: true
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Validate generator
+        run: python -m py_compile scripts/generate-worksheet-pages.py
+
+      - name: Generate missing worksheet pages
+        env:
+          PAGE_GENERATOR_SCOPE: ${{ inputs.scope }}
+          MAX_NEW_PAGES: ${{ inputs.max_new_pages }}
+        run: python scripts/generate-worksheet-pages.py
+
+      - name: Validate generated pages
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          failures = []
+          for page in sorted(Path('pages').glob('free-printable-*.html')):
+              text = page.read_text(encoding='utf-8')
+              if '<link rel="canonical"' in text and 'Download Free PDF' in text:
+                  continue
+          # Only validate files changed by this workflow's working tree.
+          import subprocess
+          changed = subprocess.check_output(['git', 'status', '--porcelain'], text=True)
+          generated = [Path(line[3:]) for line in changed.splitlines() if line.startswith('?? pages/') or line.startswith(' M pages/')]
+          for page in generated:
+              text = page.read_text(encoding='utf-8')
+              checks = {
+                  'html': '</html>' in text,
+                  'canonical': '<link rel="canonical"' in text,
+                  'h1': '<h1>' in text,
+                  'pdf_link': 'Download Free PDF' in text and '.pdf' in text,
+                  'preview': '<img ' in text and 'preview' in text,
+                  'no_placeholder': not any(x in text for x in ('SEE_FILE', 'PLACEHOLDER_CONTENT', 'TODO_RESTORE')),
+              }
+              bad = [name for name, ok in checks.items() if not ok]
+              if bad:
+                  failures.append(f'{page}: {", ".join(bad)}')
+          if failures:
+              raise SystemExit('Generated page validation failed:\n' + '\n'.join(failures))
+          print('Generated page validation passed.')
+          PY
+
+      - name: Commit generated pages
+        run: |
+          if git diff --quiet -- pages; then
+            echo "No new worksheet pages were needed."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add pages/
+          git commit -m "Auto-generate missing worksheet pages"
+          git pull --rebase origin main
+          git push origin HEAD:main
