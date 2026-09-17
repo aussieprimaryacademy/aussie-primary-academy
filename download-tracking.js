@@ -76,8 +76,39 @@
     const closeButton = gate.querySelector(".apa-email-gate-close");
     let submitted = false;
     let finished = false;
+    let submitStartedAt = 0;
+    let gateSubmitButton = null;
+    let gateStatus = status;
+    let pollTimer = null;
+    const SUBMIT_TIMEOUT_MS = 20000;
+
+    function setGateStatus(message) {
+      if (gateStatus && gateStatus.isConnected) {
+        gateStatus.textContent = message;
+      }
+    }
+
+    function resetSubmission(message) {
+      submitted = false;
+      submitStartedAt = 0;
+      if (gateSubmitButton) {
+        gateSubmitButton.disabled = false;
+        gateSubmitButton.style.opacity = "1";
+      }
+      setGateStatus(message);
+    }
+
+    function isVisible(element, win) {
+      if (!element || !element.textContent.trim()) return false;
+      const style = win.getComputedStyle(element);
+      return style.display !== "none" &&
+        style.visibility !== "hidden" &&
+        style.opacity !== "0" &&
+        element.getClientRects().length > 0;
+    }
 
     function closeGate() {
+      if (pollTimer) clearInterval(pollTimer);
       backdrop.remove();
     }
 
@@ -112,11 +143,44 @@
       try {
         doc = frame.contentDocument || frame.contentWindow.document;
       } catch (error) {
-        status.textContent = "Please use the newsletter form on the APA homepage to subscribe, then return to this worksheet.";
+        resetSubmission("We could not confirm the signup. Please try again.");
         return false;
       }
 
       if (!doc) return false;
+
+      // Check Brevo's result panels before looking for the form. Brevo may
+      // replace or hide the form after a response, so requiring #sib-form
+      // first can leave the gate stuck on “Submitting…”.
+      if (submitted) {
+        const success = doc.querySelector("#success-message, .sib-success-message, .success-message, .newsletter-success");
+        const error = doc.querySelector("#error-message, .sib-error-message, .error-message, .newsletter-error");
+
+        if (isVisible(success, frame.contentWindow)) {
+          unlockAndDownload();
+          return true;
+        }
+
+        if (isVisible(error, frame.contentWindow)) {
+          resetSubmission(error.textContent.trim() || "Your subscription could not be saved. Please check the email and try again.");
+          return true;
+        }
+
+        const fieldError = Array.from(doc.querySelectorAll(".entry__error, .sib-form-message-panel__inner-text"))
+          .find(function (element) {
+            return isVisible(element, frame.contentWindow) && /invalid|required|could not|error|try again/i.test(element.textContent);
+          });
+
+        if (fieldError) {
+          resetSubmission(fieldError.textContent.trim());
+          return true;
+        }
+
+        if (submitStartedAt && Date.now() - submitStartedAt >= SUBMIT_TIMEOUT_MS) {
+          resetSubmission("We could not confirm the signup. Please check your email address and try again.");
+          return true;
+        }
+      }
 
       const form = doc.querySelector("#sib-form");
       if (!form) return false;
@@ -149,6 +213,8 @@
         newStatus.setAttribute("aria-live", "polite");
         newStatus.style.marginTop = "8px";
         cloned.appendChild(newStatus);
+        gateSubmitButton = gateSubmit;
+        gateStatus = newStatus;
 
         gateSubmit.addEventListener("click", function () {
           const value = gateEmail.value.trim();
@@ -159,6 +225,7 @@
           }
 
           submitted = true;
+          submitStartedAt = Date.now();
           gateSubmit.disabled = true;
           gateSubmit.style.opacity = "0.65";
           newStatus.textContent = "Submitting…";
@@ -166,24 +233,12 @@
           emailInput.value = value;
           emailInput.dispatchEvent(new Event("input", { bubbles: true }));
           emailInput.dispatchEvent(new Event("change", { bubbles: true }));
-          submitButton.click();
+          if (typeof form.requestSubmit === "function") {
+            form.requestSubmit(submitButton);
+          } else {
+            submitButton.click();
+          }
         });
-      }
-
-      if (submitted) {
-        const success = doc.querySelector("#success-message, .sib-success-message, .success-message, .newsletter-success");
-        const error = doc.querySelector("#error-message, .sib-error-message, .error-message, .newsletter-error");
-        const successVisible = success && frame.contentWindow.getComputedStyle(success).display !== "none" && success.textContent.trim();
-        const errorVisible = error && frame.contentWindow.getComputedStyle(error).display !== "none" && error.textContent.trim();
-
-        if (successVisible) {
-          unlockAndDownload();
-          return true;
-        }
-        if (errorVisible) {
-          const currentStatus = gate.querySelector(".apa-email-gate-status");
-          if (currentStatus) currentStatus.textContent = error.textContent.trim();
-        }
       }
 
       return true;
@@ -191,17 +246,19 @@
 
     frame.addEventListener("load", function () {
       let attempts = 0;
-      const timer = setInterval(function () {
+      if (pollTimer) clearInterval(pollTimer);
+      pollTimer = setInterval(function () {
         attempts += 1;
         inspectForm();
-        if (finished) {
-          clearInterval(timer);
+        if (finished || !backdrop.isConnected) {
+          clearInterval(pollTimer);
+          pollTimer = null;
         }
-        if (attempts >= 60) {
-          clearInterval(timer);
-          if (!finished && !submitted) {
-            const currentStatus = gate.querySelector(".apa-email-gate-status");
-            if (currentStatus) currentStatus.textContent = "Signup form could not be loaded. Please try again.";
+        if (attempts >= 60 && !gateSubmitButton) {
+          clearInterval(pollTimer);
+          pollTimer = null;
+          if (!finished) {
+            setGateStatus("Signup form could not be loaded. Please try again.");
           }
         }
       }, 500);
