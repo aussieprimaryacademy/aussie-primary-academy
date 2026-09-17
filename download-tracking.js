@@ -72,7 +72,7 @@
     backdrop.appendChild(gate);
     document.body.appendChild(backdrop);
 
-    const status = gate.querySelector(".apa-email-gate-status");
+    let status = gate.querySelector(".apa-email-gate-status");
     const closeButton = gate.querySelector(".apa-email-gate-close");
     let submitted = false;
     let finished = false;
@@ -80,6 +80,7 @@
     let gateSubmitButton = null;
     let gateStatus = status;
     let pollTimer = null;
+    let submitTimeoutTimer = null;
     const SUBMIT_TIMEOUT_MS = 20000;
 
     function setGateStatus(message) {
@@ -88,7 +89,15 @@
       }
     }
 
+    function clearSubmitTimeout() {
+      if (submitTimeoutTimer) {
+        clearTimeout(submitTimeoutTimer);
+        submitTimeoutTimer = null;
+      }
+    }
+
     function resetSubmission(message) {
+      clearSubmitTimeout();
       submitted = false;
       submitStartedAt = 0;
       if (gateSubmitButton) {
@@ -108,6 +117,7 @@
     }
 
     function closeGate() {
+      clearSubmitTimeout();
       if (pollTimer) clearInterval(pollTimer);
       backdrop.remove();
     }
@@ -126,6 +136,7 @@
     function unlockAndDownload() {
       if (finished) return;
       finished = true;
+      clearSubmitTimeout();
       sessionStorage.setItem(UNLOCK_KEY, "true");
 
       if (typeof gtag === "function") {
@@ -134,7 +145,7 @@
 
       closeGate();
       link.dataset.apaGateUnlocked = "true";
-      trackDownload(link);
+      // The click handler below will record exactly one worksheet_download event.
       link.click();
     }
 
@@ -143,7 +154,9 @@
       try {
         doc = frame.contentDocument || frame.contentWindow.document;
       } catch (error) {
-        resetSubmission("We could not confirm the signup. Please try again.");
+        if (submitted) {
+          resetSubmission("We could not confirm the signup. Please try again.");
+        }
         return false;
       }
 
@@ -175,11 +188,6 @@
           resetSubmission(fieldError.textContent.trim());
           return true;
         }
-
-        if (submitStartedAt && Date.now() - submitStartedAt >= SUBMIT_TIMEOUT_MS) {
-          resetSubmission("We could not confirm the signup. Please check your email address and try again.");
-          return true;
-        }
       }
 
       const form = doc.querySelector("#sib-form");
@@ -192,18 +200,19 @@
       const submitButton = form.querySelector('button[type="submit"], input[type="submit"], .sib-form-block__button');
 
       if (!emailInput || !submitButton) {
-        status.textContent = "The signup form is still loading…";
+        if (!submitted) setGateStatus("The signup form is still loading…");
         return false;
       }
 
       if (!submitted) {
-        status.textContent = "Enter your email below:";
+        setGateStatus("Enter your email below:");
         const cloned = document.createElement("div");
         cloned.style.marginTop = "8px";
         cloned.innerHTML = `
           <input type="email" id="apa-gate-email" autocomplete="email" placeholder="Your email address" style="width:100%;box-sizing:border-box;border:1px solid #d9cee0;border-radius:10px;padding:11px 12px;font:inherit;font-size:14px;background:#fff;color:#3A3040;">
           <button type="button" id="apa-gate-submit" style="width:100%;margin-top:8px;border:0;border-radius:10px;padding:11px 16px;background:#4A3358;color:#fff;font:inherit;font-weight:700;cursor:pointer;">Get the Worksheet</button>
         `;
+
         status.replaceWith(cloned);
 
         const gateEmail = cloned.querySelector("#apa-gate-email");
@@ -215,6 +224,7 @@
         cloned.appendChild(newStatus);
         gateSubmitButton = gateSubmit;
         gateStatus = newStatus;
+        status = newStatus;
 
         gateSubmit.addEventListener("click", function () {
           const value = gateEmail.value.trim();
@@ -230,9 +240,21 @@
           gateSubmit.style.opacity = "0.65";
           newStatus.textContent = "Submitting…";
 
+          // Independent watchdog: if Brevo never reports a result, do not
+          // leave the visitor stuck on “Submitting…” and never unlock on timeout.
+          clearSubmitTimeout();
+          submitTimeoutTimer = setTimeout(function () {
+            if (!finished && submitted) {
+              resetSubmission("We could not confirm the signup. Please try again.");
+            }
+          }, SUBMIT_TIMEOUT_MS);
+
           emailInput.value = value;
           emailInput.dispatchEvent(new Event("input", { bubbles: true }));
           emailInput.dispatchEvent(new Event("change", { bubbles: true }));
+
+          // Brevo's main.js normally intercepts this submission and handles
+          // the response. If it is not ready, the watchdog will safely reset.
           if (typeof form.requestSubmit === "function") {
             form.requestSubmit(submitButton);
           } else {
@@ -245,14 +267,17 @@
     }
 
     frame.addEventListener("load", function () {
-      let attempts = 0;
+      // Check immediately after every iframe load, then continue polling.
+      inspectForm();
       if (pollTimer) clearInterval(pollTimer);
+      let attempts = 0;
       pollTimer = setInterval(function () {
         attempts += 1;
         inspectForm();
         if (finished || !backdrop.isConnected) {
           clearInterval(pollTimer);
           pollTimer = null;
+          return;
         }
         if (attempts >= 60 && !gateSubmitButton) {
           clearInterval(pollTimer);
