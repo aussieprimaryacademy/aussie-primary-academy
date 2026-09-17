@@ -193,8 +193,8 @@
       let attempts = 0;
       const timer = setInterval(function () {
         attempts += 1;
-        const ready = inspectForm();
-        if (finished || (ready && submitted)) {
+        inspectForm();
+        if (finished) {
           clearInterval(timer);
         }
         if (attempts >= 60) {
