@@ -1,5 +1,9 @@
 # Aussie Primary Academy Worksheet App V1
 
+Copyright © 2026 Aussie Primary Academy. All rights reserved.
+
+This is a public source repository, but public access does not place the website, worksheets, designs or educational content in the public domain. See [COPYRIGHT.md](COPYRIGHT.md), [ATTRIBUTIONS.md](ATTRIBUTIONS.md) and [Terms of Use](terms-of-use.html).
+
 Basic free static worksheet generator framework.
 
 ## Included
