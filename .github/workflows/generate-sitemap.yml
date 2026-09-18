@@ -36,10 +36,13 @@ jobs:
           python-version: '3.12'
 
       - name: Validate generators
-        run: python -m py_compile scripts/generate-sitemap.py scripts/generate-worksheet-index.py
+        run: python -m py_compile scripts/generate-sitemap.py scripts/generate-worksheet-index.py scripts/generate-year-pages.py
 
       - name: Generate worksheet index
         run: python scripts/generate-worksheet-index.py
+
+      - name: Generate year pages
+        run: python scripts/generate-year-pages.py
 
       - name: Generate sitemap
         run: python scripts/generate-sitemap.py
@@ -61,14 +64,14 @@ jobs:
 
       - name: Commit and push generated files
         run: |
-          if git diff --quiet -- sitemap.xml worksheets.html; then
+          if git diff --quiet -- sitemap.xml worksheets.html foundation.html year-1.html year-2.html year-3.html year-4.html year-5.html year-6.html; then
             echo 'No generated changes'
             exit 0
           fi
 
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add sitemap.xml worksheets.html
+          git add sitemap.xml worksheets.html foundation.html year-1.html year-2.html year-3.html year-4.html year-5.html year-6.html
           git commit -m 'chore: auto-update sitemap and worksheet index'
 
           # Another content workflow can finish while this job is running.
