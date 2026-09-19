@@ -18,8 +18,10 @@ permissions:
   contents: write
 
 concurrency:
-  group: generate-sitemap-main
-  cancel-in-progress: true
+  # Share the queue with worksheet preview/page generation so two
+  # GitHub Actions writers never push at the same time.
+  group: apa-content-generators
+  cancel-in-progress: false
 
 jobs:
   generate:
