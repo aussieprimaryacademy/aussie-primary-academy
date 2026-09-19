@@ -1,9 +1,16 @@
-name: Generate Individual Worksheet Pages
+name: Generate Worksheet Previews and Pages
 
-# Generate missing individual HTML pages after worksheet preview PNGs are ready.
-# Manual dispatch remains available for a controlled scope/test.
+# Single automatic owner for the PDF -> PNG preview -> worksheet HTML chain.
+# Existing pages/previews are never overwritten.
 
 on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'worksheets/**/*.pdf'
+      - 'scripts/generate-worksheet-pages.py'
+      - '.github/workflows/generate-worksheet-pages.yml'
   workflow_dispatch:
     inputs:
       scope:
@@ -14,22 +21,16 @@ on:
         description: "Maximum new HTML pages to create"
         required: true
         default: "500"
-  workflow_run:
-    workflows:
-      - "Make Worksheet PNG Previews"
-    types:
-      - completed
 
 permissions:
   contents: write
 
 concurrency:
-  group: worksheet-page-generator
-  cancel-in-progress: true
+  group: apa-content-generators
+  cancel-in-progress: false
 
 jobs:
   generate:
-    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout main
@@ -43,8 +44,56 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Install preview tools
+        run: pip install pymupdf pillow
+
       - name: Validate generator
         run: python -m py_compile scripts/generate-worksheet-pages.py
+
+      - name: Generate missing PNG previews
+        env:
+          PREVIEW_SCOPE: ${{ github.event_name == 'workflow_dispatch' && inputs.scope || 'worksheets' }}
+        run: |
+          python - <<'PY'
+          import os
+          from pathlib import Path
+          import fitz
+
+          made = 0
+          failed = 0
+          scopes = [x.strip().rstrip('/') for x in os.environ['PREVIEW_SCOPE'].split(',') if x.strip()]
+          seen = set()
+
+          for scope in scopes:
+              root = Path(scope)
+              if not root.exists():
+                  continue
+              for pdf in sorted(root.rglob('*.pdf')):
+                  if pdf in seen:
+                      continue
+                  seen.add(pdf)
+                  if 'answer-key' in pdf.name.lower() or 'answerkey' in pdf.name.lower():
+                      continue
+                  out = pdf.parent / 'previews' / f'{pdf.stem}.png'
+                  if out.exists() and out.stat().st_size > 0:
+                      continue
+                  out.parent.mkdir(parents=True, exist_ok=True)
+                  try:
+                      with fitz.open(pdf) as doc:
+                          if not doc.page_count:
+                              raise RuntimeError('empty PDF')
+                          pix = doc[0].get_pixmap(dpi=160, alpha=False)
+                          pix.save(out)
+                      made += 1
+                      print(f'Made: {out}')
+                  except Exception as exc:
+                      failed += 1
+                      print(f'FAILED: {pdf}: {exc}')
+
+          print(f'Preview summary: made={made} failed={failed}')
+          if failed:
+              raise SystemExit(f'{failed} preview(s) failed')
+          PY
 
       - name: Generate missing worksheet pages
         env:
@@ -52,7 +101,7 @@ jobs:
           MAX_NEW_PAGES: ${{ github.event_name == 'workflow_dispatch' && inputs.max_new_pages || '500' }}
         run: python scripts/generate-worksheet-pages.py
 
-      - name: Validate generated pages
+      - name: Validate generated pages and previews
         run: |
           python - <<'PY'
           from pathlib import Path
@@ -60,44 +109,45 @@ jobs:
 
           failures = []
           changed = subprocess.check_output(['git', 'status', '--porcelain'], text=True)
-          generated = [
-              Path(line[3:])
-              for line in changed.splitlines()
-              if (line.startswith('?? pages/') or line.startswith(' M pages/') or line.startswith('A  pages/'))
-          ]
+          files = [line[3:] for line in changed.splitlines() if len(line) > 3]
 
-          for page in generated:
-              text = page.read_text(encoding='utf-8')
-              checks = {
-                  'html': '</html>' in text,
-                  'canonical': '<link rel="canonical"' in text,
-                  'h1': '<h1>' in text,
-                  'pdf_link': 'Download Free PDF' in text and '.pdf' in text,
-                  'preview': '<img ' in text and 'preview' in text,
-                  'no_placeholder': not any(x in text for x in ('SEE_FILE', 'PLACEHOLDER_CONTENT', 'TODO_RESTORE')),
-              }
-              bad = [name for name, ok in checks.items() if not ok]
-              if bad:
-                  failures.append(f'{page}: {", ".join(bad)}')
+          for raw in files:
+              path = Path(raw)
+              if path.suffix.lower() == '.html' and str(path).startswith('pages/'):
+                  text = path.read_text(encoding='utf-8')
+                  checks = {
+                      'html': '</html>' in text,
+                      'canonical': '<link rel="canonical"' in text,
+                      'h1': '<h1>' in text,
+                      'pdf_link': 'Download Free PDF' in text and '.pdf' in text,
+                      'preview': '<img ' in text and 'preview' in text,
+                      'no_placeholder': not any(x in text for x in ('SEE_FILE', 'PLACEHOLDER_CONTENT', 'TODO_RESTORE')),
+                  }
+                  bad = [name for name, ok in checks.items() if not ok]
+                  if bad:
+                      failures.append(f'{path}: {", ".join(bad)}')
+              elif path.suffix.lower() == '.png' and '/previews/' in str(path):
+                  if not path.exists() or path.stat().st_size == 0:
+                      failures.append(f'{path}: empty preview')
 
           if failures:
-              raise SystemExit('Generated page validation failed:\n' + '\n'.join(failures))
-          print(f'Generated page validation passed for {len(generated)} new/changed page(s).')
+              raise SystemExit('Generated asset validation failed:\n' + '\n'.join(failures))
+          print('Generated asset validation passed.')
           PY
 
-      - name: Commit generated pages
+      - name: Commit generated previews and pages
         run: |
-          if [ -z "$(git status --porcelain -- pages/)" ]; then
-            echo "No new worksheet pages were needed."
+          if [ -z "$(git status --porcelain -- pages worksheets)" ]; then
+            echo "No new worksheet previews/pages were needed."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add pages/
+          git add pages/ worksheets/
           if git diff --cached --quiet; then
-            echo "No staged worksheet page changes."
+            echo "No staged worksheet asset changes."
             exit 0
           fi
-          git commit -m "Auto-generate missing worksheet pages"
+          git commit -m "Auto-generate worksheet previews and pages"
           git pull --rebase origin main
           git push origin HEAD:main
