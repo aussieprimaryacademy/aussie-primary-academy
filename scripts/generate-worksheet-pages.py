@@ -75,7 +75,13 @@ def parse(pdf: Path) -> dict[str, str]:
     clean = re.sub(r"-free-printable$", "", clean, flags=re.I)
     title = humanize(clean)
 
-    page_name = f"free-printable-{re.sub(r'[^a-z0-9]+', '-', clean.lower()).strip('-')}-worksheet.html"
+    slug = re.sub(r'[^a-z0-9]+', '-', clean.lower()).strip('-')
+    # Holiday/workbook packs can have the same title across year levels.
+    # Keep the level in the URL so Year 1 and Year 2 never collide.
+    if "school-holiday-learning-pack" in slug or "learning-pack" in slug:
+        level_slug = re.sub(r'[^a-z0-9]+', '-', level.lower()).strip('-')
+        slug = f"{level_slug}-{slug}"
+    page_name = f"free-printable-{slug}-worksheet.html"
     # Avoid accidental duplicate '-worksheet-worksheet'.
     page_name = page_name.replace("-worksheet-worksheet.html", "-worksheet.html")
 
