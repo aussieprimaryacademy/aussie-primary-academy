@@ -2,9 +2,6 @@ name: Make Worksheet PNG Previews
 
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - 'worksheets/**/*.pdf'
 
 permissions:
   contents: write
