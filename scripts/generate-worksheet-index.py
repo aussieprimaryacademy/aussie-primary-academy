@@ -106,6 +106,24 @@ def codes_from_name(path: Path) -> str:
     return " ".join(dict.fromkeys(found))
 
 
+def page_for_pdf(path: Path, level: str) -> str:
+    """Return the exact individual worksheet page path used by generate-worksheet-pages.py."""
+    name = path.stem
+    clean = re.sub(r"^(us|usa)-", "", name, flags=re.I)
+    clean = re.sub(r"^(grade|year)-?\d+-", "", clean, flags=re.I)
+    clean = re.sub(r"^(math|maths|ela|english|science)-", "", clean, flags=re.I)
+    clean = re.sub(r"-ccss-[a-z0-9-]+-free-printable$", "", clean, flags=re.I)
+    clean = re.sub(r"-ac9[a-z0-9]+-free-printable$", "", clean, flags=re.I)
+    clean = re.sub(r"-free-printable$", "", clean, flags=re.I)
+    slug = re.sub(r"[^a-z0-9]+", "-", clean.lower()).strip("-")
+    if "school-holiday-learning-pack" in slug or "learning-pack" in slug:
+        level_slug = re.sub(r"[^a-z0-9]+", "-", level.lower()).strip("-")
+        slug = f"{level_slug}-{slug}"
+    page_name = f"free-printable-{slug}-worksheet.html"
+    page_name = page_name.replace("-worksheet-worksheet.html", "-worksheet.html")
+    return f"pages/{page_name}"
+
+
 def card(path: Path, index: int) -> str:
     rel = path.relative_to(ROOT).as_posix()
     region, level, subject = level_and_subject(path.relative_to(WORKSHEETS_DIR))
@@ -125,7 +143,8 @@ def card(path: Path, index: int) -> str:
         '<div class="body">'
         f'<p class="tag">{escape(region)} · {escape(skill)} · Free PDF</p>'
         f'<h3>{escape(title)}</h3>'
-        f'<a class="btn btn-primary btn-sm" href="{escape(rel, quote=True)}" download target="_blank" rel="noopener">⬇ Download PDF</a>'
+        f'<p class="card-actions"><a class="btn btn-secondary btn-sm" href="{escape(page_for_pdf(path, level), quote=True)}">View Worksheet</a> '
+        f'<a class="btn btn-primary btn-sm" href="{escape(rel, quote=True)}" download target="_blank" rel="noopener">⬇ Download PDF</a></p>'
         '</div></li>'
     )
 
