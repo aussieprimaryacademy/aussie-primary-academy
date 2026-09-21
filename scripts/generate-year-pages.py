@@ -126,7 +126,7 @@ def update_foundation(page: Path, folder: Path, level: str):
         if not items:
             continue
         cards="\n".join(card(p,level,i) for i,p in enumerate(items))
-        pattern=rf'(<section class="section" id="{subject.lower()}"[\s\S]*?</div>\s*</section>)'
+        pattern=rf'(<section class="section" id="{subject.lower()}"[\s\S]*?</section>)'
         m=re.search(pattern,text)
         if m:
             addition=f'\n      <ul class="grid-cards browse-grid auto-year-subject-cards">\n{cards}\n      </ul>\n'
