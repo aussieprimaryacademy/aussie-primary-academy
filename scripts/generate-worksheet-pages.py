@@ -1,16 +1,12 @@
 #!/usr/bin/env python3
-"""Create individual worksheet HTML pages for PDFs that do not already have one.
+"""Create and repair individual worksheet HTML pages from worksheet PDFs.
 
-Safety rules:
-- never overwrites an existing HTML page
-- skips answer-key PDFs
-- requires a matching preview PNG
-- can be limited to a small test batch with MAX_NEW_PAGES
-- can be scoped with PAGE_GENERATOR_SCOPE (comma-separated directories)
+New pages are created only when missing. Existing pages produced by the generic
+template are repaired when their level, subject or curriculum metadata no longer
+matches the source PDF.
 """
 
 from __future__ import annotations
-
 import os
 import re
 from pathlib import Path
@@ -20,100 +16,70 @@ BASE_URL = "https://aussieprimaryacademy.github.io/aussie-primary-academy/"
 PDF_ROOT = Path("worksheets")
 PAGES_ROOT = Path("pages")
 
-
 def humanize(text: str) -> str:
     text = re.sub(r"[-_]+", " ", text)
     text = re.sub(r"\bfree printable\b", "", text, flags=re.I)
     text = re.sub(r"\bworksheet\b", "", text, flags=re.I)
-    text = re.sub(r"\s+", " ", text).strip()
-    return text.title()
-
+    return re.sub(r"\s+", " ", text).strip().title()
 
 def parse(pdf: Path) -> dict[str, str]:
-    name = pdf.stem
-    lower = name.lower()
-    parts = pdf.parts
-    region = "USA" if "usa" in parts or lower.startswith(("us-", "usa-")) else "Australia"
-
-    grade_match = re.search(r"(?:grade|year)[-_ ]?(\d+)", lower)
+    name=pdf.stem
+    lower=name.lower()
+    parts=[x.lower() for x in pdf.parts]
+    region="USA" if "usa" in parts or lower.startswith(("us-","usa-")) else "Australia"
+    grade_match=re.search(r"(?:grade|year)[-_ ]?(\d+)",lower)
     if grade_match:
-        number = grade_match.group(1)
-        level = f"Grade {number}" if region == "USA" else f"Year {number}"
+        n=grade_match.group(1); level=f"Grade {n}" if region=="USA" else f"Year {n}"
     elif "foundation" in lower or "kindergarten" in lower:
-        level = "Kindergarten" if region == "USA" else "Foundation"
+        level="Kindergarten" if region=="USA" else "Foundation"
     else:
-        level = "Primary"
+        level="Primary"
 
-    subject = "Math" if any(x in lower for x in ("/math/", "-math-", "_math_")) else "English"
-    if "/science/" in lower or "-science-" in lower:
-        subject = "Science"
-    elif any(x in lower for x in ("/ela/", "-ela-", "-english-", "/english/", "reading", "writing", "phonics", "spelling", "grammar")):
-        subject = "English"
+    if "science" in parts or "/science/" in lower or "-science-" in lower or re.search(r"ac9s[a-z0-9]+",lower):
+        subject="Science"
+    elif "maths" in parts or "math" in parts or "/math/" in lower or "/maths/" in lower or "-math-" in lower or "-maths-" in lower or re.search(r"ac9m[a-z0-9]+",lower):
+        subject="Maths"
+    else:
+        subject="English"
 
-    standard = ""
-    m = re.search(r"ccss-([a-z0-9-]+?)-free-printable$", lower)
+    standard=""
+    m=re.search(r"ccss-([a-z0-9-]+?)-free-printable$",lower)
     if m:
-        raw = m.group(1)
-        tokens = raw.split("-")
-        if len(tokens) >= 4:
-            standard = "CCSS " + ".".join(tokens[:4])
-            if len(tokens) > 4:
-                # Common multi-number CCSS filenames such as 6-rp-a-1-3.
-                extras = [x for x in tokens[4:] if x.isdigit()]
-                if extras:
-                    standard += " / " + ".".join(tokens[:3] + [extras[0]])
+        tokens=m.group(1).split("-")
+        if len(tokens)>=4:
+            standard="CCSS "+".".join(tokens[:4])
+            extras=[x for x in tokens[4:] if x.isdigit()]
+            if extras:
+                standard+=" / "+".".join(tokens[:3]+[extras[0]])
     if not standard:
-        m = re.search(r"(ac9[a-z0-9]+)", lower)
-        if m:
-            standard = m.group(1).upper()
+        m=re.search(r"(ac9[a-z0-9]+)",lower)
+        if m: standard=m.group(1).upper()
 
-    clean = re.sub(r"^(us|usa)-", "", name, flags=re.I)
-    clean = re.sub(r"^(grade|year)-?\d+-", "", clean, flags=re.I)
-    clean = re.sub(r"^(math|maths|ela|english|science)-", "", clean, flags=re.I)
-    clean = re.sub(r"-ccss-[a-z0-9-]+-free-printable$", "", clean, flags=re.I)
-    clean = re.sub(r"-ac9[a-z0-9]+-free-printable$", "", clean, flags=re.I)
-    clean = re.sub(r"-free-printable$", "", clean, flags=re.I)
-    title = humanize(clean)
-
-    slug = re.sub(r'[^a-z0-9]+', '-', clean.lower()).strip('-')
-    # Holiday/workbook packs can have the same title across year levels.
-    # Keep the level in the URL so Year 1 and Year 2 never collide.
+    clean=re.sub(r"^(us|usa)-","",name,flags=re.I)
+    clean=re.sub(r"^(grade|year)-?\d+-","",clean,flags=re.I)
+    clean=re.sub(r"^(math|maths|ela|english|science)-","",clean,flags=re.I)
+    clean=re.sub(r"-ccss-[a-z0-9-]+-free-printable$","",clean,flags=re.I)
+    clean=re.sub(r"-ac9[a-z0-9]+-free-printable$","",clean,flags=re.I)
+    clean=re.sub(r"-free-printable$","",clean,flags=re.I)
+    title=humanize(clean)
+    slug=re.sub(r"[^a-z0-9]+","-",clean.lower()).strip("-")
     if "school-holiday-learning-pack" in slug or "learning-pack" in slug:
-        level_slug = re.sub(r'[^a-z0-9]+', '-', level.lower()).strip('-')
-        slug = f"{level_slug}-{slug}"
-    page_name = f"free-printable-{slug}-worksheet.html"
-    # Avoid accidental duplicate '-worksheet-worksheet'.
-    page_name = page_name.replace("-worksheet-worksheet.html", "-worksheet.html")
+        level_slug=re.sub(r"[^a-z0-9]+","-",level.lower()).strip("-")
+        slug=f"{level_slug}-{slug}"
+    page_name=f"free-printable-{slug}-worksheet.html".replace("-worksheet-worksheet.html","-worksheet.html")
+    preview=pdf.parent/"previews"/f"{pdf.stem}.png"
+    return {"title":title,"level":level,"subject":subject,"region":region,"standard":standard,
+            "page":str(PAGES_ROOT/page_name),"pdf":str(pdf),"preview":str(preview)}
 
-    preview = pdf.parent / "previews" / f"{pdf.stem}.png"
-    return {
-        "title": title,
-        "level": level,
-        "subject": subject,
-        "region": region,
-        "standard": standard,
-        "page": str(PAGES_ROOT / page_name),
-        "pdf": str(pdf),
-        "preview": str(preview),
-    }
-
-
-def page_html(meta: dict[str, str]) -> str:
-    pdf_href = "../" + meta["pdf"]
-    preview_href = "../" + meta["preview"]
-    canonical = BASE_URL + meta["page"]
-    hub = "../worksheets.html"
-    if meta["region"] == "USA" and meta["level"].startswith("Grade "):
-        hub = f"../usa-grade-{meta['level'].split()[-1]}.html"
+def page_html(meta: dict[str,str]) -> str:
+    pdf_href="../"+meta["pdf"]; preview_href="../"+meta["preview"]; canonical=BASE_URL+meta["page"]
+    hub="../worksheets.html"
+    if meta["region"]=="USA" and meta["level"].startswith("Grade "):
+        hub=f"../usa-grade-{meta['level'].split()[-1]}.html"
     elif meta["level"].startswith("Year "):
-        hub = f"../year-{meta['level'].split()[-1]}.html"
-
-    standard_text = escape(meta["standard"] or "Curriculum alignment listed in the worksheet filename")
-    title = escape(meta["title"])
-    level = escape(meta["level"])
-    subject = escape(meta["subject"])
-    region = escape(meta["region"])
-
+        hub=f"../year-{meta['level'].split()[-1]}.html"
+    standard_text=escape(meta["standard"] or "Curriculum alignment listed in the worksheet filename")
+    title=escape(meta["title"]); level=escape(meta["level"]); subject=escape(meta["subject"]); region=escape(meta["region"])
     return f'''<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -142,6 +108,7 @@ def page_html(meta: dict[str, str]) -> str:
 </style>
 </head>
 <body>
+<!-- AUTO-GENERATED-WORKSHEET-PAGE -->
 <header class="site"><div class="wrap nav"><a href="../index.html" class="brand"><span class="mark">AP</span> Aussie Primary Academy</a><nav class="links"><a href="../worksheets.html">Worksheets</a><a class="btn btn-primary nav-cta" href="../worksheets.html">Browse Free Worksheets</a></nav></div></header>
 <main id="main">
 <nav class="breadcrumb wrap"><ol><li><a href="../index.html">Home</a></li><li><a href="{hub}">{level}</a></li><li aria-current="page">{title}</li></ol></nav>
@@ -157,44 +124,54 @@ def page_html(meta: dict[str, str]) -> str:
 </html>
 '''
 
+def is_repairable(text: str) -> bool:
+    return "<!-- AUTO-GENERATED-WORKSHEET-PAGE -->" in text or (
+        '<section class="resource-hero">' in text and
+        'Get this worksheet' in text and
+        'Printable PDF for classroom, homework, tutoring or homeschool practice.' in text
+    )
 
 def main() -> int:
-    scopes = [x.strip().rstrip("/") for x in os.getenv("PAGE_GENERATOR_SCOPE", "worksheets").split(",") if x.strip()]
-    limit = int(os.getenv("MAX_NEW_PAGES", "5"))
-    created = 0
-    skipped = 0
-
-    candidates: list[Path] = []
+    scopes=[x.strip().rstrip("/") for x in os.getenv("PAGE_GENERATOR_SCOPE","worksheets").split(",") if x.strip()]
+    limit=int(os.getenv("MAX_NEW_PAGES","5"))
+    created=0; repaired=0; skipped=0
+    candidates=[]
     for scope in scopes:
-        root = Path(scope)
-        if root.exists():
-            candidates.extend(sorted(root.rglob("*.pdf")))
-
-    seen: set[Path] = set()
+        root=Path(scope)
+        if root.exists(): candidates.extend(sorted(root.rglob("*.pdf")))
+    seen=set()
     for pdf in candidates:
-        if pdf in seen:
-            continue
+        if pdf in seen: continue
         seen.add(pdf)
-        if "answer-key" in pdf.name.lower() or "answerkey" in pdf.name.lower():
-            continue
-        meta = parse(pdf)
-        page = Path(meta["page"])
+        if "answer-key" in pdf.name.lower() or "answerkey" in pdf.name.lower(): continue
+        meta=parse(pdf); page=Path(meta["page"])
         if page.exists():
-            skipped += 1
+            current=page.read_text(encoding="utf-8")
+            expected_subject=meta["subject"]
+            expected_level=meta["level"]
+            mismatch=(
+                f' · {expected_subject}</p>' not in current or
+                f'<strong>Subject:</strong> {expected_subject}' not in current or
+                f'<strong>Level:</strong> {expected_level}' not in current or
+                (meta["standard"] and f'<strong>Curriculum:</strong> {meta["standard"]}' not in current)
+            )
+            if mismatch and is_repairable(current):
+                page.write_text(page_html(meta),encoding="utf-8")
+                repaired+=1
+                print(f"REPAIRED: {page} <- {pdf}")
+            else:
+                skipped+=1
             continue
         if not Path(meta["preview"]).exists():
             print(f"SKIP (no preview): {pdf}")
             continue
-        page.parent.mkdir(parents=True, exist_ok=True)
-        page.write_text(page_html(meta), encoding="utf-8")
-        created += 1
+        page.parent.mkdir(parents=True,exist_ok=True)
+        page.write_text(page_html(meta),encoding="utf-8")
+        created+=1
         print(f"CREATED: {page} <- {pdf}")
-        if created >= limit:
-            break
-
-    print(f"SUMMARY: created={created} skipped_existing={skipped} limit={limit}")
+        if created>=limit: break
+    print(f"SUMMARY: created={created} repaired={repaired} skipped_existing={skipped} limit={limit}")
     return 0
 
-
-if __name__ == "__main__":
+if __name__=="__main__":
     raise SystemExit(main())
