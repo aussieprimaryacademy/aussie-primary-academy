@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 """Keep Australian year pages in sync with worksheet PDFs.
 
-Adds an auto-managed "New worksheet downloads" block to Foundation-Year 6 pages.
-PDFs already linked anywhere else on a year page are excluded, so curated cards
-are preserved and never duplicated.
+New worksheet cards are auto-managed. Foundation cards are placed inside the
+relevant subject sections so the subject navigation remains meaningful.
 """
 from html import escape
 from pathlib import Path
@@ -18,8 +17,7 @@ SUBJECTS = {"maths":"Maths","english":"English","science":"Science","phonics":"P
 
 def title_for(p: Path, level: str, subject: str) -> str:
     words = re.split(r"[-_]+", p.stem)
-    drop = {"worksheet","free","printable","australia","australian","colour","color","pdf",
-            "with","answers","answer","key","year",level.split()[-1].lower(),subject.lower()}
+    drop = {"worksheet","free","printable","australia","australian","colour","color","pdf","with","answers","answer","key","year",level.split()[-1].lower(),subject.lower()}
     out=[]
     for w in words:
         low=w.lower()
@@ -30,12 +28,22 @@ def title_for(p: Path, level: str, subject: str) -> str:
 
 def subject_for(p: Path) -> str:
     parts=[x.lower() for x in p.parts]
-    return next((label for key,label in SUBJECTS.items() if key in parts), "Worksheet")
+    for key,label in SUBJECTS.items():
+        if key in parts:
+            return label
+    lower=p.stem.lower()
+    if re.search(r"ac9m[a-z0-9]+",lower):
+        return "Maths"
+    if re.search(r"ac9s[a-z0-9]+",lower):
+        return "Science"
+    if re.search(r"ac9e[a-z0-9]+",lower):
+        return "English"
+    if any(x in lower for x in ("phonics","reading","writing","spelling","grammar")):
+        return "English"
+    return "Worksheet"
 
 def page_for_pdf(p: Path, level: str) -> str:
-    """Return the exact individual worksheet page path used by generate-worksheet-pages.py."""
     name = p.stem
-    lower = name.lower()
     clean = re.sub(r"^(us|usa)-", "", name, flags=re.I)
     clean = re.sub(r"^(grade|year)-?\d+-", "", clean, flags=re.I)
     clean = re.sub(r"^(math|maths|ela|english|science)-", "", clean, flags=re.I)
@@ -80,9 +88,80 @@ def block(paths, level):
 </section>
 {END}'''
 
-def update(page: Path, folder: Path, level: str):
+def foundation_block_by_subject(paths, level):
+    groups={label:[] for label in SUBJECTS.values()}
+    for p in paths:
+        groups.setdefault(subject_for(p),[]).append(p)
+    parts=[]
+    for subject,items in groups.items():
+        if not items:
+            continue
+        cards="\n".join(card(p,level,i) for i,p in enumerate(items))
+        parts.append(f'''<section class="section auto-year-subject" id="{subject.lower()}" aria-labelledby="auto-{subject.lower()}-heading">
+  <div class="wrap">
+    <div class="section-head"><div><h2 id="auto-{subject.lower()}-heading">Foundation {subject} Worksheets</h2><p>New printable {subject} resources added from the worksheet library.</p></div></div>
+    <ul class="grid-cards browse-grid">
+{cards}
+    </ul>
+  </div>
+</section>''')
+    return "\n".join(parts)
+
+def update_foundation(page: Path, folder: Path, level: str):
     text=page.read_text(encoding="utf-8")
-    # Remove old generated block before checking which PDFs are already curated.
+    text=re.sub(re.escape(START)+r"[\s\S]*?"+re.escape(END),"",text,count=1)
+    pdfs=sorted(folder.rglob("*.pdf"),key=lambda p:p.as_posix().lower()) if folder.exists() else []
+    missing=[p for p in pdfs if p.relative_to(ROOT).as_posix() not in text]
+    if not missing:
+        page.write_text(text,encoding="utf-8")
+        print(f"{page.name}: no new Foundation PDFs")
+        return
+    grouped={s:[] for s in SUBJECTS.values()}
+    for p in missing:
+        grouped.setdefault(subject_for(p),[]).append(p)
+    # Put Maths/English into their existing subject sections; create the other
+    # subject sections immediately before "Browse more year levels".
+    for subject in ("Maths","English"):
+        items=grouped.get(subject,[])
+        if not items:
+            continue
+        cards="\n".join(card(p,level,i) for i,p in enumerate(items))
+        pattern=rf'(<section class="section" id="{subject.lower()}"[\s\S]*?</div>\s*</section>)'
+        m=re.search(pattern,text)
+        if m:
+            addition=f'\n      <ul class="grid-cards browse-grid auto-year-subject-cards">\n{cards}\n      </ul>\n'
+            text=text[:m.end()-len("</section>")]+addition+"</section>"+text[m.end():]
+        grouped[subject]=[]
+    extra=[]
+    for subject in ("Reading","Writing","Phonics","Science"):
+        items=grouped.get(subject,[])
+        if not items:
+            continue
+        cards="\n".join(card(p,level,i) for i,p in enumerate(items))
+        extra.append(f'''<section class="section auto-year-subject" id="{subject.lower()}" aria-labelledby="auto-{subject.lower()}-heading">
+  <div class="wrap">
+    <div class="section-head"><div><h2 id="auto-{subject.lower()}-heading">Foundation {subject} Worksheets</h2><p>New printable {subject} resources added from the worksheet library.</p></div></div>
+    <ul class="grid-cards browse-grid">
+{cards}
+    </ul>
+  </div>
+</section>''')
+    if extra:
+        anchor=re.search(r'<section class="section">\s*<div class="wrap">\s*<div class="section-head">\s*<div><h2>Browse more year levels</h2>',text)
+        if anchor:
+            text=text[:anchor.start()]+"\n"+"
+".join(extra)+"\n"+text[anchor.start():]
+        else:
+            text=text.replace("</main>","\n"+"
+".join(extra)+"\n</main>",1)
+    page.write_text(text,encoding="utf-8")
+    print(f"{page.name}: {len(pdfs)} PDFs, {len(missing)} Foundation cards placed")
+
+def update(page: Path, folder: Path, level: str):
+    if level=="Foundation":
+        update_foundation(page,folder,level)
+        return
+    text=page.read_text(encoding="utf-8")
     text=re.sub(re.escape(START)+r"[\s\S]*?"+re.escape(END),"",text,count=1)
     pdfs=sorted(folder.rglob("*.pdf"),key=lambda p:p.as_posix().lower()) if folder.exists() else []
     missing=[p for p in pdfs if p.relative_to(ROOT).as_posix() not in text]
