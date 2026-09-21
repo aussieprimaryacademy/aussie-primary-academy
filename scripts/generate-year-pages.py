@@ -126,11 +126,16 @@ def update_foundation(page: Path, folder: Path, level: str):
         if not items:
             continue
         cards="\n".join(card(p,level,i) for i,p in enumerate(items))
-        pattern=rf'(<section class="section" id="{subject.lower()}"[\s\S]*?</section>)'
-        m=re.search(pattern,text)
-        if m:
-            addition=f'\n      <ul class="grid-cards browse-grid auto-year-subject-cards">\n{cards}\n      </ul>\n'
-            text=text[:m.end()-len("</section>")]+addition+"</section>"+text[m.end():]
+        section_start=text.find(f'<section class="section" id="{subject.lower()}"')
+        if section_start != -1:
+            section_end=text.find("</section>", section_start)
+            if section_end != -1:
+                # Insert inside the existing subject wrapper, immediately before
+                # its final closing div. This avoids fragile nested-section regexes.
+                wrapper_end=text.rfind("</div>", section_start, section_end)
+                addition=f'\n      <ul class="grid-cards browse-grid auto-year-subject-cards">\n{cards}\n      </ul>\n'
+                if wrapper_end != -1:
+                    text=text[:wrapper_end]+addition+text[wrapper_end:]
         grouped[subject]=[]
     extra=[]
     for subject in ("Reading","Writing","Phonics","Science"):
