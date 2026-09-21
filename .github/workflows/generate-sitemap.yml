@@ -12,6 +12,7 @@ on:
       - 'worksheets/**/*.pdf'
       - 'scripts/generate-sitemap.py'
       - 'scripts/generate-worksheet-index.py'
+      - 'scripts/generate-year-pages.py'
       - '.github/workflows/generate-sitemap.yml'
 
 permissions:
