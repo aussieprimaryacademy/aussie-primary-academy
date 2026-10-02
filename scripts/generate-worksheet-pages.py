@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Create and repair individual worksheet HTML pages from worksheet PDFs.
+"""Create individual worksheet HTML pages from worksheet PDFs.
 
-New pages are created only when missing. Existing pages produced by the generic
-template are repaired when their level, subject or curriculum metadata no longer
-matches the source PDF.
+Existing worksheet landing pages are immutable to this generator. New pages are
+created only when missing. Manual/curated learning-support content must never be
+lost during PDF regeneration; metadata mismatches are reported for manual review.
 """
 
 from __future__ import annotations
@@ -134,7 +134,7 @@ def is_repairable(text: str) -> bool:
 def main() -> int:
     scopes=[x.strip().rstrip("/") for x in os.getenv("PAGE_GENERATOR_SCOPE","worksheets").split(",") if x.strip()]
     limit=int(os.getenv("MAX_NEW_PAGES","5"))
-    created=0; repaired=0; skipped=0
+    created=0; skipped=0
     candidates=[]
     for scope in scopes:
         root=Path(scope)
@@ -155,12 +155,14 @@ def main() -> int:
                 f'<strong>Level:</strong> {expected_level}' not in current or
                 (meta["standard"] and f'<strong>Curriculum:</strong> {meta["standard"]}' not in current)
             )
-            if mismatch and is_repairable(current):
-                page.write_text(page_html(meta),encoding="utf-8")
-                repaired+=1
-                print(f"REPAIRED: {page} <- {pdf}")
+            if mismatch:
+                print(
+                    f"SKIP EXISTING (manual review; generator will not overwrite): "
+                    f"{page} <- {pdf}"
+                )
             else:
-                skipped+=1
+                print(f"SKIP EXISTING (preserved): {page}")
+            skipped+=1
             continue
         if not Path(meta["preview"]).exists():
             print(f"SKIP (no preview): {pdf}")
@@ -170,7 +172,7 @@ def main() -> int:
         created+=1
         print(f"CREATED: {page} <- {pdf}")
         if created>=limit: break
-    print(f"SUMMARY: created={created} repaired={repaired} skipped_existing={skipped} limit={limit}")
+    print(f"SUMMARY: created={created} skipped_existing={skipped} limit={limit}")
     return 0
 
 if __name__=="__main__":
