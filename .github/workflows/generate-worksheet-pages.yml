@@ -95,11 +95,49 @@ jobs:
               raise SystemExit(f'{failed} preview(s) failed')
           PY
 
+      - name: Snapshot existing worksheet pages
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib, json
+
+          root = Path("pages")
+          snapshot = {}
+          for path in sorted(root.glob("*.html")):
+              snapshot[str(path)] = hashlib.sha256(path.read_bytes()).hexdigest()
+          Path("/tmp/worksheet-pages-before.json").write_text(json.dumps(snapshot, sort_keys=True), encoding="utf-8")
+          print(f"Protected {len(snapshot)} existing worksheet pages.")
+          PY
+
       - name: Generate missing worksheet pages
         env:
           PAGE_GENERATOR_SCOPE: ${{ github.event_name == 'workflow_dispatch' && inputs.scope || 'worksheets' }}
           MAX_NEW_PAGES: ${{ github.event_name == 'workflow_dispatch' && inputs.max_new_pages || '500' }}
         run: python scripts/generate-worksheet-pages.py
+
+      - name: Block accidental overwrites of existing worksheet pages
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib, json
+
+          before = json.loads(Path("/tmp/worksheet-pages-before.json").read_text(encoding="utf-8"))
+          changed = []
+          for raw, old_hash in before.items():
+              path = Path(raw)
+              if not path.exists():
+                  changed.append(f"{raw}: deleted")
+                  continue
+              new_hash = hashlib.sha256(path.read_bytes()).hexdigest()
+              if new_hash != old_hash:
+                  changed.append(f"{raw}: modified")
+          if changed:
+              raise SystemExit(
+                  "Protected worksheet-page guard failed; existing pages were modified:\n"
+                  + "\n".join(changed)
+              )
+          print("Protected worksheet-page guard passed: no existing pages were modified.")
+          PY
 
       - name: Validate generated pages and previews
         run: |
