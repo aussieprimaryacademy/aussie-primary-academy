@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Year 6 Science Explained: A Parent & Student Guide | Aussie Primary Academy</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        apa: {
+                            purple: '#CDB4DB',
+                            peach: '#FFD6A5',
+                            blue: '#A2D2FF',
+                            mint: '#B9FBC0',
+                            dark: '#2B2D42',
+                            lightBg: '#FAF8FC'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #2B2D42;
+            background-color: #FAF8FC;
+        }
+
+        h1, h2, h3, h4, .font-heading {
+            font-family: 'Quicksand', sans-serif;
+        }
+
+        /* Smooth tab transitions */
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Print Optimized CSS */
+        @media print {
+            header, nav, .no-print, .tab-buttons, button {
+                display: none !important;
+            }
+            body {
+                background: white !important;
+                color: black !important;
+            }
+            .tab-content {
+                display: block !important;
+                page-break-after: always;
+            }
+            .card-box {
+                border: 1px solid #ccc !important;
+                box-shadow: none !important;
+                background: white !important;
+            }
+            .print-break {
+                page-break-before: always;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- Main Header -->
+    <header class="bg-white border-b border-purple-100 sticky top-0 z-50 shadow-sm no-print">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-[#CDB4DB] flex items-center justify-center text-white font-bold text-xl shadow">
+                    APA
+                </div>
+                <div>
+                    <span class="font-heading font-bold text-lg text-gray-800 tracking-wide block leading-none">Aussie Primary Academy</span>
+                    <span class="text-xs text-gray-500">ACARA v9.0 Curriculum Resources</span>
+                </div>
+            </div>
+            <div class="flex items-center gap-2">
+                <button onclick="window.print()" class="px-3 py-1.5 bg-[#A2D2FF] hover:bg-blue-300 text-gray-800 text-sm font-semibold rounded-lg transition-all flex items-center gap-1 shadow-sm">
+                    🖨️ Print / Save PDF
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Banner -->
+    <section class="bg-gradient-to-b from-[#FAF8FC] via-[#F3E8FF] to-[#FAF8FC] py-10 px-4 border-b border-purple-100">
+        <div class="max-w-4xl mx-auto text-center">
+            <span class="inline-block bg-[#CDB4DB] text-gray-800 font-bold text-xs uppercase px-3 py-1 rounded-full mb-3 tracking-wider">
+                Year 6 Science Parent & Student Hub
+            </span>
+            <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-[#2B2D42] mb-4 leading-tight">
+                Year 6 Science Explained: Australian Curriculum v9.0 Guide
+            </h1>
+            <p class="text-gray-600 text-base sm:text-lg max-w-2xl mx-auto mb-6">
+                Why do shadow positions shift? How do circuits transfer power? Where does salt go when dissolved? Explore the core concepts with worked examples, hands-on activities, and quick checks.
+            </p>
+            
+            <!-- Target Summary Grid -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-left max-w-3xl mx-auto">
+                <div class="bg-white p-3 rounded-xl border-l-4 border-[#CDB4DB] shadow-sm">
+                    <span class="text-xs font-bold text-gray-400 block">BIOLOGICAL</span>
+                    <span class="text-sm font-bold text-gray-800">Habitats & Conditions</span>
+                </div>
+                <div class="bg-white p-3 rounded-xl border-l-4 border-[#FFD6A5] shadow-sm">
+                    <span class="text-xs font-bold text-gray-400 block">EARTH & SPACE</span>
+                    <span class="text-sm font-bold text-gray-800">Rotation & Seasons</span>
+                </div>
+                <div class="bg-white p-3 rounded-xl border-l-4 border-[#A2D2FF] shadow-sm">
+                    <span class="text-xs font-bold text-gray-400 block">PHYSICAL</span>
+                    <span class="text-sm font-bold text-gray-800">Circuits & Energy</span>
+                </div>
+                <div class="bg-white p-3 rounded-xl border-l-4 border-[#B9FBC0] shadow-sm">
+                    <span class="text-xs font-bold text-gray-400 block">CHEMICAL</span>
+                    <span class="text-sm font-bold text-gray-800">Changes of State</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Navigation Tabs -->
+    <main class="max-w-4xl mx-auto px-4 py-8 flex-grow w-full">
+        <div class="no-print flex overflow-x-auto gap-2 border-b border-gray-200 pb-2 mb-8 scrollbar-none">
+            <button onclick="switchTab('tab-bio')" id="btn-tab-bio" class="tab-btn px-4 py-2.5 font-bold rounded-xl text-sm whitespace-nowrap bg-[#CDB4DB] text-gray-800 shadow-sm transition-all">
+                🌿 Biological
+            </button>
+            <button onclick="switchTab('tab-earth')" id="btn-tab-earth" class="tab-btn px-4 py-2.5 font-bold rounded-xl text-sm whitespace-nowrap bg-white text-gray-600 hover:bg-gray-100 transition-all">
+                🌍 Earth & Space
+            </button>
+            <button onclick="switchTab('tab-phys')" id="btn-tab-phys" class="tab-btn px-4 py-2.5 font-bold rounded-xl text-sm whitespace-nowrap bg-white text-gray-600 hover:bg-gray-100 transition-all">
+                ⚡ Physical
+            </button>
+            <button onclick="switchTab('tab-chem')" id="btn-tab-chem" class="tab-btn px-4 py-2.5 font-bold rounded-xl text-sm whitespace-nowrap bg-white text-gray-600 hover:bg-gray-100 transition-all">
+                🧪 Chemical
+            </button>
+            <button onclick="switchTab('tab-inquiry')" id="btn-tab-inquiry" class="tab-btn px-4 py-2.5 font-bold rounded-xl text-sm whitespace-nowrap bg-white text-gray-600 hover:bg-gray-100 transition-all">
+                🔍 Inquiry Skills
+            </button>
+        </div>
+
+        <!-- TAB 1: BIOLOGICAL SCIENCES -->
+        <div id="tab-bio" class="tab-content active space-y-6">
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-purple-100 card-box">
+                <div class="flex justify-between items-start gap-4 mb-3">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wide text-purple-700 bg-purple-100 px-2.5 py-1 rounded-md">AC9S6U01</span>
+                        <h2 class="text-2xl font-bold text-gray-800 mt-2">1. Habitats: Changing Physical Conditions</h2>
+                    </div>
+                </div>
+                <p class="text-gray-600 leading-relaxed mb-4">
+                    A habitat is a place where an organism lives. Physical conditions include light, temperature, and water availability. Year 6 learning moves beyond simply naming habitats to analyzing how changing physical conditions impact survival and growth.
+                </p>
+
+                <!-- SVG Visual Diagram: Plant Light Comparison -->
+                <div class="bg-[#FAF8FC] p-4 rounded-xl border border-purple-100 my-6">
+                    <h4 class="font-bold text-center text-sm text-gray-700 mb-3">Visual Diagram: Effect of Light Conditions on Plant Growth</h4>
+                    <div class="flex justify-around items-end gap-4 h-56 max-w-md mx-auto relative pt-8">
+                        <!-- Plant A: Full Sun -->
+                        <div class="flex flex-col items-center">
+                            <svg width="90" height="130" viewBox="0 0 100 140">
+                                <!-- Pot -->
+                                <path d="M 25 100 L 30 135 L 70 135 L 75 100 Z" fill="#D97706"/>
+                                <rect x="20" y="92" width="60" height="10" fill="#B45309" rx="2"/>
+                                <!-- Thick Stem -->
+                                <path d="M 50 92 Q 48 50 50 20" stroke="#15803D" stroke-width="6" fill="none"/>
+                                <!-- Lush Leaves -->
+                                <ellipse cx="32" cy="65" rx="18" ry="10" fill="#22C55E" transform="rotate(-25 32 65)"/>
+                                <ellipse cx="68" cy="55" rx="18" ry="10" fill="#22C55E" transform="rotate(25 68 55)"/>
+                                <ellipse cx="30" cy="35" rx="16" ry="9" fill="#16A34A" transform="rotate(-30 30 35)"/>
+                                <ellipse cx="70" cy="28" rx="16" ry="9" fill="#16A34A" transform="rotate(30 70 28)"/>
+                                <ellipse cx="50" cy="12" rx="14" ry="8" fill="#4ADE80"/>
+                            </svg>
+                            <span class="text-xs font-bold text-green-800 mt-2">Optimal Light</span>
+                            <span class="text-[10px] text-gray-500">Sturdy stem, rich green leaves</span>
+                        </div>
+
+                        <!-- Plant B: Low Light (Etiolation) -->
+                        <div class="flex flex-col items-center">
+                            <svg width="90" height="130" viewBox="0 0 100 140">
+                                <!-- Pot -->
+                                <path d="M 25 100 L 30 135 L 70 135 L 75 100 Z" fill="#D97706"/>
+                                <rect x="20" y="92" width="60" height="10" fill="#B45309" rx="2"/>
+                                <!-- Spindly Tall Stem -->
+                                <path d="M 50 92 Q 42 60 52 5" stroke="#A3E635" stroke-width="3" fill="none"/>
+                                <!-- Pale Small Leaves -->
+                                <ellipse cx="40" cy="55" rx="10" ry="5" fill="#BEF264" transform="rotate(-20 40 55)"/>
+                                <ellipse cx="60" cy="35" rx="10" ry="5" fill="#BEF264" transform="rotate(20 60 35)"/>
+                                <ellipse cx="52" cy="5" rx="8" ry="4" fill="#D9F99D"/>
+                            </svg>
+                            <span class="text-xs font-bold text-amber-800 mt-2">Low Light (Shade)</span>
+                            <span class="text-[10px] text-gray-500">Tall, weak stem, pale leaves</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Misconception Box -->
+                <div class="bg-[#FFD6A5] p-4 rounded-xl mb-4 border-l-4 border-amber-500 text-gray-800">
+                    <h4 class="font-bold flex items-center gap-2 text-sm text-amber-900">
+                        ⚠️ Misconception Buster: "Taller Always Means Healthier"
+                    </h4>
+                    <p class="text-sm mt-1">
+                        Measuring height alone can be misleading! A plant grown in deep shade often undergoes <em>etiolation</em>—growing long, spindly stems as it reaches for light. Always evaluate leaf number, stem thickness, and color alongside height.
+                    </p>
+                </div>
+
+                <!-- Try It At Home -->
+                <div class="bg-[#FAF8FC] p-4 rounded-xl border border-purple-200 mb-6">
+                    <h4 class="font-bold text-purple-900 text-sm mb-1">🏡 Try It: Garden Habitat Comparison</h4>
+                    <p class="text-sm text-gray-600 mb-2">
+                        Compare a shaded garden patch with an open sunny patch. Record surface soil moisture, leaf density, and visible insects.
+                    </p>
+                    <span class="text-xs bg-purple-100 text-purple-800 font-medium px-2 py-0.5 rounded">Note: Always follow local permissions for investigation on Country/Place.</span>
+                </div>
+
+                <!-- Check Understanding Accordion -->
+                <div class="bg-[#B9FBC0]/40 p-4 rounded-xl border border-green-200">
+                    <h4 class="font-bold text-green-900 text-sm mb-2">🧠 Check Your Understanding</h4>
+                    <div class="space-y-3">
+                        <p class="text-sm text-gray-800"><strong>B1.</strong> Why does moving a bean plant into deep shade affect photosynthesis?</p>
+                        <button onclick="toggleAnswer('ans-b1')" class="text-xs bg-green-700 text-white font-bold px-3 py-1 rounded-md hover:bg-green-800 transition">Show Answer</button>
+                        <div id="ans-b1" class="hidden text-sm bg-white p-3 rounded-lg border border-green-200 text-gray-700">
+                            <strong>Answer:</strong> Light is a key input for photosynthesis. Lower light reduces sugar production, limiting energy for sturdy cell growth and chlorophyll formation.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: EARTH & SPACE SCIENCES -->
+        <div id="tab-earth" class="tab-content space-y-6">
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-purple-100 card-box">
+                <div class="flex justify-between items-start gap-4 mb-3">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wide text-amber-700 bg-amber-100 px-2.5 py-1 rounded-md">AC9S6U02</span>
+                        <h2 class="text-2xl font-bold text-gray-800 mt-2">2. Earth & Space: Rotation, Tilt & Day Length</h2>
+                    </div>
+                </div>
+                <p class="text-gray-600 leading-relaxed mb-4">
+                    Day and night are caused by Earth spinning on its axis (rotation). Changing day lengths and seasonal daylight patterns across the year occur because Earth orbits the Sun (revolution) while maintaining a tilted axis (~23.5°).
+                </p>
+
+                <!-- SVG Visual Diagram: Earth Revolution & Tilt -->
+                <div class="bg-[#FAF8FC] p-4 rounded-xl border border-amber-200 my-6">
+                    <h4 class="font-bold text-center text-sm text-gray-700 mb-3">Visual Diagram: Earth's Tilt & Orbit (December Southern Summer)</h4>
+                    <div class="flex justify-center items-center py-4">
+                        <svg width="340" height="150" viewBox="0 0 340 150">
+                            <!-- Sun -->
+                            <circle cx="50" cy="75" r="28" fill="#F59E0B"/>
+                            <circle cx="50" cy="75" r="35" fill="#FBBF24" opacity="0.3"/>
+                            <!-- Sun Rays -->
+                            <line x1="90" y1="65" x2="220" y2="65" stroke="#FBBF24" stroke-width="2" stroke-dasharray="4 4"/>
+                            <line x1="90" y1="85" x2="220" y2="85" stroke="#FBBF24" stroke-width="2" stroke-dasharray="4 4"/>
+                            
+                            <!-- Earth Orbit Axis Line -->
+                            <ellipse cx="170" cy="75" rx="140" ry="40" fill="none" stroke="#CBD5E1" stroke-width="1.5" stroke-dasharray="2 2"/>
+
+                            <!-- Earth Body -->
+                            <g transform="translate(260, 75)">
+                                <!-- Axis -->
+                                <line x1="-15" y1="-45" x2="15" y2="45" stroke="#EF4444" stroke-width="2.5"/>
+                                <!-- Globe -->
+                                <circle cx="0" cy="0" r="30" fill="#3B82F6"/>
+                                <!-- Shadow Half (Night) -->
+                                <path d="M 0 -30 A 30 30 0 0 1 0 30 Z" fill="#1E293B" opacity="0.6"/>
+                                <!-- Equator -->
+                                <line x1="-28" y1="10" x2="28" y2="-10" stroke="#FFFFFF" stroke-width="1" opacity="0.5"/>
+                                <!-- Australia Marker (Tilted toward Sun in Dec) -->
+                                <circle cx="-12" cy="12" r="3" fill="#10B981"/>
+                            </g>
+                        </svg>
+                    </div>
+                    <div class="text-center text-xs text-gray-500">
+                        <span class="text-red-500 font-bold">Red Line:</span> Tilted Axis (23.5°) | 
+                        <span class="text-emerald-600 font-bold">Green Dot:</span> Australia receiving longer daylight duration in Southern Summer.
+                    </div>
+                </div>
+
+                <!-- Terminology Table -->
+                <div class="overflow-x-auto mb-6">
+                    <table class="w-full text-left text-sm border-collapse">
+                        <thead>
+                            <tr class="bg-[#FFD6A5] text-gray-800">
+                                <th class="p-2.5 rounded-tl-lg">Term</th>
+                                <th class="p-2.5">Movement</th>
+                                <th class="p-2.5 rounded-tr-lg">Timeframe</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200 bg-white">
+                            <tr>
+                                <td class="p-2.5 font-bold">Rotation</td>
+                                <td class="p-2.5">Earth spins on its own central axis</td>
+                                <td class="p-2.5">~24 Hours (1 Day)</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2.5 font-bold">Revolution</td>
+                                <td class="p-2.5">Earth travels along its elliptical orbit around Sun</td>
+                                <td class="p-2.5">~365.25 Days (1 Year)</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2.5 font-bold">Axial Tilt</td>
+                                <td class="p-2.5">Axis angle remains fixed (~23.5°) relative to orbital plane</td>
+                                <td class="p-2.5">Continuous</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Check Understanding -->
+                <div class="bg-[#B9FBC0]/40 p-4 rounded-xl border border-green-200">
+                    <h4 class="font-bold text-green-900 text-sm mb-2">🧠 Check Your Understanding</h4>
+                    <div class="space-y-3">
+                        <p class="text-sm text-gray-800"><strong>E1.</strong> Why is "Summer occurs because Earth gets closer to the Sun" an incorrect explanation?</p>
+                        <button onclick="toggleAnswer('ans-e1')" class="text-xs bg-green-700 text-white font-bold px-3 py-1 rounded-md hover:bg-green-800 transition">Show Answer</button>
+                        <div id="ans-e1" class="hidden text-sm bg-white p-3 rounded-lg border border-green-200 text-gray-700">
+                            <strong>Answer:</strong> Southern and Northern Hemispheres experience opposite seasons simultaneously while sharing Earth's overall distance from the Sun. Seasons are driven by axial tilt affecting sunlight angle and day length.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: PHYSICAL SCIENCES -->
+        <div id="tab-phys" class="tab-content space-y-6">
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-purple-100 card-box">
+                <div class="flex justify-between items-start gap-4 mb-3">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wide text-blue-700 bg-blue-100 px-2.5 py-1 rounded-md">AC9S6U03</span>
+                        <h2 class="text-2xl font-bold text-gray-800 mt-2">3. Physical Sciences: Circuits & Energy Transfer</h2>
+                    </div>
+                </div>
+                <p class="text-gray-600 leading-relaxed mb-4">
+                    Electric current requires a continuous, unbroken conducting path. Energy from a power source (battery) transfers through conductors and transforms into light and heat energy at the load (bulb).
+                </p>
+
+                <!-- SVG Visual Diagram: Complete Electric Circuit -->
+                <div class="bg-[#FAF8FC] p-4 rounded-xl border border-blue-200 my-6">
+                    <h4 class="font-bold text-center text-sm text-gray-700 mb-3">Visual Diagram: Closed Electrical Circuit Diagram</h4>
+                    <div class="flex justify-center py-2">
+                        <svg width="280" height="160" viewBox="0 0 280 160">
+                            <!-- Wires Frame -->
+                            <rect x="40" y="30" width="200" height="100" fill="none" stroke="#2563EB" stroke-width="4" rx="10"/>
+                            
+                            <!-- Battery Top -->
+                            <g transform="translate(110, 30)">
+                                <rect x="-25" y="-12" width="50" height="24" fill="#374151" rx="3"/>
+                                <rect x="25" y="-6" width="6" height="12" fill="#9CA3AF"/>
+                                <text x="-15" y="4" fill="#FFFFFF" font-size="10" font-weight="bold">+</text>
+                                <text x="10" y="4" fill="#FFFFFF" font-size="10" font-weight="bold">-</text>
+                            </g>
+
+                            <!-- Switch Bottom -->
+                            <g transform="translate(120, 130)">
+                                <circle cx="-20" cy="0" r="4" fill="#2563EB"/>
+                                <circle cx="20" cy="0" r="4" fill="#2563EB"/>
+                                <line x1="-20" y1="0" x2="18" y2="0" stroke="#10B981" stroke-width="3"/>
+                                <text x="-18" y="18" fill="#065F46" font-size="9" font-weight="bold">Closed Switch</text>
+                            </g>
+
+                            <!-- Light Bulb Right -->
+                            <g transform="translate(240, 80)">
+                                <circle cx="0" cy="0" r="16" fill="#FEF08A" stroke="#F59E0B" stroke-width="2"/>
+                                <path d="M -6 4 L 0 -8 L 6 4" fill="none" stroke="#D97706" stroke-width="1.5"/>
+                                <!-- Light Glow Rays -->
+                                <line x1="18" y1="-12" x2="26" y2="-18" stroke="#F59E0B" stroke-width="2"/>
+                                <line x1="22" y1="0" x2="30" y2="0" stroke="#F59E0B" stroke-width="2"/>
+                                <line x1="18" y1="12" x2="26" y2="18" stroke="#F59E0B" stroke-width="2"/>
+                            </g>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Conductors vs Insulators Table -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                    <div class="bg-blue-50/50 p-4 rounded-xl border border-blue-100">
+                        <h4 class="font-bold text-blue-900 text-sm mb-1">⚡ Electrical Conductors</h4>
+                        <p class="text-xs text-gray-600 mb-2">Materials allowing electric current to flow easily.</p>
+                        <ul class="text-xs text-gray-700 list-disc pl-4 space-y-1">
+                            <li>Copper wire</li>
+                            <li>Aluminum foil</li>
+                            <li>Brass keys / Steel paperclips</li>
+                        </ul>
+                    </div>
+                    <div class="bg-amber-50/50 p-4 rounded-xl border border-amber-100">
+                        <h4 class="font-bold text-amber-900 text-sm mb-1">🛡️ Electrical Insulators</h4>
+                        <p class="text-xs text-gray-600 mb-2">Materials resisting the flow of electrical current.</p>
+                        <ul class="text-xs text-gray-700 list-disc pl-4 space-y-1">
+                            <li>Plastic wire coating</li>
+                            <li>Rubber bands / Erasers</li>
+                            <li>Dry wood or cardboard</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Safety Callout Box -->
+                <div class="bg-red-50 p-4 rounded-xl border-l-4 border-red-500 text-gray-800 mb-6">
+                    <h4 class="font-bold text-xs uppercase tracking-wide text-red-700">🚨 Electrical Safety Notice</h4>
+                    <p class="text-xs text-red-900 mt-1">
+                        Only conduct investigations using low-voltage battery circuit kits under adult supervision. Never attempt investigations with mains electrical outlets or household appliances.
+                    </p>
+                </div>
+
+                <!-- Check Understanding -->
+                <div class="bg-[#B9FBC0]/40 p-4 rounded-xl border border-green-200">
+                    <h4 class="font-bold text-green-900 text-sm mb-2">🧠 Check Your Understanding</h4>
+                    <div class="space-y-3">
+                        <p class="text-sm text-gray-800"><strong>P1.</strong> Is electric current "consumed" or used up inside the light bulb?</p>
+                        <button onclick="toggleAnswer('ans-p1')" class="text-xs bg-green-700 text-white font-bold px-3 py-1 rounded-md hover:bg-green-800 transition">Show Answer</button>
+                        <div id="ans-p1" class="hidden text-sm bg-white p-3 rounded-lg border border-green-200 text-gray-700">
+                            <strong>Answer:</strong> No. Current flows through the bulb in a continuous loop. The <em>energy</em> carried by the circuit is transferred and transformed into light and thermal output.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 4: CHEMICAL SCIENCES -->
+        <div id="tab-chem" class="tab-content space-y-6">
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-purple-100 card-box">
+                <div class="flex justify-between items-start gap-4 mb-3">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wide text-green-800 bg-green-100 px-2.5 py-1 rounded-md">AC9S6U04</span>
+                        <h2 class="text-2xl font-bold text-gray-800 mt-2">4. Chemical Sciences: Physical vs Chemical Changes</h2>
+                    </div>
+                </div>
+                <p class="text-gray-600 leading-relaxed mb-4">
+                    In physical changes (like state changes or dissolving), no new substance is formed and materials can often be recovered. In chemical changes (like rusting or cooking), new chemical substances are formed.
+                </p>
+
+                <!-- Comparison Table -->
+                <div class="overflow-x-auto mb-6">
+                    <table class="w-full text-left text-sm border-collapse">
+                        <thead>
+                            <tr class="bg-[#B9FBC0] text-gray-800">
+                                <th class="p-2.5 rounded-tl-lg">Type</th>
+                                <th class="p-2.5">New Substance Formed?</th>
+                                <th class="p-2.5">Examples</th>
+                                <th class="p-2.5 rounded-tr-lg">Reversibility</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200 bg-white text-xs sm:text-sm">
+                            <tr>
+                                <td class="p-2.5 font-bold text-blue-700">Physical Change</td>
+                                <td class="p-2.5">❌ No</td>
+                                <td class="p-2.5">Ice melting, dissolving salt in water, tearing paper</td>
+                                <td class="p-2.5">Often reversible (e.g., evaporating solvent)</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2.5 font-bold text-purple-700">Chemical Change</td>
+                                <td class="p-2.5">✅ Yes</td>
+                                <td class="p-2.5">Baking a cake, iron rusting, burning wood</td>
+                                <td class="p-2.5">Difficult or impossible to reverse</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Worksheet Links Grid -->
+                <div class="bg-[#FAF8FC] p-5 rounded-2xl border border-purple-200 my-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <div>
+                            <h3 class="font-bold text-gray-800 text-base">📄 Aussie Primary Academy Companion Worksheets</h3>
+                            <p class="text-xs text-gray-500">Free printable PDF practice sheets with full teacher answer keys.</p>
+                        </div>
+                        <span class="text-xs bg-[#CDB4DB] text-gray-800 font-bold px-2.5 py-1 rounded-full">Print Ready</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <a href="#download-solute" class="p-3 bg-white hover:bg-purple-50 rounded-xl border border-gray-200 flex items-center justify-between transition group shadow-sm">
+                            <div class="flex items-center gap-2.5">
+                                <span class="text-lg">🧪</span>
+                                <div>
+                                    <span class="text-xs font-bold text-gray-800 block group-hover:text-purple-700">Solute, Solvent & Solution</span>
+                                    <span class="text-[10px] text-gray-500">Terminology & Definitions</span>
+                                </div>
+                            </div>
+                            <span class="text-xs text-purple-600 font-bold">Download ➔</span>
+                        </a>
+
+                        <a href="#download-mixtures" class="p-3 bg-white hover:bg-purple-50 rounded-xl border border-gray-200 flex items-center justify-between transition group shadow-sm">
+                            <div class="flex items-center gap-2.5">
+                                <span class="text-lg">🔍</span>
+                                <div>
+                                    <span class="text-xs font-bold text-gray-800 block group-hover:text-purple-700">Separating Mixtures</span>
+                                    <span class="text-[10px] text-gray-500">Filtration & Evaporation</span>
+                                </div>
+                            </div>
+                            <span class="text-xs text-purple-600 font-bold">Download ➔</span>
+                        </a>
+
+                        <a href="#download-dissolving" class="p-3 bg-white hover:bg-purple-50 rounded-xl border border-gray-200 flex items-center justify-between transition group shadow-sm">
+                            <div class="flex items-center gap-2.5">
+                                <span class="text-lg">⏱️</span>
+                                <div>
+                                    <span class="text-xs font-bold text-gray-800 block group-hover:text-purple-700">Dissolving Investigation</span>
+                                    <span class="text-[10px] text-gray-500">Fair Testing & Variables</span>
+                                </div>
+                            </div>
+                            <span class="text-xs text-purple-600 font-bold">Download ➔</span>
+                        </a>
+
+                        <a href="#download-changes" class="p-3 bg-white hover:bg-purple-50 rounded-xl border border-gray-200 flex items-center justify-between transition group shadow-sm">
+                            <div class="flex items-center gap-2.5">
+                                <span class="text-lg">⚖️</span>
+                                <div>
+                                    <span class="text-xs font-bold text-gray-800 block group-hover:text-purple-700">Physical vs Chemical</span>
+                                    <span class="text-[10px] text-gray-500">Classification Practice</span>
+                                </div>
+                            </div>
+                            <span class="text-xs text-purple-600 font-bold">Download ➔</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Check Understanding -->
+                <div class="bg-[#B9FBC0]/40 p-4 rounded-xl border border-green-200">
+                    <h4 class="font-bold text-green-900 text-sm mb-2">🧠 Check Your Understanding</h4>
+                    <div class="space-y-3">
+                        <p class="text-sm text-gray-800"><strong>C1.</strong> Can ordinary classroom filter paper separate dissolved salt from water?</p>
+                        <button onclick="toggleAnswer('ans-c1')" class="text-xs bg-green-700 text-white font-bold px-3 py-1 rounded-md hover:bg-green-800 transition">Show Answer</button>
+                        <div id="ans-c1" class="hidden text-sm bg-white p-3 rounded-lg border border-green-200 text-gray-700">
+                            <strong>Answer:</strong> No. Dissolved salt particles pass through filter pores alongside water molecules. Evaporation is required to separate the solute from the solvent.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 5: INQUIRY SKILLS -->
+        <div id="tab-inquiry" class="tab-content space-y-6">
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-purple-100 card-box">
+                <div class="flex justify-between items-start gap-4 mb-3">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wide text-purple-700 bg-purple-100 px-2.5 py-1 rounded-md">AC9S6I01 - AC9S6I06</span>
+                        <h2 class="text-2xl font-bold text-gray-800 mt-2">5. How to Work Scientifically in Year 6</h2>
+                    </div>
+                </div>
+                <p class="text-gray-600 leading-relaxed mb-4">
+                    Scientific inquiry involves planning safe, repeatable tests, controlling variables, recording precise data, and drawing evidence-based conclusions.
+                </p>
+
+                <!-- Variable Breakdown Cards -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
+                    <div class="p-3 bg-purple-50 rounded-xl border border-purple-100">
+                        <span class="text-xs font-bold text-purple-800 block uppercase">1. Changed (Independent)</span>
+                        <p class="text-xs text-gray-600 mt-1">The one condition you deliberately change (e.g., stirring vs no stirring).</p>
+                    </div>
+                    <div class="p-3 bg-amber-50 rounded-xl border border-amber-100">
+                        <span class="text-xs font-bold text-amber-800 block uppercase">2. Measured (Dependent)</span>
+                        <p class="text-xs text-gray-600 mt-1">The outcome measured with precision (e.g., time taken to dissolve in seconds).</p>
+                    </div>
+                    <div class="p-3 bg-blue-50 rounded-xl border border-blue-100">
+                        <span class="text-xs font-bold text-blue-800 block uppercase">3. Controlled</span>
+                        <p class="text-xs text-gray-600 mt-1">Conditions kept identical (e.g., water volume, temperature, cup shape).</p>
+                    </div>
+                </div>
+
+                <!-- First Nations Perspective Callout -->
+                <div class="bg-[#FFD6A5]/50 p-4 rounded-xl border border-amber-200">
+                    <h4 class="font-bold text-amber-900 text-sm mb-1">🌿 Science as a Human Endeavour (AC9S6H01/02)</h4>
+                    <p class="text-xs text-gray-700 leading-relaxed">
+                        Incorporate First Nations scientific knowledges through specific, properly attributed sources. For instance, seasonal calendars belong to particular Aboriginal or Torres Strait Islander communities and Country—they reflect deep, localized ecological observations over thousands of years.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer CTA -->
+    <footer class="bg-[#2B2D42] text-white py-8 px-4 mt-10 no-print">
+        <div class="max-w-4xl mx-auto text-center space-y-4">
+            <h3 class="text-xl font-bold font-heading text-[#FFD6A5]">Aussie Primary Academy</h3>
+            <p class="text-xs text-gray-300 max-w-md mx-auto">
+                Print-first, curriculum-aligned primary learning worksheets designed for Australian educators, homeschooling parents, and students.
+            </p>
+            <div class="text-[11px] text-gray-400">
+                © 2026 Aussie Primary Academy. All Rights Reserved. Aligned with Australian Curriculum v9.0.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive JavaScript Logic -->
+    <script>
+        // Tab Switcher
+        function switchTab(tabId) {
+            // Hide all tabs
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.classList.remove('active'));
+
+            // Deactivate all buttons
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-[#CDB4DB]', 'text-gray-800', 'shadow-sm');
+                btn.classList.add('bg-white', 'text-gray-600');
+            });
+
+            // Show target tab
+            const targetTab = document.getElementById(tabId);
+            if(targetTab) {
+                targetTab.classList.add('active');
+            }
+
+            // Highlight target button
+            const activeBtn = document.getElementById('btn-' + tabId);
+            if(activeBtn) {
+                activeBtn.classList.remove('bg-white', 'text-gray-600');
+                activeBtn.classList.add('bg-[#CDB4DB]', 'text-gray-800', 'shadow-sm');
+            }
+        }
+
+        // Toggle Answer Accordion
+        function toggleAnswer(answerId) {
+            const ansDiv = document.getElementById(answerId);
+            if(ansDiv) {
+                if(ansDiv.classList.contains('hidden')) {
+                    ansDiv.classList.remove('hidden');
+                } else {
+                    ansDiv.classList.add('hidden');
+                }
+            }
+        }
+    </script>
+</body>
+</html>
