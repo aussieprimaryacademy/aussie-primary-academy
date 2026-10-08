@@ -162,6 +162,8 @@ jobs:
                       'who_for': 'Who is it for?' in text,
                       'practice': 'What students practise' in text,
                       'quick_answers': 'Quick answers' in text,
+                      'skill_focus': 'Skill focus' in text,
+                      'next_step': 'What next?' in text and 'Next step:' in text,
                       'no_placeholder': not any(x in text for x in ('SEE_FILE', 'PLACEHOLDER_CONTENT', 'TODO_RESTORE')),
                   }
                   bad = [name for name, ok in checks.items() if not ok]
