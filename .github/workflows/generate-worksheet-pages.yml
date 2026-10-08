@@ -159,6 +159,9 @@ jobs:
                       'h1': '<h1>' in text,
                       'pdf_link': 'Download Free PDF' in text and '.pdf' in text,
                       'preview': '<img ' in text and 'preview' in text,
+                      'who_for': 'Who is it for?' in text,
+                      'practice': 'What students practise' in text,
+                      'quick_answers': 'Quick answers' in text,
                       'no_placeholder': not any(x in text for x in ('SEE_FILE', 'PLACEHOLDER_CONTENT', 'TODO_RESTORE')),
                   }
                   bad = [name for name, ok in checks.items() if not ok]
