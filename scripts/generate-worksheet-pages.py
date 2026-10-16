@@ -67,7 +67,7 @@ def parse(pdf: Path) -> dict[str, str]:
         level_slug=re.sub(r"[^a-z0-9]+","-",level.lower()).strip("-")
         slug=f"{level_slug}-{slug}"
     page_name=f"free-printable-{slug}-worksheet.html".replace("-worksheet-worksheet.html","-worksheet.html")
-    preview=pdf.parent/"previews"/f"{pdf.stem}.png"
+    preview=pdf.parent/"previews"/f"{pdf.stem.strip()}.png"
     return {"title":title,"level":level,"subject":subject,"region":region,"standard":standard,
             "page":str(PAGES_ROOT/page_name),"pdf":str(pdf),"preview":str(preview)}
 
@@ -139,7 +139,19 @@ def main() -> int:
     candidates=[]
     for scope in scopes:
         root=Path(scope)
-        if root.exists(): candidates.extend(sorted(root.rglob("*.pdf")))
+        if root.exists():
+            for item in sorted(root.rglob("*")):
+                if not item.is_file():
+                    continue
+                if item.suffix.lower() == ".pdf":
+                    candidates.append(item)
+                elif not item.suffix:
+                    try:
+                        with item.open("rb") as stream:
+                            if stream.read(5) == b"%PDF-":
+                                candidates.append(item)
+                    except OSError:
+                        pass
     seen=set()
     for pdf in candidates:
         if pdf in seen: continue
