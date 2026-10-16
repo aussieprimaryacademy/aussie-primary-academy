@@ -68,13 +68,26 @@ jobs:
               root = Path(scope)
               if not root.exists():
                   continue
-              for pdf in sorted(root.rglob('*.pdf')):
+              candidates = []
+              for item in root.rglob('*'):
+                  if not item.is_file():
+                      continue
+                  if item.suffix.lower() == '.pdf':
+                      candidates.append(item)
+                  elif not item.suffix:
+                      try:
+                          with item.open('rb') as stream:
+                              if stream.read(5) == b'%PDF-':
+                                  candidates.append(item)
+                      except OSError:
+                          pass
+              for pdf in sorted(candidates):
                   if pdf in seen:
                       continue
                   seen.add(pdf)
                   if 'answer-key' in pdf.name.lower() or 'answerkey' in pdf.name.lower():
                       continue
-                  out = pdf.parent / 'previews' / f'{pdf.stem}.png'
+                  out = pdf.parent / 'previews' / f'{pdf.stem.strip()}.png'
                   if out.exists() and out.stat().st_size > 0:
                       continue
                   out.parent.mkdir(parents=True, exist_ok=True)
@@ -157,7 +170,7 @@ jobs:
                       'html': '</html>' in text,
                       'canonical': '<link rel="canonical"' in text,
                       'h1': '<h1>' in text,
-                      'pdf_link': 'Download Free PDF' in text and '.pdf' in text,
+                      'pdf_link': 'Download Free PDF' in text and 'worksheets/' in text,
                       'preview': '<img ' in text and 'preview' in text,
                       'who_for': 'Who is it for?' in text,
                       'practice': 'What students practise' in text,
