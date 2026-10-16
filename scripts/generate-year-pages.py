@@ -154,11 +154,9 @@ def update_foundation(page: Path, folder: Path, level: str):
     if extra:
         anchor=re.search(r'<section class="section">\s*<div class="wrap">\s*<div class="section-head">\s*<div><h2>Browse more year levels</h2>',text)
         if anchor:
-            text=text[:anchor.start()]+"\n"+"
-".join(extra)+"\n"+text[anchor.start():]
+            text=text[:anchor.start()]+"\n"+"\n".join(extra)+"\n"+text[anchor.start():]
         else:
-            text=text.replace("</main>","\n"+"
-".join(extra)+"\n</main>",1)
+            text=text.replace("</main>","\n"+"\n".join(extra)+"\n</main>",1)
     page.write_text(text,encoding="utf-8")
     print(f"{page.name}: {len(pdfs)} PDFs, {len(missing)} Foundation cards placed")
 
