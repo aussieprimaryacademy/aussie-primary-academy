@@ -11,11 +11,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/blog/i-dont-know-what-to-write-generate-ideas.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/blog/best-year-3-maths-worksheets-australia.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -32,6 +27,16 @@
   </url>
   <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/blog/foundation-maths-worksheets-australia-10-fun-ways.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/blog/fractions-year-5-6-common-mistakes.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/blog/fractions-years-3-4.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -61,6 +66,11 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/blog/i-dont-know-what-to-write-generate-ideas.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/blog/index.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -81,7 +91,17 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/blog/spelling-mistakes-what-they-tell-you.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/blog/term-3-science-activities-australian-primary.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/blog/water-cycle-explained-for-kids.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -101,7 +121,22 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/blog/year-6-science-australian-curriculum-guide.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/blog/year-6-writing-activities-narrative-persuasive-informative-recount.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/contact.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/email-thank-you.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -132,6 +167,11 @@
   </url>
   <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/maths.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/angles-learning-hub.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -416,12 +456,27 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-accurate-measurement-and-recording-observations-worksheet-ac9s3i03-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-accurate-measurement-and-recording-observations-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-active-and-passive-voice-worksheet-free-printable-pdf-colour-with-answers-worksheet.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-adaptations-and-survival-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-adapting-literary-texts-literary-devices-worksheet.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -571,6 +626,16 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-australian-seasons-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-authors-individual-style-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-authors-point-of-view-purpose-worksheet.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -656,12 +721,22 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-collaboration-scientific-advances-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-collecting-data-worksheet.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-collective-irregular-plural-nouns-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-combine-materials-purpose-worksheet.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -686,12 +761,27 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-communicate-observations-findings-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-communicating-scientific-methods-and-findings-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-compare-and-contrast-reading-worksheet-ac9e3ly05-free-printable-colour-worksheet.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-compare-contrast-characters-events-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-compare-predictions-fairness-new-questions-worksheet.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -771,6 +861,11 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-conversation-interaction-skills-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-coordinate-plane-ordered-pairs-worksheet.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -806,7 +901,22 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-daily-weather-changes-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-data-and-graphs-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-data-explanations-and-solving-problems-worksheet-ac9s3h01-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-data-patterns-findings-ac9s1i04-ac9s1i05-worksheet.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -931,6 +1041,11 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-dissolving-investigation-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-dividing-unit-fractions-whole-numbers-worksheet.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -981,6 +1096,11 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-emotive-vocabulary-figurative-language-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-equivalent-comparing-fractions-worksheet.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -996,12 +1116,37 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-evaluate-evidence-communicate-findings-worksheet-ac9s6i05-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-evaluating-claims-evidence-worksheet.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-evaluating-evidence-and-communicating-findings-worksheet-ac9s5i05-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-evaluating-fair-tests-and-drawing-conclusions-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-everyday-science-predictions-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-expanded-noun-groups-grammar-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-explanations-meet-needs-solve-problems-worksheet.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -1012,6 +1157,11 @@
   </url>
   <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-factors-multiples-prime-composite-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-fair-test-investigation-worksheet-ac9s3i01-i06-worksheet.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -1036,7 +1186,22 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-force-strength-direction-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-forces-change-shape-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-forces-push-pull-and-motion-worksheet-free-printable-pdf-colour-with-answers-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-formal-informal-language-social-distance-worksheet.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -1061,7 +1226,27 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-foundation-english-everyday-vocabulary-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-foundation-english-language-preferences-listening-speaking-worksheet-ac9efla01-ac9efla02-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-foundation-english-letter-formation-lowercase-worksheet-ac9efly08-free-printable-colour-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-foundation-english-literature-connections-and-features-worksheet-ac9efle01-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-foundation-english-pictures-and-words-meaning-worksheet.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -1076,6 +1261,11 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-foundation-english-rhyme-retell-and-speaking-worksheet-ac9efle04-ac9efle05-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-foundation-english-rhyming-words-phonological-awareness-worksheet-ac9efly09-free-printable-colour-worksheet.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -1086,7 +1276,17 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-foundation-english-sentence-word-groups-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-foundation-english-sentence-writing-capital-letters-full-stops-worksheet-ac9efly06-free-printable-colour-1-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-foundation-english-sentence-writing-capital-letters-full-stops-worksheet-ac9efly06-free-printable-colour-worksheet.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -1101,7 +1301,17 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-foundation-english-text-forms-and-purposes-worksheet-ac9efla03-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-foundation-english-word-parts-plural-s-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-foundation-english-writing-my-playground-picture-worksheet.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -1131,6 +1341,11 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-foundation-maths-counting-collections-to-20-worksheet-free-printable-colour-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-foundation-maths-equal-sharing-grouping-worksheet.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -1152,6 +1367,11 @@
   </url>
   <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-foundation-maths-numbers-0-20-name-represent-order-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-foundation-maths-part-part-whole-making-10-worksheet-ac9mfn04-free-printable-colour-worksheet.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -1207,6 +1427,11 @@
   </url>
   <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-foundation-phonics-syllables-alliteration-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-foundation-reading-decodable-sentences-set-2-worksheet.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -1291,6 +1516,11 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-fractions-apply-explain-review-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-fractions-decimals-percentages-quantities-worksheet.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -1317,6 +1547,11 @@
   </url>
   <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-fragments-run-ons-complete-sentences-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-friction-gravity-magnetic-forces-worksheet.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -1661,6 +1896,11 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-heat-sources-transfer-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-high-frequency-sight-words-worksheet.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -1701,7 +1941,22 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-informative-writing-school-newsletter-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-integers-number-line-operations-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-investigable-questions-and-fair-test-planning-worksheet-ac9s5i01-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-investigable-questions-fair-test-planning-worksheet-ac9s6i01-worksheet.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -1821,7 +2076,17 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-knowledge-community-decisions-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-latin-and-greek-root-words-worksheet-ac9e6ly08-free-printable-colour-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-life-cycle-stages-parents-offspring-worksheet.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -1837,6 +2102,11 @@
   </url>
   <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-light-reflection-refraction-and-shadows-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-literary-texts-cultural-contexts-worksheet.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -1876,6 +2146,11 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-making-a-whole-fractions-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-map-skills-worksheet.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -1886,7 +2161,22 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-materials-investigation-bend-stretch-mix-change-worksheet-ac9s2u03-ac9s2i01-03-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-mean-median-mode-range-statistics-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-measure-record-sort-data-worksheet-ac9s2i03-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-measurement-data-representation-worksheet-ac9s6i03-worksheet.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -1897,6 +2187,11 @@
   </url>
   <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-measuring-length-mass-capacity-scales-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-media-texts-context-representation-worksheet.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -1917,6 +2212,11 @@
   </url>
   <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-missing-numbers-to-100-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-missing-numbers-to-120-worksheet.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -1971,6 +2271,11 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-multiples-of-unit-fractions-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-multiplication-and-division-facts-worksheet.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -2016,7 +2321,32 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-narrative-editing-make-my-story-clearer-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-narrative-mystery-writing-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-narrative-writing-a-surprise-at-the-park-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-narrative-writing-kite-stuck-in-tree-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-narrative-writing-the-broken-invention-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-narrative-writing-the-final-decision-worksheet.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -2031,12 +2361,47 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-narrative-writing-the-message-nobody-expected-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-narrative-writing-the-missing-key-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-narrative-writing-the-wrong-turn-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-narrative-writing-two-viewpoints-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-narrative-writing-unexpected-visitor-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-narrative-writing-worksheet.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-natural-disasters-geological-change-worksheet-free-printable-australia-colour-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-natural-made-material-properties-uses-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-navigating-texts-structural-features-worksheet.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -2051,7 +2416,22 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-number-lines-and-number-charts-to-120-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-number-sequences-to-120-worksheet-ac9m1n01-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-number-tracing-0-20-kindergarten-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-objective-subjective-language-bias-worksheet.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -2091,12 +2471,47 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-persuasive-editing-make-my-argument-stronger-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-persuasive-writing-choosing-reading-books-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-persuasive-writing-classroom-plants-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-persuasive-writing-games-afternoon-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-persuasive-writing-keep-our-playground-clean-worksheet.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-persuasive-writing-quiet-reading-space-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-persuasive-writing-school-repair-club-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-persuasive-writing-should-plastic-bottles-be-banned-worksheet-ac9e6ly06-free-printable-colour-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-persuasive-writing-weekly-outdoor-lesson-worksheet.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -2137,6 +2552,11 @@
   </url>
   <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-phonics-word-families-an-ake-worksheet-ac9e1ly13-free-printable-colour-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-physical-vs-chemical-changes-worksheet.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -2186,6 +2606,21 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-poetry-sound-imagery-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-precise-measurement-and-data-representation-worksheet-ac9s5i03-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-precise-verbs-elaborated-tenses-adverb-groups-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-prepositional-phrases-grammar-worksheet.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -2197,6 +2632,11 @@
   </url>
   <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-procedure-writing-how-to-make-a-healthy-snack-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-procedure-writing-playground-game-worksheet.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -2227,6 +2667,31 @@
   </url>
   <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-push-and-pull-forces-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-pushes-pulls-motion-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-questions-predictions-and-fair-test-planning-worksheet-ac9s3i01-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-questions-predictions-and-fair-test-planning-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-questions-predictions-safe-investigation-worksheet-ac9s2i01-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-questions-predictions-worksheet.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -2431,7 +2896,27 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-reading-how-scientists-use-data-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-reading-reflection-sheet-years-3-6-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-reading-science-solves-problems-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-reading-soils-rocks-minerals-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-reading-solids-liquids-worksheet.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -2461,12 +2946,32 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-rocks-soils-minerals-earth-resources-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-safe-investigation-observations-ac9s1i02-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-science-creativity-daily-life-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-sentence-punctuation-grammar-worksheet-free-printable-colour-worksheet.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-sentence-writing-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-separating-mixtures-worksheet.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -2522,6 +3027,31 @@
   </url>
   <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-skip-counting-by-2s-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-solids-liquids-change-state-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-solute-solvent-and-solution-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-sound-energy-vibration-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-sound-pitch-volume-actions-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-sound-travel-detection-worksheet.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -2616,6 +3146,11 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-spoken-multimodal-presentations-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-states-of-matter-worksheet.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -2681,6 +3216,11 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-text-stages-phases-purposes-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-the-gold-rush-australian-history-reading-passage-comprehension-worksheet.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -2716,6 +3256,11 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-unit-fractions-three-models-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-unit-rates-constant-speed-worksheet.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -2726,7 +3271,17 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-using-data-to-develop-explanations-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-verbs-and-adjectives-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-visual-features-images-tables-maps-graphs-worksheet.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -2737,6 +3292,21 @@
   </url>
   <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-vocabulary-multiple-meanings-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-water-cycle-diagram-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-water-cycle-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-weather-seasons-everyday-life-worksheet.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -2792,6 +3362,11 @@
   </url>
   <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-writing-my-weekend-recount-worksheet.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-writing-surprise-in-school-bag-worksheet.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -3433,22 +4008,7 @@
   <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/year-3-fractions-hub.html</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-multiples-of-unit-fractions-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-making-a-whole-fractions-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-fractions-apply-explain-review-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/year-3-fractions.html</loc>
@@ -3737,6 +4297,31 @@
   </url>
   <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/year-4-living-things-and-life-cycles.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/year-4-maths-acute-angles.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/year-4-maths-angle-types.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/year-4-maths-obtuse-angles.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/year-4-maths-right-angles.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/year-4-maths-straight-reflex-revolution-angles.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -4031,12 +4616,37 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/year-5-science-collaboration-scientific-advances.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/year-5-science-evaluating-evidence-communicating-findings.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/year-5-science-investigable-questions-fair-test-planning.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/year-5-science-knowledge-community-decisions.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/year-5-science-light-reflection-refraction-and-shadows.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/year-5-science-mission-seeds-of-science.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/year-5-science-precise-measurement-data-representation.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -4407,481 +5017,6 @@
   </url>
   <url>
     <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/year-6.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-accurate-measurement-and-recording-observations-worksheet-ac9s3i03-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-accurate-measurement-and-recording-observations-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-adapting-literary-texts-literary-devices-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-australian-seasons-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-authors-individual-style-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-collaboration-scientific-advances-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-combine-materials-purpose-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-communicate-observations-findings-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-communicating-scientific-methods-and-findings-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-compare-predictions-fairness-new-questions-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-conversation-interaction-skills-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-daily-weather-changes-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-data-explanations-and-solving-problems-worksheet-ac9s3h01-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-data-patterns-findings-ac9s1i04-ac9s1i05-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-dissolving-investigation-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-emotive-vocabulary-figurative-language-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-evaluate-evidence-communicate-findings-worksheet-ac9s6i05-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-evaluating-evidence-and-communicating-findings-worksheet-ac9s5i05-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-evaluating-fair-tests-and-drawing-conclusions-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-everyday-science-predictions-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-explanations-meet-needs-solve-problems-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-fair-test-investigation-worksheet-ac9s3i01-i06-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-force-strength-direction-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-forces-change-shape-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-formal-informal-language-social-distance-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-foundation-english-everyday-vocabulary-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-foundation-english-language-preferences-listening-speaking-worksheet-ac9efla01-ac9efla02-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-foundation-english-literature-connections-and-features-worksheet-ac9efle01-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-foundation-english-pictures-and-words-meaning-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-foundation-english-rhyme-retell-and-speaking-worksheet-ac9efle04-ac9efle05-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-foundation-english-sentence-word-groups-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-foundation-english-sentence-writing-capital-letters-full-stops-worksheet-ac9efly06-free-printable-colour-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-foundation-english-text-forms-and-purposes-worksheet-ac9efla03-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-foundation-maths-counting-collections-to-20-worksheet-free-printable-colour-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-foundation-reading-decodable-sentences-set-2-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-friction-gravity-magnetic-forces-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-heat-sources-transfer-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-investigable-questions-and-fair-test-planning-worksheet-ac9s5i01-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-investigable-questions-fair-test-planning-worksheet-ac9s6i01-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-knowledge-community-decisions-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-life-cycle-stages-parents-offspring-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-literary-texts-cultural-contexts-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-materials-investigation-bend-stretch-mix-change-worksheet-ac9s2u03-ac9s2i01-03-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-measure-record-sort-data-worksheet-ac9s2i03-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-measurement-data-representation-worksheet-ac9s6i03-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-media-texts-context-representation-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-natural-made-material-properties-uses-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-navigating-texts-structural-features-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-objective-subjective-language-bias-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-physical-vs-chemical-changes-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-poetry-sound-imagery-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-precise-measurement-and-data-representation-worksheet-ac9s5i03-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-precise-verbs-elaborated-tenses-adverb-groups-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-pushes-pulls-motion-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-questions-predictions-and-fair-test-planning-worksheet-ac9s3i01-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-questions-predictions-and-fair-test-planning-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-questions-predictions-safe-investigation-worksheet-ac9s2i01-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-questions-predictions-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-reading-how-scientists-use-data-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-reading-science-solves-problems-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-reading-soils-rocks-minerals-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-reading-solids-liquids-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-rocks-soils-minerals-earth-resources-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-safe-investigation-observations-ac9s1i02-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-science-creativity-daily-life-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-separating-mixtures-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-solids-liquids-change-state-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-solute-solvent-and-solution-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-sound-energy-vibration-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-sound-pitch-volume-actions-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-sound-travel-detection-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-spoken-multimodal-presentations-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-text-stages-phases-purposes-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-unit-fractions-three-models-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-using-data-to-develop-explanations-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-visual-features-images-tables-maps-graphs-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-weather-seasons-everyday-life-worksheet.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/year-3-Sentence%20Punctuation.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/year-5-science-collaboration-scientific-advances.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/year-5-science-evaluating-evidence-communicating-findings.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/year-5-science-investigable-questions-fair-test-planning.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/year-5-science-knowledge-community-decisions.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/year-5-science-precise-measurement-data-representation.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/angles-learning-hub.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/blog/angles_parent_child_learning_guide-free-printable</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/year-4-maths-angle-types.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/year-4-maths-acute-angles.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/year-4-maths-obtuse-angles.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/year-4-maths-right-angles.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/year-4-maths-straight-reflex-revolution-angles.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
