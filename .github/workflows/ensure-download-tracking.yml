@@ -8,6 +8,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: apa-content-generators
+  cancel-in-progress: false
+
 jobs:
   ensure-tracking:
     runs-on: ubuntu-latest
