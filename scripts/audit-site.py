@@ -11,7 +11,7 @@ ROOT=Path(__file__).resolve().parent.parent
 BASE="https://aussieprimaryacademy.github.io/aussie-primary-academy/"
 HOST="aussieprimaryacademy.github.io"; PREFIX="/aussie-primary-academy/"
 IGNORE={"404.html","email-thank-you.html","google99305cdd54a8d1be.html"}
-issues=[]; counts=Counter(); titles=defaultdict(list); canonicals=defaultdict(list); parsers={}
+issues=[]; counts=Counter(); titles=defaultdict(list); canonicals=defaultdict(list); parsers={}; linked_pdfs=set()
 def add(kind,path,detail,severity="warning"):
  issues.append({"severity":severity,"kind":kind,"path":str(path),"detail":str(detail)})
 class Parser(HTMLParser):
@@ -86,6 +86,7 @@ for p in html:
    continue
   target,frag=resolve(p,url)
   if target is None: continue
+  if target.exists() and target.suffix.lower()==".pdf": linked_pdfs.add(target.resolve())
   if not target.exists(): add("broken_local_link" if attr=="href" else "missing_local_asset",rel,f'{attr}="{url}" -> {target}',"error")
   elif frag and target.is_file() and target.suffix.lower()==".html":
    other=parsers.get(target)
@@ -97,47 +98,19 @@ for t,ps in titles.items():
  if len(ps)>1: add("duplicate_title","; ".join(ps),t)
 for c,ps in canonicals.items():
  if len(ps)>1: add("duplicate_canonical","; ".join(ps),c,"error" if len(ps)>2 else "warning")
-def humanize(text):
- text=re.sub(r"[-_]+"," ",text); text=re.sub(r"\\bfree printable\\b","",text,flags=re.I); text=re.sub(r"\\bworksheet\\b","",text,flags=re.I); return re.sub(r"\\s+"," ",text).strip().title()
-def parse_pdf(pdf):
- name=pdf.stem; lower=name.lower(); parts=[x.lower() for x in pdf.parts]
- region="USA" if "usa" in parts or lower.startswith(("us-","usa-")) else "Australia"
- gm=re.search(r"(?:grade|year)[-_ ]?(\\d+)",lower)
- if gm:
-  n=gm.group(1); level=f"Grade {n}" if region=="USA" else f"Year {n}"
- elif "foundation" in lower or "kindergarten" in lower: level="Kindergarten" if region=="USA" else "Foundation"
- else: level="Primary"
- if "science" in parts or "/science/" in lower or "-science-" in lower or re.search(r"ac9s[a-z0-9]+",lower): subject="Science"
- elif "maths" in parts or "math" in parts or "/math/" in lower or "/maths/" in lower or "-math-" in lower or "-maths-" in lower or re.search(r"ac9m[a-z0-9]+",lower): subject="Maths"
- else: subject="English"
- standard=""; m=re.search(r"(ac9[a-z0-9]+)",lower)
- if m: standard=m.group(1).upper()
- clean=re.sub(r"^(us|usa)-","",name,flags=re.I); clean=re.sub(r"^(grade|year)-?\\d+-","",clean,flags=re.I); clean=re.sub(r"^(math|maths|ela|english|science)-","",clean,flags=re.I); clean=re.sub(r"-ac9[a-z0-9]+-free-printable$","",clean,flags=re.I); clean=re.sub(r"-free-printable$","",clean,flags=re.I)
- title=humanize(clean); slug=re.sub(r"[^a-z0-9]+","-",clean.lower()).strip("-")
- if "school-holiday-learning-pack" in slug or "learning-pack" in slug: slug=f"{re.sub(r'[^a-z0-9]+','-',level.lower()).strip('-')}-{slug}"
- page=f"pages/free-printable-{slug}-worksheet.html".replace("-worksheet-worksheet.html","-worksheet.html")
- preview=pdf.parent/"previews"/f"{pdf.stem.strip()}.png"
- return {"page":str(page),"preview":str(preview),"standard":standard}
 try:
  compile((ROOT/"scripts/generate-worksheet-pages.py").read_text(encoding="utf-8"),"scripts/generate-worksheet-pages.py","exec")
 except SyntaxError as e:
  add("generator_syntax_error","scripts/generate-worksheet-pages.py",f"Line {e.lineno}: {e.msg}","error")
-missing_pages=[]; missing_previews=[]; page_map=defaultdict(list); code_mismatch=0
+missing_previews=[]
 for pdf in pdfs:
- low=pdf.name.lower()
- if "answer-key" in low or "answerkey" in low: continue
+ if "answer-key" in pdf.name.lower() or "answerkey" in pdf.name.lower(): continue
  rel=pdf.relative_to(ROOT).as_posix()
- try:
-  m=parse_pdf(pdf.relative_to(ROOT)); target=ROOT/m["page"]; page_map[m["page"]].append(rel)
-  if not target.exists(): missing_pages.append((rel,m["page"]))
-  preview=ROOT/m["preview"]; folder=preview.parent; stem=preview.stem.lower()
-  exists=any(x.is_file() and x.stem.strip().lower()==stem and x.suffix.lower() in {".png",".jpg",".jpeg",".webp"} for x in folder.iterdir()) if folder.exists() else False
-  if not exists: missing_previews.append(rel)
- except Exception as e: add("worksheet_mapping",rel,e)
-for pdf,target in missing_pages: add("missing_worksheet_page",pdf,"Expected page absent: "+target)
-for pdf in missing_previews: add("missing_preview",pdf,"No same-stem preview in expected previews folder")
-for target,srcs in page_map.items():
- if len(srcs)>1: add("duplicate_page_mapping",target,f"{len(srcs)} PDFs map here: {srcs[:4]}")
+ if pdf.resolve() not in linked_pdfs: add("pdf_not_linked_from_html",rel,"PDF is not referenced by any parsed HTML link")
+ folder=pdf.parent/"previews"; stem=pdf.stem.strip().lower()
+ found=folder.exists() and any(x.is_file() and x.stem.strip().lower()==stem and x.suffix.lower() in {".png",".jpg",".jpeg",".webp"} for x in folder.iterdir())
+ if not found: missing_previews.append(rel)
+for pdf in missing_previews: add("missing_preview",pdf,"No same-stem image found in expected previews folder")
 for p,q in list(parsers.items()):
  raw=p.read_text(encoding="utf-8",errors="replace")
  codes=set(re.findall(r"\bAC9[A-Z][A-Z0-9]+\b",raw,re.I))
