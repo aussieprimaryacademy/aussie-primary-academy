@@ -17,7 +17,13 @@
   }
 
   document.addEventListener("DOMContentLoaded", function () {
-    const pdfLinks = document.querySelectorAll('a[href$=".pdf"], a[href$=".PDF"]');
+    const pdfLinks = Array.from(document.querySelectorAll("a[href]")).filter(function (link) {
+      try {
+        return new URL(link.href, document.baseURI).pathname.toLowerCase().endsWith(".pdf");
+      } catch (_) {
+        return false;
+      }
+    });
 
     pdfLinks.forEach(function (link) {
       if (link.dataset.apaDownloadTracked === "true") return;
