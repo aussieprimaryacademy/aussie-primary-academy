@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Read-only whole-repository audit for APA pages, links, metadata and worksheet assets."""
 from __future__ import annotations
-import csv,json,os,re,importlib.util
+import csv,json,os,re,runpy
 from collections import Counter,defaultdict
 from html.parser import HTMLParser
 from pathlib import Path
@@ -94,17 +94,16 @@ for t,ps in titles.items():
  if len(ps)>1: add("duplicate_title","; ".join(ps),t)
 for c,ps in canonicals.items():
  if len(ps)>1: add("duplicate_canonical","; ".join(ps),c,"error" if len(ps)>2 else "warning")
-spec=importlib.util.spec_from_file_location("worksheet_generator",ROOT/"scripts/generate-worksheet-pages.py")
-try: mod=importlib.util.module_from_spec(spec); spec.loader.exec_module(mod)
-except Exception as e: mod=None; add("audit_tool","scripts/generate-worksheet-pages.py",e)
+try: parse_pdf=runpy.run_path(str(ROOT/"scripts/generate-worksheet-pages.py"))["parse"]
+except Exception as e: parse_pdf=None; add("audit_tool","scripts/generate-worksheet-pages.py",e)
 missing_pages=[]; missing_previews=[]; page_map=defaultdict(list); code_mismatch=0
 for pdf in pdfs:
  low=pdf.name.lower()
  if "answer-key" in low or "answerkey" in low: continue
  rel=pdf.relative_to(ROOT).as_posix()
- if not mod: continue
+ if not parse_pdf: continue
  try:
-  m=mod.parse(pdf.relative_to(ROOT)); target=ROOT/m["page"]; page_map[m["page"]].append(rel)
+  m=parse_pdf(pdf.relative_to(ROOT)); target=ROOT/m["page"]; page_map[m["page"]].append(rel)
   if not target.exists(): missing_pages.append((rel,m["page"]))
   preview=ROOT/m["preview"]; folder=preview.parent; stem=preview.stem.lower()
   exists=any(x.is_file() and x.stem.strip().lower()==stem and x.suffix.lower() in {".png",".jpg",".jpeg",".webp"} for x in folder.iterdir()) if folder.exists() else False
@@ -140,7 +139,10 @@ if sitemap.exists():
   expected=set()
   for p in html:
    if p.name in IGNORE or " " in p.name: continue
-   if p.parts[0] in {"blog","pages"} or len(p.parts)==1: expected.add(BASE+p.relative_to(ROOT).as_posix())
+   relparts=p.relative_to(ROOT).parts
+   if relparts[0] in {"blog","pages"}: expected.add(BASE+p.relative_to(ROOT).as_posix())
+   elif len(relparts)==1 and p.name=="index.html": expected.add(BASE)
+   elif len(relparts)==1: expected.add(BASE+p.relative_to(ROOT).as_posix())
   for u in sorted(expected-set(urls)): add("html_not_in_sitemap","sitemap.xml",u)
   for u in sorted(set(urls)-expected): add("sitemap_url_no_matching_html","sitemap.xml",u)
  except Exception as e: add("sitemap_xml","sitemap.xml",e,"error")
