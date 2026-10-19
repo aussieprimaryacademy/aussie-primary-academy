@@ -115,10 +115,23 @@ def main() -> int:
             page.write_text(updated, encoding="utf-8")
         if not re.search(r"</head\s*>", updated, re.IGNORECASE):
             skipped += 1
+        missing = [
+            tag for tag, pattern in (
+                ("head", r"</head\s*>"),
+                ("body", r"</body\s*>"),
+                ("html", r"</html\s*>"),
+            )
+            if not re.search(pattern, updated, re.IGNORECASE)
+        ]
+        if missing:
+            structure_errors.append(f"{relative}: missing closing " + ", ".join(missing))
 
     print(f"PDF tracker added to {tracker_added} HTML pages.")
     print(f"GA4 measurement {MEASUREMENT_ID} added to {ga4_added} HTML pages.")
     print(f"HTML files still missing a closing head tag: {skipped}.")
+    print(f"HTML structure warnings: {len(structure_errors)}.")
+    for item in structure_errors[:100]:
+        print(f"HTML STRUCTURE WARNING: {item}")
     return 0
 
 
