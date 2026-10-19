@@ -1,6 +1,12 @@
 name: Make Worksheet PNG Previews
 
 on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'worksheets/**'
+      - '.github/workflows/make-previews.yml'
   workflow_dispatch:
 
 permissions:
