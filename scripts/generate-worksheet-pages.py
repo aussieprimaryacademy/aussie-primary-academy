@@ -85,6 +85,14 @@ def page_html(meta: dict[str,str]) -> str:
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-41Q0QR6ZHD"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-41Q0QR6ZHD');
+</script>
 <title>Free Printable {title} Worksheet PDF | {level}</title>
 <meta name="description" content="Free printable {level} {subject.lower()} worksheet for {title.lower()}. Download the PDF for classroom, homework, tutoring or homeschool practice.">
 <meta name="robots" content="index, follow">
