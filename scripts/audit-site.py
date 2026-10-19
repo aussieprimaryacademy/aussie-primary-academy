@@ -81,6 +81,9 @@ for p in html:
   try: json.loads(block)
   except Exception as e: add("invalid_jsonld",rel,e,"error")
  for url,attr in q.links:
+  if url.startswith("/") and not url.startswith(PREFIX):
+   add("wrong_project_base_path",rel,f"{attr}={url}", "error")
+   continue
   target,frag=resolve(p,url)
   if target is None: continue
   if not target.exists(): add("broken_local_link" if attr=="href" else "missing_local_asset",rel,f'{attr}="{url}" -> {target}',"error")
@@ -94,14 +97,36 @@ for t,ps in titles.items():
  if len(ps)>1: add("duplicate_title","; ".join(ps),t)
 for c,ps in canonicals.items():
  if len(ps)>1: add("duplicate_canonical","; ".join(ps),c,"error" if len(ps)>2 else "warning")
-try: parse_pdf=runpy.run_path(str(ROOT/"scripts/generate-worksheet-pages.py"))["parse"]
-except Exception as e: parse_pdf=None; add("audit_tool","scripts/generate-worksheet-pages.py",e)
+def humanize(text):
+ text=re.sub(r"[-_]+"," ",text); text=re.sub(r"\\bfree printable\\b","",text,flags=re.I); text=re.sub(r"\\bworksheet\\b","",text,flags=re.I); return re.sub(r"\\s+"," ",text).strip().title()
+def parse_pdf(pdf):
+ name=pdf.stem; lower=name.lower(); parts=[x.lower() for x in pdf.parts]
+ region="USA" if "usa" in parts or lower.startswith(("us-","usa-")) else "Australia"
+ gm=re.search(r"(?:grade|year)[-_ ]?(\\d+)",lower)
+ if gm:
+  n=gm.group(1); level=f"Grade {n}" if region=="USA" else f"Year {n}"
+ elif "foundation" in lower or "kindergarten" in lower: level="Kindergarten" if region=="USA" else "Foundation"
+ else: level="Primary"
+ if "science" in parts or "/science/" in lower or "-science-" in lower or re.search(r"ac9s[a-z0-9]+",lower): subject="Science"
+ elif "maths" in parts or "math" in parts or "/math/" in lower or "/maths/" in lower or "-math-" in lower or "-maths-" in lower or re.search(r"ac9m[a-z0-9]+",lower): subject="Maths"
+ else: subject="English"
+ standard=""; m=re.search(r"(ac9[a-z0-9]+)",lower)
+ if m: standard=m.group(1).upper()
+ clean=re.sub(r"^(us|usa)-","",name,flags=re.I); clean=re.sub(r"^(grade|year)-?\\d+-","",clean,flags=re.I); clean=re.sub(r"^(math|maths|ela|english|science)-","",clean,flags=re.I); clean=re.sub(r"-ac9[a-z0-9]+-free-printable$","",clean,flags=re.I); clean=re.sub(r"-free-printable$","",clean,flags=re.I)
+ title=humanize(clean); slug=re.sub(r"[^a-z0-9]+","-",clean.lower()).strip("-")
+ if "school-holiday-learning-pack" in slug or "learning-pack" in slug: slug=f"{re.sub(r'[^a-z0-9]+','-',level.lower()).strip('-')}-{slug}"
+ page=f"pages/free-printable-{slug}-worksheet.html".replace("-worksheet-worksheet.html","-worksheet.html")
+ preview=pdf.parent/"previews"/f"{pdf.stem.strip()}.png"
+ return {"page":str(page),"preview":str(preview),"standard":standard}
+try:
+ compile((ROOT/"scripts/generate-worksheet-pages.py").read_text(encoding="utf-8"),"scripts/generate-worksheet-pages.py","exec")
+except SyntaxError as e:
+ add("generator_syntax_error","scripts/generate-worksheet-pages.py",f"Line {e.lineno}: {e.msg}","error")
 missing_pages=[]; missing_previews=[]; page_map=defaultdict(list); code_mismatch=0
 for pdf in pdfs:
  low=pdf.name.lower()
  if "answer-key" in low or "answerkey" in low: continue
  rel=pdf.relative_to(ROOT).as_posix()
- if not parse_pdf: continue
  try:
   m=parse_pdf(pdf.relative_to(ROOT)); target=ROOT/m["page"]; page_map[m["page"]].append(rel)
   if not target.exists(): missing_pages.append((rel,m["page"]))
