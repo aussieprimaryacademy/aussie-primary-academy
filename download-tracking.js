@@ -23,7 +23,6 @@
       if (link.dataset.apaDownloadTracked === "true") return;
       link.dataset.apaDownloadTracked = "true";
 
-
       link.addEventListener("click", function () {
         trackDownload(link);
       });
