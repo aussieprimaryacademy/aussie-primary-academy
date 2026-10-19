@@ -111,6 +111,7 @@ for pdf in pdfs:
  found=folder.exists() and any(x.is_file() and x.stem.strip().lower()==stem and x.suffix.lower() in {".png",".jpg",".jpeg",".webp"} for x in folder.iterdir())
  if not found: missing_previews.append(rel)
 for pdf in missing_previews: add("missing_preview",pdf,"No same-stem image found in expected previews folder")
+code_mismatch=0
 for p,q in list(parsers.items()):
  raw=p.read_text(encoding="utf-8",errors="replace")
  codes=set(re.findall(r"\bAC9[A-Z][A-Z0-9]+\b",raw,re.I))
