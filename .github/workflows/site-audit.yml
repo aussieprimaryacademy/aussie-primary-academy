@@ -1,0 +1,32 @@
+name: APA Whole-Site Audit
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/audit-site.py'
+      - '.github/workflows/site-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run whole-site audit
+        run: python scripts/audit-site.py
+      - name: Upload reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: apa-whole-site-audit
+          path: |
+            site-audit-report.json
+            site-audit-issues.csv
+          if-no-files-found: error
+          retention-days: 14
