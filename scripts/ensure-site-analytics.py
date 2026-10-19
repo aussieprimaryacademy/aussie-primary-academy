@@ -94,6 +94,7 @@ def main() -> int:
     tracker_added = 0
     ga4_added = 0
     skipped = 0
+    structure_errors = []
 
     for page in sorted(ROOT.rglob("*.html")):
         relative = page.relative_to(ROOT)
