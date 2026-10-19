@@ -49,6 +49,64 @@ jobs:
           for item in changed:
               print(item)
 
+      - name: Ensure GA4 is installed on public HTML pages
+        shell: python
+        run: |
+          from pathlib import Path
+          import re
+
+          measurement_id = "G-41Q0QR6ZHD"
+          full_snippet = f'''<!-- Google tag (gtag.js) -->
+          <script async src="https://www.googletagmanager.com/gtag/js?id={measurement_id}"></script>
+          <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){{dataLayer.push(arguments);}}
+            gtag('js', new Date());
+            gtag('config', '{measurement_id}');
+          </script>
+          '''
+
+          changed = []
+          skipped = []
+          for path in Path('.').rglob('*.html'):
+              if '.git' in path.parts or '.github' in path.parts:
+                  continue
+              if path.name.lower().startswith('google') and 'google' in path.name.lower():
+                  continue
+              text = path.read_text(encoding='utf-8', errors='ignore')
+              if measurement_id in text:
+                  continue
+              head_end = re.search(r'</head\s*>', text, re.IGNORECASE)
+              if not head_end:
+                  skipped.append(str(path))
+                  continue
+
+              # If another gtag initialisation already exists, add this property
+              # to that initialisation rather than loading gtag.js a second time.
+              init = re.search(
+                  r'(<script\b[^>]*>)([\s\S]*?gtag\s*\(\s*[\'"]js[\'"][\s\S]*?)(</script\s*>)',
+                  text,
+                  re.IGNORECASE
+              )
+              if init:
+                  block = init.group(0)
+                  js_call = re.search(r'gtag\s*\(\s*[\'"]js[\'"][\s\S]*?\);', block, re.IGNORECASE)
+                  if js_call:
+                      updated_block = block[:js_call.end()] + f"\n  gtag('config', '{measurement_id}');" + block[js_call.end():]
+                      text = text[:init.start()] + updated_block + text[init.end():]
+                  else:
+                      text = text[:head_end.start()] + full_snippet + '\n' + text[head_end.start():]
+              else:
+                  text = text[:head_end.start()] + full_snippet + '\n' + text[head_end.start():]
+
+              path.write_text(text, encoding='utf-8')
+              changed.append(str(path))
+
+          print(f'Added GA4 measurement {measurement_id} to {len(changed)} HTML pages.')
+          print(f'Skipped {len(skipped)} HTML files without a closing head tag.')
+          for item in skipped[:50]:
+              print(f'SKIPPED: {item}')
+
       - name: Commit tracker additions
         run: |
           if git diff --quiet; then
@@ -57,8 +115,8 @@ jobs:
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add '*.html'
-          git commit -m "Ensure worksheet download tracking on PDF pages"
+          git add -A -- '*.html'
+          git commit -m "Ensure GA4 and worksheet download tracking across HTML pages"
           git push
 
 # Triggered again after verification so existing HTML pages are scanned.
