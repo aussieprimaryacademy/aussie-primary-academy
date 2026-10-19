@@ -1,5 +1,5 @@
 // APA Download Tracking
-// Keeps worksheet PDF links tracked in GA4 and opens PDFs normally.
+// Tracks worksheet PDF clicks without forcing browser downloads.
 
 (function () {
   "use strict";
@@ -22,10 +22,6 @@
     pdfLinks.forEach(function (link) {
       if (link.dataset.apaDownloadTracked === "true") return;
       link.dataset.apaDownloadTracked = "true";
-
-      if (!link.hasAttribute("download")) {
-        link.setAttribute("download", "");
-      }
 
       link.addEventListener("click", function () {
         trackDownload(link);

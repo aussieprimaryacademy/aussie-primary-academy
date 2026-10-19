@@ -26,7 +26,7 @@ CORE = [
     "terms-of-use.html",
 ]
 
-EXCLUDED_NAMES = {"404.html"}
+EXCLUDED_NAMES = {"404.html", "email-thank-you.html", "google99305cdd54a8d1be.html"}
 EXCLUDED_DIRS = {".git", ".github", "scripts", "assets", "css", "js"}
 
 
