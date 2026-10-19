@@ -52,7 +52,8 @@ def collect_urls() -> list[str]:
 
     # Also include any clean root-level HTML pages not already listed in CORE.
     for path in ROOT.glob("*.html"):
-        if is_clean_html(path):
+        # The site root is the canonical homepage; do not add /index.html as a duplicate URL.
+        if is_clean_html(path) and path.name != "index.html":
             urls.add(path.name)
 
     return sorted(urls, key=lambda item: (item != "", item))
