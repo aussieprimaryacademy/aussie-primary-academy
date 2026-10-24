@@ -108,74 +108,120 @@ def foundation_block_by_subject(paths, level):
     return "\n".join(parts)
 
 def update_foundation(page: Path, folder: Path, level: str):
-    text=page.read_text(encoding="utf-8")
-    text=re.sub(re.escape(START)+r"[\s\S]*?"+re.escape(END),"",text,count=1)
-    pdfs=sorted(folder.rglob("*.pdf"),key=lambda p:p.as_posix().lower()) if folder.exists() else []
-    missing=[p for p in pdfs if p.relative_to(ROOT).as_posix() not in text]
-    if not missing:
-        page.write_text(text,encoding="utf-8")
-        print(f"{page.name}: no new Foundation PDFs")
-        return
-    grouped={s:[] for s in SUBJECTS.values()}
-    for p in missing:
-        grouped.setdefault(subject_for(p),[]).append(p)
-    # Put Maths/English into their existing subject sections; create the other
-    # subject sections immediately before "Browse more year levels".
-    for subject in ("Maths","English"):
-        items=grouped.get(subject,[])
-        if not items:
+    text = page.read_text(encoding="utf-8")
+
+    # Rebuild only bot-owned subject sections. Older versions could append
+    # duplicate Reading/Science sections because these sections had no markers.
+    text = re.sub(
+        r'\s*<section class="section auto-year-subject"[\s\S]*?</section>\s*',
+        "\n",
+        text,
+    )
+
+    extra = []
+    for subject in ("Reading", "Writing", "Phonics", "Science"):
+        subject_folder = folder / subject.lower()
+        pdfs = sorted(subject_folder.rglob("*.pdf"), key=lambda p: p.as_posix().lower()) if subject_folder.exists() else []
+        # A PDF already listed in a hand-curated section should not be duplicated.
+        pdfs = [p for p in pdfs if p.relative_to(ROOT).as_posix() not in text]
+        if not pdfs:
             continue
-        cards="\n".join(card(p,level,i) for i,p in enumerate(items))
-        section_start=text.find(f'<section class="section" id="{subject.lower()}"')
-        if section_start != -1:
-            section_end=text.find("</section>", section_start)
-            if section_end != -1:
-                # Insert inside the existing subject wrapper, immediately before
-                # its final closing div. This avoids fragile nested-section regexes.
-                wrapper_end=text.rfind("</div>", section_start, section_end)
-                addition=f'\n      <ul class="grid-cards browse-grid auto-year-subject-cards">\n{cards}\n      </ul>\n'
-                if wrapper_end != -1:
-                    text=text[:wrapper_end]+addition+text[wrapper_end:]
-        grouped[subject]=[]
-    extra=[]
-    for subject in ("Reading","Writing","Phonics","Science"):
-        items=grouped.get(subject,[])
-        if not items:
-            continue
-        cards="\n".join(card(p,level,i) for i,p in enumerate(items))
+
+        cards = "\n".join(card(p, level, i) for i, p in enumerate(pdfs))
         extra.append(f'''<section class="section auto-year-subject" id="{subject.lower()}" aria-labelledby="auto-{subject.lower()}-heading">
   <div class="wrap">
-    <div class="section-head"><div><h2 id="auto-{subject.lower()}-heading">Foundation {subject} Worksheets</h2><p>New printable {subject} resources added from the worksheet library.</p></div></div>
+    <div class="section-head"><div><h2 id="auto-{subject.lower()}-heading">Foundation {subject} Worksheets</h2><p>Printable {subject} resources from the worksheet library.</p></div></div>
     <ul class="grid-cards browse-grid">
 {cards}
     </ul>
   </div>
 </section>''')
+
     if extra:
-        anchor=re.search(r'<section class="section">\s*<div class="wrap">\s*<div class="section-head">\s*<div><h2>Browse more year levels</h2>',text)
+        anchor = re.search(
+            r'<section class="section">\s*<div class="wrap">\s*<div class="section-head">\s*<div><h2>Browse more year levels</h2>',
+            text,
+        )
+        insertion = "\n" + "\n".join(extra) + "\n"
         if anchor:
-            text=text[:anchor.start()]+"\n"+"\n".join(extra)+"\n"+text[anchor.start():]
+            text = text[:anchor.start()] + insertion + text[anchor.start():]
         else:
-            text=text.replace("</main>","\n"+"\n".join(extra)+"\n</main>",1)
-    page.write_text(text,encoding="utf-8")
-    print(f"{page.name}: {len(pdfs)} PDFs, {len(missing)} Foundation cards placed")
+            text = text.replace("</main>", insertion + "</main>", 1)
+
+    page.write_text(text, encoding="utf-8")
+    print(f"{page.name}: rebuilt {len(extra)} Foundation subject sections without duplicates")
+
 
 def update(page: Path, folder: Path, level: str):
-    if level=="Foundation":
-        update_foundation(page,folder,level)
+    if level == "Foundation":
+        update_foundation(page, folder, level)
         return
-    text=page.read_text(encoding="utf-8")
-    text=re.sub(re.escape(START)+r"[\s\S]*?"+re.escape(END),"",text,count=1)
-    pdfs=sorted(folder.rglob("*.pdf"),key=lambda p:p.as_posix().lower()) if folder.exists() else []
-    missing=[p for p in pdfs if p.relative_to(ROOT).as_posix() not in text]
-    section=block(missing,level)
-    if section:
-        anchor="</main>"
-        if anchor not in text:
-            raise SystemExit(f"ERROR: </main> missing in {page.name}")
-        text=text.replace(anchor,section+"\n"+anchor,1)
-    page.write_text(text,encoding="utf-8")
-    print(f"{page.name}: {len(pdfs)} PDFs, {len(missing)} auto-added")
+
+    text = page.read_text(encoding="utf-8")
+
+    # Remove the previous bot-owned "More Year" block and its generated cards
+    # before rebuilding. This makes repeat runs idempotent instead of stacking
+    # stale cards at the bottom of the page.
+    text = re.sub(
+        re.escape(START) + r"[\s\S]*?" + re.escape(END),
+        "",
+        text,
+    )
+    text = re.sub(
+        r'\s*<section class="section auto-year-worksheets"[\s\S]*?</section>\s*',
+        "\n",
+        text,
+    )
+    text = re.sub(
+        r'<li class="wcard auto-year-card">[\s\S]*?</li>',
+        "",
+        text,
+    )
+
+    pdfs = sorted(folder.rglob("*.pdf"), key=lambda p: p.as_posix().lower()) if folder.exists() else []
+    # The cards remaining in the HTML are manually curated and must be preserved.
+    missing = [p for p in pdfs if p.relative_to(ROOT).as_posix() not in text]
+
+    groups = {"maths": [], "english": [], "science": []}
+    fallback = []
+    for p in missing:
+        subject = subject_for(p).lower()
+        target = "maths" if subject in {"maths", "math"} else "science" if subject == "science" else "english"
+        groups.setdefault(target, []).append(p)
+
+    for target, items in groups.items():
+        if not items:
+            continue
+        section_match = re.search(
+            rf'<section\b(?=[^>]*\bid="{re.escape(target)}")[^>]*>[\s\S]*?</section>',
+            text,
+        )
+        if not section_match:
+            fallback.extend(items)
+            continue
+
+        section = section_match.group(0)
+        list_match = re.search(r'<ul class="grid-cards browse-grid"[^>]*>', section)
+        if not list_match:
+            fallback.extend(items)
+            continue
+
+        cards = "\n".join(card(p, level, i) for i, p in enumerate(items))
+        insert_at = section_match.start() + section.rfind("</ul>")
+        if insert_at < section_match.start():
+            fallback.extend(items)
+            continue
+        text = text[:insert_at] + "\n" + cards + "\n" + text[insert_at:]
+
+    if fallback:
+        section = block(fallback, level)
+        text = text.replace("</main>", section + "\n</main>", 1)
+
+    page.write_text(text, encoding="utf-8")
+    print(
+        f"{page.name}: scanned {len(pdfs)} PDFs; placed {len(missing) - len(fallback)} "
+        f"new cards in subject sections; fallback={len(fallback)}"
+    )
 
 def main():
     targets=[("foundation.html",W/"foundation","Foundation")]
