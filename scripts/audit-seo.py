@@ -37,6 +37,6 @@ def main():
   ]
   for ok,label in checks:
    if not ok:failures.append(f"{rel}: {label}")
- print("\\n".join(failures) if failures else "All audited HTML checks passed.")
+ print("\n".join(failures) if failures else "All audited HTML checks passed.")
  print(f"Failures: {len(failures)}")
 if __name__=="__main__":main()
