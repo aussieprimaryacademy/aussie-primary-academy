@@ -30,7 +30,7 @@ class TextExtractor(HTMLParser):
 
 def visible_text(html):
     p=TextExtractor(); p.feed(html)
-    return re.sub(r"\\s+", " ", " ".join(p.parts)).strip()
+    return re.sub(r"\s+", " ", " ".join(p.parts)).strip()
 
 def git_lastmod(path):
     try:
@@ -52,10 +52,10 @@ def collect_pages():
             if path.name == "index.html" and path.parent == ROOT: pass
             else: continue
         html=path.read_text(encoding="utf-8",errors="ignore")
-        if re.search(r'<meta\\s+name=["\\']robots["\\']\\s+content=["\\'][^"\\']*noindex',html,re.I):
+        if re.search(r'<meta\s+name=["\']robots["\']\s+content=["\'][^"\']*noindex',html,re.I):
             continue
         text=visible_text(html)
-        words=re.findall(r"\\b[\\w'-]+\\b",text)
+        words=re.findall(r"\b[\w'-]+\b",text)
         if len(words)<MIN_WORDS: continue
         normalized=re.sub(r"[^a-z0-9]+"," ",text.lower()).strip()
         if not normalized: continue
@@ -78,7 +78,7 @@ def write_sitemap(pages):
         if lastmod: lines.append(f"    <lastmod>{lastmod}</lastmod>")
         lines.append("  </url>")
     lines.append("</urlset>")
-    (ROOT/"sitemap.xml").write_text("\\n".join(lines)+"\\n",encoding="utf-8")
+    (ROOT/"sitemap.xml").write_text("\n".join(lines)+"\n",encoding="utf-8")
     return len(pages)
 
 if __name__=="__main__":
