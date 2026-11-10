@@ -1,42 +1,111 @@
 #!/usr/bin/env python3
-"""Read-only SEO checklist for every repository HTML file; prints failures."""
+"""Read-only SEO audit. Reports indexable-page SEO issues separately from informational checks."""
 from pathlib import Path
 from html.parser import HTMLParser
-import re
-ROOT=Path(__file__).resolve().parent.parent
-BASE="https://aussieprimaryacademy.github.io/aussie-primary-academy/"
+from collections import Counter, defaultdict
+import sys
+
+ROOT = Path(__file__).resolve().parent.parent
+SKIP = {"google99305cdd54a8d1be.html"}
+
 class Audit(HTMLParser):
- def __init__(self):
-  super().__init__(); self.titles=[];self.desc=[];self.canon=[];self.h1=0;self.lang=None;self.viewport=0;self.ga=0
- def handle_starttag(self,tag,attrs):
-  a=dict(attrs)
-  if tag=="html": self.lang=a.get("lang")
-  if tag=="title": self.in_title=True;self.title=""
-  if tag=="h1": self.h1+=1
-  if tag=="meta":
-   if a.get("name","").lower()=="description":self.desc.append(a.get("content",""))
-   if a.get("name","").lower()=="viewport":self.viewport+=1
-  if tag=="link" and a.get("rel","").lower()=="canonical":self.canon.append(a.get("href",""))
-  if tag=="script" and ("G-41Q0QR6ZHD" in a.get("src","")):self.ga+=1
-  if tag=="script":self.script=True
- def handle_endtag(self,tag):
-  if tag=="title" and getattr(self,"in_title",False):self.titles.append(getattr(self,"title",""));self.in_title=False
- def handle_data(self,data):
-  if getattr(self,"in_title",False):self.title+=data
+    def __init__(self):
+        super().__init__()
+        self.titles = []
+        self.descriptions = []
+        self.canonicals = []
+        self.h1_count = 0
+        self.lang = None
+        self.viewport_count = 0
+        self.noindex = False
+        self._title = None
+
+    def handle_starttag(self, tag, attrs):
+        attrs = dict(attrs)
+        if tag == "html":
+            self.lang = attrs.get("lang")
+        elif tag == "title":
+            self._title = ""
+        elif tag == "h1":
+            self.h1_count += 1
+        elif tag == "meta":
+            name = attrs.get("name", "").lower()
+            if name == "description":
+                self.descriptions.append(attrs.get("content", ""))
+            elif name == "viewport":
+                self.viewport_count += 1
+            elif name == "robots" and "noindex" in attrs.get("content", "").lower():
+                self.noindex = True
+        elif tag == "link" and attrs.get("rel", "").lower() == "canonical":
+            self.canonicals.append(attrs.get("href", ""))
+
+    def handle_data(self, data):
+        if self._title is not None:
+            self._title += data
+
+    def handle_endtag(self, tag):
+        if tag == "title" and self._title is not None:
+            self.titles.append(self._title.strip())
+            self._title = None
+
 def main():
- failures=[]
- for p in sorted(ROOT.rglob("*.html")):
-  if ".git" in p.parts or ".github" in p.parts or p.name=="google99305cdd54a8d1be.html":continue
-  a=Audit();a.feed(p.read_text(encoding="utf-8",errors="ignore")); rel=p.relative_to(ROOT)
-  checks=[
-   (len(a.canon)==1 and a.canon[0].startswith("https://") and "?" not in a.canon[0] and "index.html" not in a.canon[0],"canonical"),
-   (len(a.titles)==1 and 0<len(a.titles[0])<60,"title (<60 chars, unique tag)"),
-   (len(a.desc)==1 and 0<len(a.desc[0])<160,"meta description (<160 chars)"),
-   (a.h1==1,"one H1"),(a.lang=="en-AU",'lang="en-AU"'),
-   (a.viewport==1,"viewport"),(a.ga>0 or "G-41Q0QR6ZHD" in p.read_text(errors="ignore"),"GA4")
-  ]
-  for ok,label in checks:
-   if not ok:failures.append(f"{rel}: {label}")
- print("\n".join(failures) if failures else "All audited HTML checks passed.")
- print(f"Failures: {len(failures)}")
-if __name__=="__main__":main()
+    pages = {}
+    for path in sorted(ROOT.rglob("*.html")):
+        if {".git", ".github"} & set(path.parts) or path.name in SKIP:
+            continue
+        html = path.read_text(encoding="utf-8", errors="ignore")
+        audit = Audit()
+        audit.feed(html)
+        if audit.noindex:
+            continue
+        pages[str(path.relative_to(ROOT))] = (audit, html)
+
+    title_counts = Counter(a.titles[0] for a, _ in pages.values() if len(a.titles) == 1 and a.titles[0])
+    description_counts = Counter(a.descriptions[0] for a, _ in pages.values() if len(a.descriptions) == 1 and a.descriptions[0])
+    seo = defaultdict(list)
+    info = defaultdict(list)
+
+    for relative_path, (audit, html) in pages.items():
+        canonical = audit.canonicals
+        if not (len(canonical) == 1 and canonical[0].startswith("https://") and "?" not in canonical[0] and not canonical[0].endswith("/index.html")):
+            seo["canonical missing, duplicate or invalid"].append(relative_path)
+
+        if len(audit.titles) != 1 or not audit.titles[0]:
+            seo["title missing or multiple"].append(relative_path)
+        else:
+            if len(audit.titles[0]) >= 60:
+                seo["title 60+ characters (review)"].append(relative_path)
+            if title_counts[audit.titles[0]] > 1:
+                seo["duplicate title"].append(relative_path)
+
+        if len(audit.descriptions) != 1 or not audit.descriptions[0]:
+            seo["description missing or multiple"].append(relative_path)
+        else:
+            if len(audit.descriptions[0]) >= 160:
+                seo["description 160+ characters (review)"].append(relative_path)
+            if description_counts[audit.descriptions[0]] > 1:
+                seo["duplicate description"].append(relative_path)
+
+        if audit.h1_count != 1:
+            seo["not exactly one H1"].append(relative_path)
+        if audit.lang != "en-AU":
+            seo["lang is not en-AU (review locale)"].append(relative_path)
+
+        if audit.viewport_count != 1:
+            info["viewport count is not one"].append(relative_path)
+        if "G-41Q0QR6ZHD" not in html:
+            info["GA4 ID not found"].append(relative_path)
+
+    affected = {path for paths in seo.values() for path in paths}
+    print(f"Indexable HTML pages audited: {len(pages)}")
+    print(f"Pages with at least one SEO issue/review item: {len(affected)}")
+    for category, paths in sorted(seo.items(), key=lambda item: -len(item[1])):
+        print(f"{category}: {len(paths)}")
+    print("Informational checks (not SEO failures):", {key: len(value) for key, value in info.items()} or "none")
+    if "-v" in sys.argv:
+        for category, paths in seo.items():
+            print(f"\\n[{category}]")
+            print("\\n".join(paths))
+
+if __name__ == "__main__":
+    main()
