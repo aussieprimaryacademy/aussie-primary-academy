@@ -34,7 +34,7 @@ jobs:
 
           for path in sorted(Path("pages").rglob("*.html")):
               original = path.read_text(encoding="utf-8")
-              match = re.search(r'<html\\b[^>]*\\blang=(["\\'])([^"\\']+)\\1', original, re.I)
+              match = re.search(r'<html[^>]*lang="([^"]+)"', original, re.I)
               if not match:
                   missing_lang.append(str(path))
                   continue
