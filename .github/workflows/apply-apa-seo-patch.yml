@@ -1,0 +1,72 @@
+name: Apply reviewed APA SEO patch
+
+on:
+  push:
+    branches:
+      - fix/apa-seo-review-2026-11
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  apply-and-validate:
+    if: github.event.head_commit.message != 'Apply reviewed APA SEO changes'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out review branch
+        uses: actions/checkout@v4
+        with:
+          ref: fix/apa-seo-review-2026-11
+          fetch-depth: 0
+
+      - name: Check patch compatibility and apply changes
+        run: |
+          git apply --check apa-seo-all-changes.patch
+          git apply apa-seo-all-changes.patch
+
+      - name: Validate Python, HTML metadata and sitemap
+        run: |
+          python -m py_compile scripts/audit-seo.py scripts/generate-worksheet-pages.py
+          python scripts/audit-seo.py
+          git diff --check
+          python - <<'PY'
+          from pathlib import Path
+          from html.parser import HTMLParser
+          import xml.etree.ElementTree as ET
+
+          class CheckHTML(HTMLParser):
+              pass
+
+          files = list(Path('.').rglob('*.html'))
+          for path in files:
+              if '.git' in path.parts or '.github' in path.parts:
+                  continue
+              parser = CheckHTML()
+              parser.feed(path.read_text(encoding='utf-8', errors='replace'))
+              parser.close()
+
+          root = ET.parse('sitemap.xml').getroot()
+          urls = root.findall('.//{*}loc')
+          if not urls:
+              raise SystemExit('Sitemap validation failed: no <loc> URLs')
+          print(f'HTML parser check passed; sitemap contains {len(urls)} URLs')
+          PY
+
+      - name: Commit validated changes and open pull request
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          rm apa-seo-all-changes.patch
+          rm .github/workflows/apply-apa-seo-patch.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -m 'Apply reviewed APA SEO changes'
+          git push origin HEAD:fix/apa-seo-review-2026-11
+          gh pr create \
+            --repo aussieprimaryacademy/aussie-primary-academy \
+            --base main \
+            --head fix/apa-seo-review-2026-11 \
+            --title 'SEO: improve APA page metadata and sitemap safeguards' \
+            --body 'Applies the reviewed 485-file SEO patch. Includes en-AU language metadata, page title/description updates, breadcrumb structured data, worksheet-page generator and SEO audit updates, plus sitemap URL-drop protection and pull-request-based generated updates. Automated checks run before this PR is opened. Please review the title wording and generated sitemap before merging.'
