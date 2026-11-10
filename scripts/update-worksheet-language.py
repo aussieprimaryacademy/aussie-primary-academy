@@ -5,9 +5,7 @@ Only the HTML lang attribute is changed. Page copy, titles, canonicals, links,
 download tracking, and worksheet content are left untouched.
 """
 from pathlib import Path
-from html.parser import HTMLParser
 import re
-import sys
 
 ROOT = Path(__file__).resolve().parent.parent
 PAGES = ROOT / "pages"
