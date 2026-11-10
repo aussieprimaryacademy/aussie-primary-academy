@@ -1,0 +1,53 @@
+name: APA SEO PR Validation
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - '*.html'
+      - 'pages/**'
+      - 'blog/**'
+      - 'scripts/**'
+      - 'sitemap.xml'
+      - '.github/workflows/**'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out proposed changes
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Check Python syntax
+        run: python -m py_compile scripts/audit-seo.py scripts/generate-sitemap.py scripts/generate-worksheet-index.py scripts/generate-year-pages.py scripts/generate-worksheet-pages.py scripts/update-worksheet-language.py
+
+      - name: Run read-only SEO audit
+        run: python scripts/audit-seo.py
+
+      - name: Validate sitemap XML and URL uniqueness
+        run: |
+          python - <<'PY'
+          import xml.etree.ElementTree as ET
+
+          root = ET.parse("sitemap.xml").getroot()
+          ns = {"sm": "http://www.sitemaps.org/schemas/sitemap/0.9"}
+          urls = [node.text.strip() for node in root.findall(".//sm:loc", ns) if node.text]
+          duplicates = sorted({url for url in urls if urls.count(url) > 1})
+
+          print(f"Sitemap URLs: {len(urls)}")
+          print(f"Duplicate URLs: {len(duplicates)}")
+          if not urls:
+              raise SystemExit("ERROR: sitemap contains no URLs")
+          if duplicates:
+              print("\n".join(duplicates[:30]))
+              raise SystemExit("ERROR: duplicate sitemap URLs found")
+          PY
