@@ -88,8 +88,12 @@ def main():
 
         if audit.h1_count != 1:
             seo["not exactly one H1"].append(relative_path)
-        if audit.lang != "en-AU":
-            seo["lang is not en-AU (review locale)"].append(relative_path)
+        relative = Path(relative_path)
+        parts = {part.lower() for part in relative.parts}
+        filename = relative.name.lower()
+        expected_lang = "en-US" if "usa" in parts or filename.startswith(("us-", "usa-")) else "en-AU"
+        if audit.lang != expected_lang:
+            seo[f"lang is not {expected_lang}"].append(relative_path)
 
         if audit.viewport_count != 1:
             info["viewport count is not one"].append(relative_path)
