@@ -1,28 +1,66 @@
 User-agent: *
 Allow: /
 
-User-agent: OAI-SearchBot
-Allow: /
-
+# Block major AI training / scraping bots
 User-agent: GPTBot
-Allow: /
+Disallow: /
 
-User-agent: PerplexityBot
-Allow: /
+User-agent: ChatGPT-User
+Disallow: /
 
-User-agent: Claude-SearchBot
-Allow: /
+User-agent: OAI-SearchBot
+Disallow: /
 
 User-agent: ClaudeBot
-Allow: /
+Disallow: /
 
+User-agent: Claude-Web
+Disallow: /
+
+User-agent: Claude-SearchBot
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+User-agent: Bytespider
+Disallow: /
+
+User-agent: Diffbot
+Disallow: /
+
+User-agent: FacebookBot
+Disallow: /
+
+User-agent: Amazonbot
+Disallow: /
+
+User-agent: Applebot-Extended
+Disallow: /
+
+User-agent: PerplexityBot
+Disallow: /
+
+User-agent: YouBot
+Disallow: /
+
+User-agent: cohere-ai
+Disallow: /
+
+# Allow normal search engines
 User-agent: Googlebot
 Allow: /
 
-User-agent: Google-Extended
+User-agent: Bingbot
 Allow: /
 
-User-agent: Bingbot
+User-agent: DuckDuckBot
 Allow: /
 
 Sitemap: https://aussieprimaryacademy.github.io/aussie-primary-academy/sitemap.xml
