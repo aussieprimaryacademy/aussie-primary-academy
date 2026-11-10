@@ -48,6 +48,9 @@ jobs:
         shell: bash
         run: echo "PREV_URLS=$(grep -c '<loc>' sitemap.xml || true)" >> "$GITHUB_ENV"
 
+      - name: Set worksheet page language by resource region
+        run: python scripts/update-worksheet-language.py
+
       - name: Generate worksheet index
         run: python scripts/generate-worksheet-index.py
 
