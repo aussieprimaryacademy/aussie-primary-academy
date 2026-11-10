@@ -37,7 +37,6 @@ jobs:
         run: |
           python - <<'PY'
           import xml.etree.ElementTree as ET
-          from pathlib import Path
 
           root = ET.parse("sitemap.xml").getroot()
           ns = {"sm": "http://www.sitemaps.org/schemas/sitemap/0.9"}
@@ -49,6 +48,6 @@ jobs:
           if not urls:
               raise SystemExit("ERROR: sitemap contains no URLs")
           if duplicates:
-              print("\\n".join(duplicates[:30]))
+              print("\n".join(duplicates[:30]))
               raise SystemExit("ERROR: duplicate sitemap URLs found")
           PY
