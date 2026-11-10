@@ -108,8 +108,8 @@ def main():
     print("Informational checks (not SEO failures):", {key: len(value) for key, value in info.items()} or "none")
     if "-v" in sys.argv:
         for category, paths in seo.items():
-            print(f"\\n[{category}]")
-            print("\\n".join(paths))
+            print(f"\n[{category}]")
+            print("\n".join(paths))
 
 if __name__ == "__main__":
     main()
