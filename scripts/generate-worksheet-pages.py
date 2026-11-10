@@ -80,8 +80,9 @@ def page_html(meta: dict[str,str]) -> str:
         hub=f"../year-{meta['level'].split()[-1]}.html"
     standard_text=escape(meta["standard"] or "Not specified on the worksheet filename")
     title=escape(meta["title"]); level=escape(meta["level"]); subject=escape(meta["subject"]); region=escape(meta["region"])
+    language = "en-US" if meta["region"] == "USA" else "en-AU"
     return f'''<!DOCTYPE html>
-<html lang="en">
+<html lang="{language}">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
