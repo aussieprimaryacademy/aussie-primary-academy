@@ -41,7 +41,7 @@ jobs:
           python-version: '3.12'
 
       - name: Validate generators
-        run: python -m py_compile scripts/generate-sitemap.py scripts/generate-worksheet-index.py scripts/generate-year-pages.py
+        run: python -m py_compile scripts/generate-sitemap.py scripts/generate-worksheet-index.py scripts/generate-year-pages.py scripts/update-worksheet-language.py
 
       - name: Remember current sitemap size
         shell: bash
