@@ -13,6 +13,7 @@ on:
       - 'scripts/generate-sitemap.py'
       - 'scripts/generate-worksheet-index.py'
       - 'scripts/generate-year-pages.py'
+      - 'scripts/update-worksheet-language.py'
       - 'scripts/ensure-site-analytics.py'
       - '.github/workflows/generate-sitemap.yml'
 
@@ -84,6 +85,8 @@ jobs:
           branch: auto/sitemap-update
           add-paths: |
             *.html
+            pages/**/*.html
+            blog/**/*.html
             sitemap.xml
           commit-message: 'chore: auto-update sitemap and worksheet index'
           title: 'chore: auto-update sitemap and worksheet index'
