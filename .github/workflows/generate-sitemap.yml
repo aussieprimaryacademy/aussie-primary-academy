@@ -88,6 +88,8 @@ jobs:
           branch: auto/sitemap-update
           add-paths: |
             *.html
+            pages/*.html
+            blog/*.html
             pages/**/*.html
             blog/**/*.html
             sitemap.xml
