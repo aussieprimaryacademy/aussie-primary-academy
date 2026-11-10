@@ -39,7 +39,7 @@ jobs:
                   missing_lang.append(str(path))
                   continue
 
-              current = match.group(2)
+              current = match.group(1)
               parts = {part.lower() for part in path.parts}
               name = path.name.lower()
               is_usa = "usa" in parts or name.startswith(("us-", "usa-"))
@@ -48,7 +48,7 @@ jobs:
               if current == expected:
                   already_correct.append(str(path))
               elif current.lower() == "en":
-                  updated = original[:match.start(2)] + expected + original[match.end(2):]
+                  updated = original[:match.start(1)] + expected + original[match.end(1):]
                   path.write_text(updated, encoding="utf-8")
                   changed.append(str(path))
               else:
