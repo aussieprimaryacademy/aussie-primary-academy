@@ -1,0 +1,31 @@
+name: APA Sitemap Exclusion Audit
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'scripts/audit-sitemap-exclusions.py'
+      - 'scripts/generate-sitemap.py'
+      - '.github/workflows/seo-sitemap-exclusions.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out proposed changes
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Check audit script syntax
+        run: python -m py_compile scripts/audit-sitemap-exclusions.py scripts/generate-sitemap.py
+
+      - name: Report sitemap exclusions (read-only)
+        run: python scripts/audit-sitemap-exclusions.py
