@@ -14,6 +14,7 @@ on:
       - 'scripts/generate-worksheet-index.py'
       - 'scripts/generate-year-pages.py'
       - 'scripts/update-worksheet-language.py'
+      - 'scripts/validate-sitemap-transition.py'
       - 'scripts/ensure-site-analytics.py'
       - '.github/workflows/generate-sitemap.yml'
 
@@ -42,7 +43,7 @@ jobs:
           python-version: '3.12'
 
       - name: Validate generators
-        run: python -m py_compile scripts/generate-sitemap.py scripts/generate-worksheet-index.py scripts/generate-year-pages.py scripts/update-worksheet-language.py
+        run: python -m py_compile scripts/generate-sitemap.py scripts/generate-worksheet-index.py scripts/generate-year-pages.py scripts/update-worksheet-language.py scripts/validate-sitemap-transition.py
 
       - name: Snapshot current sitemap URLs before generation
         run: |
