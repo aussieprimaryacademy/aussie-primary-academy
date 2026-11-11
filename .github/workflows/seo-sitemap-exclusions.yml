@@ -10,6 +10,9 @@ on:
       - 'scripts/update-worksheet-language.py'
       - 'scripts/audit-seo.py'
       - 'scripts/validate-sitemap-transition.py'
+      - 'scripts/generate-year-pages.py'
+      - 'year-*.html'
+      - 'foundation.html'
       - '.github/workflows/seo-sitemap-exclusions.yml'
 
 permissions:
@@ -28,10 +31,18 @@ jobs:
           python-version: '3.12'
 
       - name: Check audit script syntax
-        run: python -m py_compile scripts/audit-sitemap-exclusions.py scripts/audit-seo.py scripts/generate-sitemap.py scripts/update-worksheet-language.py scripts/validate-sitemap-transition.py
+        run: python -m py_compile scripts/audit-sitemap-exclusions.py scripts/audit-seo.py scripts/generate-sitemap.py scripts/update-worksheet-language.py scripts/validate-sitemap-transition.py scripts/generate-year-pages.py
 
       - name: Report sitemap gaps and editorial review signals (read-only)
         run: python scripts/audit-sitemap-exclusions.py
+
+      - name: Verify year-page generator is idempotent
+        run: |
+          python scripts/generate-year-pages.py
+          git diff -- year-*.html foundation.html > /tmp/year-pages-first.diff
+          python scripts/generate-year-pages.py
+          git diff -- year-*.html foundation.html > /tmp/year-pages-second.diff
+          cmp /tmp/year-pages-first.diff /tmp/year-pages-second.diff
 
       - name: Snapshot sitemap URLs for transition test
         run: |
