@@ -118,7 +118,7 @@ def page_html(meta: dict[str,str]) -> str:
 </head>
 <body>
 <!-- AUTO-GENERATED-WORKSHEET-PAGE -->
-<header class="site"><div class="wrap nav"><a href="../index.html" class="brand"><span class="mark">AP</span> Aussie Primary Academy</a><nav class="links"><a href="../worksheets.html">Worksheets</a><a class="btn btn-primary nav-cta" href="../worksheets.html">Browse Free Worksheets</a></nav></div></header>
+<header class="site"><div class="wrap nav"><a href="../index.html" class="brand"><span class="mark">AP</span> Aussie Primary Academy</a><nav class="links"><a href="../worksheets.html">Worksheets</a><a href="../year-levels.html">Year Levels</a><a href="../subjects.html">Subjects</a><a class="btn btn-primary nav-cta" href="../worksheets.html">Browse Free Worksheets</a></nav></div></header>
 <main id="main">
 <nav class="breadcrumb wrap"><ol><li><a href="../index.html">Home</a></li><li><a href="{hub}">{level}</a></li><li aria-current="page">{title}</li></ol></nav>
 <section class="resource-hero"><div class="wrap"><p class="resource-kicker">{region} · {level} · {subject}</p><h1>{title}</h1><p class="lead">A ready-to-use printable worksheet for focused practice in {title.lower()}.</p><div class="trust-row"><span class="trust-badge">Free printable PDF</span><span class="trust-badge">{level}</span><span class="trust-badge">{subject}</span></div></div></section>
