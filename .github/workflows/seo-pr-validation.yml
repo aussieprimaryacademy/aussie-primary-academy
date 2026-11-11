@@ -31,6 +31,42 @@ jobs:
       - name: Check Python syntax
         run: python -m py_compile scripts/audit-seo.py scripts/generate-sitemap.py scripts/generate-worksheet-index.py scripts/generate-year-pages.py scripts/generate-worksheet-pages.py scripts/update-worksheet-language.py scripts/validate-sitemap-transition.py scripts/add-related-worksheet-links.py scripts/update-navigation-links.py
 
+      - name: Test related worksheet matching
+        run: |
+          python - <<'PY'
+          import importlib.util
+          from pathlib import Path
+
+          path = Path("scripts/add-related-worksheet-links.py")
+          spec = importlib.util.spec_from_file_location("related_links", path)
+          module = importlib.util.module_from_spec(spec)
+          spec.loader.exec_module(module)
+
+          current = {
+              "title": "Addition and Subtraction",
+              "page": "pages/current.html",
+              "region": "Australia",
+              "level": "Year 1",
+              "subject": "Maths",
+          }
+          candidates = [
+              current,
+              {"title": "Addition Word Problems", "page": "pages/related-addition.html", "region": "Australia", "level": "Year 1", "subject": "Maths"},
+              {"title": "Multiplication Groups", "page": "pages/related-multiplication.html", "region": "Australia", "level": "Year 1", "subject": "Maths"},
+              {"title": "Grammar Sentences", "page": "pages/wrong-subject.html", "region": "Australia", "level": "Year 1", "subject": "English"},
+              {"title": "Year 2 Addition", "page": "pages/wrong-year.html", "region": "Australia", "level": "Year 2", "subject": "Maths"},
+              {"title": "Grade 1 Addition", "page": "pages/wrong-region.html", "region": "USA", "level": "Grade 1", "subject": "Maths"},
+          ]
+          section = module.build_related_section(current, candidates)
+          assert 'href="related-addition.html"' in section
+          assert 'href="related-multiplication.html"' in section
+          assert "wrong-subject.html" not in section
+          assert "wrong-year.html" not in section
+          assert "wrong-region.html" not in section
+          assert section.count('<article class="content-card">') == 2
+          print("Related worksheet matching tests passed.")
+          PY
+
       - name: Run read-only SEO audit
         run: python scripts/audit-seo.py
 
