@@ -1,15 +1,21 @@
 #!/usr/bin/env python3
-"""Set worksheet landing-page language to the English locale for its resource region.
+"""Set the correct English locale on every eligible public HTML page.
 
-Only the HTML lang attribute is changed. Page copy, titles, canonicals, links,
-download tracking, and worksheet content are left untouched.
+Australian resources use en-AU; USA resources use en-US. Only the html lang
+attribute is changed. Page copy, metadata, canonicals, links, and PDFs are
+left untouched. Explicit noindex and non-public pages are skipped.
 """
 from pathlib import Path
 import re
+import importlib.util
 
 ROOT = Path(__file__).resolve().parent.parent
-PAGES = ROOT / "pages"
-LANG_ATTRIBUTE = re.compile(r'(<html[^>]*lang=")([^"]+)(")', re.I)
+SPEC = importlib.util.spec_from_file_location(
+    "sitemap_generator", ROOT / "scripts" / "generate-sitemap.py"
+)
+SITEMAP_GENERATOR = importlib.util.module_from_spec(SPEC)
+SPEC.loader.exec_module(SITEMAP_GENERATOR)
+LANG_ATTRIBUTE = re.compile(r'(<html\b[^>]*\blang\s*=\s*")([^"]+)(")', re.I)
 
 
 def expected_language(path: Path) -> str:
@@ -25,11 +31,18 @@ def main() -> int:
     missing = []
     unusual = []
 
-    for path in sorted(PAGES.rglob("*.html")):
+    for path in sorted(ROOT.rglob("*.html")):
+        if SITEMAP_GENERATOR.is_excluded_path(path):
+            continue
+        noindex, _ = SITEMAP_GENERATOR.parse_page(path)
+        if noindex:
+            continue
+
         html = path.read_text(encoding="utf-8")
         match = LANG_ATTRIBUTE.search(html)
+        relative = path.relative_to(ROOT).as_posix()
         if not match:
-            missing.append(path.relative_to(ROOT).as_posix())
+            missing.append(relative)
             continue
 
         current = match.group(2)
@@ -38,14 +51,14 @@ def main() -> int:
             unchanged += 1
             continue
         if current.lower() not in {"en", "en-au", "en-us"}:
-            unusual.append(f"{path.relative_to(ROOT).as_posix()}: {current}")
+            unusual.append(f"{relative}: {current}")
             continue
 
         updated = html[:match.start(2)] + target + html[match.end(2):]
         path.write_text(updated, encoding="utf-8")
         changed += 1
 
-    print(f"Worksheet pages updated: {changed}")
+    print(f"Public indexable HTML pages updated: {changed}")
     print(f"Already correct: {unchanged}")
     print(f"Missing lang attribute: {len(missing)}")
     print(f"Unusual locales left for review: {len(unusual)}")
