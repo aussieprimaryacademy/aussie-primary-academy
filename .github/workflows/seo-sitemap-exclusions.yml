@@ -42,7 +42,7 @@ jobs:
           root = ET.parse("sitemap.xml").getroot()
           ns = {"sm": "http://www.sitemaps.org/schemas/sitemap/0.9"}
           urls = [node.text.strip() for node in root.findall(".//sm:loc", ns) if node.text]
-          Path("/tmp/apa-previous-sitemap-urls.txt").write_text("\\n".join(urls), encoding="utf-8")
+          Path("/tmp/apa-previous-sitemap-urls.txt").write_text("\n".join(urls), encoding="utf-8")
           PY
 
       - name: Verify region-aware language update on all public pages
