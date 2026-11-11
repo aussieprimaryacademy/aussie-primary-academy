@@ -98,7 +98,6 @@ jobs:
         uses: peter-evans/create-pull-request@v7
         with:
           branch: auto/sitemap-update
-            sitemap.xml
           commit-message: 'chore: auto-update sitemap and worksheet index'
           title: 'chore: auto-update sitemap and worksheet index'
           body: 'Generated automatically. Review sitemap URL additions/removals and lastmod dates before merging.'
