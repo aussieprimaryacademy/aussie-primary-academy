@@ -91,16 +91,13 @@ jobs:
           PY
           python scripts/validate-sitemap-transition.py /tmp/apa-previous-sitemap-urls.txt
 
+      - name: Remove Python cache files before staging generated changes
+        run: rm -rf scripts/__pycache__
+
       - name: Open a pull request with generated files (never pushes to main)
         uses: peter-evans/create-pull-request@v7
         with:
           branch: auto/sitemap-update
-          add-paths: |
-            *.html
-            pages/*.html
-            blog/*.html
-            pages/**/*.html
-            blog/**/*.html
             sitemap.xml
           commit-message: 'chore: auto-update sitemap and worksheet index'
           title: 'chore: auto-update sitemap and worksheet index'
