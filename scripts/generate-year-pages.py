@@ -172,11 +172,17 @@ def update(page: Path, folder: Path, level: str):
         "\n",
         text,
     )
-    text = re.sub(
-        r'<li class="wcard auto-year-card">[\s\S]*?</li>',
-        "",
-        text,
-    )
+    # Remove generated card lines and their surrounding blank lines before
+    # rebuilding. This keeps repeated workflow runs byte-for-byte stable.
+    cleaned_lines = []
+    for line in text.splitlines():
+        if 'class="wcard auto-year-card"' in line:
+            while cleaned_lines and not cleaned_lines[-1].strip():
+                cleaned_lines.pop()
+            continue
+        cleaned_lines.append(line)
+    text = "\n".join(cleaned_lines)
+    text = re.sub(r"\n[ \t]*\n+(?=</ul>)", "\n", text)
 
     pdfs = sorted(folder.rglob("*.pdf"), key=lambda p: p.as_posix().lower()) if folder.exists() else []
     # The cards remaining in the HTML are manually curated and must be preserved.
