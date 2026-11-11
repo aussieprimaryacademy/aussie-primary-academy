@@ -1,0 +1,60 @@
+name: APA Sitemap Exclusion Audit
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'scripts/audit-sitemap-exclusions.py'
+      - 'scripts/generate-sitemap.py'
+      - 'scripts/update-worksheet-language.py'
+      - 'scripts/audit-seo.py'
+      - 'scripts/validate-sitemap-transition.py'
+      - '.github/workflows/seo-sitemap-exclusions.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out proposed changes
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Check audit script syntax
+        run: python -m py_compile scripts/audit-sitemap-exclusions.py scripts/audit-seo.py scripts/generate-sitemap.py scripts/update-worksheet-language.py scripts/validate-sitemap-transition.py
+
+      - name: Report sitemap gaps and editorial review signals (read-only)
+        run: python scripts/audit-sitemap-exclusions.py
+
+      - name: Snapshot sitemap URLs for transition test
+        run: |
+          python - <<'PY'
+          import xml.etree.ElementTree as ET
+          from pathlib import Path
+
+          root = ET.parse("sitemap.xml").getroot()
+          ns = {"sm": "http://www.sitemaps.org/schemas/sitemap/0.9"}
+          urls = [node.text.strip() for node in root.findall(".//sm:loc", ns) if node.text]
+          Path("/tmp/apa-previous-sitemap-urls.txt").write_text("\n".join(urls), encoding="utf-8")
+          PY
+
+      - name: Verify region-aware language update on all public pages
+        run: |
+          python scripts/update-worksheet-language.py
+          python scripts/audit-seo.py | tee /tmp/apa-seo-audit.txt
+          if grep -q "locale mismatch" /tmp/apa-seo-audit.txt; then
+            echo "ERROR: locale mismatches remain after the language updater."
+            exit 1
+          fi
+
+      - name: Generate candidate sitemap and validate complete URL set
+        run: |
+          python scripts/generate-sitemap.py
+          python scripts/validate-sitemap-transition.py /tmp/apa-previous-sitemap-urls.txt
