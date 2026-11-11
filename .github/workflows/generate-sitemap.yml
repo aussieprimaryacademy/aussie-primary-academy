@@ -13,11 +13,14 @@ on:
       - 'scripts/generate-sitemap.py'
       - 'scripts/generate-worksheet-index.py'
       - 'scripts/generate-year-pages.py'
+      - 'scripts/update-worksheet-language.py'
+      - 'scripts/validate-sitemap-transition.py'
       - 'scripts/ensure-site-analytics.py'
       - '.github/workflows/generate-sitemap.yml'
 
 permissions:
   contents: write
+  pull-requests: write
 
 concurrency:
   # Share the queue with worksheet preview/page generation so two
@@ -40,7 +43,23 @@ jobs:
           python-version: '3.12'
 
       - name: Validate generators
-        run: python -m py_compile scripts/generate-sitemap.py scripts/generate-worksheet-index.py scripts/generate-year-pages.py
+        run: python -m py_compile scripts/generate-sitemap.py scripts/generate-worksheet-index.py scripts/generate-year-pages.py scripts/update-worksheet-language.py scripts/validate-sitemap-transition.py
+
+      - name: Snapshot current sitemap URLs before generation
+        run: |
+          python - <<'PY'
+          import xml.etree.ElementTree as ET
+          from pathlib import Path
+
+          root = ET.parse("sitemap.xml").getroot()
+          ns = {"sm": "http://www.sitemaps.org/schemas/sitemap/0.9"}
+          urls = [node.text.strip() for node in root.findall(".//sm:loc", ns) if node.text]
+          Path("/tmp/apa-previous-sitemap-urls.txt").write_text("\n".join(urls), encoding="utf-8")
+          print(f"Previous sitemap URL count: {len(urls)}")
+          PY
+
+      - name: Set worksheet page language by resource region
+        run: python scripts/update-worksheet-language.py
 
       - name: Generate worksheet index
         run: python scripts/generate-worksheet-index.py
@@ -54,35 +73,36 @@ jobs:
       - name: Generate sitemap
         run: python scripts/generate-sitemap.py
 
-      - name: Validate sitemap
+      - name: Validate sitemap and review every removed URL
         run: |
           python - <<'PY'
           import xml.etree.ElementTree as ET
           from pathlib import Path
 
-          sitemap = Path('sitemap.xml')
-          ET.parse(sitemap)
-          text = sitemap.read_text(encoding='utf-8')
-          count = text.count('<loc>')
-          if count == 0:
-              raise SystemExit('ERROR: sitemap contains no URLs')
-          print(f'Sitemap XML is valid: {count} URLs')
+          sitemap = Path("sitemap.xml")
+          root = ET.parse(sitemap).getroot()
+          ns = {"sm": "http://www.sitemaps.org/schemas/sitemap/0.9"}
+          urls = [node.text.strip() for node in root.findall(".//sm:loc", ns) if node.text]
+          if not urls:
+              raise SystemExit("ERROR: sitemap contains no URLs")
+          if len(urls) != len(set(urls)):
+              raise SystemExit("ERROR: sitemap contains duplicate URLs")
+          print(f"Sitemap XML is valid: {len(urls)} unique URLs")
           PY
+          python scripts/validate-sitemap-transition.py /tmp/apa-previous-sitemap-urls.txt
 
-      - name: Commit and push generated files
-        run: |
-          if git diff --quiet; then
-            echo 'No generated changes'
-            exit 0
-          fi
-
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -A -- '*.html' sitemap.xml
-          git commit -m 'chore: auto-update sitemap and worksheet index'
-
-          # Another content workflow can finish while this job is running.
-          # Rebase before pushing so the sitemap job does not fail on a
-          # non-fast-forward update.
-          git pull --rebase origin main
-          git push origin HEAD:main
+      - name: Open a pull request with generated files (never pushes to main)
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: auto/sitemap-update
+          add-paths: |
+            *.html
+            pages/*.html
+            blog/*.html
+            pages/**/*.html
+            blog/**/*.html
+            sitemap.xml
+          commit-message: 'chore: auto-update sitemap and worksheet index'
+          title: 'chore: auto-update sitemap and worksheet index'
+          body: 'Generated automatically. Review sitemap URL additions/removals and lastmod dates before merging.'
+          delete-branch: true
