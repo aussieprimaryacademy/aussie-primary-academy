@@ -28,7 +28,7 @@ jobs:
           python-version: '3.12'
 
       - name: Check Python syntax
-        run: python -m py_compile scripts/audit-seo.py scripts/generate-sitemap.py scripts/generate-worksheet-index.py scripts/generate-year-pages.py scripts/generate-worksheet-pages.py scripts/update-worksheet-language.py scripts/validate-sitemap-transition.py
+        run: python -m py_compile scripts/audit-seo.py scripts/generate-sitemap.py scripts/generate-worksheet-index.py scripts/generate-year-pages.py scripts/generate-worksheet-pages.py scripts/update-worksheet-language.py scripts/validate-sitemap-transition.py scripts/update-navigation-links.py
 
       - name: Run read-only SEO audit
         run: python scripts/audit-seo.py
