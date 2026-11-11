@@ -48,14 +48,14 @@ def main():
                 continue
 
         html = path.read_text(encoding="utf-8", errors="ignore")
-        if re.search(r'<meta\\s+name=["\\']robots["\\']\\s+content=["\\'][^"\\']*noindex', html, re.I):
+        if re.search(r'<meta\s+name=["\']robots["\']\s+content=["\'][^"\']*noindex', html, re.I):
             reasons["noindex"].append(rel.as_posix())
             continue
 
         parser = TextExtractor()
         parser.feed(html)
-        text = re.sub(r"\\s+", " ", " ".join(parser.parts)).strip()
-        words = re.findall(r"\\b[\\w'-]+\\b", text)
+        text = re.sub(r"\s+", " ", " ".join(parser.parts)).strip()
+        words = re.findall(r"\b[\w'-]+\b", text)
         if len(words) < MIN_WORDS:
             reasons["under 80 visible-text words"].append(f"{rel.as_posix()} ({len(words)} words)")
             continue
@@ -85,10 +85,10 @@ def main():
     print(f"Potential sitemap exclusions: {total_excluded}")
     for reason in sorted(reasons):
         entries = reasons[reason]
-        print(f"\\n{reason}: {len(entries)}")
+        print(f"\n{reason}: {len(entries)}")
         for entry in entries:
             print(f"  {entry}")
-    print("\\nThis is a read-only report. It does not modify sitemap.xml or any page.")
+    print("\nThis is a read-only report. It does not modify sitemap.xml or any page.")
 
 if __name__ == "__main__":
     main()
