@@ -25,6 +25,7 @@ on:
       - 'scripts/update-worksheet-language.py'
       - 'scripts/validate-sitemap-transition.py'
       - 'scripts/ensure-site-analytics.py'
+      - 'scripts/update-navigation-links.py'
       - '.github/workflows/generate-sitemap.yml'
 
 permissions:
