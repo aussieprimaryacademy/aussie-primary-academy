@@ -33,6 +33,9 @@ jobs:
       - name: Run read-only SEO audit
         run: python scripts/audit-seo.py
 
+      - name: Report sitemap exclusions (read-only)
+        run: python scripts/audit-sitemap-exclusions.py
+
       - name: Validate sitemap XML and URL uniqueness
         run: |
           python - <<'PY'
