@@ -10,6 +10,7 @@ on:
       - 'blog/**'
       - 'scripts/**'
       - 'sitemap.xml'
+      - 'robots.txt'
       - '.github/workflows/**'
 
 permissions:
@@ -32,6 +33,34 @@ jobs:
 
       - name: Run read-only SEO audit
         run: python scripts/audit-seo.py
+
+      - name: Validate crawler access policy
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          text = Path("robots.txt").read_text(encoding="utf-8")
+          groups = {}
+          current = None
+          for raw in text.splitlines():
+              line = raw.split("#", 1)[0].strip()
+              if not line:
+                  continue
+              key, _, value = line.partition(":")
+              key, value = key.strip().lower(), value.strip()
+              if key == "user-agent":
+                  current = value
+                  groups.setdefault(current, [])
+              elif current and key in {"allow", "disallow"}:
+                  groups[current].append((key, value))
+
+          assert ("allow", "/") in groups.get("OAI-SearchBot", []), "OAI-SearchBot must be allowed"
+          assert ("disallow", "/*.pdf$") in groups.get("OAI-SearchBot", []), "OAI-SearchBot must not crawl PDF files"
+          assert ("disallow", "/") in groups.get("GPTBot", []), "GPTBot must remain blocked"
+          assert ("disallow", "/") in groups.get("ChatGPT-User", []), "ChatGPT-User preference block unexpectedly changed"
+          assert any(line.lower().startswith("sitemap:") for line in text.splitlines()), "Sitemap directive missing"
+          print("Crawler access policy checks passed.")
+          PY
 
       - name: Validate sitemap XML and URL uniqueness
         run: |
