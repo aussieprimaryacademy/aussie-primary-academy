@@ -82,7 +82,7 @@ def git_lastmod(path):
         ).stdout.strip()
         date.fromisoformat(value)
         return value
-    except (OSError, ValueError, Exception):
+    except Exception:
         return None
 
 
@@ -107,7 +107,17 @@ def write_sitemap(pages):
 if __name__ == "__main__":
     pages = collect_pages()
     count = write_sitemap(pages)
-    ET.parse(ROOT / "sitemap.xml")
+    sitemap_root = ET.parse(ROOT / "sitemap.xml").getroot()
+    ns = {"sm": "http://www.sitemaps.org/schemas/sitemap/0.9"}
+    urls = [
+        node.text.strip()
+        for node in sitemap_root.findall(".//sm:loc", ns)
+        if node.text and node.text.strip()
+    ]
+    if len(urls) != count or len(urls) != len(set(urls)):
+        raise SystemExit("ERROR: sitemap URL count does not match eligible pages or contains duplicates.")
+    if BASE not in urls:
+        raise SystemExit("ERROR: canonical homepage URL is missing from sitemap.")
     print(f"Generated sitemap.xml with {count} eligible public HTML URLs.")
     print("Automatic content-length and duplicate-visible-text exclusions: disabled.")
     print("XML validation passed.")
