@@ -15,20 +15,19 @@ class TextExtractor(HTMLParser):
         super().__init__()
         self.parts = []
         self.skip = 0
+        self.noindex = False
     def handle_starttag(self, tag, attrs):
+        attrs = dict(attrs)
         if tag in {"script", "style", "noscript"}:
             self.skip += 1
+        if tag == "meta" and attrs.get("name", "").lower() == "robots":
+            self.noindex = "noindex" in attrs.get("content", "").lower()
     def handle_endtag(self, tag):
         if tag in {"script", "style", "noscript"} and self.skip:
             self.skip -= 1
     def handle_data(self, data):
         if not self.skip:
             self.parts.append(data)
-
-def visible_text(html):
-    parser = TextExtractor()
-    parser.feed(html)
-    return re.sub(r"\\s+", " ", " ".join(parser.parts)).strip()
 
 def main():
     reasons = defaultdict(list)
@@ -45,14 +44,14 @@ def main():
         if " " in name:
             reasons["filename contains spaces"].append(rel.as_posix())
             continue
-        if name == "index.html" and path.parent == ROOT:
-            pass  # homepage maps to the site-root URL
         html = path.read_text(encoding="utf-8", errors="ignore")
-        if re.search(r'<meta\\s+name=["\\']robots["\\']\\s+content=["\\'][^"\\']*noindex', html, re.I):
+        parser = TextExtractor()
+        parser.feed(html)
+        if parser.noindex:
             reasons["noindex"].append(rel.as_posix())
             continue
-        text = visible_text(html)
-        words = re.findall(r"\\b[\\w'-]+\\b", text)
+        text = re.sub(r"\s+", " ", " ".join(parser.parts)).strip()
+        words = re.findall(r"\b[\w'-]+\b", text)
         if len(words) < MIN_WORDS:
             reasons["under 80 visible-text words"].append(f"{rel.as_posix()} ({len(words)} words)")
             continue
@@ -60,26 +59,26 @@ def main():
         if not normalized:
             reasons["empty normalized text"].append(rel.as_posix())
             continue
-        candidates.append((rel.as_posix(), normalized, len(words)))
+        candidates.append((rel.as_posix(), normalized))
 
     seen = {}
     kept = []
-    for rel, normalized, words in sorted(candidates, key=lambda x: (len(x[0]), x[0])):
+    for rel, normalized in sorted(candidates, key=lambda x: (len(x[0]), x[0])):
         if normalized in seen:
             reasons["duplicate visible text"].append(f"{rel} duplicates {seen[normalized]}")
         else:
             seen[normalized] = rel
             kept.append(rel)
 
-    print(f"HTML files found: {sum(len(v) for v in reasons.values()) + len(candidates)}")
+    total_excluded = sum(len(v) for v in reasons.values())
     print(f"Eligible after filters: {len(kept)}")
-    print(f"Potential sitemap exclusions: {sum(len(v) for v in reasons.values())}")
+    print(f"Potential sitemap exclusions: {total_excluded}")
     for reason in sorted(reasons):
         entries = reasons[reason]
-        print(f"\\n{reason}: {len(entries)}")
+        print(f"\n{reason}: {len(entries)}")
         for entry in entries:
             print(f"  {entry}")
-    print("\\nThis is a read-only report. It does not modify sitemap.xml or any page.")
+    print("\nThis is a read-only report. It does not modify sitemap.xml or any page.")
 
 if __name__ == "__main__":
     main()
