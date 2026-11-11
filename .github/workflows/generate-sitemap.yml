@@ -72,49 +72,23 @@ jobs:
       - name: Generate sitemap
         run: python scripts/generate-sitemap.py
 
-      - name: Validate sitemap
+      - name: Validate sitemap and review every removed URL
         run: |
           python - <<'PY'
           import xml.etree.ElementTree as ET
           from pathlib import Path
 
-          sitemap = Path('sitemap.xml')
-          ET.parse(sitemap)
-          text = sitemap.read_text(encoding='utf-8')
-          count = text.count('<loc>')
-          if count == 0:
-              raise SystemExit('ERROR: sitemap contains no URLs')
-          print(f'Sitemap XML is valid: {count} URLs')
-          from pathlib import Path
-          from urllib.parse import unquote
-          import importlib.util
-
-          spec = importlib.util.spec_from_file_location("sitemap_generator", "scripts/generate-sitemap.py")
-          generator = importlib.util.module_from_spec(spec)
-          spec.loader.exec_module(generator)
-          previous = set(Path("/tmp/apa-previous-sitemap-urls.txt").read_text(encoding="utf-8").splitlines())
-          current = {node.text.strip() for node in ET.parse(sitemap).getroot().findall(".//{http://www.sitemaps.org/schemas/sitemap/0.9}loc") if node.text}
-          removed = sorted(previous - current)
-          unexpected = []
-          for url in removed:
-              if not url.startswith(generator.BASE):
-                  unexpected.append(url + " (outside canonical site)")
-                  continue
-              relative = unquote(url[len(generator.BASE):]) or "index.html"
-              page = generator.ROOT / relative
-              if not page.is_file():
-                  unexpected.append(url + " (source file missing; manual review required)")
-                  continue
-              if not (generator.is_excluded_path(page) or generator.parse_page(page)[0]):
-                  unexpected.append(url + " (not covered by an explicit exclusion rule)")
-          print(f"Previous URLs: {len(previous)}; generated URLs: {len(current)}")
-          print(f"Removed URLs: {len(removed)}; expected hard-exclusion removals: {len(removed) - len(unexpected)}")
-          if removed:
-              print("Reviewed removals:\n" + "\n".join(removed))
-          if unexpected:
-              raise SystemExit("ERROR: unexpected sitemap removals require manual review:\n" + "\n".join(unexpected))
-          print("Sitemap URL comparison passed: no unexplained removals.")
+          sitemap = Path("sitemap.xml")
+          root = ET.parse(sitemap).getroot()
+          ns = {"sm": "http://www.sitemaps.org/schemas/sitemap/0.9"}
+          urls = [node.text.strip() for node in root.findall(".//sm:loc", ns) if node.text]
+          if not urls:
+              raise SystemExit("ERROR: sitemap contains no URLs")
+          if len(urls) != len(set(urls)):
+              raise SystemExit("ERROR: sitemap contains duplicate URLs")
+          print(f"Sitemap XML is valid: {len(urls)} unique URLs")
           PY
+          python scripts/validate-sitemap-transition.py /tmp/apa-previous-sitemap-urls.txt
 
       - name: Open a pull request with generated files (never pushes to main)
         uses: peter-evans/create-pull-request@v7
