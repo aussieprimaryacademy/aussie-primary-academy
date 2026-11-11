@@ -1,6 +1,15 @@
 name: Generate Sitemap
 
 on:
+  # Re-run after PDF -> preview -> worksheet-page generation has committed its
+  # HTML output. A push made with GITHUB_TOKEN does not trigger push workflows.
+  workflow_run:
+    workflows:
+      - Generate Worksheet Previews and Pages
+    types:
+      - completed
+    branches:
+      - main
   workflow_dispatch:
   push:
     branches:
