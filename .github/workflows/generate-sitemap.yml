@@ -26,6 +26,7 @@ on:
       - 'scripts/validate-sitemap-transition.py'
       - 'scripts/ensure-site-analytics.py'
       - 'scripts/update-navigation-links.py'
+      - 'scripts/add-related-worksheet-links.py'
       - '.github/workflows/generate-sitemap.yml'
 
 permissions:
@@ -53,7 +54,7 @@ jobs:
           python-version: '3.12'
 
       - name: Validate generators
-        run: python -m py_compile scripts/generate-sitemap.py scripts/generate-worksheet-index.py scripts/generate-year-pages.py scripts/update-worksheet-language.py scripts/validate-sitemap-transition.py scripts/update-navigation-links.py
+        run: python -m py_compile scripts/generate-sitemap.py scripts/generate-worksheet-index.py scripts/generate-year-pages.py scripts/update-worksheet-language.py scripts/validate-sitemap-transition.py scripts/update-navigation-links.py scripts/add-related-worksheet-links.py
 
       - name: Snapshot current sitemap URLs before generation
         run: |
@@ -73,6 +74,9 @@ jobs:
 
       - name: Update navigation links to dedicated hubs
         run: python scripts/update-navigation-links.py
+
+      - name: Add related worksheet modules to generated pages
+        run: python scripts/add-related-worksheet-links.py
 
       - name: Generate worksheet index
         run: python scripts/generate-worksheet-index.py
