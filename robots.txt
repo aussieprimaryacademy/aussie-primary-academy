@@ -9,7 +9,8 @@ User-agent: ChatGPT-User
 Disallow: /
 
 User-agent: OAI-SearchBot
-Disallow: /
+Allow: /
+Disallow: /*.pdf$
 
 User-agent: ClaudeBot
 Disallow: /
