@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Read-only sitemap audit: distinguish hard exclusions from review signals."""
-from collections import Counter, defaultdict
+from collections import defaultdict
 from html.parser import HTMLParser
 from pathlib import Path
 import re
