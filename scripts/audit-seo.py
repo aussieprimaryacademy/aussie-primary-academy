@@ -4,10 +4,13 @@ from collections import Counter, defaultdict
 from html.parser import HTMLParser
 from pathlib import Path
 import sys
-
-from generate_sitemap import is_excluded_path
+import importlib.util
 
 ROOT = Path(__file__).resolve().parent.parent
+SPEC = importlib.util.spec_from_file_location("sitemap_generator", ROOT / "scripts" / "generate-sitemap.py")
+SITEMAP_GENERATOR = importlib.util.module_from_spec(SPEC)
+SPEC.loader.exec_module(SITEMAP_GENERATOR)
+is_excluded_path = SITEMAP_GENERATOR.is_excluded_path
 
 
 class Audit(HTMLParser):
