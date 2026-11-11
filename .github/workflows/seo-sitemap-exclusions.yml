@@ -27,5 +27,8 @@ jobs:
       - name: Check audit script syntax
         run: python -m py_compile scripts/audit-sitemap-exclusions.py scripts/generate-sitemap.py
 
-      - name: Report sitemap exclusions (read-only)
+      - name: Report sitemap gaps and editorial review signals (read-only)
         run: python scripts/audit-sitemap-exclusions.py
+
+      - name: Generate candidate sitemap and validate complete URL set
+        run: python scripts/generate-sitemap.py
