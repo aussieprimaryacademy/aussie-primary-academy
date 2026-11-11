@@ -10,7 +10,7 @@
     const subjectMatch = combined.match(/(?:^|[/_-])(maths?|english|science|phonics|reading|writing)(?:[/_-]|$)/i);
     return {
       year_level: yearLevel,
-      subject: subjectMatch ? subjectMatch[1].replace(/s$/i, "").toLowerCase() : "unknown",
+      subject: subjectMatch ? ({ math: "maths", maths: "maths", phonics: "phonics" }[subjectMatch[1].toLowerCase()] || subjectMatch[1].toLowerCase()) : "unknown",
       page_path: path
     };
   }
