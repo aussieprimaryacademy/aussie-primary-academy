@@ -20,84 +20,30 @@ def page_spans(page):
 def main():
     doc = fitz.open(PDF)
     page = doc[1]
-    spans = page_spans(page)
     text = page.get_text("text")
+    spans = page_spans(page)
 
-    # Idempotent: a second run only creates the preview and does not alter the PDF.
+    # Idempotent: a second run only creates the preview.
     if any(span.get("text", "").strip() == "4 modal verbs" for span in spans) and CORRECTED_ANSWER in text:
         page.get_pixmap(matrix=fitz.Matrix(1.2, 1.2), alpha=False).save(OUTPUT_PREVIEW)
         doc.close()
         print("PDF already contains both verified corrections.")
         return
 
-    # Locate the Q8 paragraph and its embedded modal/verbs spans.
-    question_block = None
-    modal_span = None
-    verbs_span = None
-    for block in page.get_text("dict")["blocks"]:
-        if "lines" not in block:
-            continue
-        block_text = "".join(
-            "".join(span["text"] for span in line["spans"])
-            for line in block["lines"]
-        )
-        if "Q8." in block_text:
-            question_block = block
-            for line in block["lines"]:
-                for span in line["spans"]:
-                    value = span.get("text", "").strip()
-                    if value == "modal":
-                        modal_span = span
-                    elif value == "verbs":
-                        verbs_span = span
-            break
-    if not question_block:
-        raise RuntimeError("Could not locate the Q8 modal-verbs question.")
-
-    # If the embedded PDF text separates the words into adjacent blocks, use
-    # their stable page coordinates to recover the phrase components.
-    if not modal_span or not verbs_span:
-        for span in spans:
-            value = span.get("text", "").strip()
-            x0, y0 = span["bbox"][0], span["bbox"][1]
-            if value == "modal" and 120 <= x0 <= 160 and 150 <= y0 <= 200:
-                modal_span = span
-            elif value == "verbs" and 160 <= x0 <= 205 and 150 <= y0 <= 200:
-                verbs_span = span
-    if not modal_span or not verbs_span:
-        raise RuntimeError("Could not locate the modal-verbs phrase components.")
-
-    # The original numeral may be its own span, or may be a separate inserted
-    # span from a previous partial repair. Its position is stable in this line.
-    digit_span = next(
-        (
-            span for span in spans
-            if span.get("text", "").strip() in {"3", "4"}
-            and 110 <= span["bbox"][0] <= 130
-            and 150 <= span["bbox"][1] <= 200
-        ),
-        None,
+    # The worksheet layout is fixed. Replace the full phrase, not just the
+    # numeral, so a visible space is retained on both sides of the new text.
+    question_phrase = fitz.Rect(116.5, 168.5, 197.0, 183.0)
+    page.add_redact_annot(question_phrase, fill=(1, 1, 1))
+    page.apply_redactions(images=0, graphics=0)
+    page.insert_text(
+        (117.0, 180.0),
+        "4 modal verbs",
+        fontname="helv",
+        fontsize=12,
+        color=(0, 0, 0),
     )
-    if digit_span:
-        phrase_rect = fitz.Rect(
-            digit_span["bbox"][0],
-            min(digit_span["bbox"][1], modal_span["bbox"][1], verbs_span["bbox"][1]),
-            verbs_span["bbox"][2],
-            max(digit_span["bbox"][3], modal_span["bbox"][3], verbs_span["bbox"][3]),
-        )
-        page.add_redact_annot(phrase_rect, fill=(1, 1, 1))
-        page.apply_redactions(images=0, graphics=0)
-        page.insert_text(
-            (phrase_rect.x0, phrase_rect.y1 - 1.8),
-            "4 modal verbs",
-            fontname="helv",
-            fontsize=12,
-            color=(0, 0, 0),
-        )
-    else:
-        raise RuntimeError("Could not locate the numeral in Q8.")
 
-    # Update C8 only if the earlier partial repair has not already done so.
+    # C8: add the fourth modal verb to the existing answer panel.
     current_text = page.get_text("text")
     if CORRECTED_ANSWER not in current_text:
         answer_block = None
