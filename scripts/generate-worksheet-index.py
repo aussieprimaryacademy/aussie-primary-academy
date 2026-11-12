@@ -440,7 +440,7 @@ def update_page(section: str) -> None:
 
 def main() -> None:
     paths = sorted(
-        (path for path in WORKSHEETS_DIR.rglob("*.pdf") if path.is_file() and level_and_subject(path.relative_to(WORKSHEETS_DIR))[0] == "Australia"),
+        (path for path in WORKSHEETS_DIR.rglob("*.pdf") if path.is_file() and not re.search(r"answer[-_ ]?(?:guide|key)|answerkey", path.name, re.I) and level_and_subject(path.relative_to(WORKSHEETS_DIR))[0] == "Australia"),
         key=lambda path: path.relative_to(ROOT).as_posix().lower(),
     )
     if not paths:
