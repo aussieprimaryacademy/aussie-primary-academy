@@ -163,11 +163,13 @@ def generated_section(paths: list[Path]) -> str:
 </style>
 <section class="section" id="worksheet-catalogue" aria-labelledby="worksheet-catalogue-heading">
   <div class="wrap">
+    <span id="worksheet-grid" aria-hidden="true"></span>
     <div class="worksheet-finder-panel">
       <div class="section-head"><div>
         <p class="eyebrow">Find exactly what you need</p>
         <h2 id="worksheet-catalogue-heading">Search the Worksheet Catalogue</h2>
         <p>Search by worksheet name or skill, then narrow the results by year, subject and topic.</p>
+        <p class="catalogue-region-note">This catalogue contains Australian Curriculum resources. <a href="usa-worksheets.html">Browse the separate USA Common Core collection</a>.</p>
       </div></div>
       <div class="worksheet-filter-grid">
         <div class="worksheet-filter-field">
@@ -334,7 +336,12 @@ def generated_section(paths: list[Path]) -> str:
     const sk = (params.get('skill') || '').trim();
     if (q) search.value = q;
     if (y) {{ year.value = y; filtersLockedByUser = true; }}
-    if (s) {{ subject.value = s; filtersLockedByUser = true; }}
+    if (s) {{
+      const matchingSubject = Array.from(subject.options).find(option => normalise(option.value) === normalise(s));
+      if (matchingSubject) subject.value = matchingSubject.value;
+      else subject.value = s;
+      filtersLockedByUser = true;
+    }}
     if (sk) {{ skill.value = sk; filtersLockedByUser = true; }}
     return Boolean(q || y || s || sk);
   }}
@@ -433,7 +440,7 @@ def update_page(section: str) -> None:
 
 def main() -> None:
     paths = sorted(
-        (path for path in WORKSHEETS_DIR.rglob("*.pdf") if path.is_file()),
+        (path for path in WORKSHEETS_DIR.rglob("*.pdf") if path.is_file() and level_and_subject(path.relative_to(WORKSHEETS_DIR))[0] == "Australia"),
         key=lambda path: path.relative_to(ROOT).as_posix().lower(),
     )
     if not paths:
@@ -446,6 +453,8 @@ def main() -> None:
         rel = path.relative_to(ROOT).as_posix()
         if f'href="{rel}"' not in result:
             raise SystemExit(f"ERROR: missing generated link for {rel}")
+    if 'data-region="USA"' in result:
+        raise SystemExit("ERROR: USA Common Core resources must remain in the separate USA collection")
     if "readQueryFromUrl" not in result or "URLSearchParams" not in result:
         raise SystemExit("ERROR: URL query handler missing from generated page")
     if "searchDebounce" not in result:

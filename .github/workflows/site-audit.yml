@@ -1,6 +1,17 @@
 name: APA Whole-Site Audit
 
 on:
+  pull_request:
+    branches: [main]
+    paths:
+      - '*.html'
+      - 'pages/**'
+      - 'blog/**'
+      - 'worksheets/**'
+      - 'scripts/audit-site.py'
+      - 'sitemap.xml'
+      - 'robots.txt'
+      - '.github/workflows/site-audit.yml'
   push:
     branches: [main]
     paths:
