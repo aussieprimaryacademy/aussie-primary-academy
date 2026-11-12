@@ -67,6 +67,8 @@ def parse(pdf: Path) -> dict[str, str]:
         level_slug=re.sub(r"[^a-z0-9]+","-",level.lower()).strip("-")
         slug=f"{level_slug}-{slug}"
     page_name=f"free-printable-{slug}-worksheet.html".replace("-worksheet-worksheet.html","-worksheet.html")
+    if pdf.name.lower() == "year-1-decodable-reading-passages-colour-pack-answer-guide.pdf":
+        page_name="free-printable-decodable-reading-passages-colour-pack-answer-guide-pdf-answer-guide-worksheet.html"
     preview=pdf.parent/"previews"/f"{pdf.stem.strip()}.png"
     return {"title":title,"level":level,"subject":subject,"region":region,"standard":standard,
             "page":str(PAGES_ROOT/page_name),"pdf":str(pdf),"preview":str(preview)}
