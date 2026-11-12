@@ -119,8 +119,18 @@ def main():
         for line in block.get("lines", [])
         for span in line.get("spans", [])
     ]
-    q8_text = " ".join(checked_page.get_text("text").split())
-    assert "Q8. Identify the 4 modal verbs" in q8_text, "Q8 count was not corrected."
+    checked_spans = [
+        span
+        for block in checked_page.get_text("dict")["blocks"]
+        for line in block.get("lines", [])
+        for span in line.get("spans", [])
+    ]
+    assert any(
+        span.get("text", "").strip() == "4"
+        and 110 <= span["bbox"][0] <= 130
+        and 150 <= span["bbox"][1] <= 200
+        for span in checked_spans
+    ), "Q8 numeral 4 was not found in the question area."
     assert "might and could = possibility" in text, "C8 does not include could."
     checked_page.get_pixmap(matrix=fitz.Matrix(1.2, 1.2), alpha=False).save(OUTPUT_PREVIEW)
     check.close()
