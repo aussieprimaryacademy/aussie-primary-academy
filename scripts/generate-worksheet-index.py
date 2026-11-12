@@ -168,6 +168,7 @@ def generated_section(paths: list[Path]) -> str:
         <p class="eyebrow">Find exactly what you need</p>
         <h2 id="worksheet-catalogue-heading">Search the Worksheet Catalogue</h2>
         <p>Search by worksheet name or skill, then narrow the results by year, subject and topic.</p>
+        <p class="catalogue-region-note">This catalogue contains Australian Curriculum resources. <a href="usa-worksheets.html">Browse the separate USA Common Core collection</a>.</p>
       </div></div>
       <div class="worksheet-filter-grid">
         <div class="worksheet-filter-field">
@@ -433,7 +434,7 @@ def update_page(section: str) -> None:
 
 def main() -> None:
     paths = sorted(
-        (path for path in WORKSHEETS_DIR.rglob("*.pdf") if path.is_file()),
+        (path for path in WORKSHEETS_DIR.rglob("*.pdf") if path.is_file() and level_and_subject(path.relative_to(WORKSHEETS_DIR))[0] == "Australia"),
         key=lambda path: path.relative_to(ROOT).as_posix().lower(),
     )
     if not paths:
@@ -446,6 +447,8 @@ def main() -> None:
         rel = path.relative_to(ROOT).as_posix()
         if f'href="{rel}"' not in result:
             raise SystemExit(f"ERROR: missing generated link for {rel}")
+    if 'data-region="USA"' in result:
+        raise SystemExit("ERROR: USA Common Core resources must remain in the separate USA collection")
     if "readQueryFromUrl" not in result or "URLSearchParams" not in result:
         raise SystemExit("ERROR: URL query handler missing from generated page")
     if "searchDebounce" not in result:
