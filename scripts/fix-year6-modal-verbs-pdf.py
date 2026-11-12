@@ -41,7 +41,7 @@ def main():
             "".join(span["text"] for span in line["spans"])
             for line in block["lines"]
         )
-        if "Q8." in block_text and "modal verbs" in block_text:
+        if "Q8." in block_text:
             question_block = block
             for line in block["lines"]:
                 for span in line["spans"]:
@@ -51,8 +51,21 @@ def main():
                     elif value == "verbs":
                         verbs_span = span
             break
-    if not question_block or not modal_span or not verbs_span:
+    if not question_block:
         raise RuntimeError("Could not locate the Q8 modal-verbs question.")
+
+    # If the embedded PDF text separates the words into adjacent blocks, use
+    # their stable page coordinates to recover the phrase components.
+    if not modal_span or not verbs_span:
+        for span in spans:
+            value = span.get("text", "").strip()
+            x0, y0 = span["bbox"][0], span["bbox"][1]
+            if value == "modal" and 120 <= x0 <= 160 and 150 <= y0 <= 200:
+                modal_span = span
+            elif value == "verbs" and 160 <= x0 <= 205 and 150 <= y0 <= 200:
+                verbs_span = span
+    if not modal_span or not verbs_span:
+        raise RuntimeError("Could not locate the modal-verbs phrase components.")
 
     # The original numeral may be its own span, or may be a separate inserted
     # span from a previous partial repair. Its position is stable in this line.
