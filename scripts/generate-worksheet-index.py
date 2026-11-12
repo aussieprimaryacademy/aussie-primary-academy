@@ -124,12 +124,23 @@ def page_for_pdf(path: Path, level: str) -> str:
     return f"pages/{page_name}"
 
 
-def card(path: Path, index: int) -> str:
+def existing_card_colours(text: str) -> dict[str, str]:
+    """Keep the existing thumbnail colour for each PDF when regenerating cards."""
+    colours = {}
+    for line in text.splitlines():
+        pdf_match = re.search(r'href="([^"]+\\.pdf)"', line, re.I)
+        colour_match = re.search(r'<div class="thumb (c[1-4])">', line, re.I)
+        if pdf_match and colour_match:
+            colours[pdf_match.group(1)] = colour_match.group(1)
+    return colours
+
+
+def card(path: Path, index: int, colours: dict[str, str] | None = None) -> str:
     rel = path.relative_to(ROOT).as_posix()
     region, level, subject = level_and_subject(path.relative_to(WORKSHEETS_DIR))
     title = human_title(path, level, subject)
     skill = skill_for(path, title, subject)
-    colour = f"c{index % 4 + 1}"
+    colour = (colours or {}).get(rel, f"c{index % 4 + 1}")
     codes = codes_from_name(path)
     search_text = f"{title} {skill} {level} {subject} {region} {codes} {path.stem}"
     return (
@@ -149,8 +160,8 @@ def card(path: Path, index: int) -> str:
     )
 
 
-def generated_section(paths: list[Path]) -> str:
-    cards = "\n".join(card(path, index) for index, path in enumerate(paths))
+def generated_section(paths: list[Path], colours: dict[str, str] | None = None) -> str:
+    cards = "\n".join(card(path, index, colours) for index, path in enumerate(paths))
     return f"""{START}
 <style>
 .worksheet-search-button {{ min-height: 48px; white-space: nowrap; }}
@@ -447,7 +458,9 @@ def main() -> None:
         raise SystemExit("ERROR: no worksheet PDFs found")
     if len({path.relative_to(ROOT).as_posix() for path in paths}) != len(paths):
         raise SystemExit("ERROR: duplicate worksheet paths found")
-    update_page(generated_section(paths))
+    current_page = PAGE.read_text(encoding="utf-8")
+    colours = existing_card_colours(current_page)
+    update_page(generated_section(paths, colours))
     result = PAGE.read_text(encoding="utf-8")
     for path in paths:
         rel = path.relative_to(ROOT).as_posix()
