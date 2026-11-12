@@ -157,7 +157,7 @@ def check_url(url: str):
         status = location = error = None
         for attempt in range(RETRIES):
             status, location, error = request_once(current, method)
-            if status == 405 and method == "HEAD":
+            if status in {403, 405, 501} and method == "HEAD":
                 method = "GET"
                 continue
             if status not in TRANSIENT and error is None:
