@@ -96,7 +96,7 @@ def main() -> int:
     seen_pages = set()
     for pdf in sorted(PDF_ROOT.rglob("*.pdf")):
         name = pdf.name.lower()
-        if "answer-key" in name or "answerkey" in name or "answer-guide" in name:
+        if re.search(r"answer[-_ ]?(?:key|guide)|answerkey", name, re.I):
             continue
         meta = parse_pdf(pdf.relative_to(ROOT))
         page = ROOT / meta["page"]
