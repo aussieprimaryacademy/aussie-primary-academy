@@ -1,0 +1,58 @@
+name: Build corrected Year 6 modal-verbs PDF
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'scripts/fix-year6-modal-verbs-pdf.py'
+      - '.github/workflows/fix-year6-modal-verbs-pdf.yml'
+      - 'worksheets/year-6/english/year-6-modal-verbs-worksheet-free-printable-pdf-colour-with-answers.pdf'
+
+permissions:
+  contents: write
+
+jobs:
+  patch-pdf:
+    if: github.event.pull_request.head.ref == 'build/year6-modal-verbs-pdf-fix'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the PR branch
+        uses: actions/checkout@v4
+        with:
+          ref: \${{ github.event.pull_request.head.ref }}
+          persist-credentials: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install PDF editing library
+        run: python -m pip install --disable-pip-version-check "PyMuPDF>=1.24,<2"
+
+      - name: Correct and validate the PDF
+        run: python scripts/fix-year6-modal-verbs-pdf.py
+
+      - name: Commit only the corrected PDF to this PR branch
+        env:
+          BRANCH_NAME: \${{ github.event.pull_request.head.ref }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add worksheets/year-6/english/year-6-modal-verbs-worksheet-free-printable-pdf-colour-with-answers.pdf
+          if git diff --cached --quiet; then
+            echo "No PDF changes were necessary."
+          else
+            git commit -m "Correct Year 6 modal-verbs question and answer key"
+            git push origin "HEAD:\${BRANCH_NAME}"
+          fi
+
+      - name: Upload corrected PDF and page preview
+        uses: actions/upload-artifact@v4
+        with:
+          name: corrected-year6-modal-verbs-pdf
+          path: |
+            worksheets/year-6/english/year-6-modal-verbs-worksheet-free-printable-pdf-colour-with-answers.pdf
+            modal-verbs-page-2-review.png
+          if-no-files-found: error
+          retention-days: 30
