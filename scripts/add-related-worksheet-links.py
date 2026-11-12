@@ -97,7 +97,7 @@ def main() -> int:
     seen_pages = set()
     for pdf in sorted(PDF_ROOT.rglob("*.pdf")):
         name = pdf.name.lower()
-        if "answer-key" in name or "answerkey" in name:
+        if "answer-key" in name or "answerkey" in name or "answer-guide" in name:
             continue
         meta = parse_pdf(pdf.relative_to(ROOT))
         page = ROOT / meta["page"]
@@ -111,7 +111,15 @@ def main() -> int:
     for meta in candidates:
         page = ROOT / meta["page"]
         content = page.read_text(encoding="utf-8", errors="ignore")
-        if "<!-- AUTO-GENERATED-WORKSHEET-PAGE -->" not in content:
+        robots = re.search(r'<meta[^>]*name="robots"[^>]*>', content, re.I)
+        if robots and "noindex" in robots.group(0).lower():
+            skipped += 1
+            continue
+        generated = "<!-- AUTO-GENERATED-WORKSHEET-PAGE -->" in content
+        has_unmanaged_related = re.search(
+            r"<h[2-4][^>]*>\s*Related Worksheets\s*</h[2-4]>", content, re.I
+        )
+        if not generated and has_unmanaged_related and START not in content:
             skipped += 1
             continue
         section = build_related_section(meta, candidates)
