@@ -1,8 +1,7 @@
-#!/usr/bin/env python3
-"""Add safe, same-level related worksheet links to generated worksheet pages.
+"""Add safe, same-level related worksheet links to worksheet detail pages.
 
-Only pages carrying AUTO-GENERATED-WORKSHEET-PAGE are changed. Manually
-curated worksheet pages are intentionally left untouched.
+Existing curated related sections are preserved. Generated modules are refreshed,
+and eligible manual worksheet pages receive a module when they do not already have one.
 """
 from __future__ import annotations
 
@@ -103,6 +102,10 @@ def main() -> int:
         page = ROOT / meta["page"]
         if not page.is_file() or meta["page"] in seen_pages:
             continue
+        page_content = page.read_text(encoding="utf-8", errors="ignore")
+        robots = re.search(r'<meta[^>]*name="robots"[^>]*>', page_content, re.I)
+        if robots and "noindex" in robots.group(0).lower():
+            continue
         seen_pages.add(meta["page"])
         candidates.append(meta)
 
@@ -116,8 +119,11 @@ def main() -> int:
             skipped += 1
             continue
         generated = "<!-- AUTO-GENERATED-WORKSHEET-PAGE -->" in content
-        has_unmanaged_related = re.search(
-            r"<h[2-4][^>]*>\s*Related Worksheets\s*</h[2-4]>", content, re.I
+        has_unmanaged_related = (
+            "related-worksheets" in content.lower()
+            or re.search(
+                r"<h[2-4][^>]*>\\s*Related Worksheets\\s*</h[2-4]>", content, re.I
+            )
         )
         if not generated and has_unmanaged_related and START not in content:
             skipped += 1
