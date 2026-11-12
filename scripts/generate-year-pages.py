@@ -43,6 +43,8 @@ def subject_for(p: Path) -> str:
     return "Worksheet"
 
 def page_for_pdf(p: Path, level: str) -> str:
+    if p.name.lower() == "year-1-decodable-reading-passages-colour-pack-answer-guide.pdf":
+        return "pages/free-printable-decodable-reading-passages-colour-pack-answer-guide-pdf-answer-guide-worksheet.html"
     name = p.stem
     clean = re.sub(r"^(us|usa)-", "", name, flags=re.I)
     clean = re.sub(r"^(grade|year)-?\d+-", "", clean, flags=re.I)
