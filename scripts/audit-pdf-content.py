@@ -11,6 +11,7 @@ import csv
 import hashlib
 import json
 import re
+import shutil
 from collections import Counter
 from pathlib import Path
 
@@ -29,6 +30,7 @@ ANSWER_HEADING = re.compile(
 NUMBERED_ITEM = re.compile(r"(?im)^\s*(?:q(?:uestion)?\s*)?(\d{1,2})[.)]\s+\S")
 ANSWER_ITEM = re.compile(r"(?im)^\s*(?:q(?:uestion)?\s*)?(\d{1,2})[.)]\s+\S")
 REVIEW_DIR = Path("pdf-review-pages")
+SOURCE_REVIEW_DIR = Path("pdf-review-originals")
 ANSWER_FILENAME = re.compile(r"(?:with[-_ ]answers?|answer[-_ ]key|solutions?[-_ ]guide)", re.I)
 STANDALONE_ANSWER_FILE = re.compile(r"(?:answer[-_ ]guide|standalone[-_ ]answers?|solutions?[-_ ]guide)", re.I)
 
@@ -159,6 +161,18 @@ def main():
             counts[row["status"]] += 1
             text_file.write(json.dumps({"path": row["path"], "pages": pages}, ensure_ascii=False) + "\n")
 
+    # Include source PDFs that need manual answer review, without copying the
+    # entire library into the artifact.
+    SOURCE_REVIEW_DIR.mkdir(parents=True, exist_ok=True)
+    source_review_count = 0
+    for row in rows:
+        needs_visual_review = "NO_EXTRACTABLE_TEXT_REVIEW_VISUALLY" in row["flags"]
+        if row["answer_filename_signal"] or needs_visual_review:
+            source = ROOT / row["path"]
+            destination = SOURCE_REVIEW_DIR / re.sub(r"[^A-Za-z0-9._-]+", "__", row["path"])
+            shutil.copy2(source, destination)
+            source_review_count += 1
+
     fields = [
         "path", "size_bytes", "page_count", "metadata_title", "total_text_chars",
         "page_text_chars", "blank_text_pages", "answer_heading_pages",
@@ -186,6 +200,7 @@ def main():
         "answer_section_pages": sum(len([x for x in row["answer_heading_pages"].split(";") if x]) for row in rows),
         "answer_filename_without_detected_heading": sum("ANSWER_FILENAME_BUT_NO_TEXT_ANSWER_HEADING" in row["flags"] for row in rows),
         "visual_review_images": len(list(REVIEW_DIR.glob("*.png"))) if REVIEW_DIR.exists() else 0,
+        "source_pdfs_for_manual_review": source_review_count,
         "standalone_answer_guide_files": sum(row["standalone_answer_guide_filename"] for row in rows),
         "limitations": [
             "Text extraction does not inspect image-only content; pages with little/no extracted text require visual review.",
@@ -208,6 +223,7 @@ def main():
         f"- Detected answer-section pages: **{summary['answer_section_pages']:,}**",
         f"- Answer-named PDFs without detected answer heading: **{summary['answer_filename_without_detected_heading']:,}**",
         f"- Visual review page images generated: **{summary['visual_review_images']:,}**",
+        f"- Original PDFs included for manual review: **{summary['source_pdfs_for_manual_review']:,}**",
         f"- Standalone answer-guide filename matches: **{summary['standalone_answer_guide_files']:,}**",
         f"- Files with one or more review flags: **{len(flagged):,}**",
         "",
@@ -220,6 +236,7 @@ def main():
         "Full per-file evidence: pdf-content-audit.csv and pdf-content-audit.json.",
         "Extracted page text for human review: pdf-text-extracts.jsonl.",
         "Rendered answer pages and low-text pages for visual review: pdf-review-pages/.",
+        "Selected original PDFs for manual review: pdf-review-originals/.",
         "",
         "This is a structural/content-extraction audit, not proof of semantic answer correctness.",
     ]
