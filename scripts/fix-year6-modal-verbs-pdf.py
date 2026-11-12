@@ -16,9 +16,12 @@ def main():
         doc.close()
         return
 
-    # Locate Q8 by its surrounding paragraph, then replace only the numeral.
+    # Locate Q8 by its surrounding paragraph, then replace the complete
+    # "3 modal verbs" phrase so spacing remains correct in the rendered PDF.
     question_block = None
-    number_rect = None
+    digit_span = None
+    modal_span = None
+    verbs_span = None
     for block in page.get_text("dict")["blocks"]:
         if "lines" not in block:
             continue
@@ -30,27 +33,34 @@ def main():
             question_block = block
             for line in block["lines"]:
                 for span in line["spans"]:
-                    if span.get("text", "").strip() == "3":
-                        number_rect = fitz.Rect(span["bbox"])
-                        break
-                if number_rect:
-                    break
+                    value = span.get("text", "").strip()
+                    if value == "3":
+                        digit_span = span
+                    elif value == "modal":
+                        modal_span = span
+                    elif value == "verbs":
+                        verbs_span = span
             break
     if not question_block:
         raise RuntimeError("Could not locate the Q8 modal-verbs question.")
-    if number_rect:
-        page.add_redact_annot(number_rect, fill=(1, 1, 1))
+
+    if digit_span and modal_span and verbs_span:
+        phrase_rect = fitz.Rect(
+            digit_span["bbox"][0],
+            min(digit_span["bbox"][1], modal_span["bbox"][1], verbs_span["bbox"][1]),
+            verbs_span["bbox"][2],
+            max(digit_span["bbox"][3], modal_span["bbox"][3], verbs_span["bbox"][3]),
+        )
+        page.add_redact_annot(phrase_rect, fill=(1, 1, 1))
         page.apply_redactions(images=0, graphics=0)
         page.insert_text(
-            (number_rect.x0, number_rect.y1 - 1.45),
-            "4",
+            (phrase_rect.x0, phrase_rect.y1 - 1.8),
+            "4 modal verbs",
             fontname="helv",
             fontsize=12,
             color=(0, 0, 0),
         )
     else:
-        # Fallback for PDFs where the embedded font combines the numeral
-        # with adjacent characters into one span.
         question_rect = fitz.Rect(question_block["bbox"])
         page.add_redact_annot(question_rect, fill=(1, 1, 1))
         page.apply_redactions(images=0, graphics=0)
@@ -126,11 +136,9 @@ def main():
         for span in line.get("spans", [])
     ]
     assert any(
-        span.get("text", "").strip() == "4"
-        and 110 <= span["bbox"][0] <= 130
-        and 150 <= span["bbox"][1] <= 200
+        span.get("text", "").strip() == "4 modal verbs"
         for span in checked_spans
-    ), "Q8 numeral 4 was not found in the question area."
+    ), "Corrected Q8 phrase was not found."
     assert "might and could = possibility" in text, "C8 does not include could."
     checked_page.get_pixmap(matrix=fitz.Matrix(1.2, 1.2), alpha=False).save(OUTPUT_PREVIEW)
     check.close()
