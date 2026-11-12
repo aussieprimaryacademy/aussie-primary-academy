@@ -58,5 +58,6 @@ jobs:
             pdf-content-audit.csv
             pdf-text-extracts.jsonl
             pdf-review-pages/**
+            pdf-review-originals/**
           if-no-files-found: warn
           retention-days: 30
