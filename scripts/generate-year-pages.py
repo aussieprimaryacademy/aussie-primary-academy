@@ -58,14 +58,26 @@ def page_for_pdf(p: Path, level: str) -> str:
     page_name = page_name.replace("-worksheet-worksheet.html", "-worksheet.html")
     return f"pages/{page_name}"
 
-def card(p: Path, level: str, i: int) -> str:
+def existing_card_colours(text: str) -> dict[str, str]:
+    """Preserve current thumbnail colours for PDF cards across generator runs."""
+    colours = {}
+    for line in text.splitlines():
+        pdf_match = re.search(r'href="([^"]+\.pdf)"', line, re.I)
+        colour_match = re.search(r'<div class="thumb (c[1-4])">', line, re.I)
+        if pdf_match and colour_match:
+            colours[pdf_match.group(1)] = colour_match.group(1)
+    return colours
+
+
+def card(p: Path, level: str, i: int, colours: dict[str, str] | None = None) -> str:
     rel=p.relative_to(ROOT).as_posix()
     subject=subject_for(p)
     title=title_for(p,level,subject)
     code=(re.search(r"ac9[a-z0-9]+",p.stem,re.I) or [None])[0]
     badge=f"{code.upper()} · Australian Curriculum V9.0" if code else "Free printable PDF"
+    colour=(colours or {}).get(rel, f"c{i%4+1}")
     return (
-      f'        <li class="wcard auto-year-card"><div class="thumb c{i%4+1}">{escape(level)} · {escape(subject)}</div>'
+      f'        <li class="wcard auto-year-card"><div class="thumb {colour}">{escape(level)} · {escape(subject)}</div>'
       f'<div class="body"><p class="tag">{escape(subject)} · Free PDF</p><h3>{escape(title)}</h3>'
       f'<span class="curriculum-badge">{escape(badge)}</span>'
       f'<p class="card-desc">Printable {escape(level)} {escape(subject)} practice worksheet.</p>'
@@ -73,10 +85,10 @@ def card(p: Path, level: str, i: int) -> str:
       f'<a class="btn btn-primary btn-sm" href="{escape(rel,quote=True)}" download>⬇ Download PDF</a></p></div></li>'
     )
 
-def block(paths, level):
+def block(paths, level, colours=None):
     if not paths:
         return ""
-    cards="\n".join(card(p,level,i) for i,p in enumerate(paths))
+    cards="\n".join(card(p,level,i,colours) for i,p in enumerate(paths))
     return f'''{START}
 <section class="section auto-year-worksheets" aria-label="New {escape(level)} worksheet downloads">
   <div class="wrap">
@@ -109,6 +121,7 @@ def foundation_block_by_subject(paths, level):
 
 def update_foundation(page: Path, folder: Path, level: str):
     text = page.read_text(encoding="utf-8")
+    colours = existing_card_colours(text)
 
     # Rebuild only bot-owned subject sections. Older versions could append
     # duplicate Reading/Science sections because these sections had no markers.
@@ -127,7 +140,7 @@ def update_foundation(page: Path, folder: Path, level: str):
         if not pdfs:
             continue
 
-        cards = "\n".join(card(p, level, i) for i, p in enumerate(pdfs))
+        cards = "\n".join(card(p, level, i, colours) for i, p in enumerate(pdfs))
         extra.append(f'''<section class="section auto-year-subject" id="{subject.lower()}" aria-labelledby="auto-{subject.lower()}-heading">
   <div class="wrap">
     <div class="section-head"><div><h2 id="auto-{subject.lower()}-heading">Foundation {subject} Worksheets</h2><p>Printable {subject} resources from the worksheet library.</p></div></div>
@@ -158,6 +171,7 @@ def update(page: Path, folder: Path, level: str):
         return
 
     text = page.read_text(encoding="utf-8")
+    colours = existing_card_colours(text)
 
     # Remove the previous bot-owned "More Year" block and its generated cards
     # before rebuilding. This makes repeat runs idempotent instead of stacking
@@ -212,7 +226,7 @@ def update(page: Path, folder: Path, level: str):
             fallback.extend(items)
             continue
 
-        cards = "\n".join(card(p, level, i) for i, p in enumerate(items))
+        cards = "\n".join(card(p, level, i, colours) for i, p in enumerate(items))
         insert_at = section_match.start() + section.rfind("</ul>")
         if insert_at < section_match.start():
             fallback.extend(items)
@@ -220,7 +234,7 @@ def update(page: Path, folder: Path, level: str):
         text = text[:insert_at] + "\n" + cards + "\n" + text[insert_at:]
 
     if fallback:
-        section = block(fallback, level)
+        section = block(fallback, level, colours)
         text = text.replace("</main>", section + "\n</main>", 1)
 
     page.write_text(text, encoding="utf-8")
