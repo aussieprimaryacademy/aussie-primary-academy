@@ -220,7 +220,7 @@ def generated_section(paths: list[Path]) -> str:
     <div class="section-head"><div>
       <p class="eyebrow">Automatically updated catalogue</p>
       <h2 id="all-worksheet-heading">All Worksheet Downloads</h2>
-      <p>{len(paths)} free printable PDF worksheets currently available.</p>
+      <p>{len(paths)} free Australian Curriculum PDF worksheets currently available.</p>
     </div></div>
     <ul class="grid-cards" id="worksheet-results">
 {cards}
