@@ -162,6 +162,7 @@ def generated_section(paths: list[Path]) -> str:
 }}
 </style>
 <section class="section" id="worksheet-catalogue" aria-labelledby="worksheet-catalogue-heading">
+  <div class="wrap"><span id="worksheet-grid" aria-hidden="true"></span>
   <div class="wrap">
     <div class="worksheet-finder-panel">
       <div class="section-head"><div>
@@ -335,7 +336,12 @@ def generated_section(paths: list[Path]) -> str:
     const sk = (params.get('skill') || '').trim();
     if (q) search.value = q;
     if (y) {{ year.value = y; filtersLockedByUser = true; }}
-    if (s) {{ subject.value = s; filtersLockedByUser = true; }}
+    if (s) {{
+      const matchingSubject = Array.from(subject.options).find(option => normalise(option.value) === normalise(s));
+      if (matchingSubject) subject.value = matchingSubject.value;
+      else subject.value = s;
+      filtersLockedByUser = true;
+    }}
     if (sk) {{ skill.value = sk; filtersLockedByUser = true; }}
     return Boolean(q || y || s || sk);
   }}
