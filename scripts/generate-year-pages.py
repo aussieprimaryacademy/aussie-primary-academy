@@ -62,7 +62,7 @@ def existing_card_colours(text: str) -> dict[str, str]:
     """Preserve current thumbnail colours for PDF cards across generator runs."""
     colours = {}
     for line in text.splitlines():
-        pdf_match = re.search(r'href="([^"]+\\.pdf)"', line, re.I)
+        pdf_match = re.search(r'href="([^"]+\.pdf)"', line, re.I)
         colour_match = re.search(r'<div class="thumb (c[1-4])">', line, re.I)
         if pdf_match and colour_match:
             colours[pdf_match.group(1)] = colour_match.group(1)
