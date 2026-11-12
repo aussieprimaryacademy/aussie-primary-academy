@@ -105,8 +105,10 @@ def main():
     if remaining < 0:
         raise RuntimeError("Corrected answer text does not fit in its existing answer panel.")
 
-    doc.save(PDF, garbage=4, deflate=True)
+    temporary_pdf = PDF.with_name(PDF.stem + ".corrected.pdf")
+    doc.save(temporary_pdf, garbage=4, deflate=True)
     doc.close()
+    temporary_pdf.replace(PDF)
 
     check = fitz.open(PDF)
     checked_page = check[1]
