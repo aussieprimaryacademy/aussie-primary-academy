@@ -1,0 +1,71 @@
+name: Restore worksheets.html
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  restore:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout full history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Restore worksheets.html from last good commit and apply UX fix
+        run: |
+          set -e
+          git checkout 5fd516de2d501d3bde913f76818e78b6c4e9b10b -- worksheets.html
+          python3 - <<'PY'
+          from pathlib import Path
+          html = Path('worksheets.html').read_text(encoding='utf-8')
+          html = html.replace(
+              '<p id="worksheet-results-count">Showing 0 worksheets</p>',
+              '<p id="worksheet-results-count">Loading worksheet catalogue…</p>',
+              1,
+          )
+          old = '''  function applyFilters(resetLimit = true) {
+    if (resetLimit) visibleLimit = pageSize;
+    const matching = cards.filter(matches);
+    cards.forEach(card => { card.hidden = true; });
+    matching.slice(0, visibleLimit).forEach(card => { card.hidden = false; });
+    count.textContent = matching.length === 1 ? 'Showing 1 worksheet' : `Showing ${matching.length} worksheets`;
+    empty.hidden = matching.length !== 0;
+    moreWrap.hidden = matching.length <= visibleLimit;
+    more.textContent = `Show more worksheets (${Math.min(pageSize, Math.max(0, matching.length - visibleLimit))})`;
+    chips.forEach(chip => chip.setAttribute('aria-pressed', skill.value === chip.dataset.skillFilter ? 'true' : 'false'));
+  }'''
+          new = '''  function applyFilters(resetLimit = true) {
+    if (resetLimit) visibleLimit = pageSize;
+    let matching = cards.filter(matches);
+    const noFilters = !normalise(search.value) && !year.value && !subject.value && !skill.value;
+    if (noFilters && matching.length === 0 && cards.length > 0) {
+      matching = cards.slice();
+    }
+    cards.forEach(card => { card.hidden = true; });
+    matching.slice(0, visibleLimit).forEach(card => { card.hidden = false; });
+    const shown = matching.length;
+    count.textContent = shown === 1 ? 'Showing 1 worksheet' : `Showing ${shown} worksheets`;
+    empty.hidden = shown !== 0;
+    moreWrap.hidden = shown <= visibleLimit;
+    more.textContent = `Show more worksheets (${Math.min(pageSize, Math.max(0, shown - visibleLimit))})`;
+    chips.forEach(chip => chip.setAttribute('aria-pressed', skill.value === chip.dataset.skillFilter ? 'true' : 'false'));
+  }'''
+          if old not in html:
+              raise SystemExit('applyFilters block not found')
+          html = html.replace(old, new, 1)
+          Path('worksheets.html').write_text(html, encoding='utf-8')
+          print('patched ok', len(html))
+          PY
+
+      - name: Commit and push restore
+        run: |
+          set -e
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add worksheets.html
+          git commit -m "restore: worksheets.html catalogue + count UX fix"
+          git push
