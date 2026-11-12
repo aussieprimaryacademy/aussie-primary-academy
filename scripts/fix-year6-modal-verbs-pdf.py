@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """One-off, narrowly scoped correction for the Year 6 modal-verbs PDF."""
 from pathlib import Path
-import fitz
+import pymupdf as fitz
 
 PDF = Path("worksheets/year-6/english/year-6-modal-verbs-worksheet-free-printable-pdf-colour-with-answers.pdf")
 OUTPUT_PREVIEW = Path("modal-verbs-page-2-review.png")
@@ -10,35 +10,27 @@ OUTPUT_PREVIEW = Path("modal-verbs-page-2-review.png")
 def main():
     doc = fitz.open(PDF)
     page = doc[1]
-    blocks = page.get_text("dict")["blocks"]
     all_text = page.get_text("text")
-    already_four = any(
-        span.get("text") == "4" and 160 < span["bbox"][1] < 190
-        for block in blocks
-        for line in block.get("lines", [])
-        for span in line.get("spans", [])
-    )
-    if already_four and "might and could = possibility" in all_text:
+    if page.search_for("4 modal verbs") and "might and could = possibility" in all_text:
         print("PDF already contains the corrected question and answer.")
         doc.close()
         return
 
-    number_rect = None
-    for block in blocks:
-        for line in block.get("lines", []):
-            for span in line.get("spans", []):
-                if span.get("text") == "3" and 160 < span["bbox"][1] < 190:
-                    number_rect = fitz.Rect(span["bbox"])
-                    break
-            if number_rect:
-                break
-        if number_rect:
-            break
-    if not number_rect:
+    # Q8: replace the complete phrase so the count is reliably found even
+    # when the PDF stores individual characters in separate embedded spans.
+    question_matches = page.search_for("3 modal verbs")
+    if not question_matches:
         raise RuntimeError("Could not locate the Q8 modal-verb count.")
-    page.add_redact_annot(number_rect, fill=(1, 1, 1))
+    question_rect = question_matches[0]
+    page.add_redact_annot(question_rect, fill=(1, 1, 1))
     page.apply_redactions(images=0, graphics=0)
-    page.insert_text((number_rect.x0, 180.0), "4", fontname="helv", fontsize=12, color=(0, 0, 0))
+    page.insert_text(
+        (question_rect.x0, question_rect.y1 - 1.8),
+        "4 modal verbs",
+        fontname="helv",
+        fontsize=12,
+        color=(0, 0, 0),
+    )
 
     answer_block = None
     for block in page.get_text("dict")["blocks"]:
@@ -88,7 +80,7 @@ def main():
         for line in block.get("lines", [])
         for span in line.get("spans", [])
     ]
-    assert any(span.get("text") == "4" and 160 < span["bbox"][1] < 190 for span in spans), "Q8 numeral 4 was not found."
+    assert checked_page.search_for("4 modal verbs"), "Q8 count was not corrected."
     assert "might and could = possibility" in text, "C8 does not include could."
     checked_page.get_pixmap(matrix=fitz.Matrix(1.2, 1.2), alpha=False).save(OUTPUT_PREVIEW)
     check.close()
