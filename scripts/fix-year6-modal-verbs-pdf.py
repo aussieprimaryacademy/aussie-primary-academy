@@ -11,26 +11,63 @@ def main():
     doc = fitz.open(PDF)
     page = doc[1]
     all_text = page.get_text("text")
-    if page.search_for("4 modal verbs") and "might and could = possibility" in all_text:
-        print("PDF already contains the corrected question and answer.")
+    if "might and could = possibility" in all_text:
+        print("PDF already contains the corrected answer.")
         doc.close()
         return
 
-    # Q8: replace the complete phrase so the count is reliably found even
-    # when the PDF stores individual characters in separate embedded spans.
-    question_matches = page.search_for("3 modal verbs")
-    if not question_matches:
-        raise RuntimeError("Could not locate the Q8 modal-verb count.")
-    question_rect = question_matches[0]
-    page.add_redact_annot(question_rect, fill=(1, 1, 1))
-    page.apply_redactions(images=0, graphics=0)
-    page.insert_text(
-        (question_rect.x0, question_rect.y1 - 1.8),
-        "4 modal verbs",
-        fontname="helv",
-        fontsize=12,
-        color=(0, 0, 0),
-    )
+    # Locate Q8 by its surrounding paragraph, then replace only the numeral.
+    question_block = None
+    number_rect = None
+    for block in page.get_text("dict")["blocks"]:
+        if "lines" not in block:
+            continue
+        block_text = "".join(
+            "".join(span["text"] for span in line["spans"])
+            for line in block["lines"]
+        )
+        if "Q8." in block_text and "3 modal verbs" in block_text:
+            question_block = block
+            for line in block["lines"]:
+                for span in line["spans"]:
+                    if span.get("text", "").strip() == "3":
+                        number_rect = fitz.Rect(span["bbox"])
+                        break
+                if number_rect:
+                    break
+            break
+    if not question_block:
+        raise RuntimeError("Could not locate the Q8 modal-verbs question.")
+    if number_rect:
+        page.add_redact_annot(number_rect, fill=(1, 1, 1))
+        page.apply_redactions(images=0, graphics=0)
+        page.insert_text(
+            (number_rect.x0, number_rect.y1 - 1.45),
+            "4",
+            fontname="helv",
+            fontsize=12,
+            color=(0, 0, 0),
+        )
+    else:
+        # Fallback for PDFs where the embedded font combines the numeral
+        # with adjacent characters into one span.
+        question_rect = fitz.Rect(question_block["bbox"])
+        page.add_redact_annot(question_rect, fill=(1, 1, 1))
+        page.apply_redactions(images=0, graphics=0)
+        page.insert_text(
+            (question_rect.x0, question_rect.y0 + 10.5),
+            "Q8. Identify the 4 modal verbs in the notice and classify each as certainty, possibility or",
+            fontname="helv",
+            fontsize=12,
+            color=(0, 0, 0),
+        )
+        page.insert_text(
+            (question_rect.x0, question_rect.y0 + 25.5),
+            "obligation.",
+            fontname="helv",
+            fontsize=12,
+            color=(0, 0, 0),
+        )
 
     answer_block = None
     for block in page.get_text("dict")["blocks"]:
@@ -80,7 +117,8 @@ def main():
         for line in block.get("lines", [])
         for span in line.get("spans", [])
     ]
-    assert checked_page.search_for("4 modal verbs"), "Q8 count was not corrected."
+    q8_text = " ".join(checked_page.get_text("text").split())
+    assert "Q8. Identify the 4 modal verbs" in q8_text, "Q8 count was not corrected."
     assert "might and could = possibility" in text, "C8 does not include could."
     checked_page.get_pixmap(matrix=fitz.Matrix(1.2, 1.2), alpha=False).save(OUTPUT_PREVIEW)
     check.close()
