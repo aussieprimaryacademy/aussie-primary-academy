@@ -44,7 +44,7 @@ jobs:
             echo "No PDF changes were necessary."
           else
             git commit -m "Correct Year 6 modal-verbs question and answer key"
-            git push origin "HEAD:\${BRANCH_NAME}"
+            git push origin "HEAD:${BRANCH_NAME}"
           fi
 
       - name: Upload corrected PDF and page preview
