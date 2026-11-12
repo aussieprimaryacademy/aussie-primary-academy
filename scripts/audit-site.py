@@ -96,6 +96,22 @@ for p in html:
     try: other=Parser(); other.feed(target.read_text(encoding="utf-8",errors="replace")); parsers[target]=other
     except Exception: other=None
    if other and frag not in other.ids: add("broken_fragment",rel,f"{url} points to missing #{frag}")
+worksheet_pages_with_related_modules = 0
+for page, parser in parsers.items():
+ relparts = page.relative_to(ROOT).parts
+ if not relparts or relparts[0] != "pages":
+  continue
+ if any("noindex" in value.lower() for value in parser.meta.get("robots",[])):
+  continue
+ raw = page.read_text(encoding="utf-8", errors="replace")
+ has_related = (
+  "related-worksheets" in raw.lower()
+  or re.search(r"<h[2-4][^>]*>\s*Related Worksheets\s*</h[2-4]>", raw, re.I)
+ )
+ if has_related:
+  worksheet_pages_with_related_modules += 1
+counts["worksheet_pages_with_related_modules"] = worksheet_pages_with_related_modules
+
 for t,ps in titles.items():
  if len(ps)>1: add("duplicate_title","; ".join(ps),t)
 for c,ps in canonicals.items():
