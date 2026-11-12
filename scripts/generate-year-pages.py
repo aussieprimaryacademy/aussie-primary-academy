@@ -43,8 +43,6 @@ def subject_for(p: Path) -> str:
     return "Worksheet"
 
 def page_for_pdf(p: Path, level: str) -> str:
-    if p.name.lower() == "year-1-decodable-reading-passages-colour-pack-answer-guide.pdf":
-        return "pages/free-printable-decodable-reading-passages-colour-pack-answer-guide-pdf-answer-guide-worksheet.html"
     name = p.stem
     clean = re.sub(r"^(us|usa)-", "", name, flags=re.I)
     clean = re.sub(r"^(grade|year)-?\d+-", "", clean, flags=re.I)
@@ -123,7 +121,7 @@ def update_foundation(page: Path, folder: Path, level: str):
     extra = []
     for subject in ("Reading", "Writing", "Phonics", "Science"):
         subject_folder = folder / subject.lower()
-        pdfs = sorted(subject_folder.rglob("*.pdf"), key=lambda p: p.as_posix().lower()) if subject_folder.exists() else []
+        pdfs = sorted((p for p in subject_folder.rglob("*.pdf") if not re.search(r"answer[-_ ]?(?:guide|key)|answerkey", p.name, re.I)), key=lambda p: p.as_posix().lower()) if subject_folder.exists() else []
         # A PDF already listed in a hand-curated section should not be duplicated.
         pdfs = [p for p in pdfs if p.relative_to(ROOT).as_posix() not in text]
         if not pdfs:
@@ -186,7 +184,7 @@ def update(page: Path, folder: Path, level: str):
     text = "\n".join(cleaned_lines)
     text = re.sub(r"\n[ \t]*\n+(?=</ul>)", "\n", text)
 
-    pdfs = sorted(folder.rglob("*.pdf"), key=lambda p: p.as_posix().lower()) if folder.exists() else []
+    pdfs = sorted((p for p in folder.rglob("*.pdf") if not re.search(r"answer[-_ ]?(?:guide|key)|answerkey", p.name, re.I)), key=lambda p: p.as_posix().lower()) if folder.exists() else []
     # The cards remaining in the HTML are manually curated and must be preserved.
     missing = [p for p in pdfs if p.relative_to(ROOT).as_posix() not in text]
 
