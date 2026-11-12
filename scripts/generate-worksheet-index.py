@@ -162,8 +162,8 @@ def generated_section(paths: list[Path]) -> str:
 }}
 </style>
 <section class="section" id="worksheet-catalogue" aria-labelledby="worksheet-catalogue-heading">
-  <div class="wrap"><span id="worksheet-grid" aria-hidden="true"></span>
   <div class="wrap">
+    <span id="worksheet-grid" aria-hidden="true"></span>
     <div class="worksheet-finder-panel">
       <div class="section-head"><div>
         <p class="eyebrow">Find exactly what you need</p>
