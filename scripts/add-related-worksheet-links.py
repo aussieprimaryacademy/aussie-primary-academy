@@ -122,7 +122,7 @@ def main() -> int:
         has_unmanaged_related = (
             "related-worksheets" in content.lower()
             or re.search(
-                r"<h[2-4][^>]*>\\s*Related Worksheets\\s*</h[2-4]>", content, re.I
+                r"<h[2-4][^>]*>\s*Related Worksheets\s*</h[2-4]>", content, re.I
             )
         )
         if not generated and has_unmanaged_related and START not in content:
