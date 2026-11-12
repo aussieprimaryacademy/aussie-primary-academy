@@ -19,7 +19,7 @@ jobs:
       - name: Check out the PR branch
         uses: actions/checkout@v4
         with:
-          ref: \${{ github.event.pull_request.head.ref }}
+          ref: ${{ github.event.pull_request.head.ref }}
           persist-credentials: true
 
       - name: Set up Python
@@ -35,7 +35,7 @@ jobs:
 
       - name: Commit only the corrected PDF to this PR branch
         env:
-          BRANCH_NAME: \${{ github.event.pull_request.head.ref }}
+          BRANCH_NAME: ${{ github.event.pull_request.head.ref }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
