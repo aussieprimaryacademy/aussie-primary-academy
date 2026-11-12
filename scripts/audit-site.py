@@ -75,8 +75,10 @@ for p in html:
   if len(q.canon)!=1: add("canonical_count",rel,f"Expected 1 canonical, found {len(q.canon)}")
   for img in q.imgs:
    if not img.get("alt","").strip(): add("image_alt_missing",rel,f'Image missing alt: {img.get("src","(no src)")}')
- if title: titles[title.lower()].append(rel)
- for c in q.canon: canonicals[c].append(rel)
+ is_noindex=any("noindex" in value.lower() for value in q.meta.get("robots",[]))
+ if title and not is_noindex: titles[title.lower()].append(rel)
+ if not is_noindex:
+  for c in q.canon: canonicals[c].append(rel)
  for block in q.ld:
   try: json.loads(block)
   except Exception as e: add("invalid_jsonld",rel,e,"error")
@@ -106,6 +108,9 @@ missing_previews=[]
 for pdf in pdfs:
  if "answer-key" in pdf.name.lower() or "answerkey" in pdf.name.lower(): continue
  rel=pdf.relative_to(ROOT).as_posix()
+ # Worksheet preview and orphan checks apply to the worksheet asset library,
+ # not standalone planner downloads or legacy PDFs stored beside HTML pages.
+ if not rel.startswith("worksheets/"): continue
  if pdf.resolve() not in linked_pdfs: add("pdf_not_linked_from_html",rel,"PDF is not referenced by any parsed HTML link")
  folder=pdf.parent/"previews"; stem=pdf.stem.strip().lower()
  found=folder.exists() and any(x.is_file() and x.stem.strip().lower()==stem and x.suffix.lower() in {".png",".jpg",".jpeg",".webp"} for x in folder.iterdir())
@@ -138,6 +143,8 @@ if sitemap.exists():
   expected=set()
   for p in html:
    if p.name in IGNORE or " " in p.name: continue
+   q=parsers.get(p)
+   if q and any("noindex" in value.lower() for value in q.meta.get("robots",[])): continue
    relparts=p.relative_to(ROOT).parts
    if relparts[0] in {"blog","pages"}: expected.add(BASE+p.relative_to(ROOT).as_posix())
    elif len(relparts)==1 and p.name=="index.html": expected.add(BASE)
