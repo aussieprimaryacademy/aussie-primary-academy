@@ -1,16 +1,16 @@
 name: Make Worksheet PNG Previews
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - 'worksheets/**'
-      - '.github/workflows/make-previews.yml'
+  # Manual emergency fallback only. Automatic previews are owned by
+  # generate-worksheet-pages.yml to prevent competing commits.
   workflow_dispatch:
 
 permissions:
   contents: write
+
+concurrency:
+  group: apa-content-generators
+  cancel-in-progress: false
 
 jobs:
   make-previews:
