@@ -28,6 +28,8 @@ SPECIAL = {
 }
 
 SKILL_RULES = [
+    ("water-safety", "Water Safety"), ("swimming", "Water Safety"),
+    ("bushfires", "Extreme Weather"), ("extreme-weather", "Extreme Weather"),
     ("fractions", "Fractions"), ("fraction", "Fractions"),
     ("phonics", "Phonics"), ("cvc", "Phonics"),
     ("reading", "Reading"), ("comprehension", "Reading"),
@@ -62,6 +64,12 @@ def level_and_subject(path: Path) -> tuple[str, str, str]:
             level = f"{label} {match.group(1)}"
             break
 
+    stem = path.stem.lower()
+    if "water-safety-swimming-workbook-year-3-4" in stem:
+        return region, "Year 3–4", "HPE"
+    if "bushfires-floods-extreme-weather-workbook-year-5-6" in stem:
+        return region, "Year 5–6", "Science"
+
     subject_map = {
         "math": "Math", "maths": "Maths", "ela": "ELA", "english": "English",
         "science": "Science", "reading": "Reading", "writing": "Writing", "phonics": "Phonics",
@@ -71,6 +79,11 @@ def level_and_subject(path: Path) -> tuple[str, str, str]:
 
 
 def human_title(path: Path, level: str, subject: str) -> str:
+    stem = path.stem.lower()
+    if "water-safety-swimming-workbook-year-3-4" in stem:
+        return "Water Safety & Swimming Workbook"
+    if "bushfires-floods-extreme-weather-workbook-year-5-6" in stem:
+        return "Bushfires, Floods & Extreme Weather Workbook"
     words = re.split(r"[-_]+", path.stem)
     kept: list[str] = []
     skip = {
@@ -143,10 +156,11 @@ def card(path: Path, index: int, colours: dict[str, str] | None = None) -> str:
     colour = (colours or {}).get(rel, f"c{index % 4 + 1}")
     codes = codes_from_name(path)
     search_text = f"{title} {skill} {level} {subject} {region} {codes} {path.stem}"
+    year_filter = {"Year 3–4": "Year 3|Year 4", "Year 5–6": "Year 5|Year 6"}.get(level, level)
     return (
         '      <li class="wcard auto-worksheet-card" '
         f'data-region="{escape(region, quote=True)}" '
-        f'data-year="{escape(level, quote=True)}" '
+        f'data-year="{escape(year_filter, quote=True)}" '
         f'data-subject="{escape(subject, quote=True)}" '
         f'data-skill="{escape(skill, quote=True)}" '
         f'data-search="{escape(search_text, quote=True)}">'
@@ -201,7 +215,7 @@ def generated_section(paths: list[Path], colours: dict[str, str] | None = None) 
           <label for="worksheet-subject">Subject</label>
           <select id="worksheet-subject">
             <option value="">All subjects</option>
-            <option>Maths</option><option>Math</option><option>English</option><option>ELA</option><option>Science</option><option>Reading</option><option>Writing</option><option>Phonics</option>
+            <option>Maths</option><option>Math</option><option>English</option><option>ELA</option><option>Science</option><option>HPE</option><option>Reading</option><option>Writing</option><option>Phonics</option>
           </select>
         </div>
         <div class="worksheet-filter-field">
@@ -231,7 +245,7 @@ def generated_section(paths: list[Path], colours: dict[str, str] | None = None) 
     <div class="section-head"><div>
       <p class="eyebrow">Automatically updated catalogue</p>
       <h2 id="all-worksheet-heading">All Worksheet Downloads</h2>
-      <p>{len(paths)} free Australian Curriculum PDF worksheets currently available.</p>
+      <p>{len(paths)} free printable PDF worksheets and learning resources currently available.</p>
     </div></div>
     <ul class="grid-cards" id="worksheet-results">
 {cards}
@@ -283,7 +297,7 @@ def generated_section(paths: list[Path], colours: dict[str, str] | None = None) 
     const query = normalise(search.value);
     const text = normalise(card.dataset.search || '');
     return (!query || text.includes(query))
-      && (!year.value || card.dataset.year === year.value)
+      && (!year.value || (card.dataset.year || "").split("|").includes(year.value))
       && (!subject.value || card.dataset.subject === subject.value)
       && (!skill.value || card.dataset.skill === skill.value);
   }}
