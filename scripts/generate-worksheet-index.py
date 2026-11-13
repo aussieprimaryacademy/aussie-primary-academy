@@ -233,7 +233,7 @@ def generated_section(paths: list[Path], colours: dict[str, str] | None = None) 
         <button class="worksheet-skill-chip" type="button" data-skill-filter="NAPLAN" aria-pressed="false">NAPLAN Practice</button>
       </div>
       <div class="worksheet-filter-summary" aria-live="polite">
-        <p id="worksheet-results-count">Showing 0 worksheets</p>
+        <p id="worksheet-results-count">Showing {len(paths)} worksheets</p>
         <p>Use the filters to jump straight to a skill.</p>
       </div>
     </div>
