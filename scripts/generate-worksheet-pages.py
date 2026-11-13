@@ -42,6 +42,10 @@ def parse(pdf: Path) -> dict[str, str]:
     else:
         subject="English"
 
+    if "water-safety-swimming-workbook-year-3-4" in lower:
+        level="Year 3–4"
+        subject="Health and Physical Education"
+
     standard=""
     m=re.search(r"ccss-([a-z0-9-]+?)-free-printable$",lower)
     if m:
@@ -76,6 +80,8 @@ def page_html(meta: dict[str,str]) -> str:
     hub="../worksheets.html"
     if meta["region"]=="USA" and meta["level"].startswith("Grade "):
         hub=f"../usa-grade-{meta['level'].split()[-1]}.html"
+    elif meta["level"] == "Year 3–4":
+        hub="../year-3.html"
     elif meta["level"].startswith("Year "):
         hub=f"../year-{meta['level'].split()[-1]}.html"
     standard_text=escape(meta["standard"] or "Not specified on the worksheet filename")
