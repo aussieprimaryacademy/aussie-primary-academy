@@ -18,7 +18,6 @@ on:
       - '*.html'
       - 'pages/**'
       - 'blog/**'
-      - 'worksheets/**/*.pdf'
       - 'scripts/generate-sitemap.py'
       - 'scripts/generate-worksheet-index.py'
       - 'scripts/generate-year-pages.py'
@@ -41,6 +40,8 @@ concurrency:
 
 jobs:
   generate:
+    # A PDF upload is indexed only after the preview/page generator succeeds.
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
