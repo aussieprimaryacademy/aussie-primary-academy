@@ -45,6 +45,9 @@ def parse(pdf: Path) -> dict[str, str]:
     if "water-safety-swimming-workbook-year-3-4" in lower:
         level="Year 3–4"
         subject="Health and Physical Education"
+    if "bushfires-floods-extreme-weather-workbook-year-5-6" in lower:
+        level="Year 5–6"
+        subject="Science"
 
     standard=""
     m=re.search(r"ccss-([a-z0-9-]+?)-free-printable$",lower)
