@@ -69,3 +69,5 @@ jobs:
         run: |
           python scripts/generate-sitemap.py
           python scripts/validate-sitemap-transition.py /tmp/apa-previous-sitemap-urls.txt
+
+# Temporary isolated test: verify main-branch year-page generator idempotency.
