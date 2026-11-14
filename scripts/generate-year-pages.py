@@ -59,9 +59,13 @@ def page_for_pdf(p: Path, level: str) -> str:
     return f"pages/{page_name}"
 
 def existing_card_colours(text: str) -> dict[str, str]:
-    """Preserve current thumbnail colours for PDF cards across generator runs."""
+    """Preserve manually curated thumbnail colours for PDF cards."""
     colours = {}
     for line in text.splitlines():
+        # Generated cards receive colours from their sorted PDF position.
+        # Do not feed their previous generated colour back into the next run.
+        if 'class="wcard auto-year-card"' in line:
+            continue
         pdf_match = re.search(r'href="([^"]+\.pdf)"', line, re.I)
         colour_match = re.search(r'<div class="thumb (c[1-4])">', line, re.I)
         if pdf_match and colour_match:
@@ -227,11 +231,15 @@ def update(page: Path, folder: Path, level: str):
             continue
 
         cards = "\n".join(card(p, level, i, colours) for i, p in enumerate(items))
-        insert_at = section_match.start() + section.rfind("</ul>")
-        if insert_at < section_match.start():
+        # Insert at the start of the closing </ul> line. Inserting immediately
+        # before the tag itself leaves its indentation as a whitespace-only line,
+        # which the next run then removes and makes the output non-idempotent.
+        closing_list = re.search(r"(?m)^[ \t]*</ul>", section)
+        if not closing_list:
             fallback.extend(items)
             continue
-        text = text[:insert_at] + "\n" + cards + "\n" + text[insert_at:]
+        insert_at = section_match.start() + closing_list.start()
+        text = text[:insert_at] + cards + "\n" + text[insert_at:]
 
     if fallback:
         section = block(fallback, level, colours)
