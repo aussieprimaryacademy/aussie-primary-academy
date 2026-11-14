@@ -71,12 +71,15 @@ jobs:
           PY
 
       - name: Set worksheet page language by resource region
+        if: github.event_name != 'workflow_run'
         run: python scripts/update-worksheet-language.py
 
       - name: Update navigation links to dedicated hubs
+        if: github.event_name != 'workflow_run'
         run: python scripts/update-navigation-links.py
 
       - name: Add related worksheet modules to generated pages
+        if: github.event_name != 'workflow_run'
         run: python scripts/add-related-worksheet-links.py
 
       - name: Generate worksheet index
@@ -86,6 +89,7 @@ jobs:
         run: python scripts/generate-year-pages.py
 
       - name: Ensure site analytics and PDF click tracking
+        if: github.event_name != 'workflow_run'
         run: python scripts/ensure-site-analytics.py
 
       - name: Generate sitemap
