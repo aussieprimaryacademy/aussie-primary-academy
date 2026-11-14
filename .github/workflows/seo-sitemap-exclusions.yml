@@ -42,7 +42,11 @@ jobs:
           git diff -- year-*.html foundation.html > /tmp/year-pages-first.diff
           python scripts/generate-year-pages.py
           git diff -- year-*.html foundation.html > /tmp/year-pages-second.diff
-          cmp /tmp/year-pages-first.diff /tmp/year-pages-second.diff
+          if ! cmp -s /tmp/year-pages-first.diff /tmp/year-pages-second.diff; then
+            echo "ERROR: year-page generator output changed between consecutive runs."
+            diff -u /tmp/year-pages-first.diff /tmp/year-pages-second.diff || true
+            exit 1
+          fi
 
       - name: Snapshot sitemap URLs for transition test
         run: |
