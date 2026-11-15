@@ -4,7 +4,7 @@
 from html import escape
 from pathlib import Path
 import re
-from worksheet_page_paths import resolve_page_path, page_matches_pdf, same_pdf_content
+from worksheet_page_paths import resolve_page_path, page_matches_pdf, page_is_indexable, same_pdf_content
 
 ROOT = Path(__file__).resolve().parent.parent
 WORKSHEETS_DIR = ROOT / "worksheets"
@@ -494,6 +494,8 @@ def main() -> None:
                 raise SystemExit(f"ERROR: individual worksheet page is missing: {page_rel} <- {path.relative_to(ROOT)}")
             if not page_matches_pdf(page_file, path, ROOT):
                 raise SystemExit(f"ERROR: worksheet page links to a different PDF: {page_rel} <- {path.relative_to(ROOT)}")
+            if not page_is_indexable(page_file, ROOT):
+                raise SystemExit(f"ERROR: worksheet card points to a noindex or non-canonical page: {page_rel} <- {path.relative_to(ROOT)}")
             previous = page_owners.get(page_rel)
             if previous and not same_pdf_content(previous, path):
                 raise SystemExit(

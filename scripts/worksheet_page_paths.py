@@ -5,6 +5,7 @@ from __future__ import annotations
 import hashlib
 import re
 from pathlib import Path
+from urllib.parse import urlparse
 
 
 def _linked_pdf(page: Path, root: Path) -> Path | None:
@@ -40,6 +41,50 @@ def same_pdf_content(first: Path, second: Path) -> bool:
 def page_matches_pdf(page: Path, pdf: Path, root: Path) -> bool:
     linked = _linked_pdf(Path(page), Path(root).resolve())
     return bool(linked and same_pdf_content(linked, Path(pdf)))
+
+
+def _canonical_page(page: Path, root: Path) -> Path | None:
+    if not page.is_file():
+        return None
+    text = page.read_text(encoding="utf-8", errors="ignore")
+    tag = re.search(r'<link\b(?=[^>]*\brel=["\']canonical["\'])[^>]*>', text, re.IGNORECASE)
+    if not tag:
+        return None
+    href = re.search(r'\bhref=["\']([^"\']+)["\']', tag.group(0), re.IGNORECASE)
+    if not href:
+        return None
+    parsed = urlparse(href.group(1))
+    if parsed.netloc and parsed.netloc.lower() != "aussieprimaryacademy.github.io":
+        return None
+    path = parsed.path
+    marker = "/aussie-primary-academy/"
+    if marker in path:
+        relative = path.split(marker, 1)[1]
+    elif path.startswith("/"):
+        relative = path.lstrip("/")
+    else:
+        try:
+            relative = (page.parent / path).resolve().relative_to(Path(root).resolve()).as_posix()
+        except ValueError:
+            return None
+    candidate = (Path(root).resolve() / relative).resolve()
+    return candidate if candidate.is_file() else None
+
+
+def page_is_indexable(page: Path, root: Path) -> bool:
+    page = Path(page)
+    if not page.is_file():
+        return False
+    text = page.read_text(encoding="utf-8", errors="ignore")
+    robots = re.search(
+        r'<meta\b(?=[^>]*\bname=["\']robots["\'])[^>]*\bcontent=["\']([^"\']+)["\']',
+        text,
+        re.IGNORECASE,
+    )
+    if robots and "noindex" in robots.group(1).lower():
+        return False
+    canonical = _canonical_page(page, Path(root).resolve())
+    return canonical is None or canonical.resolve() == page.resolve()
 
 
 def _unique_page(pdf: Path, root: Path, worksheets_root: Path, pages_root: Path) -> Path:
@@ -81,11 +126,20 @@ def resolve_page_path(
     if not base_page.is_absolute():
         base_page = root / base_page
 
-    if base_page.exists() and page_matches_pdf(base_page, pdf, root):
-        return base_page
+    if base_page.exists():
+        canonical = _canonical_page(base_page, root)
+        if canonical and page_matches_pdf(canonical, pdf, root) and page_is_indexable(canonical, root):
+            return canonical
+        if page_matches_pdf(base_page, pdf, root) and page_is_indexable(base_page, root):
+            return base_page
+
     unique_page = _unique_page(pdf, root, worksheets_root, pages_root)
-    if unique_page.exists() and page_matches_pdf(unique_page, pdf, root):
-        return unique_page
+    if unique_page.exists():
+        canonical = _canonical_page(unique_page, root)
+        if canonical and page_matches_pdf(canonical, pdf, root) and page_is_indexable(canonical, root):
+            return canonical
+        if page_matches_pdf(unique_page, pdf, root) and page_is_indexable(unique_page, root):
+            return unique_page
     if base_page.exists():
         return unique_page
     return base_page

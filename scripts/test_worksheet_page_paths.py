@@ -2,7 +2,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from worksheet_page_paths import page_matches_pdf, resolve_page_path
+from worksheet_page_paths import page_matches_pdf, page_is_indexable, resolve_page_path
 
 
 class WorksheetPagePathTests(unittest.TestCase):
@@ -54,6 +54,24 @@ class WorksheetPagePathTests(unittest.TestCase):
         page = self.base_page("letter-formation.html", owner)
         resolved = resolve_page_path(duplicate, page, self.root, self.worksheets, self.pages)
         self.assertEqual(resolved, page)
+
+
+    def test_noindex_alias_resolves_to_its_indexable_canonical_page(self):
+        pdf = self.make_pdf("foundation/maths/part-whole.pdf", b"part whole")
+        alias = self.pages / "legacy-part-whole.html"
+        canonical = self.pages / "foundation-part-whole.html"
+        download = '<a class="download" href="../' + pdf.relative_to(self.root).as_posix() + '" download>Download</a>'
+        canonical.write_text('<html>' + download + '</html>', encoding="utf-8")
+        alias.write_text(
+            '<html><meta name="robots" content="noindex, follow">'
+            '<link rel="canonical" href="https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/foundation-part-whole.html">'
+            + download + '</html>',
+            encoding="utf-8",
+        )
+        resolved = resolve_page_path(pdf, alias, self.root, self.worksheets, self.pages)
+        self.assertEqual(resolved, canonical)
+        self.assertFalse(page_is_indexable(alias, self.root))
+        self.assertTrue(page_is_indexable(canonical, self.root))
 
     def test_new_unclaimed_pdf_keeps_legacy_slug(self):
         pdf = self.make_pdf("year-3/science/new-topic.pdf", b"new")
