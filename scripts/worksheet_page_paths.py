@@ -47,10 +47,10 @@ def _canonical_page(page: Path, root: Path) -> Path | None:
     if not page.is_file():
         return None
     text = page.read_text(encoding="utf-8", errors="ignore")
-    tag = re.search(r'<link\\b(?=[^>]*\\brel=["\\']canonical["\\'])[^>]*>', text, re.IGNORECASE)
+    tag = re.search(r'<link\b(?=[^>]*\brel=["\']canonical["\'])[^>]*>', text, re.IGNORECASE)
     if not tag:
         return None
-    href = re.search(r'\\bhref=["\\']([^"\\']+)["\\']', tag.group(0), re.IGNORECASE)
+    href = re.search(r'\bhref=["\']([^"\']+)["\']', tag.group(0), re.IGNORECASE)
     if not href:
         return None
     parsed = urlparse(href.group(1))
@@ -77,7 +77,7 @@ def page_is_indexable(page: Path, root: Path) -> bool:
         return False
     text = page.read_text(encoding="utf-8", errors="ignore")
     robots = re.search(
-        r'<meta\\b(?=[^>]*\\bname=["\\']robots["\\'])[^>]*\\bcontent=["\\']([^"\\']+)["\\']',
+        r'<meta\b(?=[^>]*\bname=["\']robots["\'])[^>]*\bcontent=["\']([^"\']+)["\']',
         text,
         re.IGNORECASE,
     )
