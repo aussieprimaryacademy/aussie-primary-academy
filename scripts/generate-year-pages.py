@@ -7,6 +7,7 @@ relevant subject sections so the subject navigation remains meaningful.
 from html import escape
 from pathlib import Path
 import re
+from worksheet_page_paths import resolve_page_path
 
 ROOT = Path(__file__).resolve().parent.parent
 W = ROOT / "worksheets"
@@ -56,7 +57,9 @@ def page_for_pdf(p: Path, level: str) -> str:
         slug = f"{level_slug}-{slug}"
     page_name = f"free-printable-{slug}-worksheet.html"
     page_name = page_name.replace("-worksheet-worksheet.html", "-worksheet.html")
-    return f"pages/{page_name}"
+    base_page = ROOT / "pages" / page_name
+    resolved_page = resolve_page_path(p, base_page, ROOT, W, ROOT / "pages")
+    return resolved_page.relative_to(ROOT).as_posix()
 
 def existing_card_colours(text: str) -> dict[str, str]:
     """Preserve manually curated thumbnail colours for PDF cards."""
