@@ -55,7 +55,10 @@ jobs:
           python-version: '3.12'
 
       - name: Validate generators
-        run: python -m py_compile scripts/generate-sitemap.py scripts/generate-worksheet-index.py scripts/generate-year-pages.py scripts/update-worksheet-language.py scripts/validate-sitemap-transition.py scripts/update-navigation-links.py scripts/add-related-worksheet-links.py
+        run: python -m py_compile scripts/generate-sitemap.py scripts/generate-worksheet-index.py scripts/generate-year-pages.py scripts/update-worksheet-language.py scripts/validate-sitemap-transition.py scripts/update-navigation-links.py scripts/add-related-worksheet-links.py scripts/worksheet_page_paths.py
+
+      - name: Test worksheet page-path collision handling
+        run: python -m unittest discover -s scripts -p 'test_worksheet_page_paths.py'
 
       - name: Snapshot current sitemap URLs before generation
         run: |
@@ -83,6 +86,8 @@ jobs:
         run: python scripts/add-related-worksheet-links.py
 
       - name: Generate worksheet index
+        env:
+          REQUIRE_PAGE_MAP_VALIDATION: ${{ github.event_name == 'workflow_run' && '1' || '0' }}
         run: python scripts/generate-worksheet-index.py
 
       - name: Generate year pages
