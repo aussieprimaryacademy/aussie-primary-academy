@@ -9,8 +9,15 @@ lost during PDF regeneration; metadata mismatches are reported for manual review
 from __future__ import annotations
 import os
 import re
+import sys
 from pathlib import Path
 from html import escape
+
+SCRIPT_DIR = Path(__file__).resolve().parent
+if str(SCRIPT_DIR) not in sys.path:
+    sys.path.insert(0, str(SCRIPT_DIR))
+
+from worksheet_page_paths import resolve_page_path
 
 BASE_URL = "https://aussieprimaryacademy.github.io/aussie-primary-academy/"
 PDF_ROOT = Path("worksheets")
@@ -74,9 +81,11 @@ def parse(pdf: Path) -> dict[str, str]:
         level_slug=re.sub(r"[^a-z0-9]+","-",level.lower()).strip("-")
         slug=f"{level_slug}-{slug}"
     page_name=f"free-printable-{slug}-worksheet.html".replace("-worksheet-worksheet.html","-worksheet.html")
+    base_page=PAGES_ROOT/page_name
+    resolved_page=resolve_page_path(pdf,base_page,Path.cwd(),PDF_ROOT,PAGES_ROOT)
     preview=pdf.parent/"previews"/f"{pdf.stem.strip()}.png"
     return {"title":title,"level":level,"subject":subject,"region":region,"standard":standard,
-            "page":str(PAGES_ROOT/page_name),"pdf":str(pdf),"preview":str(preview)}
+            "page":resolved_page.relative_to(Path.cwd()).as_posix(),"pdf":str(pdf),"preview":str(preview)}
 
 def page_html(meta: dict[str,str]) -> str:
     pdf_href="../"+meta["pdf"]; preview_href="../"+meta["preview"]; canonical=BASE_URL+meta["page"]

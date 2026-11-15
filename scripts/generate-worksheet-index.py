@@ -4,6 +4,7 @@
 from html import escape
 from pathlib import Path
 import re
+from worksheet_page_paths import resolve_page_path, page_matches_pdf, same_pdf_content
 
 ROOT = Path(__file__).resolve().parent.parent
 WORKSHEETS_DIR = ROOT / "worksheets"
@@ -134,7 +135,9 @@ def page_for_pdf(path: Path, level: str) -> str:
         slug = f"{level_slug}-{slug}"
     page_name = f"free-printable-{slug}-worksheet.html"
     page_name = page_name.replace("-worksheet-worksheet.html", "-worksheet.html")
-    return f"pages/{page_name}"
+    base_page = ROOT / "pages" / page_name
+    resolved_page = resolve_page_path(path, base_page, ROOT, WORKSHEETS_DIR, ROOT / "pages")
+    return resolved_page.relative_to(ROOT).as_posix()
 
 
 def existing_card_colours(text: str) -> dict[str, str]:
@@ -480,6 +483,25 @@ def main() -> None:
         rel = path.relative_to(ROOT).as_posix()
         if f'href="{rel}"' not in result:
             raise SystemExit(f"ERROR: missing generated link for {rel}")
+
+    if __import__("os").getenv("REQUIRE_PAGE_MAP_VALIDATION") == "1":
+        page_owners = {}
+        for path in paths:
+            _, level, _ = level_and_subject(path.relative_to(WORKSHEETS_DIR))
+            page_rel = page_for_pdf(path, level)
+            page_file = ROOT / page_rel
+            if not page_file.is_file():
+                raise SystemExit(f"ERROR: individual worksheet page is missing: {page_rel} <- {path.relative_to(ROOT)}")
+            if not page_matches_pdf(page_file, path, ROOT):
+                raise SystemExit(f"ERROR: worksheet page links to a different PDF: {page_rel} <- {path.relative_to(ROOT)}")
+            previous = page_owners.get(page_rel)
+            if previous and not same_pdf_content(previous, path):
+                raise SystemExit(
+                    f"ERROR: different PDFs share one worksheet page: {page_rel} "
+                    f"({previous.relative_to(ROOT)} and {path.relative_to(ROOT)})"
+                )
+            page_owners[page_rel] = path
+        print(f"Verified {len(paths)} worksheet PDFs against {len(page_owners)} collision-safe landing pages.")
     if 'data-region="USA"' in result:
         raise SystemExit("ERROR: USA Common Core resources must remain in the separate USA collection")
     if "readQueryFromUrl" not in result or "URLSearchParams" not in result:
