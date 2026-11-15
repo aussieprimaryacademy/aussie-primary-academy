@@ -2,7 +2,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from worksheet_page_paths import page_matches_pdf, resolve_page_path
+from worksheet_page_paths import page_matches_pdf, page_is_indexable, resolve_page_path
 
 
 class WorksheetPagePathTests(unittest.TestCase):
@@ -70,6 +70,8 @@ class WorksheetPagePathTests(unittest.TestCase):
         )
         resolved = resolve_page_path(pdf, alias, self.root, self.worksheets, self.pages)
         self.assertEqual(resolved, canonical)
+        self.assertFalse(page_is_indexable(alias, self.root))
+        self.assertTrue(page_is_indexable(canonical, self.root))
 
     def test_new_unclaimed_pdf_keeps_legacy_slug(self):
         pdf = self.make_pdf("year-3/science/new-topic.pdf", b"new")
