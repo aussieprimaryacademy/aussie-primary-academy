@@ -11,6 +11,8 @@ on:
       - 'worksheets/**'
       - '!worksheets/**/previews/**'
       - 'scripts/generate-worksheet-pages.py'
+      - 'scripts/worksheet_page_paths.py'
+      - 'scripts/test_worksheet_page_paths.py'
       - '.github/workflows/generate-worksheet-pages.yml'
   workflow_dispatch:
     inputs:
@@ -49,7 +51,10 @@ jobs:
         run: pip install pymupdf pillow
 
       - name: Validate generator
-        run: python -m py_compile scripts/generate-worksheet-pages.py
+        run: python -m py_compile scripts/generate-worksheet-pages.py scripts/worksheet_page_paths.py
+
+      - name: Test worksheet page-path collision handling
+        run: python -m unittest discover -s scripts -p 'test_worksheet_page_paths.py'
 
       - name: Generate missing PNG previews
         env:
