@@ -9,8 +9,14 @@ lost during PDF regeneration; metadata mismatches are reported for manual review
 from __future__ import annotations
 import os
 import re
+import sys
 from pathlib import Path
 from html import escape
+
+SCRIPT_DIR = Path(__file__).resolve().parent
+if str(SCRIPT_DIR) not in sys.path:
+    sys.path.insert(0, str(SCRIPT_DIR))
+
 from worksheet_page_paths import resolve_page_path
 
 BASE_URL = "https://aussieprimaryacademy.github.io/aussie-primary-academy/"
