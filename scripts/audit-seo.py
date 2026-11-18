@@ -3,6 +3,7 @@
 from collections import Counter, defaultdict
 from html.parser import HTMLParser
 from pathlib import Path
+import re
 import sys
 import importlib.util
 
@@ -11,6 +12,84 @@ SPEC = importlib.util.spec_from_file_location("sitemap_generator", ROOT / "scrip
 SITEMAP_GENERATOR = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(SITEMAP_GENERATOR)
 is_excluded_path = SITEMAP_GENERATOR.is_excluded_path
+
+# The single shared USA detector. The language updater imports this function.
+# CCSS is accepted only in an explicit curriculum/standard field, never prose.
+USA_STANDARD_FIELD = re.compile(
+    r'<li\b[^>]*>(?:(?!</li>).)*?<strong>\s*(?:curriculum|standard)\s*:</strong>'
+    r'(?:(?!</li>).)*?\bCCSS\s+[A-Z0-9][A-Z0-9.\-]*|'
+    r'<span\b[^>]*class=["\'][^"\']*standard-pill[^"\']*["\'][^>]*>'
+    r'[^<]*\bCCSS\s+[A-Z0-9][A-Z0-9.\-]*',
+    re.I | re.S,
+)
+USA_PDF_LINK = re.compile(r"""(?:href|src)\s*=\s*["'][^"']*worksheets/usa/""", re.I)
+
+
+def usa_detection_signals(relative_path, html):
+    """Return every explicit signal identifying this page as a USA resource."""
+    path = Path(relative_path)
+    filename_tokens = path.name.lower().removesuffix(".html").split("-")
+    token_set = set(filename_tokens)
+    signals = []
+    if "usa" in token_set:
+        signals.append("whole filename token: usa")
+    # "us" is a valid word in phrases such as "all around us". Treat it as
+    # a USA prefix only when it introduces an explicit US grade/level label.
+    us_prefix = any(
+        token == "us" and index + 1 < len(filename_tokens)
+        and filename_tokens[index + 1] in {"grade", "kindergarten"}
+        for index, token in enumerate(filename_tokens)
+    )
+    if us_prefix:
+        signals.append("whole filename token: us (US grade/level prefix)")
+    if any(part.lower() == "usa" for part in path.parts[:-1]):
+        signals.append("directory token: usa")
+    if USA_PDF_LINK.search(html):
+        signals.append("link to worksheets/usa/")
+    if USA_STANDARD_FIELD.search(html):
+        signals.append("CCSS in curriculum/standard field")
+    return signals
+
+
+def is_usa_resource(relative_path, html):
+    """Shared boolean wrapper used by the SEO audit."""
+    return bool(usa_detection_signals(relative_path, html))
+
+
+def validate_usa_detection_rules():
+    """Guard the USA detector against known Australian false-positive patterns."""
+    assert not is_usa_resource(
+        "pages/free-printable-texts-all-around-us-signs-books-screens-worksheet-ac9efla03-free-printable-colour-worksheet.html",
+        "<p>Texts all around us include signs, books and screens.</p>",
+    )
+    assert not is_usa_resource(
+        "pages/free-printable-grade-5-decimal-place-value-rounding-worksheet.html",
+        "<p>Use place-value charts for tenths, hundredths and thousandths.</p>",
+    )
+    assert not is_usa_resource(
+        "pages/australian-curriculum-comparison.html",
+        "<p>This page compares Common Core and Australian Curriculum standards.</p>",
+    )
+    assert not is_usa_resource(
+        "pages/australian-ccss-comparison.html",
+        "<p>Some teachers compare CCSS with ACARA in a discussion paragraph.</p>",
+    )
+    assert is_usa_resource(
+        "pages/free-printable-usa-grade-1-addition.html",
+        "<h1>Addition</h1>",
+    )
+    assert is_usa_resource(
+        "pages/us-grade-2-addition.html",
+        "<h1>Addition</h1>",
+    )
+    assert is_usa_resource(
+        "pages/free-printable-grade-1-adding-within-100-worksheet.html",
+        '<li><strong>Curriculum:</strong> CCSS 1.NBT.C.4</li>',
+    )
+    assert is_usa_resource(
+        "pages/free-printable-grade-1-adding-within-100-worksheet.html",
+        '<a href="../worksheets/usa/grade-1/math/sample.pdf">PDF</a>',
+    )
 
 
 class Audit(HTMLParser):
@@ -60,6 +139,7 @@ class Audit(HTMLParser):
 
 
 def main():
+    validate_usa_detection_rules()
     pages = {}
     for path in sorted(ROOT.rglob("*.html")):
         if is_excluded_path(path):
@@ -112,10 +192,7 @@ def main():
         if audit.h1_count != 1:
             issues["not exactly one H1"].append(relative_path)
 
-        relative = Path(relative_path)
-        parts = {part.lower() for part in relative.parts}
-        filename = relative.name.lower()
-        expected_lang = "en-US" if "usa" in parts or filename.startswith(("us-", "usa-")) else "en-AU"
+        expected_lang = "en-US" if is_usa_resource(relative_path, html) else "en-AU"
         if audit.lang != expected_lang:
             issues[f"locale mismatch (expected {expected_lang})"].append(relative_path)
 
@@ -128,6 +205,21 @@ def main():
     review_affected = {path for paths in review.values() for path in paths}
     print(f"Indexable HTML pages audited: {len(pages)}")
     print(f"Pages with hard SEO issues: {len(affected)}")
+    locale_paths = sorted(set(
+        issues.get("locale mismatch (expected en-US)", [])
+        + issues.get("locale mismatch (expected en-AU)", [])
+    ))
+    if locale_paths:
+        print("FULL LOCALE CORRECTION REVIEW (path | current lang | expected lang | title | USA detection signals):")
+        for relative_path in locale_paths:
+            audit, html = pages[relative_path]
+            expected = "en-US" if is_usa_resource(relative_path, html) else "en-AU"
+            signals = usa_detection_signals(relative_path, html)
+            print(
+                f"{relative_path} | {audit.lang or '(missing)'} | {expected} | "
+                f"{audit.titles[0] if audit.titles else '(no title)'} | "
+                f"{'; '.join(signals) if signals else 'Australian default'}"
+            )
     for category, paths in sorted(issues.items(), key=lambda item: -len(item[1])):
         print(f"{category}: {len(paths)}")
     print(f"Pages with editorial length review signals: {len(review_affected)}")
@@ -159,6 +251,16 @@ def main():
         for category, paths in issues.items():
             print(f"\n[{category}]")
             print("\n".join(paths))
+
+
+    # Execute the updater's own full-repository dry-run against this checkout.
+    # This is safe: dry_run=True reports changes but never writes page files.
+    updater_spec = importlib.util.spec_from_file_location(
+        "apa_language_updater", ROOT / "scripts" / "update-worksheet-language.py"
+    )
+    updater = importlib.util.module_from_spec(updater_spec)
+    updater_spec.loader.exec_module(updater)
+    updater.main(dry_run=True)
 
 
 if __name__ == "__main__":
