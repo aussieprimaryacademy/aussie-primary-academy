@@ -3,6 +3,7 @@
 
 from html import escape
 from pathlib import Path
+import hashlib
 import re
 from worksheet_page_paths import resolve_page_path, page_matches_pdf, page_is_indexable, same_pdf_content
 
@@ -473,6 +474,15 @@ def main() -> None:
     )
     if not paths:
         raise SystemExit("ERROR: no worksheet PDFs found")
+    unique_paths = []
+    seen_pdf_hashes = set()
+    for path in paths:
+        digest = hashlib.sha256(path.read_bytes()).digest()
+        if digest in seen_pdf_hashes:
+            continue
+        seen_pdf_hashes.add(digest)
+        unique_paths.append(path)
+    paths = unique_paths
     if len({path.relative_to(ROOT).as_posix() for path in paths}) != len(paths):
         raise SystemExit("ERROR: duplicate worksheet paths found")
     current_page = PAGE.read_text(encoding="utf-8")
