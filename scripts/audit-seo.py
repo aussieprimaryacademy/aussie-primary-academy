@@ -158,6 +158,20 @@ def main():
     review_affected = {path for paths in review.values() for path in paths}
     print(f"Indexable HTML pages audited: {len(pages)}")
     print(f"Pages with hard SEO issues: {len(affected)}")
+    locale_paths = sorted(set(
+        issues.get("locale mismatch (expected en-US)", [])
+        + issues.get("locale mismatch (expected en-AU)", [])
+    ))
+    if locale_paths:
+        print("FULL LOCALE CORRECTION REVIEW (path | current lang | expected lang | USA detection signals):")
+        for relative_path in locale_paths:
+            audit, html = pages[relative_path]
+            expected = "en-US" if is_usa_resource(relative_path, html) else "en-AU"
+            signals = usa_detection_signals(relative_path, html)
+            print(
+                f"{relative_path} | {audit.lang or '(missing)'} | {expected} | "
+                f"{'; '.join(signals) if signals else 'Australian default'}"
+            )
     for category, paths in sorted(issues.items(), key=lambda item: -len(item[1])):
         print(f"{category}: {len(paths)}")
     print(f"Pages with editorial length review signals: {len(review_affected)}")
