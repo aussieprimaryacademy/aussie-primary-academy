@@ -28,10 +28,20 @@ USA_PDF_LINK = re.compile(r"""(?:href|src)\s*=\s*["'][^"']*worksheets/usa/""", r
 def usa_detection_signals(relative_path, html):
     """Return every explicit signal identifying this page as a USA resource."""
     path = Path(relative_path)
-    filename_tokens = set(path.name.lower().removesuffix(".html").split("-"))
+    filename_tokens = path.name.lower().removesuffix(".html").split("-")
+    token_set = set(filename_tokens)
     signals = []
-    if filename_tokens & {"usa", "us"}:
-        signals.append("whole filename token: " + ",".join(sorted(filename_tokens & {"usa", "us"})))
+    if "usa" in token_set:
+        signals.append("whole filename token: usa")
+    # "us" is a valid word in phrases such as "all around us". Treat it as
+    # a USA prefix only when it introduces an explicit US grade/level label.
+    us_prefix = any(
+        token == "us" and index + 1 < len(filename_tokens)
+        and filename_tokens[index + 1] in {"grade", "kindergarten"}
+        for index, token in enumerate(filename_tokens)
+    )
+    if us_prefix:
+        signals.append("whole filename token: us (US grade/level prefix)")
     if any(part.lower() == "usa" for part in path.parts[:-1]):
         signals.append("directory token: usa")
     if USA_PDF_LINK.search(html):
