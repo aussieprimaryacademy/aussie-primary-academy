@@ -3,6 +3,7 @@
 from collections import Counter, defaultdict
 from html.parser import HTMLParser
 from pathlib import Path
+import re
 import sys
 import importlib.util
 
@@ -11,6 +12,34 @@ SPEC = importlib.util.spec_from_file_location("sitemap_generator", ROOT / "scrip
 SITEMAP_GENERATOR = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(SITEMAP_GENERATOR)
 is_excluded_path = SITEMAP_GENERATOR.is_excluded_path
+
+# Shared USA-resource detection. Keep this as the single source of truth:
+# update-worksheet-language.py imports this function rather than duplicating it.
+USA_STANDARD_FIELD = re.compile(
+    r'<(?:li|span|p|div)\\b[^>]*>(?:(?!</?(?:li|span|p|div)\\b).)*?'
+    r'(?:<strong>\\s*(?:curriculum|standard)\\s*:</strong>|'
+    r'class=["\\'][^"\\']*standard-pill[^"\\']*["\\'])'
+    r'(?:(?!</?(?:li|span|p|div)\\b).)*?\\bCCSS\\s+[A-Z0-9][A-Z0-9.\\-]*',
+    re.I | re.S,
+)
+USA_PDF_LINK = re.compile(r"""(?:href|src)\\s*=\\s*["'][^"']*worksheets/usa/""", re.I)
+
+
+def is_usa_resource(relative_path, html):
+    """Detect USA resources from filename/path, USA PDF links, or a CCSS standard field.
+
+    'usa'/'us' must be complete hyphen-separated filename tokens; substrings
+    such as 'thousand' and 'thousandths' never count.
+    """
+    path = Path(relative_path)
+    filename_tokens = set(path.name.lower().removesuffix(".html").split("-"))
+    usa_directory = any(part.lower() == "usa" for part in path.parts[:-1])
+    return (
+        bool(filename_tokens & {"usa", "us"})
+        or usa_directory
+        or bool(USA_PDF_LINK.search(html))
+        or bool(USA_STANDARD_FIELD.search(html))
+    )
 
 
 class Audit(HTMLParser):
@@ -112,10 +141,7 @@ def main():
         if audit.h1_count != 1:
             issues["not exactly one H1"].append(relative_path)
 
-        relative = Path(relative_path)
-        parts = {part.lower() for part in relative.parts}
-        filename = relative.name.lower()
-        expected_lang = "en-US" if "usa" in parts or filename.startswith(("us-", "usa-")) else "en-AU"
+        expected_lang = "en-US" if is_usa_resource(relative_path, html) else "en-AU"
         if audit.lang != expected_lang:
             issues[f"locale mismatch (expected {expected_lang})"].append(relative_path)
 
@@ -143,7 +169,7 @@ def main():
     ):
         duplicates = [(value, count) for value, count in counts.items() if count > 1]
         if duplicates:
-            print(f"\n{category}:")
+            print(f"\\n{category}:")
             for value, count in sorted(duplicates, key=lambda item: (-item[1], item[0])):
                 matching = [
                     path for path, (audit, _) in pages.items()
@@ -157,8 +183,8 @@ def main():
 
     if "-v" in sys.argv:
         for category, paths in issues.items():
-            print(f"\n[{category}]")
-            print("\n".join(paths))
+            print(f"\\n[{category}]")
+            print("\\n".join(paths))
 
 
 if __name__ == "__main__":
