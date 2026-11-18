@@ -255,7 +255,7 @@ def update(page: Path, folder: Path, level: str):
     )
 
 def main():
-    targets=[("foundation.html",W/"foundation","Foundation")]
+    targets=[]
     targets += [(f"year-{n}.html",W/f"year-{n}",f"Year {n}") for n in range(1,7)]
     for name,folder,level in targets:
         page=ROOT/name
