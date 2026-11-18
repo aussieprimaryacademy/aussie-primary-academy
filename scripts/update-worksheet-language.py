@@ -14,9 +14,9 @@ SITEMAP_SPEC = importlib.util.spec_from_file_location(
 SITEMAP_GENERATOR = importlib.util.module_from_spec(SITEMAP_SPEC)
 SITEMAP_SPEC.loader.exec_module(SITEMAP_GENERATOR)
 
-LANG_ATTRIBUTE = re.compile(r'(<html\\b[^>]*\\blang\\s*=\\s*")([^"]+)(")', re.I)
-META_TAG = re.compile(r"<meta\\b[^>]*>", re.I)
-ATTRIBUTE = re.compile(r"""(\\b{attribute}\\s*=\\s*)(["'])(.*?)\\2""", re.I)
+LANG_ATTRIBUTE = re.compile(r'(<html\b[^>]*\blang\s*=\s*")([^"]+)(")', re.I)
+META_TAG = re.compile(r"<meta\b[^>]*>", re.I)
+ATTRIBUTE = re.compile(r"""(\b{attribute}\s*=\s*)(["'])(.*?)\2""", re.I)
 
 
 def expected_language(path: Path, html: str = "") -> str:
@@ -41,7 +41,7 @@ def update_open_graph_locale(html: str, locale: str) -> str:
                 count=1,
                 flags=re.I,
             )
-        return tag[:-1] + f' content="{locale}">' 
+        return tag[:-1] + f' content="{locale}">'
 
     return META_TAG.sub(update_tag, html)
 
