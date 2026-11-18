@@ -56,6 +56,42 @@ def is_usa_resource(relative_path, html):
     return bool(usa_detection_signals(relative_path, html))
 
 
+def validate_usa_detection_rules():
+    """Guard the USA detector against known Australian false-positive patterns."""
+    assert not is_usa_resource(
+        "pages/free-printable-texts-all-around-us-signs-books-screens-worksheet-ac9efla03-free-printable-colour-worksheet.html",
+        "<p>Texts all around us include signs, books and screens.</p>",
+    )
+    assert not is_usa_resource(
+        "pages/free-printable-grade-5-decimal-place-value-rounding-worksheet.html",
+        "<p>Use place-value charts for tenths, hundredths and thousandths.</p>",
+    )
+    assert not is_usa_resource(
+        "pages/australian-curriculum-comparison.html",
+        "<p>This page compares Common Core and Australian Curriculum standards.</p>",
+    )
+    assert not is_usa_resource(
+        "pages/australian-ccss-comparison.html",
+        "<p>Some teachers compare CCSS with ACARA in a discussion paragraph.</p>",
+    )
+    assert is_usa_resource(
+        "pages/free-printable-usa-grade-1-addition.html",
+        "<h1>Addition</h1>",
+    )
+    assert is_usa_resource(
+        "pages/us-grade-2-addition.html",
+        "<h1>Addition</h1>",
+    )
+    assert is_usa_resource(
+        "pages/free-printable-grade-1-adding-within-100-worksheet.html",
+        '<li><strong>Curriculum:</strong> CCSS 1.NBT.C.4</li>',
+    )
+    assert is_usa_resource(
+        "pages/free-printable-grade-1-adding-within-100-worksheet.html",
+        '<a href="../worksheets/usa/grade-1/math/sample.pdf">PDF</a>',
+    )
+
+
 class Audit(HTMLParser):
     def __init__(self):
         super().__init__()
@@ -103,6 +139,7 @@ class Audit(HTMLParser):
 
 
 def main():
+    validate_usa_detection_rules()
     pages = {}
     for path in sorted(ROOT.rglob("*.html")):
         if is_excluded_path(path):
