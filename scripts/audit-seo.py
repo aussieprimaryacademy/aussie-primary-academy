@@ -16,10 +16,10 @@ is_excluded_path = SITEMAP_GENERATOR.is_excluded_path
 # The single shared USA detector. The language updater imports this function.
 # CCSS is accepted only in an explicit curriculum/standard field, never prose.
 USA_STANDARD_FIELD = re.compile(
-    r'<(?:li|span|p|div)\b[^>]*>(?:(?!</?(?:li|span|p|div)\b).)*?'
-    r'(?:<strong>\s*(?:curriculum|standard)\s*:</strong>|'
-    r'class=["\'][^"\']*standard-pill[^"\']*["\'])'
-    r'(?:(?!</?(?:li|span|p|div)\b).)*?\bCCSS\s+[A-Z0-9][A-Z0-9.\-]*',
+    r'<li\b[^>]*>(?:(?!</li>).)*?<strong>\s*(?:curriculum|standard)\s*:</strong>'
+    r'(?:(?!</li>).)*?\bCCSS\s+[A-Z0-9][A-Z0-9.\-]*|'
+    r'<span\b[^>]*class=["\'][^"\']*standard-pill[^"\']*["\'][^>]*>'
+    r'[^<]*\bCCSS\s+[A-Z0-9][A-Z0-9.\-]*',
     re.I | re.S,
 )
 USA_PDF_LINK = re.compile(r"""(?:href|src)\s*=\s*["'][^"']*worksheets/usa/""", re.I)
