@@ -18,10 +18,10 @@ SPEC = importlib.util.spec_from_file_location(
 )
 SITEMAP_GENERATOR = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(SITEMAP_GENERATOR)
-LANG_ATTRIBUTE = re.compile(r'(<html\\b[^>]*\\blang\\s*=\\s*")([^"]+)(")', re.I)
-META_TAG = re.compile(r"<meta\\b[^>]*>", re.I)
-ATTRIBUTE = re.compile(r"""(\\b{attribute}\\s*=\\s*)(["'])(.*?)\\2""", re.I)
-CCSS_STANDARD = re.compile(r"\\bCCSS\\b", re.I)
+LANG_ATTRIBUTE = re.compile(r'(<html\b[^>]*\blang\s*=\s*")([^"]+)(")', re.I)
+META_TAG = re.compile(r"<meta\b[^>]*>", re.I)
+ATTRIBUTE = re.compile(r"""(\b{attribute}\s*=\s*)(["'])(.*?)\2""", re.I)
+CCSS_STANDARD = re.compile(r"\bCCSS\b", re.I)
 
 
 def is_usa_resource(path: Path, html: str) -> bool:
@@ -44,8 +44,8 @@ def update_open_graph_locale(html: str, locale: str) -> str:
     """Update existing og:locale metadata without adding metadata to other pages."""
     def update_tag(match: re.Match) -> str:
         tag = match.group(0)
-        property_match = ATTRIBUTE.pattern.format(attribute="property")
-        property_value = re.search(property_match, tag, re.I)
+        property_pattern = ATTRIBUTE.pattern.format(attribute="property")
+        property_value = re.search(property_pattern, tag, re.I)
         if not property_value or property_value.group(3).lower() != "og:locale":
             return tag
         content_pattern = ATTRIBUTE.pattern.format(attribute="content")
