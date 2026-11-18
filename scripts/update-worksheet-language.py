@@ -1,43 +1,27 @@
 #!/usr/bin/env python3
-"""Set the correct English locale on every eligible public HTML page.
-
-Australian resources use en-AU; USA resources use en-US. USA detection is
-content-aware: a USA filename/path, a worksheet PDF under worksheets/usa/,
-or a Common Core (CCSS) standard marks the page as a USA resource. The script
-updates the html lang attribute and an existing Open Graph locale value.
-Page copy, canonicals, links, and PDFs are left untouched. Explicit noindex
-and non-public pages are skipped.
-"""
+"""Set correct English locales using the shared USA detector in audit-seo.py."""
 from pathlib import Path
 import re
 import importlib.util
 
 ROOT = Path(__file__).resolve().parent.parent
-SPEC = importlib.util.spec_from_file_location(
+SPEC = importlib.util.spec_from_file_location("apa_seo_audit", ROOT / "scripts" / "audit-seo.py")
+SEO_AUDIT = importlib.util.module_from_spec(SPEC)
+SPEC.loader.exec_module(SEO_AUDIT)
+SITEMAP_SPEC = importlib.util.spec_from_file_location(
     "sitemap_generator", ROOT / "scripts" / "generate-sitemap.py"
 )
-SITEMAP_GENERATOR = importlib.util.module_from_spec(SPEC)
-SPEC.loader.exec_module(SITEMAP_GENERATOR)
-LANG_ATTRIBUTE = re.compile(r'(<html\b[^>]*\blang\s*=\s*")([^"]+)(")', re.I)
-META_TAG = re.compile(r"<meta\b[^>]*>", re.I)
-ATTRIBUTE = re.compile(r"""(\b{attribute}\s*=\s*)(["'])(.*?)\2""", re.I)
-CCSS_STANDARD = re.compile(r"\bCCSS\b", re.I)
+SITEMAP_GENERATOR = importlib.util.module_from_spec(SITEMAP_SPEC)
+SITEMAP_SPEC.loader.exec_module(SITEMAP_GENERATOR)
 
-
-def is_usa_resource(path: Path, html: str) -> bool:
-    """Return True when the page contains any explicit USA resource signal."""
-    parts = {part.lower() for part in path.parts}
-    filename = path.name.lower()
-    return (
-        "usa" in parts
-        or "usa" in filename
-        or "worksheets/usa/" in html.lower()
-        or bool(CCSS_STANDARD.search(html))
-    )
+LANG_ATTRIBUTE = re.compile(r'(<html\\b[^>]*\\blang\\s*=\\s*")([^"]+)(")', re.I)
+META_TAG = re.compile(r"<meta\\b[^>]*>", re.I)
+ATTRIBUTE = re.compile(r"""(\\b{attribute}\\s*=\\s*)(["'])(.*?)\\2""", re.I)
 
 
 def expected_language(path: Path, html: str = "") -> str:
-    return "en-US" if is_usa_resource(path, html) else "en-AU"
+    relative_path = path.relative_to(ROOT).as_posix()
+    return "en-US" if SEO_AUDIT.is_usa_resource(relative_path, html) else "en-AU"
 
 
 def update_open_graph_locale(html: str, locale: str) -> str:
@@ -57,7 +41,7 @@ def update_open_graph_locale(html: str, locale: str) -> str:
                 count=1,
                 flags=re.I,
             )
-        return tag[:-1] + f' content="{locale}">'
+        return tag[:-1] + f' content="{locale}">' 
 
     return META_TAG.sub(update_tag, html)
 
@@ -102,7 +86,6 @@ def main() -> int:
     print(f"Already correct: {unchanged}")
     print(f"Missing lang attribute: {len(missing)}")
     print(f"Unusual locales left for review: {len(unusual)}")
-
     if missing or unusual:
         for item in (missing + unusual)[:50]:
             print(f"REVIEW: {item}")
