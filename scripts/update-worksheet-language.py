@@ -3,6 +3,7 @@
 from pathlib import Path
 import re
 import importlib.util
+import sys
 
 ROOT = Path(__file__).resolve().parent.parent
 SPEC = importlib.util.spec_from_file_location("apa_seo_audit", ROOT / "scripts" / "audit-seo.py")
@@ -46,7 +47,7 @@ def update_open_graph_locale(html: str, locale: str) -> str:
     return META_TAG.sub(update_tag, html)
 
 
-def main() -> int:
+def main(dry_run: bool = False) -> int:
     changed = 0
     unchanged = 0
     change_rows = []
@@ -81,14 +82,16 @@ def main() -> int:
             unusual.append(f"{relative}: {current}")
             continue
 
-        path.write_text(updated, encoding="utf-8")
+        if not dry_run:
+            path.write_text(updated, encoding="utf-8")
         changed += 1
         change_rows.append((relative, current, target, "; ".join(signals) if signals else "Australian default"))
 
     print("FULL LANGUAGE CHANGE MANIFEST (path | old lang | new lang | triggering signal):")
     for row in change_rows:
         print(" | ".join(row))
-    print(f"Public indexable HTML pages updated: {changed}")
+    action = "would update (dry-run)" if dry_run else "updated"
+    print(f"Public indexable HTML pages {action}: {changed}")
     print(f"Already correct: {unchanged}")
     print(f"Missing lang attribute: {len(missing)}")
     print(f"Unusual locales left for review: {len(unusual)}")
@@ -100,4 +103,4 @@ def main() -> int:
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    raise SystemExit(main(dry_run="--dry-run" in sys.argv))
