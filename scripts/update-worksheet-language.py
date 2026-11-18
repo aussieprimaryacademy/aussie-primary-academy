@@ -49,6 +49,7 @@ def update_open_graph_locale(html: str, locale: str) -> str:
 def main() -> int:
     changed = 0
     unchanged = 0
+    change_rows = []
     missing = []
     unusual = []
 
@@ -68,6 +69,7 @@ def main() -> int:
 
         current = match.group(2)
         target = expected_language(path, html)
+        signals = SEO_AUDIT.usa_detection_signals(relative, html)
         locale = "en_US" if target == "en-US" else "en_AU"
         updated = html[:match.start(2)] + target + html[match.end(2):]
         updated = update_open_graph_locale(updated, locale)
@@ -81,7 +83,11 @@ def main() -> int:
 
         path.write_text(updated, encoding="utf-8")
         changed += 1
+        change_rows.append((relative, current, target, "; ".join(signals) if signals else "Australian default"))
 
+    print("FULL LANGUAGE CHANGE MANIFEST (path | old lang | new lang | triggering signal):")
+    for row in change_rows:
+        print(" | ".join(row))
     print(f"Public indexable HTML pages updated: {changed}")
     print(f"Already correct: {unchanged}")
     print(f"Missing lang attribute: {len(missing)}")
