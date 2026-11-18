@@ -3,7 +3,6 @@
 
 from html import escape
 from pathlib import Path
-import hashlib
 import re
 from worksheet_page_paths import resolve_page_path, page_matches_pdf, page_is_indexable, same_pdf_content
 
@@ -467,56 +466,6 @@ def update_page(section: str) -> None:
     PAGE.write_text(updated, encoding="utf-8")
 
 
-def unique_pdf_paths(paths: list[Path]) -> list[Path]:
-    """Collapse byte-identical aliases only when they resolve to the same live PDF-linked page.
-
-    Different live landing pages (for example Foundation and Year 1 editions) remain
-    separate catalogue entries. Within one landing-page group, prefer the path that
-    the indexable page actually links to. Sorting makes every tie-break deterministic.
-    """
-    by_digest: dict[bytes, list[Path]] = {}
-    for path in paths:
-        digest = hashlib.sha256(path.read_bytes()).digest()
-        by_digest.setdefault(digest, []).append(path)
-
-    selected: list[Path] = []
-    for candidates in by_digest.values():
-        candidates = sorted(candidates, key=lambda item: item.relative_to(ROOT).as_posix().lower())
-        page_groups: dict[str, list[Path]] = {}
-        unresolved: list[Path] = []
-        for path in candidates:
-            _, level, _ = level_and_subject(path.relative_to(WORKSHEETS_DIR))
-            page_rel = page_for_pdf(path, level)
-            page_file = ROOT / page_rel
-            if (
-                page_file.is_file()
-                and page_matches_pdf(page_file, path, ROOT)
-                and page_is_indexable(page_file, ROOT)
-            ):
-                page_groups.setdefault(page_rel, []).append(path)
-            else:
-                unresolved.append(path)
-
-        if not page_groups:
-            selected.extend(candidates)
-            continue
-
-        for page_rel in sorted(page_groups):
-            # All valid candidates in this group resolve to the same page; page_matches_pdf
-            # confirms which PDF path that live page actually downloads.
-            selected.append(page_groups[page_rel][0])
-
-        # Do not discard a different page's resource merely because its PDF bytes match.
-        # An unresolved path is only an alias when it resolves to a page already owned.
-        owned_pages = set(page_groups)
-        for path in unresolved:
-            _, level, _ = level_and_subject(path.relative_to(WORKSHEETS_DIR))
-            if page_for_pdf(path, level) not in owned_pages:
-                selected.append(path)
-
-    return sorted(selected, key=lambda item: item.relative_to(ROOT).as_posix().lower())
-
-
 def main() -> None:
     paths = sorted(
         (path for path in WORKSHEETS_DIR.rglob("*.pdf") if path.is_file() and not re.search(r"answer[-_ ]?(?:guide|key)|answerkey", path.name, re.I) and level_and_subject(path.relative_to(WORKSHEETS_DIR))[0] == "Australia"),
@@ -524,7 +473,6 @@ def main() -> None:
     )
     if not paths:
         raise SystemExit("ERROR: no worksheet PDFs found")
-    paths = unique_pdf_paths(paths)
     if len({path.relative_to(ROOT).as_posix() for path in paths}) != len(paths):
         raise SystemExit("ERROR: duplicate worksheet paths found")
     current_page = PAGE.read_text(encoding="utf-8")
