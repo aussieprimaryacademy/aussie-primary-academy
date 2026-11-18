@@ -25,17 +25,25 @@ USA_STANDARD_FIELD = re.compile(
 USA_PDF_LINK = re.compile(r"""(?:href|src)\s*=\s*["'][^"']*worksheets/usa/""", re.I)
 
 
-def is_usa_resource(relative_path, html):
-    """Detect USA from whole filename tokens, a USA directory, USA PDF link, or CCSS field."""
+def usa_detection_signals(relative_path, html):
+    """Return every explicit signal identifying this page as a USA resource."""
     path = Path(relative_path)
     filename_tokens = set(path.name.lower().removesuffix(".html").split("-"))
-    usa_directory = any(part.lower() == "usa" for part in path.parts[:-1])
-    return (
-        bool(filename_tokens & {"usa", "us"})
-        or usa_directory
-        or bool(USA_PDF_LINK.search(html))
-        or bool(USA_STANDARD_FIELD.search(html))
-    )
+    signals = []
+    if filename_tokens & {"usa", "us"}:
+        signals.append("whole filename token: " + ",".join(sorted(filename_tokens & {"usa", "us"})))
+    if any(part.lower() == "usa" for part in path.parts[:-1]):
+        signals.append("directory token: usa")
+    if USA_PDF_LINK.search(html):
+        signals.append("link to worksheets/usa/")
+    if USA_STANDARD_FIELD.search(html):
+        signals.append("CCSS in curriculum/standard field")
+    return signals
+
+
+def is_usa_resource(relative_path, html):
+    """Shared boolean wrapper used by the SEO audit."""
+    return bool(usa_detection_signals(relative_path, html))
 
 
 class Audit(HTMLParser):
