@@ -210,13 +210,14 @@ def main():
         + issues.get("locale mismatch (expected en-AU)", [])
     ))
     if locale_paths:
-        print("FULL LOCALE CORRECTION REVIEW (path | current lang | expected lang | USA detection signals):")
+        print("FULL LOCALE CORRECTION REVIEW (path | current lang | expected lang | title | USA detection signals):")
         for relative_path in locale_paths:
             audit, html = pages[relative_path]
             expected = "en-US" if is_usa_resource(relative_path, html) else "en-AU"
             signals = usa_detection_signals(relative_path, html)
             print(
                 f"{relative_path} | {audit.lang or '(missing)'} | {expected} | "
+                f"{audit.titles[0] if audit.titles else '(no title)'} | "
                 f"{'; '.join(signals) if signals else 'Australian default'}"
             )
     for category, paths in sorted(issues.items(), key=lambda item: -len(item[1])):
