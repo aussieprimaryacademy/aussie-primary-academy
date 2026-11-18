@@ -13,24 +13,20 @@ SITEMAP_GENERATOR = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(SITEMAP_GENERATOR)
 is_excluded_path = SITEMAP_GENERATOR.is_excluded_path
 
-# Shared USA-resource detection. Keep this as the single source of truth:
-# update-worksheet-language.py imports this function rather than duplicating it.
+# The single shared USA detector. The language updater imports this function.
+# CCSS is accepted only in an explicit curriculum/standard field, never prose.
 USA_STANDARD_FIELD = re.compile(
-    r'<(?:li|span|p|div)\\b[^>]*>(?:(?!</?(?:li|span|p|div)\\b).)*?'
-    r'(?:<strong>\\s*(?:curriculum|standard)\\s*:</strong>|'
-    r'class=["\\'][^"\\']*standard-pill[^"\\']*["\\'])'
-    r'(?:(?!</?(?:li|span|p|div)\\b).)*?\\bCCSS\\s+[A-Z0-9][A-Z0-9.\\-]*',
+    r'<(?:li|span|p|div)\b[^>]*>(?:(?!</?(?:li|span|p|div)\b).)*?'
+    r'(?:<strong>\s*(?:curriculum|standard)\s*:</strong>|'
+    r'class=["\'][^"\']*standard-pill[^"\']*["\'])'
+    r'(?:(?!</?(?:li|span|p|div)\b).)*?\bCCSS\s+[A-Z0-9][A-Z0-9.\-]*',
     re.I | re.S,
 )
-USA_PDF_LINK = re.compile(r"""(?:href|src)\\s*=\\s*["'][^"']*worksheets/usa/""", re.I)
+USA_PDF_LINK = re.compile(r"""(?:href|src)\s*=\s*["'][^"']*worksheets/usa/""", re.I)
 
 
 def is_usa_resource(relative_path, html):
-    """Detect USA resources from filename/path, USA PDF links, or a CCSS standard field.
-
-    'usa'/'us' must be complete hyphen-separated filename tokens; substrings
-    such as 'thousand' and 'thousandths' never count.
-    """
+    """Detect USA from whole filename tokens, a USA directory, USA PDF link, or CCSS field."""
     path = Path(relative_path)
     filename_tokens = set(path.name.lower().removesuffix(".html").split("-"))
     usa_directory = any(part.lower() == "usa" for part in path.parts[:-1])
@@ -169,7 +165,7 @@ def main():
     ):
         duplicates = [(value, count) for value, count in counts.items() if count > 1]
         if duplicates:
-            print(f"\\n{category}:")
+            print(f"\n{category}:")
             for value, count in sorted(duplicates, key=lambda item: (-item[1], item[0])):
                 matching = [
                     path for path, (audit, _) in pages.items()
@@ -183,8 +179,8 @@ def main():
 
     if "-v" in sys.argv:
         for category, paths in issues.items():
-            print(f"\\n[{category}]")
-            print("\\n".join(paths))
+            print(f"\n[{category}]")
+            print("\n".join(paths))
 
 
 if __name__ == "__main__":
