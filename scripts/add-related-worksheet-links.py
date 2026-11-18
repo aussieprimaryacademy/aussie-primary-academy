@@ -99,7 +99,7 @@ def main() -> int:
         if re.search(r"answer[-_ ]?(?:key|guide)|answerkey", name, re.I):
             continue
         meta = parse_pdf(pdf.relative_to(ROOT))
-        if "ac9sfis" in meta["page"].lower() or "ac9sfis" in meta["standard"].lower():
+        if "ac9sfis" in str(meta.get("page", "")).lower() or "ac9sfis" in str(meta.get("standard", "")).lower():
             continue
         page = ROOT / meta["page"]
         if not page.is_file() or meta["page"] in seen_pages:
