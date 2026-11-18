@@ -253,5 +253,15 @@ def main():
             print("\n".join(paths))
 
 
+    # Execute the updater's own full-repository dry-run against this checkout.
+    # This is safe: dry_run=True reports changes but never writes page files.
+    updater_spec = importlib.util.spec_from_file_location(
+        "apa_language_updater", ROOT / "scripts" / "update-worksheet-language.py"
+    )
+    updater = importlib.util.module_from_spec(updater_spec)
+    updater_spec.loader.exec_module(updater)
+    updater.main(dry_run=True)
+
+
 if __name__ == "__main__":
     main()
