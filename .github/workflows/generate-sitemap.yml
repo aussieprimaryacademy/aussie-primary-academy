@@ -32,7 +32,7 @@ permissions:
   pull-requests: write
 
 concurrency:
-  # Share the queue with worksheet preview/page generation so two
+  # Share the queue with worksheet preview generation so two
   # GitHub Actions writers never push at the same time.
   group: apa-content-generators
   cancel-in-progress: false
