@@ -32,6 +32,12 @@ def main():
     current = sitemap_urls(ROOT / "sitemap.xml")
     removed = sorted(previous - current)
     unexpected = []
+    allowlist_path = ROOT / "scripts" / "expected-sitemap-removals.txt"
+    approved_missing_sources = {
+        line.strip()
+        for line in allowlist_path.read_text(encoding="utf-8").splitlines()
+        if line.strip() and not line.lstrip().startswith("#")
+    } if allowlist_path.is_file() else set()
 
     for url in removed:
         if not url.startswith(GENERATOR.BASE):
@@ -40,6 +46,8 @@ def main():
         relative = unquote(url[len(GENERATOR.BASE):]) or "index.html"
         page = ROOT / relative
         if not page.is_file():
+            if url in approved_missing_sources:
+                continue
             unexpected.append(url + " (source file missing; manual review required)")
             continue
         if not (GENERATOR.is_excluded_path(page) or GENERATOR.parse_page(page)[0]):
