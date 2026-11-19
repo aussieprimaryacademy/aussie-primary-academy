@@ -30,7 +30,12 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Run whole-site audit
+      - name: Generate catalogue, year-level cards and sitemap in the audit workspace
+        run: |
+          python scripts/generate-worksheet-index.py
+          python scripts/generate-year-pages.py
+          python scripts/generate-sitemap.py
+      - name: Run whole-site audit against generated website output
         run: python scripts/audit-site.py
       - name: Upload reports
         uses: actions/upload-artifact@v4
