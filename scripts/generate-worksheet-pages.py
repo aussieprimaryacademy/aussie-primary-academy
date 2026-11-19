@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
-"""Create individual worksheet HTML pages from worksheet PDFs.
+"""Legacy worksheet page generator — automatic generic page creation is disabled.
 
-Existing worksheet landing pages are immutable to this generator. New pages are
-created only when missing. Manual/curated learning-support content must never be
-lost during PDF regeneration; metadata mismatches are reported for manual review.
+PDF previews remain automated by the workflow. Indexable landing pages must be
+written as curated editorial pages and committed after content review.
 """
 
 from __future__ import annotations
