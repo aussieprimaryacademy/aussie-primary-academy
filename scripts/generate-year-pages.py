@@ -283,10 +283,10 @@ def update(page: Path, folder: Path, level: str):
         section = block(fallback, level, colours)
         text = text.replace("</main>", section + "\n</main>", 1)
 
-    text = re.sub(re.escape(EOY_START) + r"[\\s\\S]*?" + re.escape(EOY_END), "", text)
+    text = re.sub(re.escape(EOY_START) + r"[\s\S]*?" + re.escape(EOY_END), "", text)
     eoy = end_of_year_block(int(level.split()[-1]))
     if eoy:
-        text = text.replace("</main>", eoy + "\\n</main>", 1)
+        text = text.replace("</main>", eoy + "\n</main>", 1)
     page.write_text(text, encoding="utf-8")
     print(f"{page.name}: worksheet cards refreshed; end-of-year resource cards refreshed")
 
