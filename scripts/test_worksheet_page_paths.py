@@ -1,8 +1,14 @@
+import importlib.util
 import tempfile
 import unittest
 from pathlib import Path
 
 from worksheet_page_paths import page_matches_pdf, page_is_indexable, resolve_page_path, is_duplicate_pdf_copy, duplicate_pdf_target
+
+GENERATOR_PATH = Path(__file__).with_name("generate-worksheet-index.py")
+GENERATOR_SPEC = importlib.util.spec_from_file_location("generate_worksheet_index", GENERATOR_PATH)
+GENERATOR = importlib.util.module_from_spec(GENERATOR_SPEC)
+GENERATOR_SPEC.loader.exec_module(GENERATOR)
 
 
 class WorksheetPagePathTests(unittest.TestCase):
@@ -70,6 +76,14 @@ class WorksheetPagePathTests(unittest.TestCase):
         self.assertFalse(is_duplicate_pdf_copy(different, page, self.root))
         self.assertIsNone(duplicate_pdf_target(different, page, self.root))
 
+
+    def test_letter_formation_catalogue_skill_is_writing(self):
+        path = Path("worksheets/foundation/english/foundation-english-letter-formation-lowercase.pdf")
+        self.assertEqual(GENERATOR.skill_for(path, "Letter Formation Lowercase", "English"), "Writing")
+
+    def test_bushfires_workbook_catalogue_skill_is_extreme_weather(self):
+        path = Path("worksheets/water-safety-worksheets/bushfires-floods-extreme-weather-workbook-year-5-6-australia.pdf")
+        self.assertEqual(GENERATOR.skill_for(path, "Bushfires Floods Extreme Weather Workbook", "Science"), "Extreme Weather")
 
     def test_noindex_alias_resolves_to_its_indexable_canonical_page(self):
         pdf = self.make_pdf("foundation/maths/part-whole.pdf", b"part whole")
