@@ -38,11 +38,18 @@ def same_pdf_content(first: Path, second: Path) -> bool:
     return hashlib.sha256(first.read_bytes()).digest() == hashlib.sha256(second.read_bytes()).digest()
 
 
-def is_duplicate_pdf_copy(pdf: Path, page: Path, root: Path) -> bool:
-    """Return True when a PDF is an identical copy, not the file linked by its page."""
+def duplicate_pdf_target(pdf: Path, page: Path, root: Path) -> Path | None:
+    """Return the page-linked PDF when pdf is an identical, redundant copy."""
     linked = _linked_pdf(Path(page), Path(root).resolve())
     candidate = Path(pdf).resolve()
-    return bool(linked and linked.resolve() != candidate and same_pdf_content(linked, candidate))
+    if linked and linked.resolve() != candidate and same_pdf_content(linked, candidate):
+        return linked
+    return None
+
+
+def is_duplicate_pdf_copy(pdf: Path, page: Path, root: Path) -> bool:
+    """Return True when a PDF is an identical copy, not the file linked by its page."""
+    return duplicate_pdf_target(pdf, page, root) is not None
 
 
 def page_matches_pdf(page: Path, pdf: Path, root: Path) -> bool:
