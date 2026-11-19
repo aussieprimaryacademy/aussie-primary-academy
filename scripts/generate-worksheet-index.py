@@ -84,7 +84,7 @@ def level_and_subject(path: Path) -> tuple[str, str, str]:
         "science": "Science", "reading": "Reading", "writing": "Writing", "phonics": "Phonics",
     }
     subject = next((subject_map[p] for p in parts if p in subject_map), "Worksheet")
-    if name == "foundation-english-beginning-sounds-phonics-worksheet-ac9efly10-free-printable-colour":
+    if stem == "foundation-english-beginning-sounds-phonics-worksheet-ac9efly10-free-printable-colour":
         subject = "Phonics"
     return region, level, subject
 
