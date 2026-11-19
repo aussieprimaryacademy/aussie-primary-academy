@@ -283,7 +283,13 @@ def update(page: Path, folder: Path, level: str):
         section = block(fallback, level, colours)
         text = text.replace("</main>", section + "\n</main>", 1)
 
-    text = re.sub(re.escape(EOY_START) + r"[\s\S]*?" + re.escape(EOY_END), "", text)
+    text = re.sub(
+        r"\n[ \t\n]*" + re.escape(EOY_START) + r"[\s\S]*?" + re.escape(EOY_END) + r"[ \t\n]*",
+        "\n",
+        text,
+    )
+    # Normalise trailing whitespace before </main> so repeated generation is byte-for-byte stable.
+    text = re.sub(r"\n[ \t\n]*(?=</main>)", "\n", text)
     eoy = end_of_year_block(int(level.split()[-1]))
     if eoy:
         text = text.replace("</main>", eoy + "\n</main>", 1)
