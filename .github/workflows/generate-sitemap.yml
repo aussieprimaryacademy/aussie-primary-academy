@@ -1,11 +1,10 @@
 name: Generate Sitemap
 
 on:
-  # Re-run after PDF -> preview -> worksheet-page generation has committed its
-  # HTML output. A push made with GITHUB_TOKEN does not trigger push workflows.
+  # Re-run after PDF preview generation completes. A push made with GITHUB_TOKEN does not trigger push workflows.
   workflow_run:
     workflows:
-      - Generate Worksheet Previews and Pages
+      - Generate Worksheet Previews
     types:
       - completed
     branches:
@@ -40,7 +39,7 @@ concurrency:
 
 jobs:
   generate:
-    # A PDF upload is indexed only after the preview/page generator succeeds.
+    # A PDF upload is indexed only after preview generation succeeds.
     if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     steps:
