@@ -157,7 +157,7 @@ jobs:
       - name: Commit generated previews
         run: |
           if [ -z "$(git status --porcelain -- worksheets)" ]; then
-            echo "No new worksheet previews/pages were needed."
+            echo "No new worksheet previews were needed."
             exit 0
           fi
           git config user.name "github-actions[bot]"
