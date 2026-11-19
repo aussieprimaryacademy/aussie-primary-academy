@@ -93,6 +93,9 @@ jobs:
       - name: Generate year pages
         run: python scripts/generate-year-pages.py
 
+      - name: Test curated End-of-Year pages and cards
+        run: python -m unittest discover -s scripts -p 'test_end_of_year_pages.py'
+
       - name: Ensure site analytics and PDF click tracking
         if: github.event_name != 'workflow_run'
         run: python scripts/ensure-site-analytics.py
