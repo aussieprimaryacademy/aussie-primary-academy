@@ -2,7 +2,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from worksheet_page_paths import page_matches_pdf, page_is_indexable, resolve_page_path, is_duplicate_pdf_copy
+from worksheet_page_paths import page_matches_pdf, page_is_indexable, resolve_page_path, is_duplicate_pdf_copy, duplicate_pdf_target
 
 
 class WorksheetPagePathTests(unittest.TestCase):
@@ -61,12 +61,14 @@ class WorksheetPagePathTests(unittest.TestCase):
         page = self.base_page("beginning-sounds.html", owner)
         self.assertFalse(is_duplicate_pdf_copy(owner, page, self.root))
         self.assertTrue(is_duplicate_pdf_copy(duplicate, page, self.root))
+        self.assertEqual(duplicate_pdf_target(duplicate, page, self.root), owner)
 
     def test_catalogue_does_not_skip_different_pdf_content(self):
         owner = self.make_pdf("foundation/english/beginning-sounds.pdf", b"original worksheet")
         different = self.make_pdf("foundation/phonics/beginning-sounds.pdf", b"different worksheet")
         page = self.base_page("beginning-sounds.html", owner)
         self.assertFalse(is_duplicate_pdf_copy(different, page, self.root))
+        self.assertIsNone(duplicate_pdf_target(different, page, self.root))
 
 
     def test_noindex_alias_resolves_to_its_indexable_canonical_page(self):
