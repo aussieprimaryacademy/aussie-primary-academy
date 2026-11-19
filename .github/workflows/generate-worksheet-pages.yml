@@ -1,7 +1,6 @@
-name: Generate Worksheet Previews and Pages
+name: Generate Worksheet Previews
 
-# Single automatic owner for the PDF -> PNG preview -> worksheet HTML chain.
-# Existing pages/previews are never overwritten.
+# Automatic PDF -> PNG preview chain only. Indexable HTML pages are curated separately.
 
 on:
   push:
@@ -20,10 +19,6 @@ on:
         description: "Comma-separated worksheet folders to process"
         required: true
         default: "worksheets"
-      max_new_pages:
-        description: "Maximum new HTML pages to create"
-        required: true
-        default: "500"
 
 permissions:
   contents: write
@@ -159,19 +154,19 @@ jobs:
           print('Generated asset validation passed.')
           PY
 
-      - name: Commit generated previews and pages
+      - name: Commit generated previews
         run: |
-          if [ -z "$(git status --porcelain -- pages worksheets)" ]; then
+          if [ -z "$(git status --porcelain -- worksheets)" ]; then
             echo "No new worksheet previews/pages were needed."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add pages/ worksheets/
+          git add worksheets/
           if git diff --cached --quiet; then
             echo "No staged worksheet asset changes."
             exit 0
           fi
-          git commit -m "Auto-generate worksheet previews and pages"
+          git commit -m "Auto-generate worksheet previews"
           git pull --rebase origin main
           git push origin HEAD:main
