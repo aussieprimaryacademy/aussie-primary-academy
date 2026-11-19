@@ -43,7 +43,23 @@ def tokens(value: str) -> set[str]:
     }
 
 
-def build_related_section(current: dict[str, str], candidates: list[dict[str, str]]) -> str:
+def apply_end_of_year_classification(meta: dict[str, str], pdf: Path) -> dict[str, str]:
+    """Apply editorial metadata for the curated End-of-Year resource collection."""
+    name = pdf.stem.lower()
+    if "years-1-2-school-swimming-preparation-reflection-pack" in name:
+        meta.update(level="Years 1–2", subject="HPE")
+    elif "years-3-6-school-swimming-preparation-reflection-pack" in name:
+        meta.update(level="Years 3–6", subject="HPE")
+    elif "years-1-2-my-school-year-memory-book" in name:
+        meta.update(level="Years 1–2", subject="Wellbeing")
+    elif "years-3-6-my-school-year-memory-book" in name:
+        meta.update(level="Years 3–6", subject="Wellbeing")
+    elif "year-6-secondary-school-transition-workbook" in name:
+        meta.update(level="Year 6", subject="Transition")
+    return meta
+
+
+def select_related_candidates(current: dict[str, str], candidates: list[dict[str, str]]) -> list[dict[str, str]]:
     current_tokens = tokens(current["title"])
     ranked = []
     for candidate in candidates:
@@ -56,10 +72,17 @@ def build_related_section(current: dict[str, str], candidates: list[dict[str, st
         ranked.append((same_subject, overlap, candidate["title"].lower(), candidate))
 
     same_subject = [item for item in ranked if item[0]]
-    chosen_pool = same_subject if len(same_subject) >= 2 else ranked
-    chosen = [item[3] for item in sorted(
+    # HPE, Wellbeing and Transition are curated cross-curricular resource groups.
+    # Never fill a sparse group with unrelated English/Maths/Science links.
+    strict_subject = current["subject"] in {"HPE", "Wellbeing", "Transition"}
+    chosen_pool = same_subject if strict_subject or len(same_subject) >= 2 else ranked
+    return [item[3] for item in sorted(
         chosen_pool, key=lambda item: (not item[0], -item[1], item[2])
     )[:4]]
+
+
+def build_related_section(current: dict[str, str], candidates: list[dict[str, str]]) -> str:
+    chosen = select_related_candidates(current, candidates)
     if not chosen:
         return ""
 
@@ -98,7 +121,7 @@ def main() -> int:
         name = pdf.name.lower()
         if re.search(r"answer[-_ ]?(?:key|guide)|answerkey", name, re.I):
             continue
-        meta = parse_pdf(pdf.relative_to(ROOT))
+        meta = apply_end_of_year_classification(parse_pdf(pdf.relative_to(ROOT)), pdf)
         if "ac9sfis" in str(meta.get("page", "")).lower() or "ac9sfis" in str(meta.get("standard", "")).lower():
             continue
         page = ROOT / meta["page"]
