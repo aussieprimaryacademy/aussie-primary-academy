@@ -24,6 +24,26 @@ def sitemap_urls(path):
     }
 
 
+def find_unexpected_removals(removed, root=ROOT, approved_missing_sources=None):
+    """Return unexplained removals; an allowlist entry only excuses a missing source."""
+    approved_missing_sources = approved_missing_sources or set()
+    unexpected = []
+    for url in sorted(removed):
+        if not url.startswith(GENERATOR.BASE):
+            unexpected.append(url + " (outside canonical site)")
+            continue
+        relative = unquote(url[len(GENERATOR.BASE):]) or "index.html"
+        page = root / relative
+        if not page.is_file():
+            if url in approved_missing_sources:
+                continue
+            unexpected.append(url + " (source file missing; manual review required)")
+            continue
+        if not (GENERATOR.is_excluded_path(page) or GENERATOR.parse_page(page)[0]):
+            unexpected.append(url + " (not covered by an explicit exclusion rule)")
+    return unexpected
+
+
 def main():
     if len(sys.argv) != 2:
         raise SystemExit("Usage: validate-sitemap-transition.py PREVIOUS_URL_LIST")
@@ -31,19 +51,15 @@ def main():
     previous = set(previous_file.read_text(encoding="utf-8").splitlines())
     current = sitemap_urls(ROOT / "sitemap.xml")
     removed = sorted(previous - current)
-    unexpected = []
-
-    for url in removed:
-        if not url.startswith(GENERATOR.BASE):
-            unexpected.append(url + " (outside canonical site)")
-            continue
-        relative = unquote(url[len(GENERATOR.BASE):]) or "index.html"
-        page = ROOT / relative
-        if not page.is_file():
-            unexpected.append(url + " (source file missing; manual review required)")
-            continue
-        if not (GENERATOR.is_excluded_path(page) or GENERATOR.parse_page(page)[0]):
-            unexpected.append(url + " (not covered by an explicit exclusion rule)")
+    allowlist_path = ROOT / "scripts" / "expected-sitemap-removals.txt"
+    approved_missing_sources = {
+        line.strip()
+        for line in allowlist_path.read_text(encoding="utf-8").splitlines()
+        if line.strip() and not line.lstrip().startswith("#")
+    } if allowlist_path.is_file() else set()
+    unexpected = find_unexpected_removals(
+        removed, root=ROOT, approved_missing_sources=approved_missing_sources
+    )
 
     print(f"Previous URLs: {len(previous)}; generated URLs: {len(current)}")
     print(f"Removed URLs: {len(removed)}; expected hard-exclusion removals: {len(removed) - len(unexpected)}")

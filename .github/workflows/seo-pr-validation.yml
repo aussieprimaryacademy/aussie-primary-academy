@@ -34,6 +34,9 @@ jobs:
       - name: Test worksheet page-path collision handling
         run: python -m unittest discover -s scripts -p 'test_worksheet_page_paths.py'
 
+      - name: Test sitemap transition removal safeguards
+        run: python -m unittest discover -s scripts -p 'test_sitemap_transition.py'
+
       - name: Test related worksheet matching
         run: |
           python - <<'PY'
