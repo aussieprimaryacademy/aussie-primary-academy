@@ -13,6 +13,8 @@ ROOT = Path(__file__).resolve().parent.parent
 W = ROOT / "worksheets"
 START = "<!-- AUTO-YEAR-WORKSHEETS:START -->"
 END = "<!-- AUTO-YEAR-WORKSHEETS:END -->"
+EOY_START = "<!-- APA-END-OF-YEAR:START -->"
+EOY_END = "<!-- APA-END-OF-YEAR:END -->"
 
 SUBJECTS = {"maths":"Maths","english":"English","science":"Science","phonics":"Phonics","reading":"Reading","writing":"Writing"}
 
@@ -172,6 +174,39 @@ def update_foundation(page: Path, folder: Path, level: str):
     print(f"{page.name}: rebuilt {len(extra)} Foundation subject sections without duplicates")
 
 
+
+def end_of_year_block(year_number: int) -> str:
+    resources = [
+        ("Years 1–2", "My School Year Memory Book", "Wellbeing", "Reflect on learning, school memories, people who helped and a goal for next year.", "worksheets/end-of-year-worksheets/years-1-2-my-school-year-memory-book-free-printable.pdf", "pages/free-printable-years-1-2-my-school-year-memory-book-worksheet.html"),
+        ("Years 1–2", "School Swimming Preparation & Reflection Pack", "HPE", "Prepare for school swimming, discuss safe choices, ask for support and reflect on lessons.", "worksheets/end-of-year-worksheets/years-1-2-school-swimming-preparation-reflection-pack-free-printable.pdf", "pages/free-printable-years-1-2-school-swimming-preparation-reflection-pack-worksheet.html"),
+        ("Years 3–6", "My School Year Memory Book", "Wellbeing", "Capture highlights, recognise growth, reflect on challenges and set a goal for the year ahead.", "worksheets/end-of-year-worksheets/years-3-6-my-school-year-memory-book-free-printable.pdf", "pages/free-printable-years-3-6-my-school-year-memory-book-worksheet.html"),
+        ("Years 3–6", "School Swimming Preparation & Reflection Pack", "HPE", "Prepare for swimming sessions, consider safety scenarios and reflect on instructor-guided goals.", "worksheets/end-of-year-worksheets/years-3-6-school-swimming-preparation-reflection-pack-free-printable.pdf", "pages/free-printable-years-3-6-school-swimming-preparation-reflection-pack-worksheet.html"),
+        ("Year 6", "Secondary School Transition Workbook", "Transition", "Plan for secondary school with organisation, help-seeking, questions and first-weeks strategies.", "worksheets/end-of-year-worksheets/year-6-secondary-school-transition-workbook-free-printable.pdf", "pages/free-printable-secondary-school-transition-workbook-worksheet.html"),
+    ]
+    cards = []
+    for years, title, category, description, pdf, page in resources:
+        include = (years == "Years 1–2" and year_number in (1, 2)) or (years == "Years 3–6" and 3 <= year_number <= 6) or (years == "Year 6" and year_number == 6)
+        if not include:
+            continue
+        cards.append(
+            '<li class="wcard auto-eoy-card"><div class="thumb c2">' + escape(years) + ' · ' + escape(category) + '</div>'
+            '<div class="body"><p class="tag">End-of-year resource · Free PDF</p><h3>' + escape(title) + '</h3>'
+            '<p class="card-desc">' + escape(description) + '</p><p class="card-actions">'
+            '<a class="btn btn-secondary btn-sm" href="' + escape(page, quote=True) + '">View resource</a> '
+            '<a class="btn btn-primary btn-sm" href="' + escape(pdf, quote=True) + '" download>⬇ Download PDF</a>'
+            '</p></div></li>'
+        )
+    if not cards:
+        return ""
+    return (
+        EOY_START + '\n<section class="section auto-end-of-year" aria-labelledby="end-of-year-heading">'
+        '<div class="wrap"><div class="section-head"><div><p class="eyebrow">End-of-year learning support</p>'
+        '<h2 id="end-of-year-heading">End-of-Year Resources</h2>'
+        '<p>Reflection, school swimming preparation and transition resources for students and the adults supporting them.</p>'
+        '</div></div><ul class="grid-cards browse-grid">' + '\n'.join(cards) + '</ul></div></section>\n' + EOY_END
+    )
+
+
 def update(page: Path, folder: Path, level: str):
     if level == "Foundation":
         update_foundation(page, folder, level)
@@ -248,11 +283,12 @@ def update(page: Path, folder: Path, level: str):
         section = block(fallback, level, colours)
         text = text.replace("</main>", section + "\n</main>", 1)
 
+    text = re.sub(re.escape(EOY_START) + r"[\\s\\S]*?" + re.escape(EOY_END), "", text)
+    eoy = end_of_year_block(int(level.split()[-1]))
+    if eoy:
+        text = text.replace("</main>", eoy + "\\n</main>", 1)
     page.write_text(text, encoding="utf-8")
-    print(
-        f"{page.name}: scanned {len(pdfs)} PDFs; placed {len(missing) - len(fallback)} "
-        f"new cards in subject sections; fallback={len(fallback)}"
-    )
+    print(f"{page.name}: worksheet cards refreshed; end-of-year resource cards refreshed")
 
 def main():
     targets=[]
