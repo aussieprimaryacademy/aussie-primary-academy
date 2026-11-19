@@ -1,0 +1,4 @@
+# Exact canonical sitemap URLs for HTML pages deliberately deleted and reviewed.
+# Each entry is permitted only when the corresponding source HTML file is absent.
+https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/foundation-science-grouping-living-things.html
+https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/free-printable-foundation-science-grouping-living-things-worksheet-ac9sfu01-free-printable-colour-worksheet.html
