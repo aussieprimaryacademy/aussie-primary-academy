@@ -56,6 +56,9 @@ jobs:
       - name: Validate generators
         run: python -m py_compile scripts/generate-sitemap.py scripts/generate-worksheet-index.py scripts/generate-year-pages.py scripts/update-worksheet-language.py scripts/validate-sitemap-transition.py scripts/update-navigation-links.py scripts/add-related-worksheet-links.py scripts/worksheet_page_paths.py
 
+      - name: Test related worksheet subject and year-level classification
+        run: python -m unittest discover -s scripts -p 'test_add_related_worksheet_links.py'
+
       - name: Test worksheet page-path collision handling
         run: python -m unittest discover -s scripts -p 'test_worksheet_page_paths.py'
 
