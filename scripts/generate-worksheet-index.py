@@ -4,7 +4,7 @@
 from html import escape
 from pathlib import Path
 import re
-from worksheet_page_paths import resolve_page_path, page_matches_pdf, page_is_indexable, same_pdf_content
+from worksheet_page_paths import resolve_page_path, page_matches_pdf, page_is_indexable, same_pdf_content, is_duplicate_pdf_copy
 
 ROOT = Path(__file__).resolve().parent.parent
 WORKSHEETS_DIR = ROOT / "worksheets"
@@ -84,6 +84,8 @@ def level_and_subject(path: Path) -> tuple[str, str, str]:
         "science": "Science", "reading": "Reading", "writing": "Writing", "phonics": "Phonics",
     }
     subject = next((subject_map[p] for p in parts if p in subject_map), "Worksheet")
+    if name == "foundation-english-beginning-sounds-phonics-worksheet-ac9efly10-free-printable-colour":
+        subject = "Phonics"
     return region, level, subject
 
 
@@ -491,10 +493,16 @@ def update_page(section: str) -> None:
 
 
 def main() -> None:
-    paths = sorted(
+    candidate_paths = sorted(
         (path for path in WORKSHEETS_DIR.rglob("*.pdf") if path.is_file() and not re.search(r"answer[-_ ]?(?:guide|key)|answerkey", path.name, re.I) and level_and_subject(path.relative_to(WORKSHEETS_DIR))[0] == "Australia"),
         key=lambda path: path.relative_to(ROOT).as_posix().lower(),
     )
+    paths = []
+    for path in candidate_paths:
+        _, level, _ = level_and_subject(path.relative_to(WORKSHEETS_DIR))
+        page_file = ROOT / page_for_pdf(path, level)
+        if not is_duplicate_pdf_copy(path, page_file, ROOT):
+            paths.append(path)
     if not paths:
         raise SystemExit("ERROR: no worksheet PDFs found")
     if len({path.relative_to(ROOT).as_posix() for path in paths}) != len(paths):
