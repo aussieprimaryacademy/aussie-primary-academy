@@ -17,6 +17,8 @@ class EndOfYearPageTests(unittest.TestCase):
             with self.subTest(page=page_name):
                 page = ROOT / page_name
                 self.assertTrue(page.is_file(), f"Missing curated page: {page_name}")
+                self.assertTrue((ROOT / pdf).is_file(), f"Missing PDF: {pdf}")
+                self.assertTrue((ROOT / preview).is_file(), f"Missing preview: {preview}")
                 html = page.read_text(encoding="utf-8")
                 self.assertIn('lang="en-AU"', html)
                 self.assertIn('<link rel="canonical"', html)
