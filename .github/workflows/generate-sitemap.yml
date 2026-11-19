@@ -1,11 +1,10 @@
 name: Generate Sitemap
 
 on:
-  # Re-run after PDF -> preview -> worksheet-page generation has committed its
-  # HTML output. A push made with GITHUB_TOKEN does not trigger push workflows.
+  # Re-run after PDF preview generation completes. A push made with GITHUB_TOKEN does not trigger push workflows.
   workflow_run:
     workflows:
-      - Generate Worksheet Previews and Pages
+      - Generate Worksheet Previews
     types:
       - completed
     branches:
@@ -33,14 +32,14 @@ permissions:
   pull-requests: write
 
 concurrency:
-  # Share the queue with worksheet preview/page generation so two
+  # Share the queue with worksheet preview generation so two
   # GitHub Actions writers never push at the same time.
   group: apa-content-generators
   cancel-in-progress: false
 
 jobs:
   generate:
-    # A PDF upload is indexed only after the preview/page generator succeeds.
+    # A PDF upload is indexed only after preview generation succeeds.
     if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     steps:
@@ -99,6 +98,9 @@ jobs:
 
       - name: Generate sitemap
         run: python scripts/generate-sitemap.py
+
+      - name: Test curated End-of-Year pages, cards and sitemap
+        run: python -m unittest discover -s scripts -p 'test_end_of_year_pages.py'
 
       - name: Validate sitemap and review every removed URL
         run: |

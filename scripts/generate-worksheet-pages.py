@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
-"""Create individual worksheet HTML pages from worksheet PDFs.
+"""Legacy worksheet page generator — automatic generic page creation is disabled.
 
-Existing worksheet landing pages are immutable to this generator. New pages are
-created only when missing. Manual/curated learning-support content must never be
-lost during PDF regeneration; metadata mismatches are reported for manual review.
+PDF previews remain automated by the workflow. Indexable landing pages must be
+written as curated editorial pages and committed after content review.
 """
 
 from __future__ import annotations
@@ -160,59 +159,7 @@ def is_repairable(text: str) -> bool:
     )
 
 def main() -> int:
-    scopes=[x.strip().rstrip("/") for x in os.getenv("PAGE_GENERATOR_SCOPE","worksheets").split(",") if x.strip()]
-    limit=int(os.getenv("MAX_NEW_PAGES","5"))
-    created=0; skipped=0
-    candidates=[]
-    for scope in scopes:
-        root=Path(scope)
-        if root.exists():
-            for item in sorted(root.rglob("*")):
-                if not item.is_file():
-                    continue
-                if item.suffix.lower() == ".pdf":
-                    candidates.append(item)
-                elif not item.suffix:
-                    try:
-                        with item.open("rb") as stream:
-                            if stream.read(5) == b"%PDF-":
-                                candidates.append(item)
-                    except OSError:
-                        pass
-    seen=set()
-    for pdf in candidates:
-        if pdf in seen: continue
-        seen.add(pdf)
-        if re.search(r"answer[-_ ]?(?:key|guide)|answerkey", pdf.name, re.I): continue
-        meta=parse(pdf); page=Path(meta["page"])
-        if page.exists():
-            current=page.read_text(encoding="utf-8")
-            expected_subject=meta["subject"]
-            expected_level=meta["level"]
-            mismatch=(
-                f' · {expected_subject}</p>' not in current or
-                f'<strong>Subject:</strong> {expected_subject}' not in current or
-                f'<strong>Level:</strong> {expected_level}' not in current or
-                (meta["standard"] and f'<strong>Curriculum:</strong> {meta["standard"]}' not in current)
-            )
-            if mismatch:
-                print(
-                    f"SKIP EXISTING (manual review; generator will not overwrite): "
-                    f"{page} <- {pdf}"
-                )
-            else:
-                print(f"SKIP EXISTING (preserved): {page}")
-            skipped+=1
-            continue
-        if not Path(meta["preview"]).exists():
-            print(f"SKIP (no preview): {pdf}")
-            continue
-        page.parent.mkdir(parents=True,exist_ok=True)
-        page.write_text(page_html(meta),encoding="utf-8")
-        created+=1
-        print(f"CREATED: {page} <- {pdf}")
-        if created>=limit: break
-    print(f"SUMMARY: created={created} skipped_existing={skipped} limit={limit}")
+    print("SKIPPED: automatic generic HTML page generation is disabled. Create a reviewed, resource-specific page instead. PDF preview generation remains available in the workflow.")
     return 0
 
 if __name__=="__main__":
