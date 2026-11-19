@@ -29,6 +29,7 @@ SPECIAL = {
 }
 
 SKILL_RULES = [
+    ("memory-book", "Reflection"), ("transition", "Transition"),
     ("water-safety", "Water Safety"), ("swimming", "Water Safety"),
     ("bushfires", "Extreme Weather"), ("extreme-weather", "Extreme Weather"),
     ("fractions", "Fractions"), ("fraction", "Fractions"),
@@ -50,6 +51,13 @@ SKILL_RULES = [
 
 def level_and_subject(path: Path) -> tuple[str, str, str]:
     parts = [part.lower() for part in path.parts]
+    if "end-of-year-worksheets" in parts:
+        stem = path.stem.lower()
+        if "year-6-secondary-school-transition" in stem: return "Australia", "Year 6", "Transition"
+        if "years-1-2-my-school-year-memory-book" in stem: return "Australia", "Years 1–2", "Wellbeing"
+        if "years-1-2-school-swimming" in stem: return "Australia", "Years 1–2", "HPE"
+        if "years-3-6-my-school-year-memory-book" in stem: return "Australia", "Years 3–6", "Wellbeing"
+        if "years-3-6-school-swimming" in stem: return "Australia", "Years 3–6", "HPE"
     region = "USA" if "usa" in parts or path.name.lower().startswith(("us-", "usa-")) else "Australia"
     level = "Worksheet"
     for part in parts:
@@ -81,6 +89,14 @@ def level_and_subject(path: Path) -> tuple[str, str, str]:
 
 def human_title(path: Path, level: str, subject: str) -> str:
     stem = path.stem.lower()
+    curated_titles = {
+        "year-6-secondary-school-transition-workbook-free-printable": "Secondary School Transition Workbook",
+        "years-1-2-my-school-year-memory-book-free-printable": "My School Year Memory Book",
+        "years-1-2-school-swimming-preparation-reflection-pack-free-printable": "School Swimming Preparation & Reflection Pack",
+        "years-3-6-my-school-year-memory-book-free-printable": "My School Year Memory Book",
+        "years-3-6-school-swimming-preparation-reflection-pack-free-printable": "School Swimming Preparation & Reflection Pack",
+    }
+    if stem in curated_titles: return curated_titles[stem]
     if "water-safety-swimming-workbook-year-3-4" in stem:
         return "Water Safety & Swimming Workbook"
     if "bushfires-floods-extreme-weather-workbook-year-5-6" in stem:
@@ -122,6 +138,14 @@ def codes_from_name(path: Path) -> str:
 
 def page_for_pdf(path: Path, level: str) -> str:
     """Return the exact individual worksheet page path used by generate-worksheet-pages.py."""
+    curated = {
+        "year-6-secondary-school-transition-workbook-free-printable": "pages/free-printable-secondary-school-transition-workbook-worksheet.html",
+        "years-1-2-my-school-year-memory-book-free-printable": "pages/free-printable-years-1-2-my-school-year-memory-book-worksheet.html",
+        "years-1-2-school-swimming-preparation-reflection-pack-free-printable": "pages/free-printable-years-1-2-school-swimming-preparation-reflection-pack-worksheet.html",
+        "years-3-6-my-school-year-memory-book-free-printable": "pages/free-printable-years-3-6-my-school-year-memory-book-worksheet.html",
+        "years-3-6-school-swimming-preparation-reflection-pack-free-printable": "pages/free-printable-years-3-6-school-swimming-preparation-reflection-pack-worksheet.html",
+    }
+    if path.stem.lower() in curated: return curated[path.stem.lower()]
     name = path.stem
     clean = re.sub(r"^(us|usa)-", "", name, flags=re.I)
     clean = re.sub(r"^(grade|year)-?\d+-", "", clean, flags=re.I)
@@ -159,7 +183,7 @@ def card(path: Path, index: int, colours: dict[str, str] | None = None) -> str:
     colour = (colours or {}).get(rel, f"c{index % 4 + 1}")
     codes = codes_from_name(path)
     search_text = f"{title} {skill} {level} {subject} {region} {codes} {path.stem}"
-    year_filter = {"Year 3–4": "Year 3|Year 4", "Year 5–6": "Year 5|Year 6"}.get(level, level)
+    year_filter = {"Years 1–2": "Year 1|Year 2", "Years 3–6": "Year 3|Year 4|Year 5|Year 6", "Year 3–4": "Year 3|Year 4", "Year 5–6": "Year 5|Year 6"}.get(level, level)
     return (
         '      <li class="wcard auto-worksheet-card" '
         f'data-region="{escape(region, quote=True)}" '
@@ -218,7 +242,7 @@ def generated_section(paths: list[Path], colours: dict[str, str] | None = None) 
           <label for="worksheet-subject">Subject</label>
           <select id="worksheet-subject">
             <option value="">All subjects</option>
-            <option>Maths</option><option>Math</option><option>English</option><option>ELA</option><option>Science</option><option>HPE</option><option>Reading</option><option>Writing</option><option>Phonics</option>
+            <option>Maths</option><option>Math</option><option>English</option><option>ELA</option><option>Science</option><option>HPE</option><option>Wellbeing</option><option>Transition</option><option>Reading</option><option>Writing</option><option>Phonics</option>
           </select>
         </div>
         <div class="worksheet-filter-field">
