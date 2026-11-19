@@ -50,12 +50,19 @@ class EndOfYearPageTests(unittest.TestCase):
         for page_name, _, _ in RESOURCES:
             self.assertIn(page_name, html)
 
+    def test_catalogue_drops_removed_grouping_living_things_assets(self):
+        html = (ROOT / "worksheets.html").read_text(encoding="utf-8")
+        self.assertNotIn("free-printable-foundation-science-grouping-living-things-worksheet-ac9sfu01-free-printable-colour-worksheet.html", html)
+        self.assertNotIn("foundation-science-grouping-living-things-worksheet-ac9sfu01-free-printable-colour.pdf", html)
+
     def test_sitemap_contains_all_five_resource_pages(self):
         sitemap = (ROOT / "sitemap.xml").read_text(encoding="utf-8")
         for page_name, _, _ in RESOURCES:
             canonical = "https://aussieprimaryacademy.github.io/aussie-primary-academy/" + page_name
             with self.subTest(page=page_name):
                 self.assertEqual(sitemap.count(canonical), 1, f"Expected exactly one sitemap URL for {page_name}")
+        self.assertNotIn("pages/foundation-science-grouping-living-things.html", sitemap)
+        self.assertNotIn("pages/free-printable-foundation-science-grouping-living-things-worksheet-ac9sfu01-free-printable-colour-worksheet.html", sitemap)
 
     def test_year_pages_have_end_of_year_cards(self):
         for year in (1, 2, 3, 4, 5, 6):
