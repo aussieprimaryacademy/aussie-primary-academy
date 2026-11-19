@@ -30,8 +30,8 @@ SPECIAL = {
 
 SKILL_RULES = [
     ("memory-book", "Reflection"), ("transition", "Transition"),
-    ("water-safety", "Water Safety"), ("swimming", "Water Safety"),
     ("bushfires", "Extreme Weather"), ("extreme-weather", "Extreme Weather"),
+    ("water-safety", "Water Safety"), ("swimming", "Water Safety"),
     ("fractions", "Fractions"), ("fraction", "Fractions"),
     ("phonics", "Phonics"), ("cvc", "Phonics"),
     ("reading", "Reading"), ("comprehension", "Reading"),
@@ -44,7 +44,8 @@ SKILL_RULES = [
     ("number", "Number"), ("place-value", "Number"), ("place value", "Number"),
     ("spelling", "Spelling"), ("grammar", "Grammar"),
     ("apostrophe", "Grammar"), ("punctuation", "Grammar"),
-    ("writing", "Writing"), ("sentences", "Writing"), ("sentence", "Writing"),
+    ("letter-formation", "Writing"), ("writing", "Writing"),
+    ("sentences", "Writing"), ("sentence", "Writing"),
     ("science", "Science"),
 ]
 
