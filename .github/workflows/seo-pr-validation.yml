@@ -37,6 +37,9 @@ jobs:
           python scripts/generate-year-pages.py
           python scripts/generate-sitemap.py
 
+      - name: Regenerate related worksheet modules for validation
+        run: python scripts/add-related-worksheet-links.py
+
       - name: Test curated End-of-Year pages, cards, sitemap and duplicate canonicals
         run: python -m unittest discover -s scripts -p 'test_end_of_year_pages.py'
 
