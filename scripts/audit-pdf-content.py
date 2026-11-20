@@ -188,8 +188,19 @@ def main():
             writer.writerow(out)
 
     flagged = [row for row in rows if row["flags"]]
+    foundation_rows = [row for row in rows if row["path"].startswith("worksheets/foundation/")]
+    foundation_page_counts = Counter(row["page_count"] for row in foundation_rows)
+    foundation_pdfs_over_two_pages = [
+        row["path"] for row in foundation_rows if row["page_count"] > 2
+    ]
     summary = {
         "pdf_files_checked": len(rows),
+        "foundation_pdf_files": len(foundation_rows),
+        "foundation_page_count_distribution": {
+            str(page_count): foundation_page_counts[page_count]
+            for page_count in sorted(foundation_page_counts)
+        },
+        "foundation_pdfs_over_two_pages": foundation_pdfs_over_two_pages,
         "status_counts": dict(counts),
         "flagged_files": len(flagged),
         "parse_errors": sum(row["status"] == "PARSE_ERROR" for row in rows),
@@ -226,6 +237,15 @@ def main():
         f"- Original PDFs included for manual review: **{summary['source_pdfs_for_manual_review']:,}**",
         f"- Standalone answer-guide filename matches: **{summary['standalone_answer_guide_files']:,}**",
         f"- Files with one or more review flags: **{len(flagged):,}**",
+        "",
+        "## Foundation PDF page-count report",
+        f"- Foundation PDFs checked: **{len(foundation_rows):,}**",
+        "- Page-count distribution: " + ", ".join(
+            f"**{count} page(s): {number:,}**"
+            for count, number in sorted(foundation_page_counts.items())
+        ),
+        f"- Foundation PDFs with more than 2 pages: **{len(foundation_pdfs_over_two_pages):,}**",
+        *[f"  - {path}" for path in foundation_pdfs_over_two_pages],
         "",
         "## Review flags",
     ]
