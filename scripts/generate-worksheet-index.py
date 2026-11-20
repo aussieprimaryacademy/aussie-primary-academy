@@ -4,7 +4,7 @@
 from html import escape
 from pathlib import Path
 import re
-from worksheet_page_paths import resolve_page_path, page_matches_pdf, page_is_indexable, same_pdf_content
+from worksheet_page_paths import resolve_page_path, page_matches_pdf, page_is_indexable, same_pdf_content, duplicate_pdf_target
 
 ROOT = Path(__file__).resolve().parent.parent
 WORKSHEETS_DIR = ROOT / "worksheets"
@@ -30,8 +30,8 @@ SPECIAL = {
 
 SKILL_RULES = [
     ("memory-book", "Reflection"), ("transition", "Transition"),
-    ("water-safety", "Water Safety"), ("swimming", "Water Safety"),
     ("bushfires", "Extreme Weather"), ("extreme-weather", "Extreme Weather"),
+    ("water-safety", "Water Safety"), ("swimming", "Water Safety"),
     ("fractions", "Fractions"), ("fraction", "Fractions"),
     ("phonics", "Phonics"), ("cvc", "Phonics"),
     ("reading", "Reading"), ("comprehension", "Reading"),
@@ -44,7 +44,8 @@ SKILL_RULES = [
     ("number", "Number"), ("place-value", "Number"), ("place value", "Number"),
     ("spelling", "Spelling"), ("grammar", "Grammar"),
     ("apostrophe", "Grammar"), ("punctuation", "Grammar"),
-    ("writing", "Writing"), ("sentences", "Writing"), ("sentence", "Writing"),
+    ("letter-formation", "Writing"), ("writing", "Writing"),
+    ("sentences", "Writing"), ("sentence", "Writing"),
     ("science", "Science"),
 ]
 
@@ -491,10 +492,23 @@ def update_page(section: str) -> None:
 
 
 def main() -> None:
-    paths = sorted(
+    candidate_paths = sorted(
         (path for path in WORKSHEETS_DIR.rglob("*.pdf") if path.is_file() and not re.search(r"answer[-_ ]?(?:guide|key)|answerkey", path.name, re.I) and level_and_subject(path.relative_to(WORKSHEETS_DIR))[0] == "Australia"),
         key=lambda path: path.relative_to(ROOT).as_posix().lower(),
     )
+    paths = []
+    for path in candidate_paths:
+        _, level, _ = level_and_subject(path.relative_to(WORKSHEETS_DIR))
+        page_file = ROOT / page_for_pdf(path, level)
+        duplicate_target = duplicate_pdf_target(path, page_file, ROOT)
+        if duplicate_target:
+            print(
+                "Skipping duplicate PDF copy: "
+                f"{path.relative_to(ROOT)}; canonical page links to "
+                f"{duplicate_target.relative_to(ROOT)}"
+            )
+            continue
+        paths.append(path)
     if not paths:
         raise SystemExit("ERROR: no worksheet PDFs found")
     if len({path.relative_to(ROOT).as_posix() for path in paths}) != len(paths):

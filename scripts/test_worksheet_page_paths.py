@@ -1,8 +1,14 @@
+import importlib.util
 import tempfile
 import unittest
 from pathlib import Path
 
-from worksheet_page_paths import page_matches_pdf, page_is_indexable, resolve_page_path
+from worksheet_page_paths import page_matches_pdf, page_is_indexable, resolve_page_path, is_duplicate_pdf_copy, duplicate_pdf_target
+
+GENERATOR_PATH = Path(__file__).with_name("generate-worksheet-index.py")
+GENERATOR_SPEC = importlib.util.spec_from_file_location("generate_worksheet_index", GENERATOR_PATH)
+GENERATOR = importlib.util.module_from_spec(GENERATOR_SPEC)
+GENERATOR_SPEC.loader.exec_module(GENERATOR)
 
 
 class WorksheetPagePathTests(unittest.TestCase):
@@ -55,6 +61,29 @@ class WorksheetPagePathTests(unittest.TestCase):
         resolved = resolve_page_path(duplicate, page, self.root, self.worksheets, self.pages)
         self.assertEqual(resolved, page)
 
+    def test_catalogue_skips_identical_copy_not_linked_by_canonical_page(self):
+        owner = self.make_pdf("foundation/english/beginning-sounds.pdf", b"same worksheet")
+        duplicate = self.make_pdf("foundation/phonics/beginning-sounds.pdf", b"same worksheet")
+        page = self.base_page("beginning-sounds.html", owner)
+        self.assertFalse(is_duplicate_pdf_copy(owner, page, self.root))
+        self.assertTrue(is_duplicate_pdf_copy(duplicate, page, self.root))
+        self.assertEqual(duplicate_pdf_target(duplicate, page, self.root), owner)
+
+    def test_catalogue_does_not_skip_different_pdf_content(self):
+        owner = self.make_pdf("foundation/english/beginning-sounds.pdf", b"original worksheet")
+        different = self.make_pdf("foundation/phonics/beginning-sounds.pdf", b"different worksheet")
+        page = self.base_page("beginning-sounds.html", owner)
+        self.assertFalse(is_duplicate_pdf_copy(different, page, self.root))
+        self.assertIsNone(duplicate_pdf_target(different, page, self.root))
+
+
+    def test_letter_formation_catalogue_skill_is_writing(self):
+        path = Path("worksheets/foundation/english/foundation-english-letter-formation-lowercase.pdf")
+        self.assertEqual(GENERATOR.skill_for(path, "Letter Formation Lowercase", "English"), "Writing")
+
+    def test_bushfires_workbook_catalogue_skill_is_extreme_weather(self):
+        path = Path("worksheets/water-safety-worksheets/bushfires-floods-extreme-weather-workbook-year-5-6-australia.pdf")
+        self.assertEqual(GENERATOR.skill_for(path, "Bushfires Floods Extreme Weather Workbook", "Science"), "Extreme Weather")
 
     def test_noindex_alias_resolves_to_its_indexable_canonical_page(self):
         pdf = self.make_pdf("foundation/maths/part-whole.pdf", b"part whole")
