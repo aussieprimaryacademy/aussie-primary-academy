@@ -57,8 +57,21 @@ jobs:
         run: |
           python - <<'PY'
           import os
+          import subprocess
           from pathlib import Path
           import fitz
+
+          changed_pdfs = set()
+          if os.environ.get("GITHUB_EVENT_NAME") == "push":
+              diff = subprocess.run(
+                  ["git", "diff", "--name-only", "HEAD^", "HEAD"],
+                  check=True, capture_output=True, text=True
+              ).stdout.splitlines()
+              changed_pdfs = {
+                  Path(name) for name in diff
+                  if Path(name).suffix.lower() == ".pdf"
+              }
+              print(f"Changed PDFs to refresh: {len(changed_pdfs)}")
 
           made = 0
           failed = 0
@@ -89,7 +102,7 @@ jobs:
                   if 'answer-key' in pdf.name.lower() or 'answerkey' in pdf.name.lower():
                       continue
                   out = pdf.parent / 'previews' / f'{pdf.stem.strip()}.png'
-                  if out.exists() and out.stat().st_size > 0:
+                  if out.exists() and out.stat().st_size > 0 and pdf not in changed_pdfs:
                       continue
                   out.parent.mkdir(parents=True, exist_ok=True)
                   try:
