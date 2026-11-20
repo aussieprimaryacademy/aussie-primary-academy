@@ -1,31 +1,8 @@
 name: Generate Sitemap
 
+# Automatic runs are disabled. Run manually from the Actions tab when required.
 on:
-  # Re-run after PDF preview generation completes. A push made with GITHUB_TOKEN does not trigger push workflows.
-  workflow_run:
-    workflows:
-      - Generate Worksheet Previews
-    types:
-      - completed
-    branches:
-      - main
   workflow_dispatch:
-  push:
-    branches:
-      - main
-    paths:
-      - '*.html'
-      - 'pages/**'
-      - 'blog/**'
-      - 'scripts/generate-sitemap.py'
-      - 'scripts/generate-worksheet-index.py'
-      - 'scripts/generate-year-pages.py'
-      - 'scripts/update-worksheet-language.py'
-      - 'scripts/validate-sitemap-transition.py'
-      - 'scripts/ensure-site-analytics.py'
-      - 'scripts/update-navigation-links.py'
-      - 'scripts/add-related-worksheet-links.py'
-      - '.github/workflows/generate-sitemap.yml'
 
 permissions:
   contents: write
@@ -39,8 +16,6 @@ concurrency:
 
 jobs:
   generate:
-    # A PDF upload is indexed only after preview generation succeeds.
-    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -71,32 +46,26 @@ jobs:
           root = ET.parse("sitemap.xml").getroot()
           ns = {"sm": "http://www.sitemaps.org/schemas/sitemap/0.9"}
           urls = [node.text.strip() for node in root.findall(".//sm:loc", ns) if node.text]
-          Path("/tmp/apa-previous-sitemap-urls.txt").write_text("\n".join(urls), encoding="utf-8")
+          Path("/tmp/apa-previous-sitemap-urls.txt").write_text("\\n".join(urls), encoding="utf-8")
           print(f"Previous sitemap URL count: {len(urls)}")
           PY
 
       - name: Set worksheet page language by resource region
-        if: github.event_name != 'workflow_run'
         run: python scripts/update-worksheet-language.py
 
       - name: Update navigation links to dedicated hubs
-        if: github.event_name != 'workflow_run'
         run: python scripts/update-navigation-links.py
 
       - name: Add related worksheet modules to generated pages
-        if: github.event_name != 'workflow_run'
         run: python scripts/add-related-worksheet-links.py
 
       - name: Generate worksheet index
-        env:
-          REQUIRE_PAGE_MAP_VALIDATION: ${{ github.event_name == 'workflow_run' && '1' || '0' }}
         run: python scripts/generate-worksheet-index.py
 
       - name: Generate year pages
         run: python scripts/generate-year-pages.py
 
       - name: Ensure site analytics and PDF click tracking
-        if: github.event_name != 'workflow_run'
         run: python scripts/ensure-site-analytics.py
 
       - name: Generate sitemap
@@ -132,5 +101,5 @@ jobs:
           branch: auto/sitemap-update
           commit-message: 'chore: auto-update sitemap and worksheet index'
           title: 'chore: auto-update sitemap and worksheet index'
-          body: 'Generated automatically. Review sitemap URL additions/removals and lastmod dates before merging.'
+          body: 'Generated manually. Review sitemap URL additions/removals and lastmod dates before merging.'
           delete-branch: true
