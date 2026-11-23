@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""Reject unexplained sitemap URL removals; allow only explicit hard exclusions."""
+"""Reject unexplained sitemap URL removals; allow only explicit hard exclusions
+(excluded paths, noindex, or a canonical pointing to another live page)."""
 from pathlib import Path
 from urllib.parse import unquote
 import importlib.util
@@ -39,7 +40,11 @@ def find_unexpected_removals(removed, root=ROOT, approved_missing_sources=None):
                 continue
             unexpected.append(url + " (source file missing; manual review required)")
             continue
-        if not (GENERATOR.is_excluded_path(page) or GENERATOR.parse_page(page)[0]):
+        if not (
+            GENERATOR.is_excluded_path(page)
+            or GENERATOR.parse_page(page)[0]
+            or GENERATOR.canonical_elsewhere(page, root=root)
+        ):
             unexpected.append(url + " (not covered by an explicit exclusion rule)")
     return unexpected
 

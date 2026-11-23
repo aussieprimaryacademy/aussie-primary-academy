@@ -55,6 +55,50 @@ class SitemapTransitionTests(unittest.TestCase):
             self.run_validator([unapproved_url])
         self.assertEqual(raised.exception.code, "ERROR: unexplained sitemap removals require manual review.")
 
+    def _page(self, name, canonical=None, noindex=False):
+        pages = self.root / "pages"
+        pages.mkdir(exist_ok=True)
+        head = ""
+        if canonical:
+            head += f'<link rel="canonical" href="{VALIDATOR.GENERATOR.BASE}{canonical}">'
+        if noindex:
+            head += '<meta name="robots" content="noindex">'
+        (pages / name).write_text(f"<html><head>{head}</head><body><p>x</p></body></html>", encoding="utf-8")
+        return pages / name
+
+    def test_canonical_elsewhere_removal_is_expected(self):
+        self._page("primary.html", canonical="pages/primary.html")
+        self._page("duplicate.html", canonical="pages/primary.html")
+        url = VALIDATOR.GENERATOR.BASE + "pages/duplicate.html"
+        with patch.object(VALIDATOR.GENERATOR, "ROOT", self.root):
+            output = self.run_validator([url])
+        self.assertIn("Sitemap URL comparison passed", output)
+
+    def test_self_canonical_removal_still_fails(self):
+        self._page("primary.html", canonical="pages/primary.html")
+        url = VALIDATOR.GENERATOR.BASE + "pages/primary.html"
+        with patch.object(VALIDATOR.GENERATOR, "ROOT", self.root):
+            with self.assertRaises(SystemExit):
+                self.run_validator([url])
+
+    def test_canonical_to_missing_or_noindex_target_still_fails(self):
+        self._page("a.html", canonical="pages/missing.html")
+        self._page("noidx.html", noindex=True)
+        self._page("b.html", canonical="pages/noidx.html")
+        for name in ("a.html", "b.html"):
+            url = VALIDATOR.GENERATOR.BASE + "pages/" + name
+            with patch.object(VALIDATOR.GENERATOR, "ROOT", self.root):
+                with self.assertRaises(SystemExit):
+                    self.run_validator([url])
+
+    def test_canonical_chain_is_not_excluded(self):
+        self._page("end.html", canonical="pages/end.html")
+        self._page("mid.html", canonical="pages/end.html")
+        self._page("start.html", canonical="pages/mid.html")
+        with patch.object(VALIDATOR.GENERATOR, "ROOT", self.root):
+            self.assertFalse(VALIDATOR.GENERATOR.canonical_elsewhere(self.root / "pages" / "start.html", root=self.root))
+            self.assertTrue(VALIDATOR.GENERATOR.canonical_elsewhere(self.root / "pages" / "mid.html", root=self.root))
+
 
 if __name__ == "__main__":
     unittest.main()
