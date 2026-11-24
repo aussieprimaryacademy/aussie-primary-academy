@@ -64,24 +64,27 @@ class EndOfYearPageTests(unittest.TestCase):
         self.assertNotIn("pages/foundation-science-grouping-living-things.html", sitemap)
         self.assertNotIn("pages/free-printable-foundation-science-grouping-living-things-worksheet-ac9sfu01-free-printable-colour-worksheet.html", sitemap)
 
-    def test_beginning_sounds_pages_have_one_indexable_canonical(self):
+    def test_beginning_sounds_pages_share_one_indexable_canonical(self):
+        primary_name = "foundation-english-beginning-sounds.html"
         names = [
-            "foundation-english-beginning-sounds.html",
+            primary_name,
             "free-printable-foundation-english-beginning-sounds-phonics-worksheet-ac9efly10-free-printable-colour-worksheet.html",
             "free-printable-foundation-english-foundation-english-beginning-sounds-phonics-worksheet-ac9efly10-free-printable-colour-worksheet.html",
             "free-printable-foundation-phonics-foundation-english-beginning-sounds-phonics-worksheet-ac9efly10-free-printable-colour-worksheet.html",
         ]
-        canonical_urls = []
+        primary_url = (
+            "https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/"
+            + primary_name
+        )
         titles = []
         for name in names:
             html = (ROOT / "pages" / name).read_text(encoding="utf-8")
-            expected = "https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/" + name
             canonical = html.split('rel="canonical"', 1)[1].split(">", 1)[0]
-            self.assertIn(expected, canonical, f"{name} must use its own canonical URL")
-            canonical_urls.append(expected)
+            with self.subTest(page=name):
+                self.assertIn(f'href="{primary_url}"', canonical)
             title = html.split("<title>", 1)[1].split("</title>", 1)[0]
             titles.append(title)
-        self.assertEqual(len(canonical_urls), len(set(canonical_urls)))
+
         self.assertEqual(len(titles), len(set(titles)))
         for name in names[2:]:
             html = (ROOT / "pages" / name).read_text(encoding="utf-8")
@@ -89,6 +92,15 @@ class EndOfYearPageTests(unittest.TestCase):
         for name in names[:2]:
             html = (ROOT / "pages" / name).read_text(encoding="utf-8")
             self.assertNotIn('name="robots" content="noindex, follow"', html)
+
+        sitemap = (ROOT / "sitemap.xml").read_text(encoding="utf-8")
+        self.assertEqual(sitemap.count(primary_url), 1)
+        for name in names[1:]:
+            duplicate_url = (
+                "https://aussieprimaryacademy.github.io/aussie-primary-academy/pages/"
+                + name
+            )
+            self.assertNotIn(duplicate_url, sitemap)
 
     def test_year_pages_have_end_of_year_cards(self):
         for year in (1, 2, 3, 4, 5, 6):
