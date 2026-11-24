@@ -36,6 +36,59 @@ def load_parser():
 parse_pdf = load_parser()
 
 
+SITE_BASE = "https://aussieprimaryacademy.github.io/aussie-primary-academy/"
+
+
+def canonical_target(page_rel: str) -> str:
+    """Return the on-site page this page canonicalises to (or itself)."""
+    page = ROOT / page_rel
+    try:
+        content = page.read_text(encoding="utf-8", errors="ignore")
+    except OSError:
+        return page_rel
+    match = re.search(r'<link[^>]*rel="canonical"[^>]*href="([^"]*)"', content, re.I)
+    if not match or not match.group(1).startswith(SITE_BASE):
+        return page_rel
+    target = match.group(1)[len(SITE_BASE):]
+    if target and (ROOT / target).is_file() and target != page_rel:
+        return target
+    return page_rel
+
+
+def clean_page_title(page_rel: str, fallback: str) -> str:
+    """Use the page's own H1 (never a filename-derived title) when it is readable."""
+    try:
+        content = (ROOT / page_rel).read_text(encoding="utf-8", errors="ignore")
+    except OSError:
+        return fallback
+    match = re.search(r"<h1[^>]*>(.*?)</h1>", content, re.I | re.S)
+    if not match:
+        return fallback
+    title = re.sub(r"<[^>]+>", "", match.group(1))
+    title = re.sub(r"\s+", " ", title).strip()
+    if not title:
+        return fallback
+    return tidy_title(title)
+
+
+SMALL_WORDS = {"a", "an", "and", "at", "for", "in", "of", "on", "or", "the", "to", "with"}
+
+
+def tidy_title(title: str) -> str:
+    """Remove filename-style noise (curriculum codes, 'Colour', 'Worksheet', 'PDF')."""
+    title = re.sub(r"\bac9[a-z]{2,5}\d{2}\b", "", title, flags=re.I)
+    title = re.sub(r"^(free printable\s+)?foundation\s+(english|maths|science|hass|health|the arts|technologies)\s+", "", title, flags=re.I)
+    title = re.sub(r"^(free printable|free)\s+", "", title, flags=re.I)
+    title = re.sub(r"\b(colour|color|worksheet|pdf)\b", "", title, flags=re.I)
+    title = re.sub(r"\s+", " ", title).strip(" -–|:")
+    words = title.split(" ")
+    out = []
+    for i, word in enumerate(words):
+        lower = word.lower()
+        out.append(lower if (i and lower in SMALL_WORDS and word == word.title()) else word)
+    return " ".join(out) or title
+
+
 def tokens(value: str) -> set[str]:
     return {
         token for token in re.findall(r"[a-z0-9]+", value.lower())
@@ -89,12 +142,14 @@ def build_related_section(current: dict[str, str], candidates: list[dict[str, st
     label = f'{current["level"]} {current["subject"]}'
     cards = []
     for item in chosen:
-        target = ROOT / item["page"]
+        target_page = canonical_target(item["page"])
+        shown_title = clean_page_title(target_page, item["title"])
+        target = ROOT / target_page
         source = ROOT / current["page"]
         href = Path(os.path.relpath(target, source.parent)).as_posix()
         cards.append(
             '<article class="content-card">'
-            f'<h3><a href="{escape(href, quote=True)}">{escape(item["title"])}</a></h3>'
+            f'<h3><a href="{escape(href, quote=True)}">{escape(shown_title)}</a></h3>'
             f'<p>{escape(item["level"])} · {escape(item["subject"])} · Free printable PDF</p>'
             '</article>'
         )

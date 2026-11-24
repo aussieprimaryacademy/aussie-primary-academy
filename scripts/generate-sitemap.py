@@ -3,7 +3,8 @@
 
 Short pages and pages with repeated visible copy remain eligible. Those signals
 belong in editorial review, not automatic sitemap exclusion. Explicit noindex
-directives and known non-public paths/files are still excluded.
+directives, known non-public paths/files and pages whose canonical URL names a
+different live on-site page are excluded.
 """
 from datetime import date
 from html.parser import HTMLParser
@@ -62,13 +63,44 @@ def is_excluded_path(path):
     return False
 
 
+def canonical_elsewhere(path, root=None):
+    """True when a page names a different, existing, indexable on-site page as canonical.
+
+    Such a page is a duplicate view of its canonical target, so it stays live but
+    is left out of the sitemap (the target is listed instead). Chains and missing
+    or noindex targets never qualify, so a page cannot drop out in favour of a
+    page that is not itself listed.
+    """
+    root = root or ROOT
+    try:
+        html = path.read_text(encoding="utf-8", errors="ignore")
+    except OSError:
+        return False
+    match = re.search(r'<link[^>]*rel="canonical"[^>]*href="([^"]*)"', html, re.I)
+    if not match:
+        return False
+    href = match.group(1).strip()
+    if not href.startswith(BASE):
+        return False
+    relative = href[len(BASE):] or "index.html"
+    target = root / relative
+    if target.resolve() == path.resolve() or not target.is_file():
+        return False
+    if is_excluded_path(target) or parse_page(target)[0]:
+        return False
+    other = re.search(r'<link[^>]*rel="canonical"[^>]*href="([^"]*)"', target.read_text(encoding="utf-8", errors="ignore"), re.I)
+    if other and other.group(1).strip() not in (href, BASE + relative):
+        return False
+    return True
+
+
 def collect_pages():
     pages = []
     for path in sorted(ROOT.rglob("*.html")):
         if is_excluded_path(path):
             continue
         noindex, _ = parse_page(path)
-        if noindex:
+        if noindex or canonical_elsewhere(path):
             continue
         pages.append(path)
     return pages
