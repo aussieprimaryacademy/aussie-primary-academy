@@ -295,7 +295,7 @@ def update(page: Path, folder: Path, level: str):
         # Keep seasonal resources immediately below the page hero so families
         # can find them without scrolling through the full worksheet catalogue.
         hero = re.search(
-            r'<section\\b(?=[^>]*\\bclass="[^"]*\\bpage-hero\\b)[^>]*>[\\s\\S]*?</section>',
+            r'<section\b(?=[^>]*\bclass="[^"]*\bpage-hero\b)[^>]*>[\s\\S]*?</section>',
             text,
         )
         if hero:
