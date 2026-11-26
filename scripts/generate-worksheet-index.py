@@ -185,12 +185,21 @@ def card(path: Path, index: int, colours: dict[str, str] | None = None) -> str:
     codes = codes_from_name(path)
     search_text = f"{title} {skill} {level} {subject} {region} {codes} {path.stem}"
     year_filter = {"Years 1–2": "Year 1|Year 2", "Years 3–6": "Year 3|Year 4|Year 5|Year 6", "Year 3–4": "Year 3|Year 4", "Year 5–6": "Year 5|Year 6"}.get(level, level)
+    stem = path.stem.lower()
+    is_end_of_year = (
+        "end-of-year-worksheets" in path.parts
+        or "school-holiday-learning-pack" in stem
+        or "water-safety-swimming-workbook-year-3-4" in stem
+        or "bushfires-floods-extreme-weather-workbook-year-5-6" in stem
+    )
+    end_of_year_attr = ' data-end-of-year="true"' if is_end_of_year else ""
     return (
         '      <li class="wcard auto-worksheet-card" '
         f'data-region="{escape(region, quote=True)}" '
         f'data-year="{escape(year_filter, quote=True)}" '
         f'data-subject="{escape(subject, quote=True)}" '
-        f'data-skill="{escape(skill, quote=True)}" '
+        f'data-skill="{escape(skill, quote=True)}"'
+        f'{end_of_year_attr} '
         f'data-search="{escape(search_text, quote=True)}">'
         f'<div class="thumb {colour}">{escape(level)} · {escape(subject)}</div>'
         '<div class="body">'
@@ -259,6 +268,7 @@ def generated_section(paths: list[Path], colours: dict[str, str] | None = None) 
         <button class="worksheet-skill-chip" type="button" data-skill-filter="Reading" aria-pressed="false">Reading Comprehension Series</button>
         <button class="worksheet-skill-chip" type="button" data-skill-filter="Measurement" aria-pressed="false">Measurement</button>
         <button class="worksheet-skill-chip" type="button" data-skill-filter="NAPLAN" aria-pressed="false">NAPLAN Practice</button>
+        <button class="worksheet-skill-chip" type="button" id="end-of-year-filter" aria-pressed="false">End of Year</button>
       </div>
       <div class="worksheet-filter-summary" aria-live="polite">
         <p id="worksheet-results-count">Showing {len(paths)} worksheets</p>
@@ -302,6 +312,8 @@ def generated_section(paths: list[Path], colours: dict[str, str] | None = None) 
   const moreWrap = document.getElementById('worksheet-load-more-wrap');
   const more = document.getElementById('worksheet-load-more');
   const chips = Array.from(document.querySelectorAll('[data-skill-filter]'));
+  const endOfYearFilter = document.getElementById('end-of-year-filter');
+  let endOfYearOnly = false;
   const pageSize = 24;
   let visibleLimit = pageSize;
   let searchDebounce = null;
@@ -327,7 +339,8 @@ def generated_section(paths: list[Path], colours: dict[str, str] | None = None) 
     return (!query || text.includes(query))
       && (!year.value || (card.dataset.year || "").split("|").includes(year.value))
       && (!subject.value || card.dataset.subject === subject.value)
-      && (!skill.value || card.dataset.skill === skill.value);
+      && (!skill.value || card.dataset.skill === skill.value)
+      && (!endOfYearOnly || card.dataset.endOfYear === 'true');
   }}
 
   function applyFilters(resetLimit = true) {{
@@ -340,6 +353,7 @@ def generated_section(paths: list[Path], colours: dict[str, str] | None = None) 
     moreWrap.hidden = matching.length <= visibleLimit;
     more.textContent = `Show more worksheets (${{Math.min(pageSize, Math.max(0, matching.length - visibleLimit))}})`;
     chips.forEach(chip => chip.setAttribute('aria-pressed', skill.value === chip.dataset.skillFilter ? 'true' : 'false'));
+    if (endOfYearFilter) endOfYearFilter.setAttribute('aria-pressed', endOfYearOnly ? 'true' : 'false');
   }}
 
   function headerOffset() {{
@@ -423,6 +437,7 @@ def generated_section(paths: list[Path], colours: dict[str, str] | None = None) 
     year.value = '';
     subject.value = '';
     skill.value = '';
+    endOfYearOnly = false;
     filtersLockedByUser = false;
     if (window.history && window.history.replaceState) {{
       window.history.replaceState({{}}, '', window.location.pathname + window.location.hash);
@@ -440,6 +455,13 @@ def generated_section(paths: list[Path], colours: dict[str, str] | None = None) 
   }}));
 
   more.addEventListener('click', () => {{ visibleLimit += pageSize; applyFilters(false); }});
+  if (endOfYearFilter) {{
+    endOfYearFilter.addEventListener('click', () => {{
+      if (searchDebounce) clearTimeout(searchDebounce);
+      endOfYearOnly = !endOfYearOnly;
+      applyAndScroll(true);
+    }});
+  }}
 
   const hadUrlFilter = readQueryFromUrl();
   applyFilters();

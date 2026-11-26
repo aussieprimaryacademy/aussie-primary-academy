@@ -118,5 +118,30 @@ class EndOfYearPageTests(unittest.TestCase):
             self.assertIn("My School Year Memory Book", html)
             self.assertIn("School Swimming Preparation &amp; Reflection Pack", html)
 
+
+    def test_end_of_year_hub_and_discoverability(self):
+        hub = (ROOT / "end-of-year.html").read_text(encoding="utf-8")
+        self.assertIn("<title>End-of-Year Worksheets", hub)
+        self.assertIn('rel="canonical"', hub)
+        self.assertIn("Memories &amp; Reflection", hub)
+        self.assertIn("Moving Up to High School", hub)
+        self.assertIn("Swimming &amp; Water Safety", hub)
+        self.assertIn("Summer Safety", hub)
+        self.assertIn("Holiday Learning", hub)
+        sitemap = (ROOT / "sitemap.xml").read_text(encoding="utf-8")
+        self.assertEqual(sitemap.count("https://aussieprimaryacademy.github.io/aussie-primary-academy/end-of-year.html"), 1)
+        self.assertIn("Finish the School Year Strong", (ROOT / "index.html").read_text(encoding="utf-8"))
+        catalogue = (ROOT / "worksheets.html").read_text(encoding="utf-8")
+        self.assertIn('id="end-of-year-filter"', catalogue)
+        self.assertIn('data-end-of-year="true"', catalogue)
+
+    def test_year_level_end_of_year_sections_are_near_top(self):
+        for year in range(1, 7):
+            html = (ROOT / f"year-{year}.html").read_text(encoding="utf-8")
+            hero_end = html.index("</section>", html.index("<h1"))
+            eoy_start = html.index("APA-END-OF-YEAR:START")
+            self.assertGreater(eoy_start, hero_end)
+            self.assertLess(eoy_start - hero_end, 120)
+
 if __name__ == "__main__":
     unittest.main()
