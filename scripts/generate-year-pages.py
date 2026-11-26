@@ -292,7 +292,17 @@ def update(page: Path, folder: Path, level: str):
     text = re.sub(r"\n[ \t\n]*(?=</main>)", "\n", text)
     eoy = end_of_year_block(int(level.split()[-1]))
     if eoy:
-        text = text.replace("</main>", eoy + "\n</main>", 1)
+        # Keep seasonal resources immediately below the page hero so families
+        # can find them without scrolling through the full worksheet catalogue.
+        hero = re.search(
+            r'<section\\b(?=[^>]*\\bclass="[^"]*\\bpage-hero\\b)[^>]*>[\\s\\S]*?</section>',
+            text,
+        )
+        if hero:
+            insert_at = hero.end()
+            text = text[:insert_at] + "\n" + eoy + text[insert_at:]
+        else:
+            raise RuntimeError(f"Could not find the page hero in {page.name}; refusing to append End-of-Year cards at the bottom.")
     page.write_text(text, encoding="utf-8")
     print(f"{page.name}: worksheet cards refreshed; end-of-year resource cards refreshed")
 
